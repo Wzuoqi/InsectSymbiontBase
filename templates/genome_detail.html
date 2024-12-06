@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block Part1 %}
+<section class="container px-4 mx-auto mt-10 font-sans">
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div class="px-4 py-5 sm:px-6 bg-kabuli-100">
+            <h2 class="text-2xl leading-6 font-bold text-kabuli-800">
+                {{ genome.genome_id }}
+            </h2>
+            <p class="mt-1 max-w-2xl text-sm text-kabuli-600">
+                {{ genome.source }}
+            </p>
+        </div>
+        <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+            <div class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Host</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.host|default:"Unknown" }}</dd>
+                </div>
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Source</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.source|default:"Unknown" }}</dd>
+                </div>
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Function</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.function|default:"Unknown" }}</dd>
+                </div>
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Literature Name</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.literature_name|default:"Unknown" }}</dd>
+                </div>
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Reference</dt>
+                    <dd class="mt-1 text-sm text-gray-900">
+                        {% if genome.reference %}
+                            <a href="{{ genome.reference }}" target="_blank" class="text-kabuli-600 hover:text-kabuli-800">View Reference</a>
+                        {% else %}
+                            Unknown
+                        {% endif %}
+                    </dd>
+                </div>
+                <div class="sm:col-span-2">
+                    <dt class="text-sm font-medium text-gray-500">GTDB Classification</dt>
+                    <dd class="mt-1 text-sm text-gray-900 bg-gray-100 p-2 rounded">{{ genome.gtdb_classification|default:"Unknown" }}
+                    </dd>
+                </div>
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Completeness</dt>
+                    <dd class="mt-1 text-sm text-gray-900">
+                        <div class="flex items-center">
+                            <div class="w-2/5 bg-gray-200 rounded-full h-2.5 mr-2">
+                                <div class="bg-kabuli-600 h-2.5 rounded-full" style="width: {{ genome.completeness|floatformat:2 }}%;"></div>
+                            </div>
+                            <span>{{ genome.completeness|floatformat:2 }}%</span>
+                        </div>
+                    </dd>
+                </div>
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Contamination</dt>
+                    <dd class="mt-1 text-sm text-gray-900">
+                        <div class="flex items-center">
+                            <div class="w-2/5 bg-gray-200 rounded-full h-2.5 mr-2">
+                                <div class="bg-red-600 h-2.5 rounded-full" style="width: {{ genome.contamination|floatformat:"2" }}%;"></div>
+                            </div>
+                            <span>{{ genome.contamination|floatformat:"2" }}%</span>
+                        </div>
+                    </dd>
+                </div>
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">GTDB Phylum</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.gtdb_phylum|default:"Unknown" }}</dd>
+                </div>
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Closest Genome Reference</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.closest_genome_reference|default:"Unknown" }}</dd>
+                </div>
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Classification Method</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.classification_method|default:"Unknown" }}</dd>
+                </div>
+                <div class="sm:col-span-2">
+                    <dt class="text-sm font-medium text-gray-500">Note</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.note|default:"None" }}</dd>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-6">
+        <a href="{% url 'genome:genomes' %}" class="text-kabuli-600 hover:text-kabuli-800">Back to Genome Catalog</a>
+    </div>
+</section>
+{% endblock %}

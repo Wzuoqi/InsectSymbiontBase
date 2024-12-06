@@ -1,0 +1,95 @@
+### Django ###
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+InsectSymbiontDB/InsectSymbiontDB/__pycache__/
+
+# Django 静态文件收集目录
+InsectSymbiontDB/collect_static/
+InsectSymbiontDB/static/
+
+### Python ###
+# 字节编译文件
+*.py[cod]
+*$py.class
+
+# 虚拟环境
+venv/
+ENV/
+ISDB/
+
+### Node/Tailwind ###
+# Node 依赖
+InsectSymbiontDB/node_modules/
+InsectSymbiontDB/jstoolchain/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+### 媒体文件 ###
+InsectSymbiontDB/media/
+# 保留空目录
+!InsectSymbiontDB/media/.gitkeep
+
+### 数据库 ###
+*.dump
+*.sql
+InsectSymbiontDB/blast_db/
+
+### IDE ###
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+### 系统文件 ###
+.DS_Store
+Thumbs.db
+desktop.ini
+
+### 临时文件 ###
+*.swp
+*.swo
+*.tmp
+*~
+.env
+.env.local
+.env.*.local
+
+### 项目特定 ###
+# 缓存文件
+*.cache
+.sass-cache/
+
+# 编译输出
+dist/
+build/
+*.egg-info/
+*.egg
+
+# 日志目录
+logs/
+
+### Git ###
+.gitattributes
+
+### 其他 ###
+*.bak
+*.orig
+.coverage
+htmlcov/
+
+# 应用特定的__pycache__
+InsectSymbiontDB/amplicon/__pycache__/
+InsectSymbiontDB/article/__pycache__/
+InsectSymbiontDB/gene/__pycache__/
+InsectSymbiontDB/genome/__pycache__/
+InsectSymbiontDB/metagenome/__pycache__/
+InsectSymbiontDB/symbiont/__pycache__/
+
+# 应用的migrations缓存
+InsectSymbiontDB/*/migrations/__pycache__/

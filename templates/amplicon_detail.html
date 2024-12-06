@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% block Part1 %}
+{% load static %}
+
+<section class="container mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
+    <h1 class="text-3xl font-semibold text-indigo-800 mb-4">{{ amplicon.run }} - {{ amplicon.host }}</h1>
+    <div class="h-1 bg-indigo-500 rounded-full mb-6"></div>
+
+    <div class="space-y-6">
+        <div class="bg-gray-50 p-6 rounded-md shadow-md">
+            <h2 class="text-xl font-semibold text-indigo-800 mb-4">Basic Information</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <p><span class="font-bold text-indigo-600">Run:</span> {{ amplicon.run }}</p>
+                {% if amplicon.assay_type and amplicon.assay_type != "NA" %}
+                    <p><span class="font-bold text-indigo-600">Assay Type:</span> {{ amplicon.assay_type }}</p>
+                {% endif %}
+                {% if amplicon.biosample and amplicon.biosample != "NA" %}
+                    <p><span class="font-bold text-indigo-600">Biosample:</span> {{ amplicon.biosample }}</p>
+                {% endif %}
+                {% if amplicon.bytes %}
+                    <p><span class="font-bold text-indigo-600">Bytes:</span> {{ amplicon.bytes }}</p>
+                {% endif %}
+                {% if amplicon.center_name and amplicon.center_name != "NA" %}
+                    <p><span class="font-bold text-indigo-600">Center Name:</span> {{ amplicon.center_name }}</p>
+                {% endif %}
+                {% if amplicon.classification and amplicon.classification != "NA" %}
+                    <p><span class="font-bold text-indigo-600">Classification:</span> {{ amplicon.classification }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-md shadow-md">
+            <h2 class="text-xl font-semibold text-indigo-800 mb-4">Sequencing Information</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {% if amplicon.instrument and amplicon.instrument != "NA" %}
+                    <p><span class="font-bold text-indigo-600">Instrument:</span> {{ amplicon.instrument }}</p>
+                {% endif %}
+                {% if amplicon.library_layout and amplicon.library_layout != "NA" %}
+                    <p><span class="font-bold text-indigo-600">Library Layout:</span> {{ amplicon.library_layout }}</p>
+                {% endif %}
+                {% if amplicon.library_selection and amplicon.library_selection != "NA" %}
+                    <p><span class="font-bold text-indigo-600">Library Selection:</span> {{ amplicon.library_selection }}</p>
+                {% endif %}
+                {% if amplicon.platform and amplicon.platform != "NA" %}
+                    <p><span class="font-bold text-indigo-600">Platform:</span> {{ amplicon.platform }}</p>
+                {% endif %}
+                {% if amplicon.bioproject and amplicon.bioproject != "NA" %}
+                    <p><span class="font-bold text-indigo-600">Bioproject:</span> {{ amplicon.bioproject }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-md shadow-md">
+            <h2 class="text-xl font-semibold text-indigo-800 mb-4">Geographic Information</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {% if amplicon.geo_loc_name_country and amplicon.geo_loc_name_country != "NA" %}
+                    <p><span class="font-bold text-indigo-600">Country:</span> {{ amplicon.geo_loc_name_country }}</p>
+                {% endif %}
+                {% if amplicon.geo_loc_name_country_continent and amplicon.geo_loc_name_country_continent != "NA" %}
+                    <p><span class="font-bold text-indigo-600">Continent:</span> {{ amplicon.geo_loc_name_country_continent }}</p>
+                {% endif %}
+                {% if amplicon.geo_loc_name and amplicon.geo_loc_name != "NA" %}
+                    <p><span class="font-bold text-indigo-600">Location Name:</span> {{ amplicon.geo_loc_name }}</p>
+                {% endif %}
+                {% if amplicon.lat_lon and amplicon.lat_lon != "NA" %}
+                    <p><span class="font-bold text-indigo-600">Latitude/Longitude:</span> {{ amplicon.lat_lon }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-md shadow-md">
+            <h2 class="text-xl font-semibold text-indigo-800 mb-4">Sample Information</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {% if amplicon.host and amplicon.host != "NA" %}
+                    <p><span class="font-bold text-indigo-600">Host:</span> {{ amplicon.host }}</p>
+                {% endif %}
+                {% if amplicon.isolation and amplicon.isolation != "NA" %}
+                    <p><span class="font-bold text-indigo-600">Isolation:</span> {{ amplicon.isolation }}</p>
+                {% endif %}
+                {% if amplicon.biosample_model and amplicon.biosample_model != "NA" %}
+                    <p><span class="font-bold text-indigo-600">Biosample Model:</span> {{ amplicon.biosample_model }}</p>
+                {% endif %}
+                {% if amplicon.collection_date and amplicon.collection_date != "NA" %}
+                    <p><span class="font-bold text-indigo-600">Collection Date:</span> {{ amplicon.collection_date }}</p>
+                {% endif %}
+                {% if amplicon.host_sex and amplicon.host_sex != "NA" %}
+                    <p><span class="font-bold text-indigo-600">Host Sex:</span> {{ amplicon.host_sex }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-md shadow-md">
+            <h2 class="text-xl font-semibold text-indigo-800 mb-4">Environmental Information</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {% if amplicon.env_broad_scale and amplicon.env_broad_scale != "NA" %}
+                    <p><span class="font-bold text-indigo-600">Broad Scale:</span> {{ amplicon.env_broad_scale }}</p>
+                {% endif %}
+                {% if amplicon.env_local_scale and amplicon.env_local_scale != "NA" %}
+                    <p><span class="font-bold text-indigo-600">Local Scale:</span> {{ amplicon.env_local_scale }}</p>
+                {% endif %}
+                {% if amplicon.env_medium and amplicon.env_medium != "NA" %}
+                    <p><span class="font-bold text-indigo-600">Medium:</span> {{ amplicon.env_medium }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Download Section -->
+<section class="container mx-auto my-8">
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-6">Download</h2>
+
+        <div class="flex flex-wrap gap-4">
+            <!-- Amplicon Data -->
+            <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
+                <svg class="w-8 h-8 text-indigo-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <div class="flex-grow">
+                    <h5 class="text-md font-semibold text-gray-800">Amplicon Data</h5>
+                    <p class="text-xs text-gray-600">Raw amplicon sequencing data</p>
+                </div>
+                <a href="https://sra-pub-run-odp.s3.amazonaws.com/sra/{{ amplicon.run }}/{{ amplicon.run }}" download class="ml-3 px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-indigo-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                    Download
+                </a>
+            </div>
+
+            <!-- OTU Table -->
+            <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
+                <svg class="w-8 h-8 text-indigo-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <div class="flex-grow">
+                    <h5 class="text-md font-semibold text-gray-800">OTU Table</h5>
+                    <p class="text-xs text-gray-600">Operational Taxonomic Unit table</p>
+                </div>
+                <a href="/path/to/otu_table.txt" download class="ml-3 px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-indigo-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                    Download
+                </a>
+            </div>
+
+            <!-- Representative Sequences -->
+            <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
+                <svg class="w-8 h-8 text-indigo-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                </svg>
+                <div class="flex-grow">
+                    <h5 class="text-md font-semibold text-gray-800">Representative Sequences</h5>
+                    <p class="text-xs text-gray-600">FASTA file of representative sequences</p>
+                </div>
+                <a href="/path/to/rep_seqs.fasta" download class="ml-3 px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-indigo-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                    Download
+                </a>
+            </div>
+
+            <!-- Taxonomy Assignment -->
+            <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
+                <svg class="w-8 h-8 text-indigo-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                </svg>
+                <div class="flex-grow">
+                    <h5 class="text-md font-semibold text-gray-800">Taxonomy Assignment</h5>
+                    <p class="text-xs text-gray-600">Taxonomic classification results</p>
+                </div>
+                <a href="/path/to/taxonomy.txt" download class="ml-3 px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-indigo-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                    Download
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="mt-8">
+    <a href="{% url 'amplicon:amplicons' %}"
+        class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-300">
+        Back to Amplicons List
+    </a>
+</div>
+
+{% endblock %}

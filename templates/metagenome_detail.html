@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+
+{% block Part1 %}
+{% load static %}
+
+<section class="container mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
+    <h1 class="text-3xl font-semibold text-cyan-900 mb-4">{{ metagenome.run }} - {{ metagenome.host }}</h1>
+    <div class="h-1 bg-cyan-500 rounded-full mb-6"></div>
+
+    <div class="space-y-6">
+        <div class="bg-gray-50 p-6 rounded-md shadow-md">
+            <h2 class="text-xl font-semibold text-cyan-800 mb-4">Basic Information</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <p><span class="font-bold text-cyan-600">Run:</span> {{ metagenome.run }}</p>
+                <p><span class="font-bold text-cyan-600">Assay Type:</span> {{ metagenome.assay_type }}</p>
+                <p><span class="font-bold text-cyan-600">Biosample:</span> {{ metagenome.biosample }}</p>
+                <p><span class="font-bold text-cyan-600">Bytes:</span> {{ metagenome.bytes|default:"N/A" }}</p>
+                <p><span class="font-bold text-cyan-600">Center Name:</span> {{ metagenome.center_name }}</p>
+            </div>
+        </div>
+
+        <!-- 其他部分保持不变 -->
+        <div class="bg-gray-50 p-6 rounded-md shadow-md">
+            <h2 class="text-xl font-semibold text-cyan-800 mb-4">Sequencing Information</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <p><span class="font-bold text-cyan-600">Instrument:</span> {{ metagenome.instrument }}</p>
+                <p><span class="font-bold text-cyan-600">Library Layout:</span> {{ metagenome.library_layout }}</p>
+                <p><span class="font-bold text-cyan-600">Library Selection:</span> {{ metagenome.library_selection }}</p>
+                <p><span class="font-bold text-cyan-600">Platform:</span> {{ metagenome.platform }}</p>
+                <p><span class="font-bold text-cyan-600">Bioproject:</span> {{ metagenome.bioproject }}</p>
+            </div>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-md shadow-md">
+            <h2 class="text-xl font-semibold text-cyan-800 mb-4">Geographic Information</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <p><span class="font-bold text-cyan-600">Country:</span> {{ metagenome.geo_loc_name_country }}</p>
+                <p><span class="font-bold text-cyan-600">Continent:</span> {{ metagenome.geo_loc_name_country_continent }}</p>
+                <p><span class="font-bold text-cyan-600">Location Name:</span> {{ metagenome.geo_loc_name }}</p>
+                <p><span class="font-bold text-cyan-600">Latitude/Longitude:</span> {{ metagenome.lat_lon|default:"N/A" }}</p>
+            </div>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-md shadow-md">
+            <h2 class="text-xl font-semibold text-cyan-800 mb-4">Sample Information</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <p><span class="font-bold text-cyan-600">Host:</span> {{ metagenome.host }}</p>
+                <p><span class="font-bold text-cyan-600">Isolation:</span> {{ metagenome.isolation }}</p>
+                <p><span class="font-bold text-cyan-600">Biosample Model:</span> {{ metagenome.biosample_model }}</p>
+                <p><span class="font-bold text-cyan-600">Collection Date:</span> {{ metagenome.collection_date }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Specie pie chart -->
+<section class="container mx-auto my-8 p-4 bg-white shadow-lg rounded-lg" style="min-height: 80vh;">
+    <h2 class="text-2xl font-semibold text-gray-700 mb-4">Taxonomic Classification</h2>
+    <iframe src="{% static 'metagenome/SRR6350024.krona.html' %}" class="w-full border-0"
+        style="min-height: 80vh;"></iframe>
+</section>
+
+<!-- Related Symbiont Section -->
+<section class="container mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
+
+    <!-- Symbiont Section -->
+    <div class="">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-4">Potential Symbionts</h2>
+        <input type="text" placeholder="Search" class="mb-4 p-2 border rounded-lg w-full">
+        <table class="min-w-full bg-white border border-gray-200">
+            <thead>
+                <tr class="bg-gray-50">
+                    <th class="py-2 px-4 text-left">Symbiont Name</th>
+                    <th class="py-2 px-4 text-left">Genus</th>
+                    <th class="py-2 px-4 text-left">Abundance</th>
+                    <th class="py-2 px-4 text-left">Localization</th>
+                    <th class="py-2 px-4 text-left">Transmission</th>
+                    <th class="py-2 px-4 text-left">Fuction</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="py-2 px-4"><a href="#" class="text-blue-600 hover:underline">Burkholderia</a>
+                    </td>
+                    <td class="py-2 px-4">Burkholderia</td>
+                    <td class="py-2 px-4">12.17%</td>
+                    <td class="py-2 px-4">Extracellular</td>
+                    <td class="py-2 px-4">Unknown</td>
+                    <td class="py-2 px-4">be essential to support Osmia larvae in their nutrient uptake</td>
+                </tr>
+                <tr>
+                    <td class="py-2 px-4"><a href="#" class="text-blue-600 hover:underline">Diaphorobacter</a>
+                    </td>
+                    <td class="py-2 px-4">Diaphorobacter</td>
+                    <td class="py-2 px-4">5.21%</td>
+                    <td class="py-2 px-4">Extracellular</td>
+                    <td class="py-2 px-4">Unknown</td>
+                    <td class="py-2 px-4">be essential to support Osmia larvae in their nutrient uptake</td>
+                </tr>
+                <tr>
+                    <td class="py-2 px-4"><a href="#" class="text-blue-600 hover:underline">Massilia</a>
+                    </td>
+                    <td class="py-2 px-4">Massilia</td>
+                    <td class="py-2 px-4">2.89%</td>
+                    <td class="py-2 px-4">Extracellular</td>
+                    <td class="py-2 px-4">Unknown</td>
+                    <td class="py-2 px-4">food uptake and host survival</td>
+                </tr>
+                <tr>
+                    <td class="py-2 px-4"><a href="#" class="text-blue-600 hover:underline">Craurococcus</a>
+                    </td>
+                    <td class="py-2 px-4">Craurococcus</td>
+                    <td class="py-2 px-4">0.7%</td>
+                    <td class="py-2 px-4">Extracellular</td>
+                    <td class="py-2 px-4">Unknown</td>
+                    <td class="py-2 px-4">food uptake and host survival</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- Download Section -->
+<section class="container mx-auto my-8">
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-6">Download Files</h2>
+
+        <div class="flex flex-wrap gap-4">
+            <!-- Kraken Taxonomic -->
+            <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
+                <svg class="w-8 h-8 text-cyan-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <div class="flex-grow">
+                    <h5 class="text-md font-semibold text-gray-800">Kraken Taxonomic</h5>
+                    <p class="text-xs text-gray-600">Taxonomic classification results</p>
+                </div>
+                <a href="/path/to/Kraken_taxnomic.txt" download class="ml-3 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
+                    Download
+                </a>
+            </div>
+
+            <!-- MetaPhIAn Taxonomic -->
+            <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
+                <svg class="w-8 h-8 text-cyan-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <div class="flex-grow">
+                    <h5 class="text-md font-semibold text-gray-800">MetaPhIAn Taxonomic</h5>
+                    <p class="text-xs text-gray-600">MetaPhIAn analysis results</p>
+                </div>
+                <a href="/path/to/MetaPhIAn_taxnomic.txt" download class="ml-3 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
+                    Download
+                </a>
+            </div>
+
+            <!-- Megahit Contig -->
+            <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
+                <svg class="w-8 h-8 text-cyan-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                </svg>
+                <div class="flex-grow">
+                    <h5 class="text-md font-semibold text-gray-800">Megahit Contig</h5>
+                    <p class="text-xs text-gray-600">Assembled contigs file</p>
+                </div>
+                <a href="/path/to/Megahit.contig.fa" download class="ml-3 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
+                    Download
+                </a>
+            </div>
+
+            <!-- Additional File -->
+            <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
+                <svg class="w-8 h-8 text-cyan-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                </svg>
+                <div class="flex-grow">
+                    <h5 class="text-md font-semibold text-gray-800">Additional File</h5>
+                    <p class="text-xs text-gray-600">Supplementary data</p>
+                </div>
+                <a href="/path/to/Additional_file.txt" download class="ml-3 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
+                    Download
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="mt-8">
+    <a href="{% url 'metagenome:metagenomes' %}"
+        class="bg-cyan-600 text-white px-4 py-2 rounded-md hover:bg-cyan-700 transition duration-300">
+        Back to Metagenomes List
+    </a>
+</div>
+
+{% endblock %}

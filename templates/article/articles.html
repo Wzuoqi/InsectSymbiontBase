@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block Part1 %}
+
+{% load static %}
+<section>
+
+    <!-- Container -->
+    <div class="container mx-auto my-8 p-4">
+
+        <!-- Title with Paper Count -->
+        <div class="mb-6 flex items-center space-x-4">
+            <h1 class="text-4xl font-bold text-gray-900">Papers</h1>
+            <span class="text-white bg-kabuli-800 rounded-full px-4 py-1 text-2xl font-semibold">2958 papers</span>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="mb-4">
+            <form method="GET" action="{% url 'article:articles' %}">
+                <input type="text" name="q" placeholder="Search for literature..."
+                    value="{{ request.GET.q }}"
+                    class="w-full p-4 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-800 focus:border-transparent" />
+            </form>
+        </div>
+
+        <!-- Literature List -->
+
+        <div class="bg-white shadow-lg rounded-lg p-6">
+            {% if articles %}
+                {% for article in articles %}
+
+                <div class="pb-2 mb-2">
+                    <h3 class="text-lg font-semibold text-gray-900">
+                        {{article.id}}. {{ article.title }}
+                        {% if article.species and article.species != "NA" %}
+                        <span class="bg-orange-500 text-white italic text-sm font-bold ml-2 px-2 py-1 rounded">{{ article.species }}</span>
+                        {% endif %}
+                    </h3>
+                    <p class="text-gray-700">{{ article.authors }}</p>
+                    <p class="font-sans font-semibold text-sm text-kabuli-900">{{article.journal}}, {{article.publish_time}}</p>
+                    <p class="text-sm font-mono text-kabuli-500">
+                        DOI: <a href="https://doi.org/{{article.doi}}" target="_blank"
+                            class="hover:underline">{{article.doi}}</a>
+                    </p>
+
+                </div>
+
+                <!-- Divider -->
+                <hr class="my-4 border-t border-gray-300">
+
+                {% endfor %}
+
+            {% else %}
+                <p class="text-gray-500">No papers found matching your search criteria.</p>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+{% endblock %}

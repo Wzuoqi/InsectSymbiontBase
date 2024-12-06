@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block Part1 %}
+
+{% load static %}
+<div class="container mx-auto my-8">
+    <h2 class="text-2xl font-semibold text-kabuli-800 mb-6">Database Resources</h2>
+    <ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
+        <li class="relative">
+            <div
+                class="group block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-kabuli-800 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+                <a href="http://v2.insect-genome.com/" target="_blank">
+                    <img src="{% static 'img/resources/InsectBase.png' %}"
+                        alt="" class="pointer-events-none object-cover w-full h-54 group-hover:opacity-75">
+                </a>
+            </div>
+            <p class="pointer-events-none mt-2 block truncate text-lg font-medium text-gray-900">InsectBase</p>
+            <p class="pointer-events-none block text-sm font-medium text-gray-500">A substantially improved database for insect gene resources, serves as a valuable resource to meet the
+            multiple research needs of entomologists</p>
+        </li>
+
+        <li class="relative">
+            <div
+                class="group block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-kabuli-800 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+                <a href="https://www.ncbi.nlm.nih.gov/" target="_blank">
+                    <img src="{% static 'img/resources/NCBI.png' %}" alt=""
+                        class="pointer-events-none object-cover w-full h-54 group-hover:opacity-75">
+                    </a>
+            </div>
+            <p class="pointer-events-none mt-2 block truncate text-lg font-medium text-gray-900">NCBI</p>
+            <p class="pointer-events-none block text-sm font-medium text-gray-500">The National Center for Biotechnology Information (NCBI) advances science and health by providing access to biomedical and
+            genomic information.</p>
+        </li>
+
+        <li class="relative">
+            <div
+                class="group block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-kabuli-800 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+                <a href="https://www.ebi.ac.uk/" target="_blank">
+                    <img src="{% static 'img/resources/EMBL-EBI.png' %}" alt=""
+                        class="pointer-events-none object-cover w-full h-54 group-hover:opacity-75">
+                    </a>
+            </div>
+            <p class="pointer-events-none mt-2 block truncate text-lg font-medium text-gray-900">EMBL-EBI</p>
+            <p class="pointer-events-none block text-sm font-medium text-gray-500">The European Bioinformatics Institute (EMBL-EBI) is part of EMBL, Europe’s flagship laboratory for the life sciences.</p>
+        </li>
+
+        <li class="relative">
+            <div
+                class="group block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-kabuli-800 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+                <a href="https://www.ddbj.nig.ac.jp/index-e.html" target="_blank">
+                    <img src="{% static 'img/resources/DDBJ.png' %}" alt=""
+                        class="pointer-events-none object-cover w-full h-54 group-hover:opacity-75">
+                    </a>
+            </div>
+            <p class="pointer-events-none mt-2 block truncate text-lg font-medium text-gray-900">DDBJ</p>
+            <p class="pointer-events-none block text-sm font-medium text-gray-500">Bioinformation and DDBJ Center provides sharing and analysis services for data from life science researches and advances
+            science.</p>
+        </li>
+
+        <li class="relative">
+            <div
+                class="group block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-kabuli-800 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+                <a href="https://gtdb.ecogenomic.org/" target="_blank">
+                    <img src="{% static 'img/resources/GTDB.png' %}" alt=""
+                        class="pointer-events-none object-cover w-full h-54 group-hover:opacity-75">
+                    </a>
+            </div>
+            <p class="pointer-events-none mt-2 block truncate text-lg font-medium text-gray-900">GTDB</p>
+            <p class="pointer-events-none block text-sm font-medium text-gray-500">The Genome Taxonomy Database (GTDB) is an initiative to establish a standardised microbial taxonomy based on genome
+            phylogeny</p>
+        </li>
+
+        <li class="relative">
+            <div
+                class="group block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-kabuli-800 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+                <a href="https://www.arb-silva.de/" target="_blank">
+                    <img src="{% static 'img/resources/Silva.png' %}" alt=""
+                        class="pointer-events-none object-cover w-full h-54 group-hover:opacity-75">
+                    </a>
+            </div>
+            <p class="pointer-events-none mt-2 block truncate text-lg font-medium text-gray-900">Silva</p>
+            <p class="pointer-events-none block text-sm font-medium text-gray-500">A comprehensive on-line resource for quality checked and aligned ribosomal RNA sequence data.</p>
+        </li>
+
+        <li class="relative">
+            <div
+                class="group block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-kabuli-800 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+                <a href="http://www.phi-base.org/" target="_blank">
+                    <img src="{% static 'img/resources/PHI-base.png' %}" alt=""
+                        class="pointer-events-none object-cover w-full h-54 group-hover:opacity-75">
+                    </a>
+            </div>
+            <p class="pointer-events-none mt-2 block truncate text-lg font-medium text-gray-900">PHI-base</p>
+            <p class="pointer-events-none block text-sm font-medium text-gray-500">A database that catalogs verified pathogenicity, virulence, and effector genes from pathogens affecting
+            animal, plant, fungal, and insect hosts.</p>
+        </li>
+
+        <li class="relative">
+            <div
+                class="group block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-kabuli-800 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+                <a href="https://www.kegg.jp/" target="_blank">
+                    <img src="{% static 'img/resources/KEGG.png' %}" alt=""
+                        class="pointer-events-none object-cover w-full h-54 group-hover:opacity-75">
+                    </a>
+            </div>
+            <p class="pointer-events-none mt-2 block truncate text-lg font-medium text-gray-900">KEGG</p>
+            <p class="pointer-events-none block text-sm font-medium text-gray-500">KEGG is a database resource for understanding high-level functions and utilities of the biological system, such as the
+            cell, the organism and the ecosystem from molecular-level information</p>
+        </li>
+
+        <li class="relative">
+            <div
+                class="group block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-kabuli-800 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+                <a href="https://geneontology.org/" target="_blank">
+                    <img src="{% static 'img/resources/GO.png' %}" alt=""
+                        class="pointer-events-none object-cover w-full h-54 group-hover:opacity-75">
+                    </a>
+            </div>
+            <p class="pointer-events-none mt-2 block truncate text-lg font-medium text-gray-900">Gene Ontology (GO)</p>
+            <p class="pointer-events-none block text-sm font-medium text-gray-500">The Gene Ontology (GO) knowledgebase is the world’s largest source of information on the functions of genes.</p>
+        </li>
+
+        <li class="relative">
+            <div
+                class="group block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-kabuli-800 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+                <a href="http://eggnog5.embl.de/" target="_blank">
+                    <img src="{% static 'img/resources/EggNOG.png' %}" alt=""
+                        class="pointer-events-none object-cover w-full h-54 group-hover:opacity-75">
+                    </a>
+            </div>
+            <p class="pointer-events-none mt-2 block truncate text-lg font-medium text-gray-900">EggNOG 5.0</p>
+            <p class="pointer-events-none block text-sm font-medium text-gray-500">a hierarchical, functionally and phylogenetically annotated orthology resource based on 5090 organisms and 2502 viruses.</p>
+        </li>
+
+
+
+    </ul>
+</div>
+
+
+
+
+
+{% endblock %}
