@@ -1,0 +1,79 @@
+### Django ###
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+
+# 收集的静态文件目录
+collect_static/
+static/
+
+# 如果你使用了virtualenv/venv
+venv/
+env/
+ENV/
+
+### Django.Python Stack ###
+# Byte-compiled / optimized / DLL files
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# 环境变量文件
+.env
+.env.local
+.env.*.local
+
+# PostgreSQL 数据库备份
+*.dump
+*.sql
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 项目特定
+node_modules/  # 如果使用了tailwind
+*.bak
+*.swp
+*.swo
+
+# 日志文件
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 本地开发配置
+local_settings.py
