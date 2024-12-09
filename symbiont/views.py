@@ -7,7 +7,7 @@ import json
 
 # Create your views here.
 def symbionts(request):
-    # 获取排序参数，默认为 'symbiont_name'
+    # 获取排序参数，默认为 'id'
     order_by = request.GET.get('order', 'id')
 
     # 确定排序方向
@@ -18,12 +18,17 @@ def symbionts(request):
         order_field = order_by
         is_ascending = True
 
-    # 获取所有Symbiont对象并排序
+    # 获取所有Symbiont对象
     symbionts_list = Symbiont.objects.all()
-    if is_ascending:
-        symbionts_list = symbionts_list.order_by(F(order_field).asc(nulls_last=True))
+
+    # 应用排序（包括默认排序）
+    if order_by == 'id' or not order_by:
+        symbionts_list = symbionts_list.order_by('id')  # 明确指定默认按 id 排序
     else:
-        symbionts_list = symbionts_list.order_by(F(order_field).desc(nulls_last=True))
+        if is_ascending:
+            symbionts_list = symbionts_list.order_by(F(order_field).asc(nulls_last=True))
+        else:
+            symbionts_list = symbionts_list.order_by(F(order_field).desc(nulls_last=True))
 
     # 处理高级搜索
     search_fields = [
