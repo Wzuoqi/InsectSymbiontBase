@@ -6,7 +6,7 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
     <title>InsectSymbiontBase</title>
     <link rel="stylesheet" href="{% static 'css/output.css' %}">
     <script src="{% static 'js/menu.js' %}" defer></script>
@@ -397,7 +397,9 @@
             });
         });
     </script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.cells.min.js"></script>
+    {% block extra_js %}{% endblock %}
 </body>
 
 </html>

@@ -5,10 +5,9 @@
 
 <!-- 主横幅区域 -->
 <div class="relative h-[450px] overflow-hidden" style="z-index: 0;">
-    <!-- 背景图片 -->
-    <div class="absolute inset-0">
-        <img src="{% static 'img/homeCover.png' %}" alt="Background"
-            class="w-full h-full object-cover filter brightness-75">
+    <!-- 背景区域 -->
+    <div id="vanta-background" class="absolute inset-0">
+        <!-- Vanta.js 将在这里创建动态背景 -->
     </div>
     <!-- 文字内容 -->
     <div class="relative z-1 h-full flex flex-col justify-center items-start px-20">
@@ -115,7 +114,7 @@
                 <div>
                     <div class="flex items-start justify-center">
                         <h3 class="text-5xl font-bold tracking-tight">
-                            <a href="/genomes" class="text-gray-900 hover:text-blue-600">500</a>
+                            <a href="/genomes" class="text-gray-900 hover:text-blue-600">3,000</a>
                         </h3>
                         <span class="text-blue-600 text-xl font-semibold">+</span>
                     </div>
@@ -266,4 +265,24 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    VANTA.CELLS({
+        el: "#vanta-background",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        color1: 0x0,
+        color2: 0x7c3aed,
+        size: 1.50,
+        speed: 1.00
+    });
+});
+</script>
 {% endblock %}
