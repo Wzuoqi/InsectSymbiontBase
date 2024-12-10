@@ -4,7 +4,7 @@
 {% load static %}
     <section class="container mx-auto my-12 p-8 bg-white shadow-xl rounded-2xl">
         <div class="border-b-4 border-kabuli-600 pb-6">
-            <h2 class="text-4xl font-bold text-kabuli-800">{{ symbiont.symbiont_name }}</h2>
+            <h2 class="text-4xl font-bold text-kabuli-800">{{ symbiont.id}} - {{ symbiont.symbiont_name }}</h2>
         </div>
 
         <!-- Basic Information Section -->
@@ -12,17 +12,57 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div class="bg-gray-50 p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg">
                     <h4 class="text-2xl font-semibold text-kabuli-700 mb-4">Symbiont</h4>
-                    <p class="mt-3 text-gray-800"><span class="font-semibold text-kabuli-600">Classification:</span> {{ symbiont.classification }}</p>
-                    <p class="mt-3 text-gray-800"><span class="font-semibold text-kabuli-600">Phylum:</span> {{ symbiont.symbiont_phylum }}</p>
-                    <p class="mt-3 text-gray-800"><span class="font-semibold text-kabuli-600">Class:</span> {{ symbiont.symbiont_class }}</p>
-                    <p class="mt-3 text-gray-800"><span class="font-semibold text-kabuli-600">Genus:</span> {{ symbiont.symbiont_genus }}</p>
+                    <p class="mt-3 text-gray-800">
+                        <span class="font-semibold text-kabuli-600">Classification:</span>
+                        {% if symbiont.classification and symbiont.classification != "NA" %}
+                            {{ symbiont.classification }}
+                        {% endif %}
+                    </p>
+                    <p class="mt-3 text-gray-800">
+                        <span class="font-semibold text-kabuli-600">Phylum:</span>
+                        {% if symbiont.symbiont_phylum and symbiont.symbiont_phylum != "NA" %}
+                            {{ symbiont.symbiont_phylum }}
+                        {% endif %}
+                    </p>
+                    <p class="mt-3 text-gray-800">
+                        <span class="font-semibold text-kabuli-600">Class:</span>
+                        {% if symbiont.symbiont_class and symbiont.symbiont_class != "NA" %}
+                            {{ symbiont.symbiont_class }}
+                        {% endif %}
+                    </p>
+                    <p class="mt-3 text-gray-800">
+                        <span class="font-semibold text-kabuli-600">Genus:</span>
+                        {% if symbiont.symbiont_genus and symbiont.symbiont_genus != "NA" %}
+                            {{ symbiont.symbiont_genus }}
+                        {% endif %}
+                    </p>
                 </div>
                 <div class="bg-gray-50 p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg">
                     <h4 class="text-2xl font-semibold text-kabuli-700 mb-4">Host Insect</h4>
-                    <p class="mt-3 text-gray-800"><span class="font-semibold text-kabuli-600">Order:</span> {{ symbiont.host_order }}</p>
-                    <p class="mt-3 text-gray-800"><span class="font-semibold text-kabuli-600">Family:</span> {{ symbiont.host_family }}</p>
-                    <p class="mt-3 text-gray-800"><span class="font-semibold text-kabuli-600">Subfamily:</span> {{ symbiont.host_subfamily }}</p>
-                    <p class="mt-3 text-gray-800"><span class="font-semibold text-kabuli-600">Species:</span> {{ symbiont.host_species }}</p>
+                    <p class="mt-3 text-gray-800">
+                        <span class="font-semibold text-kabuli-600">Order:</span>
+                        {% if symbiont.host_order and symbiont.host_order != "NA" %}
+                            {{ symbiont.host_order }}
+                        {% endif %}
+                    </p>
+                    <p class="mt-3 text-gray-800">
+                        <span class="font-semibold text-kabuli-600">Family:</span>
+                        {% if symbiont.host_family and symbiont.host_family != "NA" %}
+                            {{ symbiont.host_family }}
+                        {% endif %}
+                    </p>
+                    <p class="mt-3 text-gray-800">
+                        <span class="font-semibold text-kabuli-600">Subfamily:</span>
+                        {% if symbiont.host_subfamily and symbiont.host_subfamily != "NA" %}
+                            {{ symbiont.host_subfamily }}
+                        {% endif %}
+                    </p>
+                    <p class="mt-3 text-gray-800">
+                        <span class="font-semibold text-kabuli-600">Species:</span>
+                        {% if symbiont.host_species and symbiont.host_species != "NA" %}
+                            {{ symbiont.host_species }}
+                        {% endif %}
+                    </p>
                 </div>
             </div>
         </div>
@@ -31,21 +71,40 @@
         <div class="mt-12">
             <div class="bg-gray-50 p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg">
                 <h4 class="text-2xl font-semibold text-kabuli-700 mb-4">Function</h4>
-                <p class="mt-3 text-gray-800 break-words leading-relaxed">{{ symbiont.function }}</p>
-                <div class="flex flex-wrap mt-4 space-x-3">
-                    <span class="bg-kabuli-100 text-kabuli-800 px-4 py-2 rounded-full text-sm font-semibold">B vitamin</span>
-                    <span class="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-semibold">Digestion</span>
-                </div>
+                <p class="mt-3 text-gray-800 break-words leading-relaxed">
+                    {% if symbiont.function and symbiont.function != "NA" %}
+                        {{ symbiont.function }}
+                    {% endif %}
+                </p>
+
+                <!-- Function Tags -->
+                {% if symbiont.function_tags %}
+                    <div class="flex flex-wrap mt-4 gap-2">
+                        {% for tag in symbiont.function_tags %}
+                            <span class="{{ tag.color_class }} px-3 py-1 text-sm font-medium rounded-full">
+                                {{ tag.text }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
 
             <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div class="bg-gray-50 p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg">
                     <h4 class="text-2xl font-semibold text-kabuli-700 mb-4">Localization</h4>
-                    <p class="mt-3 text-gray-800">{{ symbiont.localization }}</p>
+                    <p class="mt-3 text-gray-800">
+                        {% if symbiont.localization and symbiont.localization != "NA" %}
+                            {{ symbiont.localization }}
+                        {% endif %}
+                    </p>
                 </div>
                 <div class="bg-gray-50 p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg">
                     <h4 class="text-2xl font-semibold text-kabuli-700 mb-4">Transmission Mode</h4>
-                    <p class="mt-3 text-gray-800">{{ symbiont.transmission_mode }}</p>
+                    <p class="mt-3 text-gray-800">
+                        {% if symbiont.transmission_mode and symbiont.transmission_mode != "NA" %}
+                            {{ symbiont.transmission_mode }}
+                        {% endif %}
+                    </p>
                 </div>
             </div>
         </div>
@@ -54,51 +113,102 @@
         <div class="mt-12">
             <div class="bg-gray-50 p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg">
                 <h4 class="text-2xl font-semibold text-kabuli-700 mb-4">Reference</h4>
-                <p class="mt-3 text-gray-800"><span class="font-semibold text-kabuli-600">Reference:</span> {{ symbiont.reference }}</p>
-                <p class="mt-3 text-gray-800"><span class="font-semibold text-kabuli-600">Journal:</span> {{ symbiont.journal }}</p>
-                <p class="mt-3 text-gray-800"><span class="font-semibold text-kabuli-600">DOI:</span> <a href="https://doi.org/{{ symbiont.doi }}" target="_blank" class="text-kabuli-600 hover:text-kabuli-800 hover:underline transition duration-300">{{ symbiont.doi }}</a></p>
-                <p class="mt-3 text-gray-800"><span class="font-semibold text-kabuli-600">Available Data:</span>
-                    {{symbiont.related_accession}}</p>
+                <p class="mt-3 text-gray-800">
+                    <span class="font-semibold text-kabuli-600">Reference:</span>
+                    {% if symbiont.reference and symbiont.reference != "NA" %}
+                        {{ symbiont.reference }}
+                    {% endif %}
+                </p>
+                <p class="mt-3 text-gray-800">
+                    <span class="font-semibold text-kabuli-600">Journal:</span>
+                    {% if symbiont.journal and symbiont.journal != "NA" %}
+                        {{ symbiont.journal }}
+                    {% endif %}
+                </p>
+                <p class="mt-3 text-gray-800">
+                    <span class="font-semibold text-kabuli-600">DOI:</span>
+                    {% if symbiont.doi and symbiont.doi != "NA" %}
+                        <a href="https://doi.org/{{ symbiont.doi }}" target="_blank" class="text-kabuli-600 hover:text-kabuli-800 hover:underline transition duration-300">
+                            {{ symbiont.doi }}
+                        </a>
+                    {% endif %}
+                </p>
             </div>
         </div>
 
-        <!-- Seq Section -->
         <!-- Download Section -->
         <div class="mt-12 bg-gray-50 p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg">
-            <h4 class="text-2xl font-semibold text-kabuli-700 mb-6">Download</h4>
-            <div class="flex flex-wrap gap-4">
-                <!-- Genome File -->
-                <div class="flex items-center bg-white rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
-                    <svg class="w-8 h-8 text-kabuli-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                    <div class="flex-grow">
-                        <h5 class="text-md font-semibold text-gray-800">Genome</h5>
-                        <p class="text-xs text-gray-600">Genome Sequence</p>
-                    </div>
-                    <a href="path/to/genome/file" download class="ml-3 px-4 py-2 bg-kabuli-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-kabuli-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-kabuli-500 focus:ring-opacity-50">
-                        Download
-                    </a>
-                </div>
+            <h4 class="text-2xl font-semibold text-kabuli-700 mb-6">Data Available</h4>
+            <div class="space-y-4">
 
-                <!-- GFF File -->
-                <div class="flex items-center bg-white rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
-                    <svg class="w-8 h-8 text-kabuli-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                    <div class="flex-grow">
-                        <h5 class="text-md font-semibold text-gray-800">GFF</h5>
-                        <p class="text-xs text-gray-600">Genome Feature</p>
+                <!-- Related Data -->
+                {% if symbiont.related_accession and symbiont.related_accession != "NA" %}
+                <div class="bg-white rounded-lg shadow-sm p-4">
+                    <div class="flex items-center">
+                        <svg class="w-8 h-8 text-kabuli-600 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                            </path>
+                        </svg>
+                        <div class="min-w-0">
+                            <h5 class="text-md font-semibold text-gray-800">Related Data</h5>
+                            <p class="text-sm text-gray-600 break-words">{{ symbiont.related_accession }}</p>
+                        </div>
                     </div>
-                    <a href="path/to/gff/file" download class="ml-3 px-4 py-2 bg-kabuli-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-kabuli-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-kabuli-500 focus:ring-opacity-50">
-                        Download
-                    </a>
                 </div>
+                {% endif %}
 
-                <!-- Add more download items here as needed -->
+                <!-- Genome Files -->
+                {% if symbiont.genome_ids %}
+                    <div class="bg-white rounded-lg shadow-sm p-4">
+                        <div class="flex items-center mb-3">
+                            <svg class="w-8 h-8 text-kabuli-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            <h5 class="text-md font-semibold text-gray-800">Genome Download</h5>
+                        </div>
+                        <div class="ml-11 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                            {% for genome_id in symbiont.genome_ids %}
+                                <div class="bg-gray-50 rounded-lg border border-gray-100 hover:border-kabuli-200 transition duration-300">
+                                    <a href="https://www.ncbi.nlm.nih.gov/assembly/{{ genome_id }}"
+                                       target="_blank"
+                                       class="flex items-center justify-between p-3">
+                                        <span class="text-sm text-gray-600">{{ genome_id }}</span>
+                                        <div class="flex items-center space-x-2">
+                                            <!-- View Icon -->
+                                            <svg class="w-5 h-5 text-kabuli-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                            </svg>
+                                            <!-- Download Icon -->
+                                            <svg class="w-5 h-5 text-kabuli-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                            </svg>
+                                        </div>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
 
             </div>
         </div>
     </section>
 
+    <!-- Back to Table Button -->
+    <a href="/symbionts"
+       class="fixed bottom-16 right-8 bg-kabuli-700 text-white rounded-full shadow-lg hover:bg-kabuli-800 transition-all duration-300 group">
+        <div class="flex items-center">
+            <div class="p-4">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+            </div>
+            <div class="w-0 group-hover:w-auto overflow-hidden transition-all duration-300 ease-in-out">
+                <span class="text-white whitespace-nowrap pr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Back to Table</span>
+            </div>
+        </div>
+    </a>
 {% endblock %}

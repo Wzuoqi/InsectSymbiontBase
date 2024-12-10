@@ -7,7 +7,7 @@ import json
 
 # Create your views here.
 def symbionts(request):
-    # 获取排序参数，默认为 'id'
+    # 获取排序参数,默认为'id'
     order_by = request.GET.get('order', 'id')
 
     # 确定排序方向
@@ -21,9 +21,10 @@ def symbionts(request):
     # 获取所有Symbiont对象
     symbionts_list = Symbiont.objects.all()
 
-    # 应用排序（包括默认排序）
+    # 应用排序(包括默认排序)
     if order_by == 'id' or not order_by:
-        symbionts_list = symbionts_list.order_by('id')  # 明确指定默认按 id 排序
+        # 由于id现在是字符串,需要特殊处理确保正确排序
+        symbionts_list = symbionts_list.order_by('id')
     else:
         if is_ascending:
             symbionts_list = symbionts_list.order_by(F(order_field).asc(nulls_last=True))
@@ -34,7 +35,8 @@ def symbionts(request):
     search_fields = [
         'host_order', 'host_family', 'host_species',
         'symbiont_name', 'symbiont_phylum', 'symbiont_order', 'symbiont_genus',
-        'classification', 'function', 'function_tag', 'year'
+        'classification', 'function', 'function_tag', 'year',
+        'genome_id'  # 新增genome_id搜索
     ]
     search_query = Q()
     search_params = {}
@@ -170,6 +172,56 @@ def symbionts_1(request):
 
 def symbiont_detail(request, symbiont_id):
     symbiont = get_object_or_404(Symbiont, id=symbiont_id)
+
+    # 定义标签颜色映射 (与symbionts视图保持一致)
+    TAG_COLORS = {
+        # Nutrition - 绿色系
+        'Nitrogen fixation': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+        'Feeding habits': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+        'Probiotic': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+        'Nutrient provision': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+        'Digestive enzymes': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+        'Plastic degradation': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+        'Fungal farming': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+        'Sugar metabolism': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+
+        # Defense - 蓝色系
+        'Plant defense': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+        'Pesticide metabolization': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+        'Immune priming': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+        'Antimicrobials': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+        'Plant secondary metabolites': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+        'Natural enemy resistance': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+        'Pathogen interaction': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+        'Chemical biosynthesis': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+
+        # Physiology - 紫色系
+        'Growth and Development': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-800 dark:text-cyan-100',
+        'Fertility': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-800 dark:text-cyan-100',
+        'Pigmentation alteration': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-800 dark:text-cyan-100',
+        'Reproductive manipulation': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-800 dark:text-cyan-100',
+    }
+
+    # 处理function_tags (与symbionts视图保持一致的处理逻辑)
+    if symbiont.function_tag and symbiont.function_tag != "NA":
+        tags_with_colors = []
+        for tag in symbiont.function_tag.split(','):
+            tag = tag.strip()
+            if tag:
+                tags_with_colors.append({
+                    'text': tag,
+                    'color_class': TAG_COLORS.get(tag, 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100')  # 默认颜色
+                })
+        symbiont.function_tags = tags_with_colors
+    else:
+        symbiont.function_tags = []
+
+    # 处理genome_ids
+    if symbiont.genome_id and symbiont.genome_id != "NA":
+        symbiont.genome_ids = [id.strip() for id in symbiont.genome_id.split(',') if id.strip()]
+    else:
+        symbiont.genome_ids = []
+
     context = {
         'symbiont': symbiont,
     }

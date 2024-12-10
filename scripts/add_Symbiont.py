@@ -46,6 +46,7 @@ def main():
         '功能': 'function',
         '功能标签': 'function_tag',
         '共生体序列数据': 'related_accession',
+        '基因组序号': 'genome_id',  # 新增字段映射
         '参考文献': 'reference',
         'doi号': 'doi',
         '期刊': 'journal',
@@ -54,7 +55,7 @@ def main():
     }
 
     try:
-        with open('./data/symbionts241205.tab', 'r', encoding='UTF-8') as file:
+        with open('./data/symbionts241210.tab', 'r', encoding='UTF-8') as file:
             # 读取并验证表头
             headers = file.readline().strip().split('\t')
             english_headers = file.readline().strip().split('\t')  # 读取英文表头行
@@ -81,6 +82,7 @@ def main():
                                     except ValueError:
                                         symbiont_data[field_name] = None
                                 else:
+                                    # 处理空值和None值
                                     symbiont_data[field_name] = value if value and value != 'None' else "NA"
 
                     # 创建新的 Symbiont 对象

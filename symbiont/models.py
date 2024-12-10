@@ -1,12 +1,11 @@
 from django.db import models
 
 class Symbiont(models.Model):
-    id = models.AutoField(primary_key=True)
-    record_type = models.CharField(max_length=100, default="NA")
-
+    id = models.CharField(max_length=10, primary_key=True)
+    record_type = models.CharField(max_length=100, null=True, blank=True)
 
     # host
-    host_order = models.CharField(max_length=100, db_index=True, default="NA")
+    host_order = models.CharField(max_length=100, null=True, blank=True)
     host_family = models.CharField(max_length=100, db_index=True, default="NA")
     host_subfamily = models.CharField(max_length=100, blank=True, null=True, db_index=True, default="NA")
     host_species = models.CharField(max_length=100, blank=True, null=True, db_index=True, default="NA")
@@ -29,11 +28,14 @@ class Symbiont(models.Model):
     year = models.IntegerField(blank=True, null=True)
     note = models.TextField(blank=True, null=True, default="NA")
 
+    # 新增genome_id字段
+    genome_id = models.CharField(max_length=2000, null=True, blank=True)
+
     def __str__(self):
         return f"{self.symbiont_name} - {self.host_species} ({self.host_order})"
 
     class Meta:
-        ordering = ['host_order', 'host_family', 'host_species']
+        ordering = ['id']
         indexes = [
             models.Index(fields=['host_order', 'host_family', 'host_species']),
             models.Index(fields=['symbiont_name']),
