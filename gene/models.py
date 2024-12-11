@@ -1,10 +1,9 @@
 from django.db import models
-from genome.models import Genome
 
 class Gene(models.Model):
     id = models.AutoField(primary_key=True)
     gene_id = models.CharField(max_length=100, unique=True, db_index=True)
-    genome = models.ForeignKey(Genome, on_delete=models.CASCADE, related_name='genes')
+    genome_id = models.CharField(max_length=100, db_index=True, null=True)
 
     locus_tag = models.CharField(max_length=100, blank=True, null=True)
     gene_name = models.CharField(max_length=100, blank=True, null=True)
@@ -27,9 +26,9 @@ class Gene(models.Model):
         return f"{self.gene_id} - {self.gene_name or self.locus_tag}"
 
     class Meta:
-        ordering = ['genome', 'start_position']
+        ordering = ['genome_id', 'start_position']
         indexes = [
-            models.Index(fields=['genome', 'start_position']),
+            models.Index(fields=['genome_id', 'start_position']),
             models.Index(fields=['gene_name']),
             models.Index(fields=['locus_tag']),
         ]

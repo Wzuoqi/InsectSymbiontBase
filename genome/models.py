@@ -1,15 +1,18 @@
 from django.db import models
 
 class Genome(models.Model):
-    id = models.AutoField(primary_key=True)
-    genome_id = models.CharField(max_length=100, unique=True, db_index=True)
-    metagenome_id = models.CharField(max_length=100, blank=True, null=True)
-
-    host = models.CharField(max_length=100, db_index=True, blank=True, null=True)
+    genome_id = models.CharField(max_length=100, primary_key=True)
+    source_id = models.CharField(max_length=100, blank=True, null=True)
     source = models.CharField(max_length=100, blank=True, null=True)
+    host = models.CharField(max_length=100, db_index=True, blank=True, null=True)
     function = models.TextField(blank=True, null=True)
-    literature_name = models.CharField(max_length=200, blank=True, null=True)
-    reference = models.CharField(max_length=200, blank=True, null=True)
+
+    reference_name = models.CharField(max_length=200, blank=True, null=True)
+    reference_accession = models.CharField(max_length=100, blank=True, null=True)
+    reference_phylum = models.CharField(max_length=100, blank=True, null=True)
+    reference_order = models.CharField(max_length=100, blank=True, null=True)
+    reference_genus = models.CharField(max_length=100, blank=True, null=True)
+    reference_name = models.CharField(max_length=100, blank=True, null=True)
 
     checkm_marker_lineage = models.CharField(max_length=200, blank=True, null=True)
     checkm_genomes = models.IntegerField(blank=True, null=True)
@@ -20,14 +23,14 @@ class Genome(models.Model):
     quality_score = models.FloatField(blank=True, null=True)
 
     gtdb_classification = models.TextField(blank=True, null=True)
-    gtdb_phylum = models.CharField(max_length=100, blank=True, null=True)
+    gtdb_phylum = models.CharField(max_length=200, blank=True, null=True)
 
-    closest_genome_reference = models.CharField(max_length=100, blank=True, null=True)
+    closest_genome_reference = models.CharField(max_length=200, blank=True, null=True)
     closest_genome_reference_radius = models.FloatField(blank=True, null=True)
     closest_genome_ani = models.FloatField(blank=True, null=True)
-    closest_placement_reference = models.CharField(max_length=100, blank=True, null=True)
+    closest_placement_reference = models.CharField(max_length=200, blank=True, null=True)
 
-    classification_method = models.TextField(blank=True, null=True)
+    classification_method = models.CharField(max_length=200, blank=True, null=True)
     note = models.TextField(blank=True, null=True)
 
     def __str__(self):
@@ -37,4 +40,7 @@ class Genome(models.Model):
         ordering = ['host', 'genome_id']
         indexes = [
             models.Index(fields=['host', 'genome_id']),
+            models.Index(fields=['source_id']),
+            models.Index(fields=['reference_phylum']),
+            models.Index(fields=['gtdb_phylum']),
         ]

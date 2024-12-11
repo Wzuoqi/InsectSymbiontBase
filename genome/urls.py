@@ -8,5 +8,5 @@ app_name = 'genome'
 
 urlpatterns = [
     path('', views.genomes, name='genomes'),
-    path('genome/<int:genome_id>/', views.genome_detail, name='genome_detail'),
+    path('genome/<str:genome_id>/', views.genome_detail, name='genome_detail'),
 ]

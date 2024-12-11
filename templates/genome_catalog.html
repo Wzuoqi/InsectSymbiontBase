@@ -2,26 +2,85 @@
 
 {% block Part1 %}
 
-{% comment %} Genome Catalog Table {% endcomment %}
+{% comment %} Introduction Section {% endcomment %}
+<section class="container px-4 mx-auto mt-10">
+    <!-- Header Section -->
+    <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
+        <div class="flex-1">
+            <h1 class="text-4xl font-bold text-kabuli-900 dark:text-white mb-4">Insect Symbiont Genomes</h1>
+            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed max-w-4xl">
+                A comprehensive collection of insect symbiont genomes from both metagenome-assembled genomes (MAGs), literature records and public databases.
+                Our database currently contains <span class="font-semibold text-kabuli-700">{{ page_obj.paginator.count }}</span> insect symbionts genomes,
+                providing valuable resources for understanding the genomic features and evolution of insect symbionts.
+            </p>
+        </div>
+        <div class="flex-none">
+            <div class="inline-flex items-center justify-center p-6 bg-kabuli-50 dark:bg-gray-800 rounded-2xl">
+                <div class="text-center">
+                    <span class="block text-3xl font-bold text-kabuli-700 dark:text-kabuli-400">{{ page_obj.paginator.count }}</span>
+                    <span class="text-sm text-gray-600 dark:text-gray-400">Total Genomes</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        <!-- Left Chart: Source Distribution -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-700">
+            <div class="flex items-center justify-between mb-3">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-700 dark:text-white">Genome Sources</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Distribution of genome sources</p>
+                </div>
+            </div>
+            <div class="h-80" id="sourceChart"></div>
+        </div>
+
+        <!-- Right Chart: Quality Overview -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-700">
+            <div class="flex items-center justify-between mb-3">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-700 dark:text-white">Genome Quality</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Distribution of genome quality metrics</p>
+                </div>
+            </div>
+            <div class="h-80" id="qualityChart"></div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 italic text-center">
+                Note: The quality score (QS) defined as 'Completeness − 5 × Contamination' estimated with CheckM
+            </p>
+        </div>
+    </div>
+</section>
+
+{% comment %} Original Genome Catalog Table Section {% endcomment %}
 <section class="container px-4 mx-auto mt-10">
     {% load static %}
     <div class="sm:flex sm:items-center sm:justify-between">
         <div>
             <div class="flex items-center gap-x-3">
                 <h2 class="text-xl font-bold text-kabuli-800 dark:text-white">Genome Catalog</h2>
-
                 <span class="px-3 py-1 text-xs text-kabuli-600 bg-kabuli-100 rounded-full dark:bg-gray-800 dark:text-kabuli-400">{{ page_obj.paginator.count }} records</span>
             </div>
-
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">Catalog of insect symbiont genomes and related information.</p>
         </div>
 
         <div class="flex items-center mt-4 gap-x-3">
+            <!-- Reset Button -->
+            {% if query or filter_type or search_params != '{}' %}
+            <a href="{% url 'genome:genomes' %}"
+               class="flex items-center justify-center px-5 py-2 text-sm tracking-wide text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 hover:bg-gray-100 dark:hover:bg-gray-800 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                </svg>
+                <span>Reset</span>
+            </a>
+            {% endif %}
+
             <button id="advanceSearchBtn" class="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-kabuli-800 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-kabuli-600 dark:hover:bg-kabuli-500 dark:bg-kabuli-600">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-
                 <span>Advanced Search</span>
             </button>
         </div>
@@ -40,6 +99,13 @@
             <a href="?filter=literature_record{% if query %}&q={{ query }}{% endif %}" class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 {% if filter_type == 'literature_record' %}bg-gray-100{% endif %} sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
                 Literature Record
             </a>
+
+            <a href="?filter=public_database{% if query %}&q={{ query }}{% endif %}"
+                class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 {% if filter_type == 'public_database' %}bg-gray-100{% endif %} sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
+                Public Database
+            </a>
+
+
         </div>
 
         <div class="relative flex items-center mt-4 md:mt-0">
@@ -72,13 +138,10 @@
                                     </button>
                                 </th>
                                 <th scope="col" class="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400">
+                                    Source ID
+                                </th>
+                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400">
                                     Host
-                                </th>
-                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400">
-                                    Symbiont Name
-                                </th>
-                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400">
-                                    Phylum
                                 </th>
                                 <th scope="col" class="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400">
                                     Completeness
@@ -99,56 +162,26 @@
                             <tr>
                                 <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                                     <div>
-                                        <a href="{% url 'genome:genome_detail' genome.id %}" class="font-medium text-kabuli-800 dark:text-kabuli-400 hover:underline">
+                                        <a href="{% url 'genome:genome_detail' genome.genome_id %}" class="font-medium text-kabuli-800 dark:text-kabuli-400 hover:underline">
                                             {{ genome.genome_id }}
                                         </a>
-                                        {% if genome.source %}
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ genome.source }}</p>
-                                        {% endif %}
                                     </div>
                                 </td>
                                 <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                                    <div>
-                                        {% if genome.host %}
-                                        <h2 class="font-medium text-gray-900 dark:text-white">
-                                            {{ genome.host }}
-                                        </h2>
-                                        {% endif %}
-                                    </div>
+                                    {{ genome.source_id }}
                                 </td>
                                 <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                                    <div>
-                                        {% if genome.literature_name %}
-                                        <h2 class="font-medium text-gray-900 dark:text-white">
-                                            {{ genome.literature_name }}
-                                        </h2>
-                                        {% endif %}
-                                    </div>
-                                </td>
-                                <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                                    <div>
-                                        {% if genome.gtdb_phylum %}
-                                        <p class="text-gray-700 dark:text-gray-400">{{ genome.gtdb_phylum }}</p>
-                                        {% endif %}
-                                    </div>
+                                    {{ genome.host }}
                                 </td>
                                 <td class="px-4 py-4 text-sm text-center whitespace-nowrap">
-                                    {% if genome.completeness %}
                                     {{ genome.completeness|floatformat:2 }}%
-                                    {% endif %}
                                 </td>
                                 <td class="px-4 py-4 text-sm text-center whitespace-nowrap">
-
                                     {{ genome.contamination|floatformat:2 }}%
-
                                 </td>
                                 <td class="px-4 py-4 text-xs whitespace-normal break-words max-w-sm">
                                     <div>
-                                        {% if genome.gtdb_classification %}
-                                        <p class="text-gray-600 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-700">
-                                            {{ genome.gtdb_classification }}
-                                        </p>
-                                        {% endif %}
+                                        {{ genome.gtdb_classification }}
                                     </div>
                                 </td>
                                 <td class="px-4 py-4 text-sm whitespace-nowrap">
@@ -169,64 +202,132 @@
         </div>
     </div>
 
-    <!-- Pagination controls -->
-    <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
-        <div class="text-sm text-gray-500 dark:text-gray-400">
-            Page <span class="font-medium text-gray-700 dark:text-gray-100">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
-        </div>
-
-        <div class="flex items-center mt-4 gap-x-4 sm:mt-0">
+    <!-- Pagination -->
+    <div class="flex items-center justify-between mt-6">
+        <div class="flex justify-between flex-1 sm:hidden">
             {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}&{{ query_string }}" class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
-                </svg>
-                <span>Previous</span>
-            </a>
+                <a href="?page={{ page_obj.previous_page_number }}&{{ query_string }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                    Previous
+                </a>
             {% endif %}
-
             {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}&{{ query_string }}" class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
-                <span>Next</span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-                </svg>
-            </a>
+                <a href="?page={{ page_obj.next_page_number }}&{{ query_string }}" class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                    Next
+                </a>
             {% endif %}
+        </div>
+        <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+            <div>
+                <p class="text-sm text-gray-700">
+                    Showing
+                    <span class="font-medium">{{ page_obj.start_index }}</span>
+                    to
+                    <span class="font-medium">{{ page_obj.end_index }}</span>
+                    of
+                    <span class="font-medium">{{ page_obj.paginator.count }}</span>
+                    results
+                </p>
+            </div>
+            <div>
+                <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}&{{ query_string }}" class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+                            <span class="sr-only">Previous</span>
+                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    {% endif %}
+
+                    {% for i in page_obj.paginator.page_range %}
+                        {% if page_obj.number == i %}
+                            <span class="relative z-10 inline-flex items-center bg-kabuli-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kabuli-600">
+                                {{ i }}
+                            </span>
+                        {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
+                            <a href="?page={{ i }}&{{ query_string }}" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+                                {{ i }}
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}&{{ query_string }}" class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+                            <span class="sr-only">Next</span>
+                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    {% endif %}
+                </nav>
+            </div>
         </div>
     </div>
 
     <!-- Advanced Search Modal -->
     <div id="advanceSearchModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
-        <div class="relative top-20 mx-auto p-5 border w-11/12 max-w-2xl shadow-lg rounded-md bg-white">
+        <div class="relative top-20 mx-auto p-5 border w-11/12 max-w-2xl shadow-lg rounded-md bg-white dark:bg-gray-800">
             <div class="mt-3">
-                <h3 class="text-2xl leading-6 font-medium text-gray-900 mb-4 text-center">Advanced Search</h3>
-                <p class="text-sm text-gray-500 mb-4 text-center">Fill in any fields you wish to search by. Leave fields blank to ignore them in the search.</p>
+                <h3 class="text-2xl leading-6 font-medium text-gray-900 dark:text-white mb-4 text-center">Advanced Search</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 text-center">Fill in any fields you wish to search by. Leave fields blank to ignore them in the search.</p>
                 <form id="advanceSearchForm" class="space-y-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Basic Information -->
                         <div>
-                            <label for="host" class="block text-sm font-medium text-gray-700">Host</label>
-                            <input type="text" id="host" name="host" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-kabuli-500 focus:ring focus:ring-kabuli-500 focus:ring-opacity-50">
+                            <label for="genome_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Genome ID</label>
+                            <input type="text" id="genome_id" name="genome_id" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-kabuli-500 focus:ring focus:ring-kabuli-500 focus:ring-opacity-50">
                         </div>
                         <div>
-                            <label for="completeness_min" class="block text-sm font-medium text-gray-700">Minimum Completeness (%)</label>
-                            <input type="number" id="completeness_min" name="completeness_min" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-kabuli-500 focus:ring focus:ring-kabuli-500 focus:ring-opacity-50">
+                            <label for="source_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Source ID</label>
+                            <input type="text" id="source_id" name="source_id" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-kabuli-500 focus:ring focus:ring-kabuli-500 focus:ring-opacity-50">
                         </div>
                         <div>
-                            <label for="contamination_max" class="block text-sm font-medium text-gray-700">Maximum Contamination (%)</label>
-                            <input type="number" id="contamination_max" name="contamination_max" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-kabuli-500 focus:ring focus:ring-kabuli-500 focus:ring-opacity-50">
+                            <label for="host" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Host</label>
+                            <input type="text" id="host" name="host" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-kabuli-500 focus:ring focus:ring-kabuli-500 focus:ring-opacity-50">
                         </div>
                         <div>
-                            <label for="quality_score_min" class="block text-sm font-medium text-gray-700">Minimum Quality Score</label>
-                            <input type="number" id="quality_score_min" name="quality_score_min" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-kabuli-500 focus:ring focus:ring-kabuli-500 focus:ring-opacity-50">
+                            <label for="source" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Source</label>
+                            <select id="source" name="source" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-kabuli-500 focus:ring focus:ring-kabuli-500 focus:ring-opacity-50">
+                                <option value="">All Sources</option>
+                                <option value="Metagenome MAGs">Metagenome MAGs</option>
+                                <option value="Literature Record">Literature Record</option>
+                                <option value="Literature Record">Public Database</option>
+                            </select>
                         </div>
-                        <div>
-                            <label for="gtdb_phylum" class="block text-sm font-medium text-gray-700">GTDB Phylum</label>
-                            <input type="text" id="gtdb_phylum" name="gtdb_phylum" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-kabuli-500 focus:ring focus:ring-kabuli-500 focus:ring-opacity-50">
+
+                        <!-- Quality Metrics -->
+                        <div class="md:col-span-2">
+                            <h4 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">Quality Metrics</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="completeness_min" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Min. Completeness (%)</label>
+                                    <input type="number" id="completeness_min" name="completeness_min" min="0" max="100" step="0.1" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-kabuli-500 focus:ring focus:ring-kabuli-500 focus:ring-opacity-50">
+                                </div>
+                                <div>
+                                    <label for="contamination_max" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Max. Contamination (%)</label>
+                                    <input type="number" id="contamination_max" name="contamination_max" min="0" max="100" step="0.1" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-kabuli-500 focus:ring focus:ring-kabuli-500 focus:ring-opacity-50">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- GTDB Classification -->
+                        <div class="md:col-span-2">
+                            <h4 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">GTDB Classification</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="gtdb_phylum" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Phylum</label>
+                                    <input type="text" id="gtdb_phylum" name="gtdb_phylum" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-kabuli-500 focus:ring focus:ring-kabuli-500 focus:ring-opacity-50">
+                                </div>
+                                <div>
+                                    <label for="gtdb_class" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Class</label>
+                                    <input type="text" id="gtdb_class" name="gtdb_class" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-kabuli-500 focus:ring focus:ring-kabuli-500 focus:ring-opacity-50">
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between mt-4">
-                        <button type="button" id="advanceSearchClose" class="px-4 py-2 bg-gray-300 text-gray-700 text-base font-medium rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300">
+
+                    <div class="flex items-center justify-between mt-6">
+                        <button type="button" id="advanceSearchClose" class="px-4 py-2 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-200 text-base font-medium rounded-md shadow-sm hover:bg-gray-400 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-300">
                             Cancel
                         </button>
                         <button type="submit" id="advanceSearchSubmit" class="px-4 py-2 bg-kabuli-600 text-white text-base font-medium rounded-md shadow-sm hover:bg-kabuli-700 focus:outline-none focus:ring-2 focus:ring-kabuli-500">
@@ -236,6 +337,17 @@
                 </form>
             </div>
         </div>
+    </div>
+    <!-- 添加悬浮返回首页按钮 -->
+    <div class="fixed bottom-16 right-8 z-50">
+        <a href="{% url 'home' %}"
+            class="flex items-center justify-center w-12 h-12 rounded-full bg-kabuli-700 hover:bg-kabuli-800 text-white shadow-lg transition-all duration-300 hover:scale-110"
+            title="Return to Homepage">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+        </a>
     </div>
 </section>
 
@@ -306,5 +418,137 @@
         window.location = url;
     }
 </script>
+
+<!-- 在页面底部添加图表初始化脚本 -->
+<script>
+    async function loadECharts() {
+        return new Promise((resolve, reject) => {
+            if (window.echarts) {
+                resolve(window.echarts);
+                return;
+            }
+
+            const script = document.createElement('script');
+            script.src = '/static/js/echarts.min.js';
+            script.onload = () => resolve(window.echarts);
+            script.onerror = reject;
+            document.head.appendChild(script);
+        });
+    }
+
+    let sourceChart = null;
+    let qualityChart = null;
+
+    async function initCharts() {
+        try {
+            const echarts = await loadECharts();
+            const darkMode = document.documentElement.classList.contains('dark');
+            const textColor = darkMode ? '#e5e7eb' : '#374151';
+            const backgroundColor = darkMode ? '#1f2937' : '#ffffff';
+
+            // Source Distribution Chart
+            const sourceContainer = document.getElementById('sourceChart');
+            if (sourceContainer) {
+                sourceChart = echarts.init(sourceContainer);
+                const sourceOption = {
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{b}: {c} ({d}%)'
+                    },
+                    series: [{
+                        type: 'pie',
+                        radius: ['40%', '70%'],
+                        avoidLabelOverlap: true,
+                        itemStyle: {
+                            borderRadius: 10,
+                            borderColor: backgroundColor,
+                            borderWidth: 2
+                        },
+                        label: {
+                            show: true,
+                            position: 'outside',
+                            formatter: '{b}\n{c} ({d}%)',
+                            color: textColor
+                        },
+                        data: [
+                            { value: 1570, name: 'Metagenome MAGs' },
+                            { value: 498, name: 'Literature Record' },
+                            { value: 1580, name: 'Public Database' }
+                        ]
+                    }]
+                };
+                sourceChart.setOption(sourceOption);
+            }
+
+            // Quality Distribution Chart
+            const qualityContainer = document.getElementById('qualityChart');
+            if (qualityContainer) {
+                qualityChart = echarts.init(qualityContainer);
+                const qualityOption = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: ['High(QS >80)', 'Medium(QS 50-80)', 'Low(QS <50)'],
+                        axisLabel: {
+                            color: textColor
+                        }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        axisLabel: {
+                            color: textColor
+                        }
+                    },
+                    series: [{
+                        name: 'Genome Quality',
+                        type: 'bar',
+                        data: [
+                            {value: 2131, itemStyle: {color: '#10B981'}},  // High quality
+                            {value: 951, itemStyle: {color: '#F59E0B'}}, // Medium quality
+                            {value: 566, itemStyle: {color: '#EF4444'}}   // Low quality
+                        ],
+                        itemStyle: {
+                            borderRadius: [8, 8, 0, 0]
+                        }
+                    }]
+                };
+                qualityChart.setOption(qualityOption);
+            }
+
+            // 响应窗口大小变化
+            window.addEventListener('resize', () => {
+                if (sourceChart) sourceChart.resize();
+                if (qualityChart) qualityChart.resize();
+            });
+
+        } catch (error) {
+            console.error('Failed to initialize charts:', error);
+            const chartContainers = document.querySelectorAll('#sourceChart, #qualityChart');
+            chartContainers.forEach(container => {
+                container.innerHTML = '<div class="text-center p-4 text-gray-500">Failed to load chart. Please refresh the page.</div>';
+            });
+        }
+    }
+
+    // 确保在 DOM 加载完成后初始化
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCharts);
+    } else {
+        initCharts();
+    }
+</script>
+
+
 
 {% endblock %}

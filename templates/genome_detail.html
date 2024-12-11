@@ -2,47 +2,127 @@
 
 {% block Part1 %}
 <section class="container px-4 mx-auto mt-10 font-sans">
-    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+    <!-- Basic Information (Combined with Header) -->
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
         <div class="px-4 py-5 sm:px-6 bg-kabuli-100">
-            <h2 class="text-2xl leading-6 font-bold text-kabuli-800">
-                {{ genome.genome_id }}
-            </h2>
-            <p class="mt-1 max-w-2xl text-sm text-kabuli-600">
-                {{ genome.source }}
-            </p>
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl leading-6 font-bold text-kabuli-800">
+                        {{ genome.genome_id }}
+                    </h2>
+                    <p class="mt-1 text-sm text-kabuli-600">
+                        {{ genome.source }}
+                    </p>
+                </div>
+                <div class="hidden sm:block">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-kabuli-50 text-kabuli-800">
+                        <svg class="mr-1.5 h-2 w-2 text-kabuli-400" fill="currentColor" viewBox="0 0 8 8">
+                            <circle cx="4" cy="4" r="3" />
+                        </svg>
+                        {{ genome.source|default:"Unknown Source" }}
+                    </span>
+                </div>
+            </div>
         </div>
         <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
             <div class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+                {% if genome.source_id and genome.source_id != "NA" %}
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Source ID</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.source_id }}</dd>
+                </div>
+                {% endif %}
+                {% if genome.host and genome.host != "NA" %}
                 <div class="sm:col-span-1">
                     <dt class="text-sm font-medium text-gray-500">Host</dt>
-                    <dd class="mt-1 text-sm text-gray-900">{{ genome.host|default:"Unknown" }}</dd>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.host }}</dd>
                 </div>
-                <div class="sm:col-span-1">
-                    <dt class="text-sm font-medium text-gray-500">Source</dt>
-                    <dd class="mt-1 text-sm text-gray-900">{{ genome.source|default:"Unknown" }}</dd>
-                </div>
-                <div class="sm:col-span-1">
-                    <dt class="text-sm font-medium text-gray-500">Function</dt>
-                    <dd class="mt-1 text-sm text-gray-900">{{ genome.function|default:"Unknown" }}</dd>
-                </div>
-                <div class="sm:col-span-1">
-                    <dt class="text-sm font-medium text-gray-500">Literature Name</dt>
-                    <dd class="mt-1 text-sm text-gray-900">{{ genome.literature_name|default:"Unknown" }}</dd>
-                </div>
-                <div class="sm:col-span-1">
-                    <dt class="text-sm font-medium text-gray-500">Reference</dt>
-                    <dd class="mt-1 text-sm text-gray-900">
-                        {% if genome.reference %}
-                            <a href="{{ genome.reference }}" target="_blank" class="text-kabuli-600 hover:text-kabuli-800">View Reference</a>
-                        {% else %}
-                            Unknown
-                        {% endif %}
-                    </dd>
-                </div>
+                {% endif %}
+                {% if genome.function and genome.function != "NA" %}
                 <div class="sm:col-span-2">
-                    <dt class="text-sm font-medium text-gray-500">GTDB Classification</dt>
-                    <dd class="mt-1 text-sm text-gray-900 bg-gray-100 p-2 rounded">{{ genome.gtdb_classification|default:"Unknown" }}
-                    </dd>
+                    <dt class="text-sm font-medium text-gray-500">Function</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.function }}</dd>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Reference Information - Only show if source is not Metagenome MAGs -->
+    {% if genome.source != "Metagenome MAGs" %}
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
+        <div class="px-4 py-5 sm:px-6 border-b border-gray-200 bg-gray-50">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-kabuli-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </div>
+                <h3 class="ml-3 text-lg leading-6 font-medium text-gray-900">Reference Information</h3>
+            </div>
+        </div>
+        <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+            <div class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+                {% if genome.reference_name and genome.reference_name != "NA" %}
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Reference Name</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.reference_name }}</dd>
+                </div>
+                {% endif %}
+                {% if genome.reference_accession and genome.reference_accession != "NA" %}
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Reference Accession</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.reference_accession }}</dd>
+                </div>
+                {% endif %}
+                {% if genome.reference_phylum and genome.reference_phylum != "NA" %}
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Reference Phylum</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.reference_phylum }}</dd>
+                </div>
+                {% endif %}
+                {% if genome.reference_order and genome.reference_order != "NA" %}
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Reference Order</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.reference_order }}</dd>
+                </div>
+                {% endif %}
+                {% if genome.reference_genus and genome.reference_genus != "NA" %}
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Reference Genus</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.reference_genus }}</dd>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- CheckM Information -->
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
+        <div class="px-4 py-5 sm:px-6 border-b border-gray-200 bg-gray-50">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-kabuli-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                </div>
+                <h3 class="ml-3 text-lg leading-6 font-medium text-gray-900">CheckM Information</h3>
+            </div>
+        </div>
+        <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+            <div class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+                <div class="sm:col-span-2">
+                    <dt class="text-sm font-medium text-gray-500">CheckM Marker Lineage</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.checkm_marker_lineage|default:"Unknown" }}</dd>
+                </div>
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">CheckM Genomes</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.checkm_genomes|default:"Unknown" }}</dd>
+                </div>
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">CheckM Markers</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.checkm_markers|default:"Unknown" }}</dd>
                 </div>
                 <div class="sm:col-span-1">
                     <dt class="text-sm font-medium text-gray-500">Completeness</dt>
@@ -60,11 +140,41 @@
                     <dd class="mt-1 text-sm text-gray-900">
                         <div class="flex items-center">
                             <div class="w-2/5 bg-gray-200 rounded-full h-2.5 mr-2">
-                                <div class="bg-red-600 h-2.5 rounded-full" style="width: {{ genome.contamination|floatformat:"2" }}%;"></div>
+                                <div class="bg-red-600 h-2.5 rounded-full" style="width: {{ genome.contamination|floatformat:2 }}%;"></div>
                             </div>
-                            <span>{{ genome.contamination|floatformat:"2" }}%</span>
+                            <span>{{ genome.contamination|floatformat:2 }}%</span>
                         </div>
                     </dd>
+                </div>
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Strain Heterogeneity</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.strain_heterogeneity|floatformat:2 }}%</dd>
+                </div>
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Quality Score</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.quality_score|floatformat:2 }}</dd>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GTDB Information -->
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
+        <div class="px-4 py-5 sm:px-6 border-b border-gray-200 bg-gray-50">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-kabuli-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                    </svg>
+                </div>
+                <h3 class="ml-3 text-lg leading-6 font-medium text-gray-900">GTDB Information</h3>
+            </div>
+        </div>
+        <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+            <div class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+                <div class="sm:col-span-2">
+                    <dt class="text-sm font-medium text-gray-500">GTDB Classification</dt>
+                    <dd class="mt-1 text-sm text-gray-900 bg-gray-100 p-2 rounded">{{ genome.gtdb_classification|default:"Unknown" }}</dd>
                 </div>
                 <div class="sm:col-span-1">
                     <dt class="text-sm font-medium text-gray-500">GTDB Phylum</dt>
@@ -73,6 +183,10 @@
                 <div class="sm:col-span-1">
                     <dt class="text-sm font-medium text-gray-500">Closest Genome Reference</dt>
                     <dd class="mt-1 text-sm text-gray-900">{{ genome.closest_genome_reference|default:"Unknown" }}</dd>
+                </div>
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Closest Genome ANI</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ genome.closest_genome_ani|floatformat:2 }}%</dd>
                 </div>
                 <div class="sm:col-span-1">
                     <dt class="text-sm font-medium text-gray-500">Classification Method</dt>
@@ -85,8 +199,34 @@
             </div>
         </div>
     </div>
-    <div class="mt-6">
-        <a href="{% url 'genome:genomes' %}" class="text-kabuli-600 hover:text-kabuli-800">Back to Genome Catalog</a>
+
+    <!-- Back Button -->
+    <div class="mt-6 mb-8">
+        <a href="{% url 'genome:genomes' %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-kabuli-700 bg-kabuli-100 hover:bg-kabuli-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-kabuli-500">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            Back to Genome Catalog
+        </a>
     </div>
+
+    <!-- Back to Table Button -->
+    <a href="/genomes"
+        class="fixed bottom-16 right-8 bg-kabuli-700 text-white rounded-full shadow-lg hover:bg-kabuli-800 transition-all duration-300 group">
+        <div class="flex items-center">
+            <div class="p-4">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
+                    </path>
+                </svg>
+            </div>
+            <div class="w-0 group-hover:w-auto overflow-hidden transition-all duration-300 ease-in-out">
+                <span
+                    class="text-white whitespace-nowrap pr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Back
+                    to Table</span>
+            </div>
+        </div>
+    </a>
 </section>
 {% endblock %}
