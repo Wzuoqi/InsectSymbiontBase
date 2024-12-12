@@ -269,20 +269,34 @@
 
 {% block extra_js %}
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    VANTA.CELLS({
-        el: "#vanta-background",
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: false,
-        minHeight: 200.00,
-        minWidth: 200.00,
-        scale: 1.00,
-        color1: 0x0,
-        color2: 0x7c3aed,
-        size: 2.50,
-        speed: 1.00
-    });
+// 等待所有资源加载完成
+window.addEventListener('load', function() {
+    try {
+        if (typeof VANTA !== 'undefined' && typeof THREE !== 'undefined') {
+            VANTA.CELLS({
+                el: "#vanta-background",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                color1: 0x0,
+                color2: 0x7c3aed,
+                size: 2.50,
+                speed: 1.00
+            });
+        } else {
+            throw new Error('Required libraries not loaded');
+        }
+    } catch (error) {
+        console.error('Failed to initialize VANTA:', error);
+        // 后备方案
+        const bgElement = document.getElementById('vanta-background');
+        if (bgElement) {
+            bgElement.style.backgroundColor = '#4338ca';
+        }
+    }
 });
 </script>
 {% endblock %}
