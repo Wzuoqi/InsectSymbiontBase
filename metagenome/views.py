@@ -44,7 +44,7 @@ def metagenomes(request):
         )
 
     # 创建分页器对象,每页显示10条记录
-    paginator = Paginator(metagenomes_list, 10)
+    paginator = Paginator(metagenomes_list, 25)
 
     # 获取当前页码,如果没有指定则默认为第1页
     page_number = request.GET.get('page', 1)
@@ -71,8 +71,8 @@ def metagenomes(request):
 def metagenomes_1(request):
     return render(request, "metagenomes-1.html")
 
-def metagenome_detail(request, metagenome_id):
-    metagenome = get_object_or_404(Metagenome, id=metagenome_id)
+def metagenome_detail(request, run):
+    metagenome = get_object_or_404(Metagenome, run=run)
     context = {
         'metagenome': metagenome,
     }

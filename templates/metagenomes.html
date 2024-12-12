@@ -2,6 +2,57 @@
 
 {% block Part1 %}
 
+{% comment %} Introduction Section {% endcomment %}
+<section class="container px-4 mx-auto mt-10">
+    <!-- Header Section -->
+    <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
+        <div class="flex-1">
+            <h1 class="text-4xl font-bold text-cyan-900 dark:text-white mb-4">Metagenome</h1>
+            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed max-w-4xl">
+                Our database currently contains <span class="font-semibold text-cyan-700"> 1338 </span> metagenome samples,
+                covering various insect species and their microbial communities across different geographical locations and sequencing platforms.
+                The raw data were first quality-controlled using Fastp, followed by taxonomic composition analysis through
+                two workflows: Kraken2 and MetaPhIAn. Visualization was performed using Krona. Additionally, the metagenomes were
+                assembled into contigs using Megahit, and binning was conducted with the Metabat2 workflow. High-quality MAGs were
+                extracted based on CheckM results.
+            </p>
+        </div>
+        <div class="flex-none">
+            <div class="inline-flex items-center justify-center p-6 bg-cyan-50 dark:bg-gray-800 rounded-2xl">
+                <div class="text-center">
+                    <span class="block text-3xl font-bold text-cyan-700 dark:text-cyan-400">{{ page_obj.paginator.count }}</span>
+                    <span class="text-sm text-gray-600 dark:text-gray-400">Total Samples</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        <!-- Left Chart: Platform & Library Layout -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-700">
+            <div class="flex items-center justify-between mb-3">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-700 dark:text-white">Sequencing Platforms</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Distribution of platforms and library layouts</p>
+                </div>
+            </div>
+            <div class="h-80" id="platformChart"></div>
+        </div>
+
+        <!-- Right Chart: Metagenome Size Distribution -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-700">
+            <div class="flex items-center justify-between mb-3">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-700 dark:text-white">Size Distribution</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Distribution of metagenome sizes (GB)</p>
+                </div>
+            </div>
+            <div class="h-80" id="sizeDistChart"></div>
+        </div>
+    </div>
+</section>
+
 <section class="container px-4 mx-auto mt-10">
     {% load static %}
     <div class="sm:flex sm:items-center sm:justify-between">
@@ -17,7 +68,16 @@
         </div>
 
         <div class="flex items-center mt-4 gap-x-3">
-            <!-- Advanced search button -->
+            <!-- Reset Button -->
+            <a href="{% url 'metagenome:metagenomes' %}"
+                class="flex items-center justify-center px-5 py-2 text-sm tracking-wide text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 hover:bg-gray-100 dark:hover:bg-gray-800 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                <span>Reset</span>
+            </a>
+
+            <!-- Advanced Search Button -->
             <button id="advanceSearchBtn" class="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-cyan-800 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-cyan-600 dark:hover:bg-cyan-500 dark:bg-cyan-600">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -93,7 +153,8 @@
                                 <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                                     <div>
                                         <h2 class="font-medium text-gray-800 dark:text-white">
-                                            <a href="{% url 'metagenome:metagenome_detail' metagenome.id %}" class="text-cyan-600 hover:text-blue-800 hover:underline transition duration-300 ease-in-out">
+                                            <a href="{% url 'metagenome:metagenome_detail' metagenome.run %}"
+                                               class="hover:text-cyan-600 dark:hover:text-cyan-400">
                                                 {{ metagenome.run }}
                                             </a>
                                         </h2>
@@ -121,7 +182,7 @@
                                     {{ metagenome.collection_date }}
                                 </td>
                                 <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                    <a href="{% url 'metagenome:metagenome_detail' metagenome.id %}" class="text-gray-500 transition-colors duration-200 dark:hover:text-cyan-500 dark:text-gray-300 hover:text-cyan-500 focus:outline-none">
+                                    <a href="{% url 'metagenome:metagenome_detail' metagenome.run %}" class="text-gray-500 transition-colors duration-200 dark:hover:text-cyan-500 dark:text-gray-300 hover:text-cyan-500 focus:outline-none">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
                                         </svg>
@@ -292,5 +353,223 @@
         window.location.href = `?${searchParams.toString()}`;
     });
 </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    async function loadECharts() {
+        return new Promise((resolve, reject) => {
+            if (window.echarts) {
+                resolve(window.echarts);
+                return;
+            }
+
+            const script = document.createElement('script');
+            script.src = '/static/js/echarts.min.js';
+            script.onload = () => resolve(window.echarts);
+            script.onerror = reject;
+            document.head.appendChild(script);
+        });
+    }
+
+    let platformChart = null;
+    let sizeDistChart = null;
+
+    async function initCharts() {
+        try {
+            const echarts = await loadECharts();
+            const darkMode = document.documentElement.classList.contains('dark');
+            const textColor = darkMode ? '#e5e7eb' : '#374151';
+            const backgroundColor = darkMode ? '#1f2937' : '#ffffff';
+
+            // Platform & Library Layout Chart (Sankey Diagram)
+            const platformContainer = document.getElementById('platformChart');
+            if (platformContainer) {
+                platformChart = echarts.init(platformContainer);
+                const platformOption = {
+                    tooltip: {
+                        trigger: 'item',
+                        triggerOn: 'mousemove'
+                    },
+                    series: [{
+                        type: 'sankey',
+                        emphasis: {
+                            focus: 'adjacency'
+                        },
+                        data: [
+                            { name: 'Illumina' },
+                            { name: 'PacBio' },
+                            { name: 'Oxford Nanopore' },
+                            { name: 'Paired-end' },
+                            { name: 'Single-end' },
+                            { name: 'Long-read' }
+                        ],
+                        links: [
+                            { source: 'Illumina', target: 'Paired-end', value: 300 },
+                            { source: 'Illumina', target: 'Single-end', value: 200 },
+                            { source: 'PacBio', target: 'Long-read', value: 100 },
+                            { source: 'Oxford Nanopore', target: 'Long-read', value: 80 }
+                        ],
+                        label: {
+                            color: textColor
+                        },
+                        lineStyle: {
+                            color: 'gradient',
+                            curveness: 0.5
+                        }
+                    }]
+                };
+                platformChart.setOption(platformOption);
+            }
+
+            // Size Distribution Chart
+            const sizeDistContainer = document.getElementById('sizeDistChart');
+            if (sizeDistContainer) {
+                const sizeDistChart = echarts.init(sizeDistContainer);
+                const sizeDistOption = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        },
+                        formatter: function(params) {
+                            const data = params[0];
+                            return `${data.name} GB<br/>Samples: ${data.value}`;
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: ['0-1', '1-2', '2-5', '5-10', '10-20', '20+'],
+                        name: 'Size (GB)',
+                        nameLocation: 'middle',
+                        nameGap: 30,
+                        axisLabel: {
+                            color: textColor
+                        },
+                        axisTick: {
+                            alignWithLabel: true
+                        }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        name: 'Number of Samples',
+                        nameLocation: 'middle',
+                        nameGap: 40,
+                        axisLabel: {
+                            color: textColor
+                        }
+                    },
+                    series: [{
+                        name: 'Size Distribution',
+                        type: 'bar',
+                        barWidth: '60%',
+                        data: [
+                            {
+                                value: 120,
+                                itemStyle: {
+                                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                        { offset: 0, color: '#22d3ee' },
+                                        { offset: 1, color: '#0891b2' }
+                                    ])
+                                }
+                            },
+                            {
+                                value: 200,
+                                itemStyle: {
+                                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                        { offset: 0, color: '#22d3ee' },
+                                        { offset: 1, color: '#0891b2' }
+                                    ])
+                                }
+                            },
+                            {
+                                value: 150,
+                                itemStyle: {
+                                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                        { offset: 0, color: '#22d3ee' },
+                                        { offset: 1, color: '#0891b2' }
+                                    ])
+                                }
+                            },
+                            {
+                                value: 80,
+                                itemStyle: {
+                                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                        { offset: 0, color: '#22d3ee' },
+                                        { offset: 1, color: '#0891b2' }
+                                    ])
+                                }
+                            },
+                            {
+                                value: 40,
+                                itemStyle: {
+                                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                        { offset: 0, color: '#22d3ee' },
+                                        { offset: 1, color: '#0891b2' }
+                                    ])
+                                }
+                            },
+                            {
+                                value: 20,
+                                itemStyle: {
+                                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                        { offset: 0, color: '#22d3ee' },
+                                        { offset: 1, color: '#0891b2' }
+                                    ])
+                                }
+                            }
+                        ],
+                        emphasis: {
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    { offset: 0, color: '#67e8f9' },
+                                    { offset: 1, color: '#0e7490' }
+                                ])
+                            }
+                        }
+                    }]
+                };
+
+                sizeDistChart.setOption(sizeDistOption);
+
+                // 响应窗口大小变化
+                window.addEventListener('resize', () => {
+                    if (sizeDistChart) sizeDistChart.resize();
+                });
+            }
+
+        } catch (error) {
+            console.error('Failed to initialize charts:', error);
+            const chartContainers = document.querySelectorAll('#platformChart, #sizeDistChart');
+            chartContainers.forEach(container => {
+                container.innerHTML = '<div class="text-center p-4 text-gray-500">Failed to load chart. Please refresh the page.</div>';
+            });
+        }
+    }
+
+    // 确保在 DOM 加载完成后初始化
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCharts);
+    } else {
+        initCharts();
+    }
+</script>
+
+<!-- Home Button -->
+<div class="fixed bottom-16 right-8 z-50">
+    <a href="{% url 'home' %}"
+       class="flex items-center justify-center w-12 h-12 rounded-full bg-cyan-700 hover:bg-cyan-800 text-white shadow-lg transition-all duration-300 hover:scale-110"
+       title="Return to Homepage">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+    </a>
+</div>
 
 {% endblock %}
