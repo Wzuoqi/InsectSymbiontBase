@@ -166,3 +166,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Media files configuration
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Download directories
+DOWNLOADS_ROOT = os.path.join(MEDIA_ROOT, 'downloads')
+GENOMES_ROOT = os.path.join(DOWNLOADS_ROOT, 'genomes')
+DATASETS_ROOT = os.path.join(DOWNLOADS_ROOT, 'datasets')
+DOCUMENTS_ROOT = os.path.join(DOWNLOADS_ROOT, 'documents')
+
+# Create directories if they don't exist
+os.makedirs(GENOMES_ROOT, exist_ok=True)
+os.makedirs(DATASETS_ROOT, exist_ok=True)
+os.makedirs(DOCUMENTS_ROOT, exist_ok=True)

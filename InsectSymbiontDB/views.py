@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from subprocess import Popen, PIPE
 import os
+from django.conf import settings
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
