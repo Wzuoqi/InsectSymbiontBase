@@ -9,6 +9,13 @@ def amplicons(request):
     # Get all Amplicon objects
     amplicons_list = Amplicon.objects.all()
 
+    # Handle quick filter
+    filter_type = request.GET.get('filter', 'all')
+    if filter_type == '16s':
+        amplicons_list = amplicons_list.filter(classification='16S')
+    elif filter_type == 'others':
+        amplicons_list = amplicons_list.exclude(classification='16S')
+
     # Define search fields
     search_fields = ['run', 'assay_type', 'biosample', 'center_name', 'instrument', 'library_layout', 'bioproject', 'classification', 'geo_loc_name_country', 'geo_loc_name_country_continent', 'geo_loc_name', 'host', 'env_broad_scale', 'env_local_scale', 'env_medium', 'host_sex']
 
@@ -35,9 +42,6 @@ def amplicons(request):
         sort_by = 'run'
     amplicons_list = amplicons_list.order_by(sort_by)
 
-    # Get total records after filtering
-    total_records = amplicons_list.count()
-
     # Pagination
     paginator = Paginator(amplicons_list, 20)  # Show 20 items per page
     page_number = request.GET.get('page')
@@ -47,7 +51,7 @@ def amplicons(request):
         'page_obj': page_obj,
         'sort_by': sort_by,
         'search_query': search_query,
-        'total_records': total_records,
+        'filter_type': filter_type,
     }
 
     return render(request, "amplicons.html", context)

@@ -2,6 +2,57 @@
 
 {% block Part1 %}
 
+{% comment %} Introduction Section {% endcomment %}
+<section class="container px-4 mx-auto mt-10">
+    <!-- Header Section -->
+    <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
+        <div class="flex-1">
+            <h1 class="text-4xl font-bold text-indigo-900 dark:text-white mb-4">Amplicon</h1>
+            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed max-w-4xl">
+                Our database currently contains <span class="font-semibold text-indigo-700">{{ page_obj.paginator.count }}</span> amplicon samples,
+                covering various insect species and their microbial communities. The samples include both 16S rRNA and ITS
+                amplicon sequencing data. All raw data underwent quality control using Fastp, followed by taxonomic
+                classification using the QIIME2 workflow. The processed data provides insights into the microbial
+                community composition and diversity across different insect hosts and environments.
+            </p>
+        </div>
+        <div class="flex-none">
+            <div class="inline-flex items-center justify-center p-6 bg-indigo-50 dark:bg-gray-800 rounded-2xl">
+                <div class="text-center">
+                    <span class="block text-3xl font-bold text-indigo-700 dark:text-indigo-400">{{ page_obj.paginator.count }}</span>
+                    <span class="text-sm text-gray-600 dark:text-gray-400">Total Samples</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        <!-- Left Chart: Amplicon Types Distribution -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-700">
+            <div class="flex items-center justify-between mb-3">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-700 dark:text-white">Amplicon Types</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Distribution of 16S and ITS sequences</p>
+                </div>
+            </div>
+            <div class="h-80" id="ampliconTypeChart"></div>
+        </div>
+
+        <!-- Right Chart: Geographic Distribution -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-700">
+            <div class="flex items-center justify-between mb-3">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-700 dark:text-white">Geographic Distribution</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Sample distribution by continent</p>
+                </div>
+            </div>
+            <div class="h-80" id="geoDistChart"></div>
+        </div>
+    </div>
+</section>
+
+<!-- 原有的section内容开始 -->
 <section class="container px-4 mx-auto mt-10">
     {% load static %}
     <div class="sm:flex sm:items-center sm:justify-between">
@@ -10,13 +61,25 @@
                 <!-- Title for the amplicons section -->
                 <h2 class="text-xl font-bold text-indigo-800 dark:text-white">Amplicons</h2>
                 <span class="px-3 py-1 text-xs text-indigo-600 bg-indigo-100 rounded-full dark:bg-gray-800 dark:text-indigo-400">
-                    {{ total_records }} records
+                    {{ page_obj.paginator.count }} records
                 </span>
             </div>
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">Amplicon records associated with insect symbionts from public databases worldwide.</p>
         </div>
 
         <div class="flex items-center mt-4 gap-x-3">
+            <!-- Reset Button -->
+            {% if query or filter_type or search_params != '{}' %}
+            <a href="{% url 'amplicon:amplicons' %}"
+                class="flex items-center justify-center px-5 py-2 text-sm tracking-wide text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 hover:bg-gray-100 dark:hover:bg-gray-800 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                <span>Reset</span>
+            </a>
+            {% endif %}
+
+            <!-- Advanced Search Button -->
             <button id="advanceSearchBtn" class="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-indigo-800 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-indigo-600 dark:hover:bg-indigo-500 dark:bg-indigo-600">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -28,14 +91,17 @@
 
     <div class="mt-6 md:flex md:items-center md:justify-between">
         <div class="inline-flex overflow-hidden bg-white border divide-x rounded-lg dark:bg-gray-900 rtl:flex-row-reverse dark:border-gray-700 dark:divide-gray-700">
-            <a href="?filter=all{% if query %}&q={{ query }}{% endif %}" class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 {% if filter_type == 'all' or not filter_type %}bg-gray-100{% endif %} sm:text-sm dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
+            <a href="?filter=all{% if search_query %}&search={{ search_query }}{% endif %}"
+               class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 {% if filter_type == 'all' or not filter_type %}bg-gray-100{% endif %} sm:text-sm dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
                 All
             </a>
-            <a href="?filter=pair{% if query %}&q={{ query }}{% endif %}" class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 {% if filter_type == 'pair' %}bg-gray-100{% endif %} sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
-                Pair
+            <a href="?filter=16s{% if search_query %}&search={{ search_query }}{% endif %}"
+               class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 {% if filter_type == '16s' %}bg-gray-100{% endif %} sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
+                16S
             </a>
-            <a href="?filter=single{% if query %}&q={{ query }}{% endif %}" class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 {% if filter_type == 'single' %}bg-gray-100{% endif %} sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
-                Single
+            <a href="?filter=others{% if search_query %}&search={{ search_query }}{% endif %}"
+               class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 {% if filter_type == 'others' %}bg-gray-100{% endif %} sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
+                Others
             </a>
         </div>
 
@@ -156,7 +222,7 @@
                         to
                         <span class="font-medium">{{ page_obj.end_index }}</span>
                         of
-                        <span class="font-medium">{{ total_records }}</span>
+                        <span class="font-medium">{{ page_obj.paginator.count }}</span>
                         results
                     </p>
                 </div>
@@ -331,5 +397,182 @@ searchParams.delete('page');
 window.location.href = `?${searchParams.toString()}`;
 });
 </script>
+
+<script>
+async function loadECharts() {
+    return new Promise((resolve, reject) => {
+        if (window.echarts) {
+            resolve(window.echarts);
+            return;
+        }
+
+        const script = document.createElement('script');
+        script.src = '/static/js/echarts.min.js';
+        script.onload = () => resolve(window.echarts);
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
+
+async function initCharts() {
+    try {
+        const echarts = await loadECharts();
+        const darkMode = document.documentElement.classList.contains('dark');
+        const textColor = darkMode ? '#e5e7eb' : '#374151';
+        const backgroundColor = darkMode ? '#1f2937' : '#ffffff';
+
+        // Amplicon Types Chart (Pie Chart)
+        const ampliconTypeContainer = document.getElementById('ampliconTypeChart');
+        if (ampliconTypeContainer) {
+            const ampliconChart = echarts.init(ampliconTypeContainer);
+            const ampliconOption = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b}: {c} ({d}%)'
+                },
+                legend: {
+                    orient: 'vertical',
+                    right: 10,
+                    top: 'center',
+                    textStyle: {
+                        color: textColor
+                    }
+                },
+                series: [{
+                    name: 'Amplicon Types',
+                    type: 'pie',
+                    radius: ['40%', '70%'],
+                    avoidLabelOverlap: false,
+                    itemStyle: {
+                        borderRadius: 10,
+                        borderColor: backgroundColor,
+                        borderWidth: 2
+                    },
+                    label: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        label: {
+                            show: true,
+                            fontSize: '20',
+                            fontWeight: 'bold'
+                        }
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    data: [
+                        {
+                            value: 8900,
+                            name: '16S',
+                            itemStyle: {
+                                color: '#818cf8'  // 主要的蓝紫色
+                            }
+                        },
+                        {
+                            value: 1318,
+                            name: 'ITS',
+                            itemStyle: {
+                                color: '#c7d2fe'  // 浅蓝紫色
+                            }
+                        },
+                        {
+                            value: 98,
+                            name: 'Others',
+                            itemStyle: {
+                                color: '#e0e7ff'  // 最浅的蓝紫色
+                            }
+                        }
+                    ]
+                }]
+            };
+            ampliconChart.setOption(ampliconOption);
+        }
+
+        // Geographic Distribution Chart (Bar Chart)
+        const geoDistContainer = document.getElementById('geoDistChart');
+        if (geoDistContainer) {
+            const geoChart = echarts.init(geoDistContainer);
+            const geoOption = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'value',
+                    axisLabel: {
+                        color: textColor
+                    }
+                },
+                yAxis: {
+                    type: 'category',
+                    data: ['Asia', 'Europe', 'North America', 'South America', 'Africa', 'Oceania'],
+                    axisLabel: {
+                        color: textColor
+                    }
+                },
+                series: [{
+                    name: 'Samples',
+                    type: 'bar',
+                    data: [
+                        {value: 420, itemStyle: {color: '#818cf8'}},
+                        {value: 350, itemStyle: {color: '#818cf8'}},
+                        {value: 280, itemStyle: {color: '#818cf8'}},
+                        {value: 150, itemStyle: {color: '#818cf8'}},
+                        {value: 90, itemStyle: {color: '#818cf8'}},
+                        {value: 48, itemStyle: {color: '#818cf8'}}
+                    ],
+                    emphasis: {
+                        itemStyle: {
+                            color: '#6366f1'
+                        }
+                    }
+                }]
+            };
+            geoChart.setOption(geoOption);
+        }
+
+        // 响应窗口大小变化
+        window.addEventListener('resize', () => {
+            if (ampliconChart) ampliconChart.resize();
+            if (geoChart) geoChart.resize();
+        });
+
+    } catch (error) {
+        console.error('Failed to initialize charts:', error);
+        const chartContainers = document.querySelectorAll('#ampliconTypeChart, #geoDistChart');
+        chartContainers.forEach(container => {
+            container.innerHTML = '<div class="text-center p-4 text-gray-500">Failed to load chart. Please refresh the page.</div>';
+        });
+    }
+}
+
+// 确保在 DOM 加载完成后初始化
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCharts);
+} else {
+    initCharts();
+}
+</script>
+
+<!-- 在文件末尾添加返回首页按钮 -->
+<div class="fixed bottom-16 right-8 z-50">
+    <a href="{% url 'home' %}"
+       class="flex items-center justify-center w-12 h-12 rounded-full bg-indigo-700 hover:bg-indigo-800 text-white shadow-lg transition-all duration-300 hover:scale-110"
+       title="Return to Homepage">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+    </a>
+</div>
 
 {% endblock %}
