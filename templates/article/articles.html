@@ -11,15 +11,18 @@
         <!-- Title with Paper Count -->
         <div class="mb-6 flex items-center space-x-4">
             <h1 class="text-4xl font-bold text-gray-900">Papers</h1>
-            <span class="text-white bg-kabuli-800 rounded-full px-4 py-1 text-2xl font-semibold">2958 papers</span>
+            <span class="text-white bg-kabuli-800 rounded-full px-4 py-1 text-2xl font-semibold">{{ total_count }} papers</span>
         </div>
 
         <!-- Search Bar -->
         <div class="mb-4">
-            <form method="GET" action="{% url 'article:articles' %}">
+            <form method="GET" action="{% url 'article:articles' %}" class="flex gap-2">
                 <input type="text" name="q" placeholder="Search for literature..."
-                    value="{{ request.GET.q }}"
-                    class="w-full p-4 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-800 focus:border-transparent" />
+                    value="{{ search_query }}"
+                    class="flex-1 p-4 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-800 focus:border-transparent" />
+                <button type="submit" class="px-6 py-2 bg-kabuli-800 text-white rounded-lg hover:bg-kabuli-700">
+                    Search
+                </button>
             </form>
         </div>
 
@@ -32,10 +35,11 @@
                 <div class="pb-2 mb-2">
                     <h3 class="text-lg font-semibold text-gray-900">
                         {{article.id}}. {{ article.title }}
-                        {% if article.species and article.species != "NA" %}
-                        <span class="bg-orange-500 text-white italic text-sm font-bold ml-2 px-2 py-1 rounded">{{ article.species }}</span>
-                        {% endif %}
                     </h3>
+                    {% if article.species and article.species != "NA" %}
+                    <span class="bg-orange-500 text-white italic text-sm font-bold ml-2 px-2 py-1 rounded">{{ article.species }}</span>
+                    <span class="bg-kabuli-700 text-white italic text-sm font-bold ml-2 px-2 py-1 rounded">{{ article.symbiont }}</span>
+                    {% endif %}
                     <p class="text-gray-700">{{ article.authors }}</p>
                     <p class="font-sans font-semibold text-sm text-kabuli-900">{{article.journal}}, {{article.publish_time}}</p>
                     <p class="text-sm font-mono text-kabuli-500">
@@ -49,6 +53,46 @@
                 <hr class="my-4 border-t border-gray-300">
 
                 {% endfor %}
+
+                <!-- Pagination -->
+                <div class="mt-8 flex justify-center">
+                    <nav class="flex items-center space-x-2">
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1{% if search_query %}&q={{ search_query }}{% endif %}"
+                               class="px-3 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-kabuli-800 hover:text-white">
+                                &laquo; First
+                            </a>
+                            <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}"
+                               class="px-3 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-kabuli-800 hover:text-white">
+                                Previous
+                            </a>
+                        {% endif %}
+
+                        {% for page_num in page_range %}
+                            {% if page_num == page_obj.number %}
+                                <span class="px-3 py-2 rounded-lg bg-kabuli-800 text-white">
+                                    {{ page_num }}
+                                </span>
+                            {% else %}
+                                <a href="?page={{ page_num }}{% if search_query %}&q={{ search_query }}{% endif %}"
+                                   class="px-3 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-kabuli-800 hover:text-white">
+                                    {{ page_num }}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}"
+                               class="px-3 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-kabuli-800 hover:text-white">
+                                Next
+                            </a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}"
+                               class="px-3 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-kabuli-800 hover:text-white">
+                                Last &raquo;
+                            </a>
+                        {% endif %}
+                    </nav>
+                </div>
 
             {% else %}
                 <p class="text-gray-500">No papers found matching your search criteria.</p>

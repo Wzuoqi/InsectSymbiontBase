@@ -1,59 +1,120 @@
 import django
 import os
 import sys
+import csv
+from datetime import datetime
 
 # 获取脚本所在的目录
 script_path = os.path.dirname(os.path.abspath(__file__))
-
-# 获取 Django 项目根目录的路径
 project_path = os.path.abspath(os.path.join(script_path, '..'))
-
-# 将项目路径添加到 Python 路径中
 sys.path.append(project_path)
-
-# 设置 DJANGO_SETTINGS_MODULE
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "InsectSymbiontDB.settings")
-
-# 导入 Django 设置
 django.setup()
 
+def clean_data(value):
+    """清理数据中的特殊字符和格式"""
+    if isinstance(value, str):
+        value = value.strip('"').strip()
+        value = value.replace('\n', ' ').replace('\r', ' ')
+        value = ' '.join(value.split())
+    return value if value and value != 'None' else "NA"
+
+def clear_existing_data():
+    """删除数据库中已存在的所有文章数据"""
+    from article.models import Article
+    try:
+        existing_count = Article.objects.count()
+        Article.objects.all().delete()
+        print(f"Successfully deleted {existing_count} existing articles")
+        return True
+    except Exception as e:
+        print(f"Error clearing existing data: {str(e)}")
+        return False
+
 def main():
-    from article.models import Article  # 这里需要确认 'article' 是您的 Django app 名称
+    from article.models import Article
+
+    # 首先清除现有数据
+    if not clear_existing_data():
+        print("Failed to clear existing data. Aborting import.")
+        return
+
     article_list = []
+    error_records = []
 
-    # 打开制表符分隔的文件
-    with open('data/test_articles.tab', 'r', encoding='UTF-8') as file:
-        for line in file:
-            split_table = line.strip().split('\t')
-            article_id = int(split_table[0])  # 假设 id 是整数类型
-            title = split_table[1]
-            authors = split_table[2]
-            publish_time = int(split_table[3])  # 假设 publish_time 是整数类型
-            journal = split_table[4]
-            doi = split_table[5]
-            wos = split_table[6]
-            accession_numbers = split_table[7]
-            species = split_table[8]
+    print("Starting to read and process new data...")
 
-            # 创建 Article 对象
-            tmp_article = Article(
-                id=article_id,
-                title=title,
-                authors=authors,
-                publish_time=publish_time,
-                journal=journal,
-                doi=doi,
-                wos=wos,
-                accession_numbers=accession_numbers,
-                species=species
-            )
+    try:
+        # 打开TSV文件
+        with open('scripts/data/articles241216.tab', 'r', encoding='UTF-8') as file:
+            # 读取第一行获取列名
+            header = file.readline().strip().split('\t')
 
-            # 将对象添加到列表中
-            article_list.append(tmp_article)
+            # 计算总行数
+            total_rows = sum(1 for line in file)
+            file.seek(0)  # 重置文件指针
+            next(file)    # 跳过标题行
 
-    # 批量插入数据库
-    Article.objects.bulk_create(article_list)
+            # 逐行处理数据
+            for row_num, line in enumerate(file, start=1):
+                try:
+                    # 分割行数据
+                    fields = line.strip().split('\t')
+                    if len(fields) != len(header):
+                        raise ValueError(f"Column count mismatch. Expected {len(header)}, got {len(fields)}")
+
+                    # 创建数据字典
+                    row_data = dict(zip(header, fields))
+
+                    # 准备文章数据
+                    article_data = {
+                        'id': int(row_data['ID']),
+                        'title': clean_data(row_data['Title']),
+                        'authors': clean_data(row_data['Authors']),
+                        'doi': clean_data(row_data['doi']),
+                        'journal': clean_data(row_data['Journal']),
+                        'publish_time': int(row_data['Publish Time']),
+                        'species': clean_data(row_data['Species']),
+                        'symbiont': clean_data(row_data['Symbiont'])
+                    }
+
+                    # 创建 Article 对象
+                    article = Article(**article_data)
+                    article_list.append(article)
+
+                    # 显示进度
+                    if row_num % 100 == 0:
+                        print(f"Processed {row_num}/{total_rows} records...")
+
+                except Exception as e:
+                    error_records.append({
+                        'row': row_num,
+                        'data': line.strip(),
+                        'error': str(e)
+                    })
+                    print(f"Error in row {row_num}: {str(e)}")
+                    continue
+
+        # 批量创建记录
+        if article_list:
+            Article.objects.bulk_create(article_list, batch_size=100)
+            print(f"Successfully imported {len(article_list)} articles")
+
+        # 如果有错误记录，保存到文件
+        if error_records:
+            error_file_path = 'scripts/data/import_errors.log'
+            with open(error_file_path, 'w', encoding='UTF-8') as error_file:
+                for record in error_records:
+                    error_file.write(f"Row {record['row']}:\n")
+                    error_file.write(f"Data: {record['data']}\n")
+                    error_file.write(f"Error: {record['error']}\n")
+                    error_file.write("-" * 50 + "\n")
+            print(f"Found {len(error_records)} errors. Check {error_file_path} for details")
+
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
 
 if __name__ == "__main__":
+    print("Starting data import process...")
     main()
-    print('Article model import Done!')
+    print('Article model import completed!')
