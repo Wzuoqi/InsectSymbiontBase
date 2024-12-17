@@ -184,16 +184,18 @@
 </section>
 
 <style>
-    /* 确保line-clamp在所有浏览器中都能正常工作 */
     .line-clamp-2 {
         display: -webkit-box;
         -webkit-line-clamp: 2;
+        line-clamp: 2;
         -webkit-box-orient: vertical;
+        box-orient: vertical;
         overflow: hidden;
     }
 
     .hover\:line-clamp-none:hover {
         -webkit-line-clamp: unset;
+        line-clamp: unset;
     }
 </style>
 
