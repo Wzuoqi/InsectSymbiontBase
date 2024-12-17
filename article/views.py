@@ -22,8 +22,8 @@ def articles(request):
     sort_by = request.GET.get('sort', 'id')  # 默认按发布时间降序
     articles_list = articles_list.order_by(sort_by)
 
-    # 分页 - 每页显示20篇文章
-    paginator = Paginator(articles_list, 20)
+    # 分页 - 每页显示25篇文章
+    paginator = Paginator(articles_list, 25)
     page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
 

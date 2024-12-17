@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from .models import Metagenome
 from django.core.paginator import Paginator
 from django.db.models import Q
+import os
+from django.conf import settings
 
 def metagenomes(request):
     # 获取所有Metagenome对象
@@ -73,7 +75,37 @@ def metagenomes_1(request):
 
 def metagenome_detail(request, run):
     metagenome = get_object_or_404(Metagenome, run=run)
-    context = {
+
+    # 读取symbiont数据
+    symbionts = []
+    symbiont_file = os.path.join(settings.MEDIA_ROOT, 'metagenome', 'symbiont_from_meta.txt')
+
+    if os.path.exists(symbiont_file):
+        with open(symbiont_file, 'r') as f:
+            # 跳过标题行
+            next(f)
+            for line in f:
+                parts = line.strip().split('\t')
+                if len(parts) >= 11:
+                    symbiont = {
+                        'percentage': float(parts[0]),
+                        'name': parts[1],
+                        'db_id': parts[2],
+                        'order': parts[3],
+                        'insect_species': parts[4],
+                        'genus': parts[5],
+                        'species': parts[6],
+                        'function': parts[7],
+                        'species_match': parts[8] == 'True',
+                        'order_match': parts[9] == 'True',
+                        'total_score': float(parts[10])
+                    }
+                    symbionts.append(symbiont)
+
+        # 按总分排序
+        symbionts.sort(key=lambda x: x['total_score'], reverse=True)
+
+    return render(request, 'metagenome_detail.html', {
         'metagenome': metagenome,
-    }
-    return render(request, 'metagenome_detail.html', context)
+        'symbionts': symbionts
+    })

@@ -168,7 +168,17 @@
                                     </div>
                                 </td>
                                 <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                                    {{ genome.source_id }}
+                                    {% if genome.source_id|slice:":4" == "RISB" %}
+                                        <a href="{% url 'symbiont:symbiont_detail' genome.source_id %}" class="font-medium text-kabuli-800 dark:text-kabuli-400 hover:underline">
+                                            {{ genome.source_id }}
+                                        </a>
+                                    {% elif genome.source_id|slice:":3" == "DRR" or genome.source_id|slice:":3" == "SRR" %}
+                                        <a href="{% url 'metagenome:metagenome_detail' genome.source_id %}" class="font-medium text-kabuli-800 dark:text-kabuli-400 hover:underline">
+                                            {{ genome.source_id }}
+                                        </a>
+                                    {% else %}
+                                        {{ genome.source_id }}
+                                    {% endif %}
                                 </td>
                                 <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                                     {{ genome.host }}

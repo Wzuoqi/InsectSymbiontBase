@@ -26,16 +26,33 @@
         </div>
         <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
             <div class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-                {% if genome.source_id and genome.source_id != "NA" %}
                 <div class="sm:col-span-1">
                     <dt class="text-sm font-medium text-gray-500">Source ID</dt>
-                    <dd class="mt-1 text-sm text-gray-900">{{ genome.source_id }}</dd>
+                    <dd class="mt-1 text-md text-gray-900">
+                        {% if genome.source_id and genome.source_id != "NA" %}
+                            {% if genome.source_id|slice:":4" == "RISB" %}
+                                <a href="{% url 'symbiont:symbiont_detail' genome.source_id %}" class="font-medium text-kabuli-800 dark:text-kabuli-400 hover:underline">
+                                    {{ genome.source_id }}
+                                </a>
+                            {% elif genome.source_id|slice:":3" == "DRR" or genome.source_id|slice:":3" == "SRR" %}
+                                <a href="{% url 'metagenome:metagenome_detail' genome.source_id %}" class="font-medium text-kabuli-800 dark:text-kabuli-400 hover:underline">
+                                    {{ genome.source_id }}
+                                </a>
+                            {% else %}
+                                {{ genome.source_id }}
+                            {% endif %}
+                            {% if genome.source %}
+                                <span class="ml-2 text-md text-gray-500">
+                                    ({{ genome.source }})
+                                </span>
+                            {% endif %}
+                        {% endif %}
+                    </dd>
                 </div>
-                {% endif %}
                 {% if genome.host and genome.host != "NA" %}
                 <div class="sm:col-span-1">
                     <dt class="text-sm font-medium text-gray-500">Host</dt>
-                    <dd class="mt-1 text-sm text-gray-900">{{ genome.host }}</dd>
+                    <dd class="mt-1 text-md text-gray-900">{{ genome.host }}</dd>
                 </div>
                 {% endif %}
                 {% if genome.function and genome.function != "NA" %}
@@ -271,7 +288,7 @@
                         Download
                     </a>
                 </div>
-                
+
             </div>
         </div>
     </section>

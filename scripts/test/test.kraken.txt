@@ -1,0 +1,196 @@
+100.00	57944	0	R	1	root
+100.00	57944	0	R1	131567	  cellular organisms
+100.00	57944	0	D	2	    Bacteria
+95.71	55457	0	P	1224	      Pseudomonadota
+94.59	54809	0	C	1236	        Gammaproteobacteria
+92.34	53506	0	O	91347	          Enterobacterales
+35.62	20642	0	F	543	            Enterobacteriaceae
+22.55	13066	0	G	561	              Escherichia
+22.55	13066	13066	S	562
+
+5.87	3403	0	F1	36866	              unclassified Enterobacteriaceae
+0.92	533	533	S	2675796	                Enterobacteriaceae endosymbiont of Plateumaris rustica
+0.67	386	386	S	2675772	                Enterobacteriaceae endosymbiont of Donacia bicoloricornis
+0.45	258	258	S	2675787	                Enterobacteriaceae endosymbiont of Donacia tomentosa
+0.68	393	393	S	2675789	                Enterobacteriaceae endosymbiont of Donacia vulgaris
+0.52	299	299	S	2675785	                Enterobacteriaceae endosymbiont of Donacia sparganii
+0.44	252	252	S	2675791	                Enterobacteriaceae endosymbiont of Macroplea mutica
+0.44	256	256	S	2675793	                Enterobacteriaceae endosymbiont of Plateumaris braccata
+0.33	188	188	S	2675786	                Enterobacteriaceae endosymbiont of Donacia thalassina
+0.38	217	217	S	2675784	                Enterobacteriaceae endosymbiont of Donacia simplex
+0.30	176	176	S	2675779	                Enterobacteriaceae endosymbiont of Donacia marginata
+0.29	166	166	S	2675778	                Enterobacteriaceae endosymbiont of Donacia fulgens
+0.22	125	125	S	2675782	                Enterobacteriaceae endosymbiont of Donacia proxima
+0.12	70	70	S	2675792	                Enterobacteriaceae endosymbiont of Neohaemonia nigricornis
+0.14	78	78	S	2675790	                Enterobacteriaceae endosymbiont of Macroplea appendiculata
+5.28	3059	0	F1	191675	              Enterobacteriaceae incertae sedis
+5.28	3059	0	F2	84563	                ant, tsetse, mealybug, aphid, etc. endosymbionts
+3.80	2202	0	F3	84564	                  ant endosymbionts
+3.80	2202	0	G	203804	                    Candidatus Blochmanniella
+3.26	1890	0	G1	711328	                      unclassified Candidatus Blochmanniella
+0.79	458	458	S	3118169	                        Candidatus Blochmannia sp. SNP
+0.55	317	317	S	2681987	                        Blochmannia endosymbiont of Colobopsis nipponica
+1.19	689	689	S	2945587	                        Blochmannia endosymbiont of Camponotus modoc
+0.37	215	215	S	1505597	                        Blochmannia endosymbiont of Camponotus (Colobopsis) obliquus
+0.20	118	118	S	1505596	                        Blochmannia endosymbiont of Polyrhachis (Hedomyrma) turneri
+0.16	91	91	S	2681986	                        Blochmannia endosymbiont of Camponotus nipponensis
+0.41	239	239	S	251535	                      Candidatus Blochmanniella vafra
+0.13	72	72	S	251538	                      Candidatus Blochmannia ocreatus
+0.44	257	0	G	472825	                  Candidatus Purcelliella
+0.44	257	257	S	472834	                    Candidatus Purcelliella pentastirinorum
+0.38	219	0	F3	146507	                  aphid secondary symbionts
+0.38	219	219	S	134287	                    secondary endosymbiont of Heteropsylla cubana
+0.35	202	0	G	1682492	                  Candidatus Tachikawaea
+0.35	202	202	S	1410383	                    Candidatus Tachikawaea gelatinosa
+0.17	99	0	G	1302410	                  Candidatus Annandia
+0.17	99	99	S	1302411	                    Candidatus Annandia adelgestsuga
+0.13	78	0	F3	199891	                  mealybug secondary endosymbionts
+0.13	78	78	S	1835721	                    secondary endosymbiont of Trabutina mannipara
+0.85	489	0	G	1177214	              Candidatus Profftia
+0.72	416	416	S	1987921	                Candidatus Profftia lariciata
+0.13	73	73	S	1177216	                Candidatus Profftia tarda
+0.45	258	0	F1	2890311	              Klebsiella/Raoultella group
+0.45	258	0	G	570	                Klebsiella
+0.45	258	258	S	573	                  Klebsiella pneumoniae
+0.41	235	0	G	1081630	              Candidatus Schneideria
+0.41	235	235	S	1081631	                Candidatus Schneideria nysicola
+0.22	128	0	G	409304	              Candidatus Ishikawella
+0.22	128	128	S	168169	                Candidatus Ishikawella capsulata
+34.39	19925	0	F	1903409	            Erwiniaceae
+31.31	18144	0	G	32199	              Buchnera
+31.31	18144	18144	S	9	                Buchnera aphidicola
+2.16	1249	0	G	551	              Erwinia
+2.16	1249	1249	S	1922217	                Candidatus Erwinia haradaeae
+0.62	357	0	G	53335	              Pantoea
+0.38	222	222	S	1235990	                Candidatus Pantoea carbekii
+0.23	135	135	S	59814	                Pantoea dispersa
+0.30	174	0	G	51228	              Wigglesworthia
+0.30	174	174	S	51229	                Wigglesworthia glossinidia
+22.15	12837	0	F	1903414	            Morganellaceae
+15.77	9136	0	G	637	              Arsenophonus
+6.65	3850	0	G1	2627083	                unclassified Arsenophonus
+5.11	2962	2962	S	634121	                  Arsenophonus symbiont of Ornithomya chloropus
+0.55	318	318	S	235559	                  Arsenophonus endosymbiont of Aleurodicus dispersus
+0.75	434	434	S	1231049	                  Arsenophonus endosymbiont of Aphis craccivora
+0.23	135	135	S	3041619	                  Arsenophonus sp. aPb
+5.70	3303	3303	S	634113	                Candidatus Arsenophonus lipoptenae
+2.78	1612	1612	S	638	                Arsenophonus nasoniae
+0.64	370	370	S	2879119	                Arsenophonus apicola
+2.86	1658	0	G	586	              Providencia
+0.54	314	314	S	1715285	                Candidatus Providencia siddallii
+0.60	346	346	S	333962	                Providencia heimbachae
+0.88	512	512	S	588	                Providencia stuartii
+0.26	152	152	S	126385	                Providencia alcalifaciens
+0.57	331	331	S	587	                Providencia rettgeri
+2.15	1245	0	G	583	              Proteus
+0.94	543	543	S	585	                Proteus vulgaris
+0.64	373	373	S	183417	                Proteus hauseri
+0.34	195	195	S	584	                Proteus mirabilis
+0.23	134	134	S	1574161	                Proteus terrae
+0.82	472	0	G	158848	              Moellerella
+0.82	472	472	S	158849	                Moellerella wisconsensis
+0.56	323	0	G	626	              Xenorhabdus
+0.56	323	323	S	290110	                Xenorhabdus budapestensis
+0.17	100	0	F	1903411	            Yersiniaceae
+0.17	100	0	G	629	              Yersinia
+0.17	100	100	S	631	                Yersinia intermedia
+0.56	324	0	O	135625	          Pasteurellales
+0.56	324	0	F	712	            Pasteurellaceae
+0.29	166	0	G	214906	              Histophilus
+0.29	166	166	S	731	                Histophilus somni
+0.15	86	0	G	745	              Pasteurella
+0.15	86	86	S	2827233	                Pasteurella atlantica
+0.12	71	0	G	1520333	              Vespertiliibacter
+0.12	71	71	S	1443036	                Vespertiliibacter pulmonis
+0.52	300	0	O	135623	          Vibrionales
+0.52	300	0	F	641	            Vibrionaceae
+0.28	160	0	G	662	              Vibrio
+0.28	160	160	S	1381081	                Vibrio panuliri
+0.24	140	0	G	657	              Photobacterium
+0.24	140	140	S	38293	                Photobacterium damselae
+0.45	262	0	O	135619	          Oceanospirillales
+0.45	262	0	F	28256	            Halomonadaceae
+0.45	262	0	G	204286	              Cobetia
+0.45	262	262	S	1055101	                Cobetia pacifica
+0.31	180	0	O	118969	          Legionellales
+0.16	93	0	F	118968	            Coxiellaceae
+0.16	93	0	F1	134284	              unclassified Coxiellaceae
+0.16	93	93	S	1592897	                Coxiella-like endosymbiont
+0.15	87	0	F	444	            Legionellaceae
+0.15	87	0	G	445	              Legionella
+0.15	87	87	S	28084	                Legionella cherrii
+0.25	142	0	O	1240482	          Orbales
+0.25	142	0	F	1240483	            Orbaceae
+0.25	142	0	G	1193503	              Gilliamella
+0.25	142	0	G1	2685620	                unclassified Gilliamella
+0.13	73	73	S	2704654	                  Gilliamella sp. ESL0441
+0.12	68	68	S	2817969	                  Gilliamella sp. B3022
+0.16	93	0	C1	118884	          Gammaproteobacteria incertae sedis
+0.16	93	0	G	198346	            Candidatus Palibaumannia
+0.16	93	93	S	186490	              Candidatus Palibaumannia cicadellinicola
+0.93	539	0	C	28211	        Alphaproteobacteria
+0.93	539	0	O	766	          Rickettsiales
+0.79	460	0	F	942	            Anaplasmataceae
+0.79	460	0	F1	952	              Wolbachieae
+0.79	460	0	G	953	                Wolbachia
+0.79	460	0	G1	2640676	                  unclassified Wolbachia
+0.48	276	276	S	3066146	                    Wolbachia endosymbiont (group A) of Lypha dubia
+0.32	183	183	S	246273	                    Wolbachia endosymbiont of Cimex lectularius
+0.14	79	0	F	775	            Rickettsiaceae
+0.14	79	0	G	1742636	              Candidatus Megaera
+0.14	79	79	S	988779	                Candidatus Megaera polyxenophila
+0.19	109	0	C	28216	        Betaproteobacteria
+0.19	109	0	O	80840	          Burkholderiales
+0.19	109	0	F	119060	            Burkholderiaceae
+0.19	109	0	G	106589	              Cupriavidus
+0.19	109	109	S	164546	                Cupriavidus taiwanensis
+2.84	1647	0	D1	1783272	      Terrabacteria group
+2.66	1541	0	P	1239	        Bacillota
+1.47	853	0	C	186801	          Clostridia
+1.47	853	0	O	186802	            Eubacteriales
+1.47	853	0	F	31979	              Clostridiaceae
+1.47	853	0	G	1485	                Clostridium
+0.33	190	190	S	1491	                  Clostridium botulinum
+0.95	552	552	S	1502	                  Clostridium perfringens
+0.19	110	110	S	238834	                  Clostridium estertheticum
+1.19	687	0	C	91061	          Bacilli
+0.67	390	0	O	1385	            Bacillales
+0.67	390	0	F	186817	              Bacillaceae
+0.67	390	0	G	1386	                Bacillus
+0.67	390	0	G1	86661	                  Bacillus cereus group
+0.67	390	390	S	1396	                    Bacillus cereus
+0.51	297	0	O	186826	            Lactobacillales
+0.51	297	0	F	81852	              Enterococcaceae
+0.51	297	0	G	2737	                Vagococcus
+0.51	297	297	S	81947	                  Vagococcus lutrae
+0.18	105	0	P	201174	        Actinomycetota
+0.18	105	0	C	1760	          Actinomycetes
+0.18	105	0	O	85011	            Kitasatosporales
+0.18	105	0	F	2062	              Streptomycetaceae
+0.18	105	0	G	1883	                Streptomyces
+0.18	105	0	G1	2593676	                  unclassified Streptomyces
+0.18	105	105	S	2903629	                    Streptomyces sp. NBC_00162
+1.05	611	0	D1	1783270	      FCB group
+1.05	611	0	D2	68336	        Bacteroidota/Chlorobiota group
+1.05	611	0	P	976	          Bacteroidota
+1.05	611	0	C	117743	            Flavobacteriia
+1.05	611	0	O	200644	              Flavobacteriales
+0.62	356	0	F	39782	                Blattabacteriaceae
+0.62	356	0	G	34098	                  Blattabacterium
+0.62	356	356	S	1653831	                    Blattabacterium cuenoti
+0.44	254	0	F	49546	                Flavobacteriaceae
+0.44	254	0	G	237	                  Flavobacterium
+0.44	254	254	S	459526	                    Flavobacterium anhuiense
+0.23	134	0	P	200783	      Aquificota
+0.23	134	0	C	187857	        Aquificia
+0.23	134	0	O	32069	          Aquificales
+0.23	134	0	F	224027	            Hydrogenothermaceae
+0.23	134	0	G	212790	              Sulfurihydrogenibium
+0.23	134	0	G1	2619248	                unclassified Sulfurihydrogenibium
+0.23	134	134	S	436114	                  Sulfurihydrogenibium sp. YO3AOP1
+0.16	93	0	P	32066	      Fusobacteriota
+0.16	93	0	C	203490	        Fusobacteriia
+0.16	93	0	O	203491	          Fusobacteriales
+0.16	93	0	F	1129771	            Leptotrichiaceae
+0.16	93	0	G	168808	              Sneathia
+0.16	93	93	S	187101	                Sneathia vaginalis

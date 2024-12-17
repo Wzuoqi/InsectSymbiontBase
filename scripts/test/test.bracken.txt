@@ -1,0 +1,83 @@
+name	taxonomy_id	taxonomy_lvl	kraken_assigned_reads	added_reads	new_est_reads	fraction_total_reads
+Buchnera aphidicola	9	S	17946	198	18144	0.31313
+Candidatus Erwinia haradaeae	1922217	S	1243	6	1249	0.02156
+Candidatus Pantoea carbekii	1235990	S	212	10	222	0.00383
+Pantoea dispersa	59814	S	84	51	135	0.00233
+Wigglesworthia glossinidia	51229	S	164	10	174	0.00300
+Arsenophonus symbiont of Ornithomya chloropus	634121	S	2951	11	2962	0.05112
+Arsenophonus endosymbiont of Aleurodicus dispersus	235559	S	317	1	318	0.00549
+Arsenophonus endosymbiont of Aphis craccivora	1231049	S	210	224	434	0.00749
+Arsenophonus sp. aPb	3041619	S	78	57	135	0.00233
+Candidatus Arsenophonus lipoptenae	634113	S	3293	10	3303	0.05700
+Arsenophonus nasoniae	638	S	1172	440	1612	0.02782
+Arsenophonus apicola	2879119	S	276	94	370	0.00639
+Candidatus Providencia siddallii	1715285	S	313	1	314	0.00542
+Providencia heimbachae	333962	S	293	53	346	0.00597
+Providencia stuartii	588	S	245	267	512	0.00884
+Providencia alcalifaciens	126385	S	144	8	152	0.00262
+Providencia rettgeri	587	S	132	199	331	0.00571
+Proteus vulgaris	585	S	394	149	543	0.00937
+Proteus hauseri	183417	S	360	13	373	0.00644
+Proteus mirabilis	584	S	172	23	195	0.00337
+Proteus terrae	1574161	S	97	37	134	0.00231
+Xenorhabdus budapestensis	290110	S	158	165	323	0.00557
+Moellerella wisconsensis	158849	S	344	128	472	0.00815
+Enterobacteriaceae endosymbiont of Plateumaris rustica	2675796	S	389	144	533	0.00920
+Enterobacteriaceae endosymbiont of Donacia bicoloricornis	2675772	S	262	124	386	0.00666
+Enterobacteriaceae endosymbiont of Donacia tomentosa	2675787	S	242	16	258	0.00445
+Enterobacteriaceae endosymbiont of Donacia vulgaris	2675789	S	240	153	393	0.00678
+Enterobacteriaceae endosymbiont of Donacia sparganii	2675785	S	212	87	299	0.00516
+Enterobacteriaceae endosymbiont of Macroplea mutica	2675791	S	210	42	252	0.00435
+Enterobacteriaceae endosymbiont of Plateumaris braccata	2675793	S	173	83	256	0.00442
+Enterobacteriaceae endosymbiont of Donacia thalassina	2675786	S	129	59	188	0.00324
+Enterobacteriaceae endosymbiont of Donacia simplex	2675784	S	116	101	217	0.00374
+Enterobacteriaceae endosymbiont of Donacia marginata	2675779	S	104	72	176	0.00304
+Enterobacteriaceae endosymbiont of Donacia fulgens	2675778	S	90	76	166	0.00286
+Enterobacteriaceae endosymbiont of Donacia proxima	2675782	S	75	50	125	0.00216
+Enterobacteriaceae endosymbiont of Neohaemonia nigricornis	2675792	S	67	3	70	0.00121
+Enterobacteriaceae endosymbiont of Macroplea appendiculata	2675790	S	65	13	78	0.00135
+Candidatus Blochmannia sp. SNP	3118169	S	359	99	458	0.00790
+Blochmannia endosymbiont of Colobopsis nipponica	2681987	S	313	4	317	0.00547
+Blochmannia endosymbiont of Camponotus modoc	2945587	S	221	468	689	0.01189
+Blochmannia endosymbiont of Camponotus (Colobopsis) obliquus	1505597	S	213	2	215	0.00371
+Blochmannia endosymbiont of Polyrhachis (Hedomyrma) turneri	1505596	S	118	0	118	0.00204
+Blochmannia endosymbiont of Camponotus nipponensis	2681986	S	88	3	91	0.00157
+Candidatus Blochmanniella vafra	251535	S	237	2	239	0.00412
+Candidatus Blochmannia ocreatus	251538	S	72	0	72	0.00124
+secondary endosymbiont of Heteropsylla cubana	134287	S	216	3	219	0.00378
+Candidatus Purcelliella pentastirinorum	472834	S	253	4	257	0.00444
+Candidatus Tachikawaea gelatinosa	1410383	S	190	12	202	0.00349
+Candidatus Annandia adelgestsuga	1302411	S	96	3	99	0.00171
+secondary endosymbiont of Trabutina mannipara	1835721	S	71	7	78	0.00135
+Escherichia coli	562	S	737	12329	13066	0.22549
+Candidatus Profftia lariciata	1987921	S	415	1	416	0.00718
+Candidatus Profftia tarda	1177216	S	73	0	73	0.00126
+Candidatus Schneideria nysicola	1081631	S	235	0	235	0.00406
+Klebsiella pneumoniae	573	S	80	178	258	0.00445
+Candidatus Ishikawella capsulata	168169	S	128	0	128	0.00221
+Yersinia intermedia	631	S	69	31	100	0.00173
+Vibrio panuliri	1381081	S	92	68	160	0.00276
+Photobacterium damselae	38293	S	124	16	140	0.00242
+Histophilus somni	731	S	140	26	166	0.00286
+Pasteurella atlantica	2827233	S	81	5	86	0.00148
+Vespertiliibacter pulmonis	1443036	S	67	4	71	0.00123
+Cobetia pacifica	1055101	S	251	11	262	0.00452
+Legionella cherrii	28084	S	67	20	87	0.00150
+Coxiella-like endosymbiont	1592897	S	88	5	93	0.00160
+Gilliamella sp. ESL0441	2704654	S	70	3	73	0.00126
+Gilliamella sp. B3022	2817969	S	64	4	68	0.00117
+Candidatus Palibaumannia cicadellinicola	186490	S	93	0	93	0.00160
+Wolbachia endosymbiont (group A) of Lypha dubia	3066146	S	259	17	276	0.00476
+Wolbachia endosymbiont of Cimex lectularius	246273	S	183	0	183	0.00316
+Candidatus Megaera polyxenophila	988779	S	79	0	79	0.00136
+Cupriavidus taiwanensis	164546	S	106	3	109	0.00188
+Bacillus cereus	1396	S	84	306	390	0.00673
+Vagococcus lutrae	81947	S	96	201	297	0.00513
+Clostridium botulinum	1491	S	135	55	190	0.00328
+Clostridium perfringens	1502	S	110	442	552	0.00953
+Clostridium estertheticum	238834	S	85	25	110	0.00190
+Streptomyces sp. NBC_00162	2903629	S	78	27	105	0.00181
+Flavobacterium anhuiense	459526	S	103	151	254	0.00438
+Blattabacterium cuenoti	1653831	S	256	100	356	0.00614
+Sneathia vaginalis	187101	S	90	3	93	0.00160
+Sulfurihydrogenibium sp. YO3AOP1	436114	S	134	0	134	0.00231
