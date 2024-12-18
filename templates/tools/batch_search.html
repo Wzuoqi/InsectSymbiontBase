@@ -1,0 +1,738 @@
+{% extends "base.html" %}
+
+{% block Part1 %}
+{% load static %}
+
+<!-- 添加表单标签包裹整个主要内容 -->
+<form id="batch-search-form" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- Main Container -->
+    <section class="container mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
+        <!-- Header Section -->
+        <div class="flex items-center gap-2 mb-6">
+            <h1 class="text-3xl font-semibold text-kabuli-900">Batch Symbiont Search</h1>
+            <div class="group relative">
+                <span
+                    class="icon-[heroicons--question-mark-circle] w-6 h-6 text-gray-400 hover:text-gray-600 cursor-help transition-colors duration-200"></span>
+                <div class="invisible group-hover:visible absolute left-0 top-full mt-2
+                           bg-gray-800 text-white text-sm px-4 py-3 rounded-lg
+                           shadow-lg w-[300px] z-20">
+                    <div class="space-y-2">
+                        <p class="font-medium">About Batch Search</p>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            This tool helps you identify potential symbionts from your taxonomic composition data. You can:
+                        </p>
+                        <ul class="text-gray-300 text-sm space-y-1 ml-4 list-disc">
+                            <li>Upload a taxonomic composition file</li>
+                            <li>Paste your data directly into the text area</li>
+                            <li>Get detailed symbiont comparison analysis with scoring</li>
+                        </ul>
+                        <p class="text-gray-300 text-sm mt-2">
+                            Supported formats: Kraken2 or MetaPhlAn output
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tool Introduction -->
+        <div class="mb-8 max-w-4xl">
+            <p class="text-gray-600 leading-relaxed">
+                This batch search tool allows you to efficiently analyze multiple taxonomic records simultaneously. Simply upload your taxonomic composition data or paste it directly, and our system will identify potential symbiotic relationships by comparing your data against our comprehensive database of known insect-microbe associations. Perfect for processing high-throughput sequencing results or analyzing multiple samples at once.
+            </p>
+        </div>
+
+        <!-- Input Methods Tabs -->
+        <div class="mb-6">
+            <div class="border-b border-gray-200">
+                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                    <button
+                        class="tab-btn active border-kabuli-500 text-kabuli-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
+                        data-target="file-upload">
+                        File Upload
+                    </button>
+                    <button
+                        class="tab-btn border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
+                        data-target="text-input">
+                        Text Input
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- File Upload Section -->
+        <div id="file-upload" class="tab-content">
+            <div class="max-w-xl mx-auto">
+                <div class="flex items-center justify-center w-full">
+                    <label class="flex flex-col w-full h-32 border-4 border-dashed border-kabuli-200 hover:border-kabuli-300 rounded-lg group transition-all">
+                        <div class="flex flex-col items-center justify-center pt-7">
+                            <svg class="w-10 h-10 text-kabuli-400 group-hover:text-kabuli-600" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                </path>
+                            </svg>
+                            <p id="file-upload-text" class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
+                                Drag and drop your file or click to select
+                            </p>
+                        </div>
+                        <input type="file" id="file-input" class="hidden" accept=".txt,.tsv,.csv" />
+                    </label>
+                </div>
+                <!-- 改进文件状态显示区域 -->
+                <div id="file-status" class="mt-4 hidden">
+                    <div class="flex items-center justify-between p-4 bg-kabuli-50 rounded-lg border border-kabuli-200 transition-all duration-300">
+                        <div class="flex items-center space-x-3">
+                            <span class="icon-[heroicons--document-text] w-6 h-6 text-kabuli-600"></span>
+                            <div class="flex flex-col">
+                                <span id="file-name" class="text-base font-medium text-kabuli-700"></span>
+                                <span id="file-size" class="text-sm text-kabuli-500"></span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-sm text-kabuli-600 bg-kabuli-100 px-3 py-1 rounded-full">Ready</span>
+                            <button id="remove-file" class="text-red-500 hover:text-red-700 p-1 hover:bg-red-50 rounded-full transition-colors">
+                                <span class="icon-[heroicons--x-mark] w-5 h-5"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Text Input Section -->
+        <div id="text-input" class="tab-content hidden">
+            <div class="max-w-xl mx-auto">
+                <textarea
+                    id="sequence-input"
+                    name="sequence-input"
+                    rows="10"
+                    class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-kabuli-500 focus:border-transparent"
+                    placeholder="Enter your sequence data here..."
+                ></textarea>
+            </div>
+        </div>
+
+        <!-- Host Information Section -->
+        <div class="mt-8 mb-6 max-w-xl mx-auto">
+            <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center gap-2">
+                <span class="icon-[material-symbols--pest-control-rounded] w-6 h-6 text-kabuli-600"></span>
+                Host Information
+            </h3>
+
+            <div class="space-y-4">
+                <!-- Host Name Input -->
+                <div>
+                    <label for="host_name" class="block text-sm font-medium text-gray-700 mb-1">Host Name</label>
+                    <div class="relative">
+                        <input
+                            type="text"
+                            id="host_name"
+                            name="host_name"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-kabuli-500 focus:border-transparent"
+                            placeholder="Enter insect host name (e.g., Apis mellifera)"
+                        />
+                        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                            <span class="icon-[heroicons--magnifying-glass] w-5 h-5"></span>
+                        </span>
+                    </div>
+                    <p class="mt-1 text-sm text-gray-500">Scientific name preferred, common name accepted</p>
+                </div>
+
+                <!-- Host Order Selection -->
+                <div>
+                    <label for="host_order" class="block text-sm font-medium text-gray-700 mb-1">Host Order</label>
+                    <div class="relative">
+                        <select
+                            id="host_order"
+                            name="host_order"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg appearance-none focus:ring-2 focus:ring-kabuli-500 focus:border-transparent bg-white"
+                        >
+                            <option value="">Select insect order</option>
+                            <option value="hymenoptera">Hymenoptera (Bees, Ants, Wasps)</option>
+                            <option value="coleoptera">Coleoptera (Beetles)</option>
+                            <option value="lepidoptera">Lepidoptera (Butterflies, Moths)</option>
+                            <option value="diptera">Diptera (Flies)</option>
+                            <option value="hemiptera">Hemiptera (True Bugs)</option>
+                            <option value="orthoptera">Orthoptera (Grasshoppers, Crickets)</option>
+                            <option value="blattodea">Blattodea (Cockroaches, Termites)</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <span class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                            <span class="icon-[heroicons--chevron-down] w-5 h-5"></span>
+                        </span>
+                    </div>
+                    <p class="mt-1 text-sm text-gray-500">Select the taxonomic order of your host insect</p>
+                </div>
+
+                <!-- Other Order Input (conditionally shown) -->
+                <div id="other-order-input" class="hidden">
+                    <label for="other-order" class="block text-sm font-medium text-gray-700 mb-1">Specify Other Order</label>
+                    <input
+                        type="text"
+                        id="other-order"
+                        name="other-order"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-kabuli-500 focus:border-transparent"
+                        placeholder="Enter insect order"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex justify-center mt-6">
+            <button type="submit"
+                class="bg-kabuli-600 text-white px-6 py-2 rounded-full hover:bg-kabuli-700 transition duration-300 flex items-center gap-2">
+                <span class="icon-[heroicons--magnifying-glass] w-5 h-5"></span>
+                Search Symbionts
+            </button>
+        </div>
+
+        <!-- Format Guide -->
+        <div class="mt-8 max-w-xl mx-auto bg-gray-50 p-4 rounded-lg">
+            <h3 class="text-lg font-medium text-gray-900 mb-2">Input Format Guide</h3>
+            <div class="space-y-2 text-sm text-gray-600">
+                <p>Supported formats:</p>
+                <ul class="list-disc ml-5 space-y-1">
+                    <li>Kraken2 report format (taxonomy ID, count, percentage)</li>
+                    <li>MetaPhlAn output (species name, relative abundance)</li>
+                </ul>
+                <p class="text-xs text-gray-500 mt-2">
+                    Need help? Check out our <a href="#" class="text-kabuli-600 hover:underline">documentation</a> for
+                    detailed format specifications.
+                </p>
+            </div>
+        </div>
+    </section>
+</form>
+
+<!-- Results Section -->
+<section id="results" class="container mx-auto my-8 p-6 bg-white shadow-lg rounded-lg hidden">
+    <!-- Loading Spinner -->
+    <div id="loading" class="text-center py-8">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-kabuli-600 mx-auto"></div>
+        <p class="mt-4 text-gray-600">Processing your data...</p>
+    </div>
+
+    <!-- Error Message -->
+    <div id="error-message" class="hidden text-red-600 text-center py-4"></div>
+
+    <!-- Results Content -->
+    <div id="results-content" class="hidden">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-semibold text-gray-700">Search Results</h2>
+            <button id="download-results"
+               class="text-kabuli-600 hover:text-kabuli-700 flex items-center gap-1">
+                <span class="icon-[heroicons--arrow-down-tray] w-5 h-5"></span>
+                Download Full Results
+            </button>
+        </div>
+
+        <!-- 搜索框 -->
+        <div class="mb-4">
+            <input type="text" id="symbiontSearch" placeholder="Search results..."
+                   class="p-2 border rounded-lg w-full">
+        </div>
+
+        <!-- 结果表格 -->
+        <div class="overflow-y-auto max-h-[600px]">
+            <table class="w-full bg-white border border-gray-200">
+                <thead class="sticky top-0 bg-gray-50 z-10">
+                    <tr>
+                        <th class="py-2 px-4 text-left w-[20%]">Symbiont Name</th>
+                        <th class="py-2 px-4 text-left w-[8%]">Record</th>
+                        <th class="py-2 px-4 text-left w-[15%]">Host Species</th>
+                        <th class="py-2 px-4 text-left w-[44%]">Function</th>
+                        <th class="py-2 px-4 text-left w-[8%]">Abundance</th>
+                        <th class="py-2 px-4 text-left w-[5%]">Score</th>
+                    </tr>
+                </thead>
+                <tbody id="results-table-body">
+                    <!-- 结果将通过 JavaScript 动态插入 -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM Content Loaded');
+
+    // 1. 获取所有需要的 DOM 元素
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const form = document.getElementById('batch-search-form');
+    const fileInput = document.getElementById('file-input');
+    const fileUploadText = document.getElementById('file-upload-text');
+    const fileStatus = document.getElementById('file-status');
+    const fileName = document.getElementById('file-name');
+    const removeFile = document.getElementById('remove-file');
+
+    // 获取结果相关的 DOM 元素
+    const resultsSection = document.getElementById('results');
+    const loadingSpinner = document.getElementById('loading');
+    const resultsContent = document.getElementById('results-content');
+    const errorMessage = document.getElementById('error-message');
+
+    // 打印 DOM 元素状态用于调试
+    console.log('UI Elements found:', {
+        form: !!form,
+        fileInput: !!fileInput,
+        resultsSection: !!resultsSection,
+        loadingSpinner: !!loadingSpinner,
+        resultsContent: !!resultsContent,
+        errorMessage: !!errorMessage
+    });
+
+    // 2. Tab 切换功能
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            console.log('Tab clicked:', this.getAttribute('data-target'));
+            tabButtons.forEach(btn => {
+                btn.classList.remove('active', 'border-kabuli-500', 'text-kabuli-600');
+                btn.classList.add('border-transparent', 'text-gray-500');
+            });
+
+            this.classList.add('active', 'border-kabuli-500', 'text-kabuli-600');
+            this.classList.remove('border-transparent', 'text-gray-500');
+
+            const targetId = this.getAttribute('data-target');
+            tabContents.forEach(content => {
+                if (content.id === targetId) {
+                    content.classList.remove('hidden');
+                } else {
+                    content.classList.add('hidden');
+                }
+            });
+        });
+    });
+
+    // 3. 文件上传处理
+    if (fileInput) {
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                console.log('File selected:', file.name);
+                console.log('File size:', (file.size / 1024).toFixed(2), 'KB');
+                console.log('File type:', file.type);
+
+                // 更新文件状态显示
+                fileName.textContent = file.name;
+                // 添加文件大小显示
+                const fileSize = document.getElementById('file-size');
+                if (fileSize) {
+                    const size = (file.size / 1024).toFixed(2);
+                    fileSize.textContent = `${size} KB`;
+                }
+
+                // 显示文件状态区域并添加动画效果
+                fileStatus.classList.remove('hidden');
+                fileStatus.classList.add('animate-fade-in');
+
+                // 更新上传区域文本和样式
+                fileUploadText.textContent = 'File selected';
+                fileUploadText.classList.remove('text-gray-400');
+                fileUploadText.classList.add('text-kabuli-600', 'font-medium');
+
+                // 验证文件类型
+                const validTypes = ['.txt', '.tsv', '.csv'];
+                const fileExtension = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
+
+                if (!validTypes.includes(fileExtension)) {
+                    console.error('Invalid file type:', fileExtension);
+                    alert('Please select a valid file type (.txt, .tsv, .csv)');
+                    resetFileInput();
+                    return;
+                }
+
+                // 验证文件大小 (例如限制为 10MB)
+                const maxSize = 10 * 1024 * 1024; // 10MB in bytes
+                if (file.size > maxSize) {
+                    console.error('File too large:', (file.size / 1024 / 1024).toFixed(2), 'MB');
+                    alert('File size should be less than 10MB');
+                    resetFileInput();
+                    return;
+                }
+
+                console.log('File validation passed');
+            }
+        });
+
+        // 移除文件按钮
+        if (removeFile) {
+            removeFile.addEventListener('click', function() {
+                console.log('Removing file');
+                resetFileInput();
+            });
+        }
+    }
+
+    // 保存最后一次搜索结果的文件路径
+    let lastSearchResults = null;
+
+    // 修改表单提交处理
+    if (form) {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            console.log('Form submitted');
+
+            try {
+                // 创建新的 FormData 对象
+                const formData = new FormData();
+
+                // 获取并添加 CSRF token
+                const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                formData.append('csrfmiddlewaretoken', csrftoken);
+
+                // 获取当前激活的 tab
+                const activeTab = document.querySelector('.tab-btn.active');
+                const isTextInput = activeTab && activeTab.getAttribute('data-target') === 'text-input';
+
+                console.log('Current tab:', activeTab?.getAttribute('data-target'));
+                console.log('Is text input mode:', isTextInput);
+
+                // 获取并添加主机信息
+                const hostOrder = document.getElementById('host_order')?.value || '';
+                const hostName = document.getElementById('host_name')?.value || '';
+
+                console.log('Host order:', hostOrder);
+                console.log('Host name:', hostName);
+
+                // 检查必要数据
+                if (!hostOrder || !hostName) {
+                    throw new Error('Host order and name are required');
+                }
+
+                formData.append('host_order', hostOrder);
+                formData.append('host_name', hostName);
+
+                // 根据不同的输入模式处理数据
+                if (isTextInput) {
+                    // 处理文本输入
+                    console.log('Processing text input mode');
+                    const sequenceInput = document.querySelector('#sequence-input');
+                    console.log('Sequence input element:', sequenceInput);
+
+                    if (!sequenceInput) {
+                        throw new Error('Text input field not found. Please check the textarea ID.');
+                    }
+
+                    const textInput = sequenceInput.value.trim();
+                    console.log('Text input content length:', textInput.length);
+
+                    if (!textInput) {
+                        throw new Error('Please enter sequence data');
+                    }
+
+                    console.log('Text input preview:', textInput.substring(0, 100) + '...');
+
+                    // 创建文本文件
+                    const blob = new Blob([textInput], { type: 'text/plain' });
+                    const textFile = new File([blob], 'input.txt', { type: 'text/plain' });
+                    formData.append('file', textFile);
+
+                    console.log('Text file created:', textFile.name, textFile.size, 'bytes');
+                } else {
+                    // 处理文件上传
+                    const fileInput = document.getElementById('file-input');
+                    if (!fileInput) {
+                        throw new Error('File input field not found');
+                    }
+
+                    const file = fileInput.files[0];
+                    if (!file) {
+                        throw new Error('Please select a file');
+                    }
+                    formData.append('file', file);
+                }
+
+                // 详细的请求数据日志
+                console.log('Request details:', {
+                    hostOrder,
+                    hostName,
+                    isTextInput,
+                    textContent: isTextInput ? 'Text input provided' : null,
+                    file: !isTextInput && fileInput?.files[0] ? {
+                        name: fileInput.files[0].name,
+                        size: fileInput.files[0].size,
+                        type: fileInput.files[0].type
+                    } : null
+                });
+
+                // 记录 FormData 内容
+                console.log('FormData contents:');
+                for (let pair of formData.entries()) {
+                    console.log(`${pair[0]}: ${pair[1] instanceof File ?
+                        `File(${pair[1].name}, ${pair[1].size} bytes)` :
+                        pair[1]}`);
+                }
+
+                // 显示加载状态
+                if (resultsSection) resultsSection.classList.remove('hidden');
+                if (loadingSpinner) loadingSpinner.classList.remove('hidden');
+                if (resultsContent) resultsContent.classList.add('hidden');
+                if (errorMessage) errorMessage.classList.add('hidden');
+
+                console.log('Sending request...');
+
+                // 发送请求
+                const response = await fetch(form.action || window.location.pathname, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': csrftoken
+                    },
+                    credentials: 'same-origin'
+                });
+
+                console.log('Response status:', response.status);
+
+                // 尝试获取响应内容
+                let responseText;
+                try {
+                    responseText = await response.text();
+                    console.log('Raw response:', responseText);
+                    const data = JSON.parse(responseText);
+                    console.log('Parsed response data:', data);
+
+                    if (data.status === 'success') {
+                        // 保存文件路径
+                        lastSearchResults = data.data;
+                        console.log('Rendering all results:', data.data.filtered_results.length, 'items');
+
+                        // 渲染结果表格
+                        const tableBody = document.getElementById('results-table-body');
+                        if (tableBody && data.data.filtered_results) {
+                            tableBody.innerHTML = ''; // 清空现有结果
+
+                            // 添加结果计数显示
+                            const resultCount = document.createElement('div');
+                            resultCount.className = 'text-sm text-gray-600 mb-2';
+                            tableBody.parentElement.parentElement.insertBefore(resultCount, tableBody.parentElement);
+
+                            // 渲染所有结果
+                            data.data.filtered_results.forEach((result, index) => {
+                                const row = document.createElement('tr');
+                                row.className = 'hover:bg-gray-50';
+
+                                // 解构 db_record
+                                const [recordId, order, insectSpecies, genus, species, function_desc] = result.db_record;
+
+                                row.innerHTML = `
+                                    <td class="py-2 px-4">
+                                        <div class="flex items-center gap-2">
+                                            <div class="font-medium text-gray-900 truncate" title="${result.kraken_name}">
+                                                ${result.kraken_name}
+                                            </div>
+                                            <div class="flex gap-1 shrink-0">
+                                                ${result.species_match ? `
+                                                    <div class="group relative">
+                                                        <span class="icon-[fa6-solid--bacterium] w-4 h-4 text-green-600 cursor-help"></span>
+                                                        <div class="invisible group-hover:visible absolute left-5 top-0
+                                                               bg-gray-800 text-white font-medium text-sm px-3 py-2 rounded-lg
+                                                               shadow-lg min-w-[200px] z-20
+                                                               transition-all duration-200 transform">
+                                                            <div class="flex items-center gap-2">
+                                                                <span class="icon-[fa6-solid--bacterium] w-4 h-4 text-green-400"></span>
+                                                                <span>Species-level Match</span>
+                                                            </div>
+                                                            <div class="text-xs text-gray-300 mt-1">
+                                                                Symbiont found in database at species level
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ` : ''}
+                                                ${result.order_match ? `
+                                                    <div class="group relative">
+                                                        <span class="icon-[material-symbols--pest-control-rounded] w-5 h-5 text-blue-600 cursor-help"></span>
+                                                        <div class="invisible group-hover:visible absolute left-5 top-0
+                                                               bg-gray-800 text-white font-medium text-sm px-3 py-2 rounded-lg
+                                                               shadow-lg min-w-[200px] z-20
+                                                               transition-all duration-200 transform">
+                                                            <div class="flex items-center gap-2">
+                                                                <span class="icon-[material-symbols--pest-control-rounded] w-5 h-5 text-blue-400"></span>
+                                                                <span>Host Order Match</span>
+                                                            </div>
+                                                            <div class="text-xs text-gray-300 mt-1">
+                                                                Host insect belongs to the same order
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ` : ''}
+                                                ${result.insect_match ? `
+                                                    <div class="group relative">
+                                                        <span class="icon-[material-symbols--bug-report] w-5 h-5 text-purple-600 cursor-help"></span>
+                                                        <div class="invisible group-hover:visible absolute left-5 top-0
+                                                               bg-gray-800 text-white font-medium text-sm px-3 py-2 rounded-lg
+                                                               shadow-lg min-w-[200px] z-20
+                                                               transition-all duration-200 transform">
+                                                            <div class="flex items-center gap-2">
+                                                                <span class="icon-[material-symbols--bug-report] w-5 h-5 text-purple-400"></span>
+                                                                <span>Host Species Match</span>
+                                                            </div>
+                                                            <div class="text-xs text-gray-300 mt-1">
+                                                                Found in the same host species
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ` : ''}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-2 px-4">
+                                        <a href="/symbionts/symbiont/${recordId}/"
+                                           class="font-medium text-sm text-cyan-600 hover:text-cyan-800 hover:underline transition-colors duration-200">
+                                            ${recordId}
+                                        </a>
+                                    </td>
+                                    <td class="py-2 px-4">
+                                        <div class="font-medium truncate" title="${insectSpecies}">
+                                            ${insectSpecies}
+                                        </div>
+                                        <div class="text-sm text-gray-500 truncate">Order: ${order}</div>
+                                    </td>
+                                    <td class="py-2 px-4">
+                                        <div class="line-clamp-2 hover:line-clamp-none hover:text-cyan-600 transition-colors duration-200">
+                                            ${function_desc}
+                                        </div>
+                                    </td>
+                                    <td class="py-2 px-4">
+                                        ${result.percentage.toFixed(2)}%
+                                    </td>
+                                    <td class="py-2 px-4">
+                                        <div class="font-medium text-gray-900">
+                                            ${result.total_score.toFixed(1)}
+                                        </div>
+                                    </td>
+                                `;
+
+                                tableBody.appendChild(row);
+                            });
+
+                            // 添加结果统计
+                            console.log(`Rendered ${data.data.filtered_results.length} results`);
+                        }
+
+                        if (loadingSpinner) loadingSpinner.classList.add('hidden');
+                        if (resultsContent) resultsContent.classList.remove('hidden');
+                    } else {
+                        throw new Error(data.message || 'An error occurred');
+                    }
+                } catch (parseError) {
+                    console.error('Response parsing error:', parseError);
+                    console.log('Raw response content:', responseText);
+                    throw new Error('Failed to parse server response');
+                }
+            } catch (error) {
+                console.error('Detailed error:', {
+                    message: error.message,
+                    stack: error.stack
+                });
+                if (loadingSpinner) loadingSpinner.classList.add('hidden');
+                if (errorMessage) {
+                    errorMessage.textContent = error.message;
+                    errorMessage.classList.remove('hidden');
+                }
+            }
+        });
+    }
+
+    // 重置文件输入
+    function resetFileInput() {
+        fileInput.value = '';
+        fileStatus.classList.add('hidden');
+        fileStatus.classList.remove('animate-fade-in');
+        fileUploadText.textContent = 'Drag and drop your file or click to select';
+        fileUploadText.classList.remove('text-kabuli-600', 'font-medium');
+        fileUploadText.classList.add('text-gray-400');
+    }
+
+    // 修改下载按钮处理
+    const downloadButton = document.getElementById('download-results');
+    if (downloadButton) {
+        downloadButton.addEventListener('click', async function(e) {
+            e.preventDefault();
+            console.log('Download button clicked');
+
+            try {
+                if (!lastSearchResults) {
+                    throw new Error('No search results available');
+                }
+
+                console.log('Downloading file:', lastSearchResults.all_results_file);
+
+                const response = await fetch(lastSearchResults.all_results_file);
+
+                if (!response.ok) {
+                    throw new Error('Failed to download results file');
+                }
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'all_matches.txt';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+
+                console.log('Download completed');
+            } catch (error) {
+                console.error('Download error:', error);
+                if (errorMessage) {
+                    errorMessage.textContent = `Download failed: ${error.message}`;
+                    errorMessage.classList.remove('hidden');
+                }
+            }
+        });
+    }
+
+    // 添加搜索功能
+    document.getElementById('symbiontSearch').addEventListener('input', function(e) {
+        const searchText = e.target.value.toLowerCase();
+        const rows = document.querySelectorAll('#results-table-body tr');
+
+        rows.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            row.style.display = text.includes(searchText) ? '' : 'none';
+        });
+    });
+});
+</script>
+
+<style>
+    .tab-btn.active {
+        border-bottom-width: 2px;
+        border-color: rgb(6 182 212);
+        color: rgb(8 145 178);
+    }
+
+    .animate-fade-in {
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    #file-status {
+        transition: all 0.3s ease-in-out;
+    }
+
+    #file-status:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+</style>
+
+{% endblock %}

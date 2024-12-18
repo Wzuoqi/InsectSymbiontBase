@@ -181,3 +181,12 @@ DOCUMENTS_ROOT = os.path.join(DOWNLOADS_ROOT, 'documents')
 os.makedirs(GENOMES_ROOT, exist_ok=True)
 os.makedirs(DATASETS_ROOT, exist_ok=True)
 os.makedirs(DOCUMENTS_ROOT, exist_ok=True)
+
+# 在现有的 MEDIA_ROOT 配置下添加
+BATCH_SEARCH_ROOT = os.path.join(MEDIA_ROOT, 'batch_search')
+BATCH_SEARCH_TEMP = os.path.join(BATCH_SEARCH_ROOT, 'temp')
+BATCH_SEARCH_RESULTS = os.path.join(BATCH_SEARCH_ROOT, 'results')
+
+# 创建必要的目录
+os.makedirs(BATCH_SEARCH_TEMP, exist_ok=True)
+os.makedirs(BATCH_SEARCH_RESULTS, exist_ok=True)

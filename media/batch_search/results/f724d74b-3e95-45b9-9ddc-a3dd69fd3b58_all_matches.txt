@@ -1,0 +1,78 @@
+Percentage	Kraken_Name	DB_ID	Order	Insect_Species	Symbiont_Genus	Symbiont_Species	Function	Species_Match	Order_Match	Insect_Match	Total_Score
+31.31	Buchnera aphidicola	RISB0236	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	Buchnera the nutritional endosymbiont of A. pisum is located inside of bacteriocytes and requires aspartate from the aphid host, because it cannot make it de novo. Further Buchnera needs aspartate for the biosynthesis of the essential amino acids lysine and threonine, which the aphid and Buchnera require for survival	True	False	False	41.31
+31.31	Buchnera aphidicola	RISB2485	Hemiptera	Macrosiphum euphorbiae	Buchnera	Buchnera aphidicola	symbiont expression patterns differ between aphid clones with differing levels of virulence, and are influenced by the aphids' host plant. Potentially, symbionts may contribute to differential adaptation of aphids to host plant resistance	True	False	False	41.07
+31.31	Buchnera aphidicola	RISB0685	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	It supplies the host with vitamins and essential amino acids, such as arginine and methionine that aphids cannot synthesize or derive insufficiently from their diet, the phloem sap of plants	True	False	False	40.11
+31.31	Buchnera aphidicola	RISB0462	Hemiptera	Sitobion miscanthi	Buchnera	Buchnera aphidicola	B. aphidicola derive a proteins GroES induced hydrogen peroxide accumulation and callose deposition in wheat and further activated the plant salic acid and jasmonic acid defense pathways	True	False	False	40.03
+31.31	Buchnera aphidicola	RISB1301	Hemiptera	Aphis gossypii	Buchnera	Buchnera aphidicola	aphids are dependent on this microorganism for the production of the essential amino acids, vitamins and sterols that are necessary for their normal development and reproduction	True	False	False	39.85
+31.31	Buchnera aphidicola	RISB1302	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola	aphids are dependent on this microorganism for the production of the essential amino acids, vitamins and sterols that are necessary for their normal development and reproduction	True	False	False	39.85
+31.31	Buchnera aphidicola	RISB1039	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	metabolic constraints or antisense transcripts may reduce Buchnera-mediated production of pantothenate, resulting in poor aphid performance on pantothenate-free diets	True	False	False	39.63
+31.31	Buchnera aphidicola	RISB2453	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	Purine metabolism genes in the symbiotic bacterium Buchnera complement aphid genes, and Buchnera can meet its nucleotide requirement from aphid-derived guanosine	True	False	False	39.53
+31.31	Buchnera aphidicola	RISB2569	Hemiptera	Baizongia pistaciae	Buchnera	Buchnera aphidicola	support the exploitation of the poor diet of plant-phloem sap by aphids through supplementation of deficient nutrients, primarily essential amino acids	True	False	False	39.33
+31.31	Buchnera aphidicola	RISB0778	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola	aphid endosymbiont Buchnera aphidicola can facilitate cucumber mosaic virus (CMV) transmission by modulating plant volatile profiles	True	False	False	38.95
+31.31	Buchnera aphidicola	RISB1686	Hemiptera	Lachninae	Buchnera	Buchnera aphidicola	Buchnera supplies essential nutrients to its hosts for normal development and is the obligate symbiont in nearly all aphid species	True	False	False	38.91
+31.31	Buchnera aphidicola	RISB1650	Hemiptera	Cinara cedri	Buchnera	Buchnera aphidicola BCc	provides essential amino acids, coenzymes, and vitamins to enable it to adapt to a plant-based juice-based lifestyle	True	False	False	38.63
+31.31	Buchnera aphidicola	RISB2365	Hemiptera	Cinara tujafilina	Buchnera	Buchnera aphidicola	the subfamily Lachninae harbors two coprimary bacteria that fulfill the metabolic needs of the whole consortium	True	False	False	38.53
+31.31	Buchnera aphidicola	RISB1159	Hemiptera	Aphis gossypii	Buchnera	Buchnera aphidicola	increased density of endosymbiotic Buchnera related to pesticide resistance in yellow morph of melon aphid	True	False	False	38.43
+31.31	Buchnera aphidicola	RISB0719	Hemiptera	Sipha maydis	Buchnera	Buchnera aphidicola	producing of certain B vitamins (in particular biotin/B7 and riboflavin/B2) and essential amino acids	True	False	False	38.33
+31.31	Buchnera aphidicola	RISB0721	Hemiptera	Periphyllus lyropictus	Buchnera	Buchnera aphidicola	producing of certain B vitamins (in particular biotin/B7 and riboflavin/B4) and essential amino acids	True	False	False	38.33
+31.31	Buchnera aphidicola	RISB1486	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	in senescent bacteriocytes, the endosymbionts are degraded through a lysosomal-dependent mechanism	True	False	False	38.27
+31.31	Buchnera aphidicola	RISB2454	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	the pea aphid lacks the capacity to synthesize arginine, which is produced by Buchnera APS	True	False	False	38.11
+31.31	Buchnera aphidicola	RISB1951	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola	B. aphidicola disruption down-regulated the expression of the Mp63 salivary protein gene	True	False	False	38.07
+31.31	Buchnera aphidicola	RISB1519	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	involved in the biosynthesis of more than 10 essential amino acids	True	False	False	37.63
+31.31	Buchnera aphidicola	RISB0335	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	can synthesize and provide some essential nutrients for its host	True	False	False	37.59
+31.31	Buchnera aphidicola	RISB1448	Hemiptera	Cinara strobi	Buchnera	Buchnera aphidicola	contribute to the hosts’ supply of essential nutrients	True	False	False	37.39
+31.31	Buchnera aphidicola	RISB2615	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	Synthetic Essential amino acid tryptophan	True	False	False	37.13
+31.31	Buchnera aphidicola	RISB2081	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	producing essential amino acids (EAAs)	True	False	False	37.07
+31.31	Buchnera aphidicola	RISB0702	Hemiptera	Aphis craccivora	Buchnera	Buchnera aphidicola	obligatory nutritional symbiont	True	False	False	36.93
+31.31	Buchnera aphidicola	RISB1389	Hemiptera	Aphis gossypii	Buchnera	Buchnera aphidicola	nutrient-provisioning	True	False	False	36.73
+31.31	Buchnera aphidicola	RISB1390	Hemiptera	Aphis fabae	Buchnera	Buchnera aphidicola	nutrient-provisioning	True	False	False	36.73
+31.31	Buchnera aphidicola	RISB2064	Hemiptera	Sitobion miscanthi	Buchnera	Buchnera aphidicola	obligate symbiont	True	False	False	36.65
+31.31	Buchnera aphidicola	RISB2519	Hemiptera	Aphis glycines	Buchnera	Buchnera aphidicola	obligate symbiont	True	False	False	36.65
+31.31	Buchnera aphidicola	RISB0051	Diptera	Episyrphus balteatus	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB0105	Hemiptera	Diuraphis noxia	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB0235	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB0290	Lepidoptera	Helicoverpa armigera	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB0411	Hemiptera	Melanaphis sacchari	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB0651	Hemiptera	Melanaphis bambusae	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB1114	Hemiptera	Pentalonia nigronervosa	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB1212	Hemiptera	Cinara cuneomaculata	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB1626	Hemiptera	Lachninae	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB1627	Hemiptera	Lachninae	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB1628	Hemiptera	Lachninae	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB1629	Hemiptera	Lachninae	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB1859	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2128	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. USDA	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2129	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. USDA pLeu	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2130	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. USDA pTrp	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2131	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. USDA pTrp	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2132	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. W1None6	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2133	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. W1None6 pLeu	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2134	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. W1None6 pTrp	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2135	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. GNoneNone2	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2136	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. GNoneNone2 pLeu	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2137	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. GNoneNone2 pTrp	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2138	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. FNoneNone9	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2139	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. FNoneNone9 pLeu	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2140	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. FNoneNone9 pTrp	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2378	Hemiptera	Cinara cedri	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+0.45	Klebsiella pneumoniae	RISB2459	Lepidoptera	Bombyx mori	Klebsiella	Klebsiella pneumoniae	degradation of cellulose, xylan, pectin and starch	True	False	True	26.45
+0.45	Klebsiella pneumoniae	RISB1153	Coleoptera	Tenebrio molitor	Klebsiella	Klebsiella pneumoniae ZM1	degrading plastics	True	True	False	15.809999999999999
+0.45	Klebsiella pneumoniae	RISB1154	Coleoptera	Zophobas morio	Klebsiella	Klebsiella pneumoniae ZM1	degrading plastics	True	True	False	15.809999999999999
+0.45	Klebsiella pneumoniae	RISB2185	Lepidoptera	Scirpophaga incertulas	Klebsiella	Klebsiella pneumoniae L-13	The ability of these arthropods to feed on wood, foliage and detritus is likely to involve catalysis by different types of cellulases/hemicellulases that are secreted by gut microbiota to digest the structural and recalcitrant lignocellulosic residues in their foods.	True	False	False	10.45
+0.45	Klebsiella pneumoniae	RISB2186	Lepidoptera	Scirpophaga incertulas	Klebsiella	Klebsiella pneumoniae L-13	The ability of these arthropods to feed on wood, foliage and detritus is likely to involve catalysis by different types of cellulases/hemicellulases that are secreted by gut microbiota to digest the structural and recalcitrant lignocellulosic residues in their foods.	True	False	False	10.45
+0.38	Candidatus Pantoea carbekii	RISB1046	Hemiptera	Halyomorpha halys	Pantoea	Pantoea carbekii	provides its host with essential nutrients, vitamins, cofactors and protection of the most vulnerable stages of early development (1st nymphal stages). Pantoea carbekii is highly stress tolerant, especially once secreted to cover the eggs, by its unique biofilm-formation properties, securing host offspring survival	True	False	False	10.38
+0.41	Candidatus Schneideria nysicola	RISB0872	Hemiptera	Nysius sp.	Candidatus Schneideria	Candidatus Schneideria nysicola isolate NB	synthesize four B vitamins(Pan, pantothenate;Fol, folate; Rib, riboflavin; Pyr, pyridoxine) and five Essential Amino Acids(Ile, isoleucine; Val, valine; Lys, lysine; Thr, threonine; Phe, phenylalanine)	True	False	False	9.43
+0.41	Candidatus Schneideria nysicola	RISB0873	Hemiptera	Nysius sp.	Candidatus Schneideria	Candidatus Schneideria nysicola isolate NR	synthesize four B vitamins(Pan, pantothenate;Fol, folate; Rib, riboflavin; Pyr, pyridoxine) and five Essential Amino Acids(Ile, isoleucine; Val, valine; Lys, lysine; Thr, threonine; Phe, phenylalanine)	True	False	False	9.43
+0.41	Candidatus Schneideria nysicola	RISB0874	Hemiptera	Nysius sp.	Candidatus Schneideria	Candidatus Schneideria nysicola isolate NT	synthesize four B vitamins(Pan, pantothenate;Fol, folate; Rib, riboflavin; Pyr, pyridoxine) and five Essential Amino Acids(Ile, isoleucine; Val, valine; Lys, lysine; Thr, threonine; Phe, phenylalanine)	True	False	False	9.43
+0.35	Candidatus Tachikawaea gelatinosa	RISB2112	Hemiptera	Urostylis westwoodii	Candidatus Tachikawaea	Candidatus Tachikawaea gelatinosa	the symbiont localizes to a specialized midgut region and supplies essential amino acids deficient in the host's diet	True	False	False	7.69
+0.35	Candidatus Tachikawaea gelatinosa	RISB2113	Hemiptera	Urostylis annulicornis	Candidatus Tachikawaea	Candidatus Tachikawaea gelatinosa	the symbiont localizes to a specialized midgut region and supplies essential amino acids deficient in the host's diet	True	False	False	7.69
+2.16	Candidatus Erwinia haradaeae	RISB1632	Hemiptera	Lachninae	Erwinia	Candidatus Erwinia haradaeae	None	True	False	False	7.16
+0.22	Candidatus Ishikawella capsulata	RISB2368	Hemiptera	Megacopta punctatissima	Candidatus Ishikawella	Candidatus Ishikawella capsulata	Microbe compensates for nutritional deficiency of host diet by supplying essential amino acids	True	False	False	7.1
+0.38	Candidatus Pantoea carbekii	RISB2115	Hemiptera	Halyomorpha halys	Pantoea	Candidatus Pantoea carbekii	the primary bacterial symbiont of H. halys	True	False	False	6.22
+0.45	Klebsiella pneumoniae	RISB1994	Lepidoptera	Diatraea saccharalis	Klebsiella	Klebsiella pneumoniae	possess cellulose degrading activity	True	False	False	6.17
+0.45	Klebsiella pneumoniae	RISB2052	Orthoptera	Locusta migratoria	Klebsiella	Klebsiella pneumoniae	associated with cellulolytic enzymes	True	False	False	6.17
+0.22	Candidatus Ishikawella capsulata	RISB2543	Hemiptera	Megacopta punctatissima	Candidatus Ishikawella	Candidatus Ishikawella capsulata	Enhance pest status of the insect host	True	False	False	5.98
+0.45	Klebsiella pneumoniae	RISB0511	Lepidoptera	Plutella xylostella	Klebsiella	Klebsiella pneumoniae	None	True	False	False	5.45
+0.45	Klebsiella pneumoniae	RISB1771	Diptera	Muscidae	Klebsiella	Klebsiella pneumoniae	None	True	False	False	5.45
+0.17	Candidatus Annandia adelgestsuga	RISB2207	Hemiptera	Adelges tsugae	Candidatus Annandia	Candidatus Annandia adelgestsuga	None	True	False	False	5.17
+0.85	Candidatus Profftia	RISB1664	Hemiptera	Adelgidae	Candidatus Profftia	Candidatus Profftia spp.	None	False	False	False	0.85

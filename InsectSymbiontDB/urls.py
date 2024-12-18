@@ -51,6 +51,8 @@ urlpatterns = [
     path("blast/", views.blast, name="blast"),
     path("blast_search/", views.blast_search, name="blast_search"),
 
+    path("batch_search/", views.batch_search, name="batch_search"),
+
 
 
     path("map/", views.map, name="map"),
