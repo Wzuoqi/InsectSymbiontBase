@@ -92,16 +92,16 @@
                 View all
             </a>
 
-            <a href="?filter=single{% if query %}&q={{ query }}{% endif %}"
-               class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 {% if filter_type == 'single' %}bg-gray-100{% endif %} sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
-               data-tippy-content="Records containing a single symbiont species">
-                Single
+            <a href="?filter=bacteria{% if query %}&q={{ query }}{% endif %}"
+               class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 {% if filter_type == 'bacteria' %}bg-gray-100{% endif %} sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
+               data-tippy-content="Show only bacterial symbionts">
+                Bacteria
             </a>
 
-            <a href="?filter=multiple{% if query %}&q={{ query }}{% endif %}"
-               class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 {% if filter_type == 'multiple' %}bg-gray-100{% endif %} sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
-               data-tippy-content="Records containing multiple symbionts or microbial communities (e.g., gut bacteria)">
-                Multiple
+            <a href="?filter=fungi{% if query %}&q={{ query }}{% endif %}"
+               class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 {% if filter_type == 'fungi' %}bg-gray-100{% endif %} sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
+               data-tippy-content="Show only fungal symbionts">
+                Fungi
             </a>
         </div>
 
@@ -244,7 +244,7 @@
 
                                         <a href="{% url 'symbiont:symbiont_detail' symbiont.id %}"
                                            class="text-gray-500 transition-colors duration-200 hover:text-kabuli-600 dark:text-gray-300 dark:hover:text-kabuli-400"
-                                           title="查看详情">
+                                           title="show details">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
                                             </svg>
@@ -510,90 +510,315 @@
                     },
                     series: [{
                         type: 'sunburst',
+                        radius: ['15%', '95%'],
+                        emphasis: {
+                            focus: 'ancestor'
+                        },
                         data: [{
                             name: 'Nutrition',
                             value: 736,
                             itemStyle: { color: '#2dd4bf' },
+                            label: {
+                                show: false,
+                                fontSize: 12,
+                                rotate: 'tangential',
+                                align: 'center',
+                                distance: 5,
+                                padding: [3, 4, 3, 4]
+                            },
+                            emphasis: {
+                                label: {
+                                    show: true,
+                                    fontSize: 12,
+                                    rotate: 'tangential',
+                                    align: 'center',
+                                    distance: 5
+                                }
+                            },
                             children: [
-                                { name: 'N-fixation', value: 55, itemStyle: { color: '#14b8a6' } },
-                                { name: 'Feeding', value: 4, itemStyle: { color: '#0d9488' } },
-                                { name: 'Probiotic', value: 9, itemStyle: { color: '#0f766e' } },
-                                { name: 'Nutrients', value: 314, itemStyle: { color: '#115e59' } },
-                                { name: 'Digest', value: 287, itemStyle: { color: '#134e4a' } },
-                                { name: 'Plastic', value: 31, itemStyle: { color: '#042f2e' } },
-                                { name: 'Farming', value: 17, itemStyle: { color: '#2dd4bf' } },
-                                { name: 'Sugar', value: 19, itemStyle: { color: '#99f6e4' } }
+                                {
+                                    name: 'N-fixation',
+                                    value: 55,
+                                    itemStyle: { color: '#14b8a6' },
+                                    label: {
+                                        fontSize: 9,
+                                        rotate: 'radial',
+                                        align: 'right'
+                                    }
+                                },
+                                {
+                                    name: 'Feeding',
+                                    value: 4,
+                                    itemStyle: { color: '#0d9488' },
+                                    label: {
+                                        fontSize: 9,
+                                        rotate: 'radial',
+                                        align: 'right'
+                                    }
+                                },
+                                {
+                                    name: 'Probiotic',
+                                    value: 9,
+                                    itemStyle: { color: '#0f766e' },
+                                    label: {
+                                        show: false
+                                    }
+                                },
+                                {
+                                    name: 'Nutrients',
+                                    value: 314,
+                                    itemStyle: { color: '#115e59' },
+                                    label: {
+                                        fontSize: 9,
+                                        rotate: 'radial',
+                                        align: 'right'
+                                    }
+                                },
+                                {
+                                    name: 'Digest',
+                                    value: 287,
+                                    itemStyle: { color: '#134e4a' },
+                                    label: {
+                                        fontSize: 9,
+                                        rotate: 'radial',
+                                        align: 'right'
+                                    }
+                                },
+                                {
+                                    name: 'Plastic',
+                                    value: 31,
+                                    itemStyle: { color: '#042f2e' },
+                                    label: {
+                                        fontSize: 9,
+                                        rotate: 'radial',
+                                        align: 'right'
+                                    }
+                                },
+                                {
+                                    name: 'Farming',
+                                    value: 17,
+                                    itemStyle: { color: '#2dd4bf' },
+                                    label: {
+                                        show: false
+                                    }
+                                },
+                                {
+                                    name: 'Sugar',
+                                    value: 19,
+                                    itemStyle: { color: '#99f6e4' },
+                                    label: {
+                                        fontSize: 9,
+                                        rotate: 'radial',
+                                        align: 'right'
+                                    }
+                                }
                             ]
                         }, {
                             name: 'Defense',
                             value: 642,
                             itemStyle: { color: '#f59e0b' },
+                            label: {
+                                show: false,
+                                fontSize: 12,
+                                rotate: 'tangential',
+                                align: 'center',
+                                distance: 5,
+                                padding: [3, 4, 3, 4]
+                            },
+                            emphasis: {
+                                label: {
+                                    show: true,
+                                    fontSize: 12,
+                                    rotate: 'tangential',
+                                    align: 'center',
+                                    distance: 5
+                                }
+                            },
                             children: [
-                                { name: 'Plant def.', value: 62, itemStyle: { color: '#d97706' } },
-                                { name: 'Pesticide', value: 101, itemStyle: { color: '#b45309' } },
-                                { name: 'Immunity', value: 46, itemStyle: { color: '#92400e' } },
-                                { name: 'Antimicro.', value: 113, itemStyle: { color: '#78350f' } },
-                                { name: 'Plant sec.', value: 142, itemStyle: { color: '#fbbf24' } },
-                                { name: 'Resistance', value: 46, itemStyle: { color: '#f59e0b' } },
-                                { name: 'Pathogen', value: 70, itemStyle: { color: '#fcd34d' } },
-                                { name: 'Chemical', value: 62, itemStyle: { color: '#fde68a' } }
+                                {
+                                    name: 'Plant def.',
+                                    value: 62,
+                                    itemStyle: { color: '#d97706' },
+                                    label: {
+                                        fontSize: 9,
+                                        rotate: 'radial',
+                                        align: 'right'
+                                    }
+                                },
+                                {
+                                    name: 'Pesticide',
+                                    value: 101,
+                                    itemStyle: { color: '#b45309' },
+                                    label: {
+                                        fontSize: 9,
+                                        rotate: 'radial',
+                                        align: 'right'
+                                    }
+                                },
+                                {
+                                    name: 'Immunity',
+                                    value: 46,
+                                    itemStyle: { color: '#92400e' },
+                                    label: {
+                                        fontSize: 9,
+                                        rotate: 'radial',
+                                        align: 'right'
+                                    }
+                                },
+                                {
+                                    name: 'Antimicro.',
+                                    value: 113,
+                                    itemStyle: { color: '#78350f' },
+                                    label: {
+                                        fontSize: 9,
+                                        rotate: 'radial',
+                                        align: 'right'
+                                    }
+                                },
+                                {
+                                    name: 'Plant sec.',
+                                    value: 142,
+                                    itemStyle: { color: '#fbbf24' },
+                                    label: {
+                                        fontSize: 9,
+                                        rotate: 'radial',
+                                        align: 'right'
+                                    }
+                                },
+                                {
+                                    name: 'Resistance',
+                                    value: 46,
+                                    itemStyle: { color: '#f59e0b' },
+                                    label: {
+                                        fontSize: 9,
+                                        rotate: 'radial',
+                                        align: 'right'
+                                    }
+                                },
+                                {
+                                    name: 'Pathogen',
+                                    value: 70,
+                                    itemStyle: { color: '#fcd34d' },
+                                    label: {
+                                        fontSize: 9,
+                                        rotate: 'radial',
+                                        align: 'right'
+                                    }
+                                },
+                                {
+                                    name: 'Chemical',
+                                    value: 62,
+                                    itemStyle: { color: '#fde68a' },
+                                    label: {
+                                        fontSize: 9,
+                                        rotate: 'radial',
+                                        align: 'right'
+                                    }
+                                }
                             ]
                         }, {
                             name: 'Physiology',
                             value: 349,
                             itemStyle: { color: '#8b5cf6' },
+                            label: {
+                                show: false,
+                                fontSize: 12,
+                                rotate: 'tangential',
+                                align: 'center',
+                                distance: 5,
+                                padding: [3, 4, 3, 4]
+                            },
+                            emphasis: {
+                                label: {
+                                    show: true,
+                                    fontSize: 12,
+                                    rotate: 'tangential',
+                                    align: 'center',
+                                    distance: 5
+                                }
+                            },
                             children: [
-                                { name: 'Growth', value: 162, itemStyle: { color: '#7c3aed' } },
-                                { name: 'Fertility', value: 68, itemStyle: { color: '#6d28d9' } },
-                                { name: 'Pigment', value: 5, itemStyle: { color: '#5b21b6' } },
-                                { name: 'Reproduce', value: 114, itemStyle: { color: '#4c1d95' } }
+                                {
+                                    name: 'Growth',
+                                    value: 162,
+                                    itemStyle: { color: '#7c3aed' },
+                                    label: {
+                                        fontSize: 9,
+                                        rotate: 'radial',
+                                        align: 'right'
+                                    }
+                                },
+                                {
+                                    name: 'Fertility',
+                                    value: 68,
+                                    itemStyle: { color: '#6d28d9' },
+                                    label: {
+                                        fontSize: 9,
+                                        rotate: 'radial',
+                                        align: 'right'
+                                    }
+                                },
+                                {
+                                    name: 'Pigment',
+                                    value: 5,
+                                    itemStyle: { color: '#5b21b6' },
+                                    label: {
+                                        fontSize: 9,
+                                        rotate: 'radial',
+                                        align: 'right'
+                                    }
+                                },
+                                {
+                                    name: 'Reproduce',
+                                    value: 114,
+                                    itemStyle: { color: '#4c1d95' },
+                                    label: {
+                                        fontSize: 9,
+                                        rotate: 'radial',
+                                        align: 'right'
+                                    }
+                                }
                             ]
                         }],
-                        radius: ['20%', '90%'],
-                        emphasis: {
-                            focus: 'ancestor',
-                            itemStyle: {
-                                shadowBlur: 10,
-                                shadowOffsetX: 0,
-                                shadowColor: 'rgba(0, 0, 0, 0.5)'
-                            }
-                        },
                         levels: [{
-                            // 内层（主分类）
-                            r0: '20%',
-                            r: '45%',
+                            // 内层配置（主分类）
+                            r0: '15%',
+                            r: '40%',
                             itemStyle: {
-                                borderRadius: 4,
                                 borderWidth: 2,
                                 borderColor: backgroundColor
                             },
                             label: {
+                                show: false,
                                 rotate: 'tangential',
                                 fontSize: 12,
-                                color: textColor,
-                                padding: 4,
-                                fontWeight: 'bold'
+                                fontWeight: 'bold',
+                                align: 'center',
+                                distance: 5,
+                                padding: [3, 4, 3, 4],
+                                position: 'inside'
+                            },
+                            emphasis: {
+                                label: {
+                                    show: true,
+                                    fontSize: 12,
+                                    rotate: 'tangential',
+                                    align: 'center',
+                                    distance: 5
+                                }
                             }
                         }, {
-                            // 外层（子分类）
-                            r0: '45%',
-                            r: '90%',
+                            // 外层配置（子分类）
+                            r0: '40%',
+                            r: '95%',
                             label: {
-                                show: false  // 默认不显示标签
-                            },
-                            itemStyle: {
-                                borderRadius: 4,
-                                borderWidth: 1,
-                                borderColor: backgroundColor
+                                show: true,
+                                rotate: 'radial',
+                                fontSize: 9,
+                                padding: 2,
+                                align: 'right'
                             }
-                        }],
-                        label: {
-                            show: true,
-                            formatter: function (params) {
-                                // 只显示主分类的标签
-                                return params.depth === 0 ? params.name : '';
-                            }
-                        }
+                        }]
                     }]
                 };
                 functionsChart.setOption(functionsOption);

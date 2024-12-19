@@ -59,10 +59,11 @@ def symbionts(request):
 
     # 处理快速筛选
     filter_type = request.GET.get('filter', 'all')
-    if filter_type == 'single':
-        symbionts_list = symbionts_list.filter(record_type='Symbiont')
-    elif filter_type == 'multiple':
-        symbionts_list = symbionts_list.exclude(record_type='Symbiont')
+    if filter_type == 'bacteria':
+        symbionts_list = symbionts_list.filter(classification='Bacteria')
+    elif filter_type == 'fungi':
+        symbionts_list = symbionts_list.filter(classification='Fungi')
+    # 'all' 的情况不需要额外过滤
 
     # 处理普通搜索
     query = request.GET.get('q')

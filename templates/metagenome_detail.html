@@ -98,12 +98,33 @@
             <table class="w-full bg-white border border-gray-200">
                 <thead class="sticky top-0 bg-gray-50 z-10">
                     <tr>
-                        <th class="py-2 px-4 text-left w-[20%]">Symbiont Name</th>
+                        <th class="py-2 px-4 text-left w-[18%]">Symbiont Name</th>
                         <th class="py-2 px-4 text-left w-[8%]">Record</th>
                         <th class="py-2 px-4 text-left w-[15%]">Host Species</th>
                         <th class="py-2 px-4 text-left w-[44%]">Function</th>
                         <th class="py-2 px-4 text-left w-[8%]">Abundance</th>
-                        <th class="py-2 px-4 text-left w-[5%]">Score</th>
+                        <th class="py-2 px-4 text-left w-[5%]">
+                            <div class="flex items-center gap-1">
+                                Score
+                                <div class="group relative">
+                                    <span class="icon-[heroicons--question-mark-circle] w-4 h-4 text-gray-400 hover:text-gray-600 cursor-help transition-colors duration-200"></span>
+                                    <div class="invisible group-hover:visible absolute right-0 top-full mt-2
+                                               bg-gray-800 text-white text-sm px-4 py-3 rounded-lg
+                                               shadow-lg w-[280px] z-20">
+                                        <p class="font-medium mb-2">Score Composition:</p>
+                                        <ul class="text-gray-300 text-sm space-y-1 ml-4 list-disc">
+                                            <li>Symbiont Abundance</li>
+                                            <li>Species match bonus</li>
+                                            <li>Host match bonus</li>
+                                            <li>Function richness</li>
+                                        </ul>
+                                        <p class="text-gray-300 text-xs mt-2">
+                                            Higher scores indicate stronger symbiotic relationship potential
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
