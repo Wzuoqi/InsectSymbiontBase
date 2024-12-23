@@ -239,7 +239,8 @@ document.getElementById('symbiontSearch').addEventListener('input', function(e) 
     <div class="bg-white shadow-md rounded-lg p-6">
         <h2 class="text-2xl font-semibold text-gray-700 mb-6">Download Files</h2>
 
-        <div class="flex flex-wrap gap-4">
+        <!-- 处理后的文件下载 -->
+        <div class="flex flex-wrap gap-4 mb-8">
             <!-- Kraken Taxonomic -->
             <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
                 <svg class="w-8 h-8 text-cyan-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -294,6 +295,54 @@ document.getElementById('symbiontSearch').addEventListener('input', function(e) 
                 <a href="/path/to/Additional_file.txt" download class="ml-3 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
                     Download
                 </a>
+            </div>
+        </div>
+
+        <!-- Raw Files 下载区域 -->
+        <div class="mt-8 border-t pt-8">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Raw Sequencing Files</h3>
+                <div class="flex items-center">
+                    <span class="icon-[material-symbols--cloud-download] text-blue-600 mr-2"></span>
+                    <span class="text-sm text-gray-600">Direct download from NCBI SRA</span>
+                </div>
+            </div>
+
+            <!-- Raw Files 下载卡片 -->
+            <div class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6">
+                <div class="space-y-4">
+                    <!-- 文件信息头部 -->
+                    <div class="flex items-center justify-between text-sm text-gray-600 border-b border-gray-200 pb-2">
+                        <span>Run ID</span>
+                        <span>File Size</span>
+                    </div>
+
+                    <!-- 文件列表 -->
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between py-2 px-4 bg-white rounded-lg hover:shadow-md transition-shadow duration-300">
+                            <div class="flex items-center space-x-3">
+                                <span class="icon-[material-symbols--dataset] text-blue-600"></span>
+                                <span class="font-medium">{{ metagenome.run }}</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <span class="text-sm text-gray-500">{{ metagenome.bytes|filesizeformat }}</span>
+                                <a href="https://sra-pub-run-odp.s3.amazonaws.com/sra/{{ metagenome.run }}/{{ metagenome.run }}"
+                                   class="inline-flex items-center px-3 py-1.5 text-sm text-blue-600 bg-blue-50 rounded-full hover:bg-blue-100 transition-colors duration-300"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+                                    <span class="icon-[material-symbols--download] mr-1"></span>
+                                    Download
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 下载说明 -->
+                <div class="mt-4 flex items-start space-x-2 text-sm text-gray-600">
+                    <span class="icon-[material-symbols--info] text-blue-600 mt-0.5"></span>
+                    <p>Raw sequencing files are hosted on NCBI SRA. Click the download button to start downloading directly from NCBI servers.</p>
+                </div>
             </div>
         </div>
     </div>
