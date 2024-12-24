@@ -9,4 +9,5 @@ app_name = 'symbiont'
 urlpatterns = [
     path('', views.symbionts, name='symbionts'),
     path('symbiont/<str:symbiont_id>/', views.symbiont_detail, name='symbiont_detail'),
+    path('autocomplete/', views.autocomplete, name='autocomplete'),
 ]

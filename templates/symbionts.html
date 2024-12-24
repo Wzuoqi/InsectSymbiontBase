@@ -105,6 +105,12 @@
             </a>
         </div>
 
+        <!-- 在 head 部分添加 jQuery UI 的 CSS 和 JS -->
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+        <!-- 修改搜索框部分 -->
         <div class="relative flex items-center mt-4 md:mt-0">
             <span class="absolute">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-3 text-gray-400 dark:text-gray-600">
@@ -113,9 +119,46 @@
             </span>
 
             <form action="" method="get" class="w-full">
-                <input type="text" name="q" value="{{ query|default:'' }}" placeholder="Search" class="block w-full py-1.5 pr-5 text-gray-700 bg-white border border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-kabuli-400 dark:focus:border-kabuli-300 focus:ring-kabuli-300 focus:outline-none focus:ring focus:ring-opacity-40">
+                <input type="text"
+                       name="q"
+                       id="search-input"
+                       value="{{ query|default:'' }}"
+                       placeholder="Search"
+                       class="block w-full py-1.5 pr-5 text-gray-700 bg-white border border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-kabuli-400 dark:focus:border-kabuli-300 focus:ring-kabuli-300 focus:outline-none focus:ring focus:ring-opacity-40">
             </form>
         </div>
+
+        <!-- 添加自动补全的 JavaScript -->
+        <script>
+        $(document).ready(function() {
+            $("#search-input").autocomplete({
+                source: "{% url 'symbiont:autocomplete' %}",
+                minLength: 2,
+                select: function(event, ui) {
+                    // 当用户选择一个建议时，移除前缀并提交表单
+                    const value = ui.item.value.replace(/^(Symbiont: |Host: |Function: |Phylum: )/, '');
+                    $(this).val(value);
+                    $(this).closest('form').submit();
+                    return false;
+                }
+            }).data("ui-autocomplete")._renderItem = function(ul, item) {
+                // 自定义建议项的渲染
+                const value = item.value;
+                const prefix = value.split(': ')[0];
+                const content = value.split(': ')[1];
+
+                return $("<li>")
+                    .append(`<div class='flex items-center p-2'>
+                                <span class='text-xs text-kabuli-600 mr-2'>${prefix}:</span>
+                                <span class='text-gray-700'>${content}</span>
+                            </div>`)
+                    .appendTo(ul);
+            };
+
+            // 自定义样式
+            $(".ui-autocomplete").addClass("bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg");
+        });
+        </script>
     </div>
 
     {% comment %} Symbionts Table {% endcomment %}
@@ -913,7 +956,7 @@ function sortTable(field) {
     // 确定新的排序方向
     let newOrder;
     if (!currentOrder || currentOrder === 'id') {
-        // 从默认排序切换到正序
+        // 从默认���序切换到正序
         newOrder = field;
     } else if (currentOrder === field) {
         // 从正序切换到倒序

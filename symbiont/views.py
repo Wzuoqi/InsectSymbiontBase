@@ -4,6 +4,8 @@ from django.core.paginator import Paginator
 from django.db.models import Q, F
 from urllib.parse import urlencode
 import json
+from django.http import JsonResponse
+from django.views.decorators.http import require_GET
 
 # Create your views here.
 def symbionts(request):
@@ -227,3 +229,39 @@ def symbiont_detail(request, symbiont_id):
         'symbiont': symbiont,
     }
     return render(request, 'symbiont_detail.html', context)
+
+@require_GET
+def autocomplete(request):
+    query = request.GET.get('term', '')
+    if len(query) < 2:  # 只在输入至少2个字符时才返回建议
+        return JsonResponse([], safe=False)
+ 
+    # 从不同字段中获取建议
+    suggestions = set()  # 使用集合去重
+
+    # 限制每个字段返回的结果数量
+    limit = 5
+
+    # 从各个字段中查询匹配的值
+    fields = [
+        ('symbiont_name', 'Symbiont: '),
+        ('host_species', 'Host: '),
+        ('function_tag', 'Function: '),
+        ('symbiont_phylum', 'Phylum: '),
+    ]
+
+    for field, prefix in fields:
+        values = Symbiont.objects.filter(
+            **{f"{field}__istartswith": query}
+        ).exclude(
+            **{f"{field}__in": ['', 'NA']}
+        ).values_list(field, flat=True).distinct()[:limit]
+
+        for value in values:
+            if value:  # 确保值不为空
+                suggestions.add(f"{prefix}{value}")
+
+    # 转换为列表并排序
+    suggestions = sorted(list(suggestions))[:10]  # 限制总建议数量为10个
+
+    return JsonResponse(suggestions, safe=False)
