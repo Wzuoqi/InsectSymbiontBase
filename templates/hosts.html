@@ -67,11 +67,19 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                                     </svg>
                                 </span>
-                                <a href="{% url 'host:genus_detail' genus %}"
-                                   class="text-gray-600 italic hover:text-blue-600 transition-colors flex-grow cursor-pointer">
+                                <span class="text-gray-600 italic cursor-pointer" onclick="toggleChildren(this.parentElement)">
                                     {{ genus }}
+                                </span>
+                                <a href="{% url 'host:genus_detail' genus %}"
+                                   class="ml-2 text-gray-400 hover:text-blue-600 transition-colors"
+                                   title="View genus details">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
                                 </a>
-                                <span class="ml-2 text-sm text-gray-500">({{ genus_data.count }} species)</span>
+                                <span class="text-sm text-gray-500 ml-2">({{ genus_data.count }} species)</span>
+                                <span class="flex-grow"></span>
                             </div>
 
                             <!-- 种级别 -->
