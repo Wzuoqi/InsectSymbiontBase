@@ -27,7 +27,6 @@ urlpatterns = [
     path("test/", views.test, name="test"),
     path("network/", views.network, name="network"),
     path("resources/", views.resources, name="resources"),
-    path("host/", views.host, name="host"),
     path("contact/", views.contact, name="contact"),
 
     #symbiont
@@ -47,6 +46,9 @@ urlpatterns = [
 
     # gene
     path('genes/',include(('gene.urls', 'gene'), namespace='gene')),
+
+    # host
+    path('hosts/', include('host.urls')),
 
     # tools
     path("blast/", views.blast, name="blast"),

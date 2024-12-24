@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+
+{% block Part1 %}
+
+{% load static %}
+
+<div class="container mx-auto px-4 py-8">
+    <!-- 标题部分 -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Species Tree</h1>
+        <p class="text-gray-600">
+            Total Species: {{ total_species }} | Orders: {{ total_orders }}
+        </p>
+    </div>
+
+    <!-- 搜索框 -->
+    <div class="mb-6">
+        <form id="searchForm" class="flex gap-2">
+            <input type="text" id="searchInput"
+                   class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                   placeholder="Search species...">
+            <button type="submit"
+                    class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                Search
+            </button>
+        </form>
+    </div>
+
+    <!-- 进化树展示 -->
+    <div class="space-y-4">
+        {% for order, order_data in taxonomy_tree.items %}
+        <div class="taxonomy-item order-item">
+            <!-- 目级别 -->
+            <div class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer"
+                 onclick="toggleChildren(this)">
+                <span class="toggle-icon mr-2">
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </span>
+                <span class="font-semibold text-gray-800">{{ order }}</span>
+                <span class="ml-2 text-sm text-gray-500">({{ order_data.count }} species)</span>
+            </div>
+
+            <!-- 科级别 -->
+            <div class="children pl-6 mt-2 hidden">
+                {% for family, family_data in order_data.families.items %}
+                <div class="taxonomy-item family-item mb-2">
+                    <div class="flex items-center p-2 rounded hover:bg-gray-50 cursor-pointer"
+                         onclick="toggleChildren(this)">
+                        <span class="toggle-icon mr-2">
+                            <svg class="w-3 h-3 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </span>
+                        <span class="font-medium text-gray-700">{{ family }}</span>
+                        <span class="ml-2 text-sm text-gray-500">({{ family_data.count }} species)</span>
+                    </div>
+
+                    <!-- 属级别 -->
+                    <div class="children pl-6 mt-1 hidden">
+                        {% for genus, genus_data in family_data.genera.items %}
+                        <div class="taxonomy-item genus-item mb-2">
+                            <div class="flex items-center p-2 rounded hover:bg-gray-50">
+                                <span class="toggle-icon mr-2 cursor-pointer" onclick="toggleChildren(this.parentElement)">
+                                    <svg class="w-3 h-3 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                    </svg>
+                                </span>
+                                <a href="{% url 'host:genus_detail' genus %}"
+                                   class="text-gray-600 italic hover:text-blue-600 transition-colors flex-grow cursor-pointer">
+                                    {{ genus }}
+                                </a>
+                                <span class="ml-2 text-sm text-gray-500">({{ genus_data.count }} species)</span>
+                            </div>
+
+                            <!-- 种级别 -->
+                            <div class="children pl-6 mt-1 hidden">
+                                {% for species in genus_data.species %}
+                                <div class="species-item p-2 hover:bg-gray-50 rounded flex items-center group">
+                                    <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
+                                    <a href="{% url 'host:species_detail' species.species %}"
+                                       class="text-gray-800 italic font-medium group-hover:text-blue-600 transition-colors">
+                                        {{ species.species }}
+                                    </a>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- 添加悬浮返回首页按钮 -->
+<div class="fixed bottom-16 right-8 z-50">
+    <a href="{% url 'home' %}"
+        class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-700 hover:bg-blue-800 text-white shadow-lg transition-all duration-300 hover:scale-110"
+        title="Return to Homepage">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+    </a>
+</div>
+
+<!-- JavaScript for tree interaction -->
+<script>
+function toggleChildren(element) {
+    const children = element.nextElementSibling;
+    const icon = element.querySelector('.toggle-icon svg');
+
+    if (children.classList.contains('hidden')) {
+        children.classList.remove('hidden');
+        icon.classList.add('rotate-180');
+    } else {
+        children.classList.add('hidden');
+        icon.classList.remove('rotate-180');
+    }
+}
+
+// 重置所有节点的显示状态
+function resetTree() {
+    document.querySelectorAll('.taxonomy-item').forEach(item => {
+        item.style.display = '';
+        const children = item.querySelector('.children');
+        if (children) {
+            children.classList.add('hidden');
+        }
+        const icon = item.querySelector('.toggle-icon svg');
+        if (icon) {
+            icon.classList.remove('rotate-180');
+        }
+    });
+}
+
+// 显示匹配项的所有父节点
+function showParents(element) {
+    let parent = element.parentElement;
+    while (parent) {
+        if (parent.classList.contains('taxonomy-item')) {
+            parent.style.display = '';
+            const children = parent.querySelector('.children');
+            if (children) {
+                children.classList.remove('hidden');
+            }
+            const icon = parent.querySelector('.toggle-icon svg');
+            if (icon) {
+                icon.classList.add('rotate-180');
+            }
+        }
+        parent = parent.parentElement;
+    }
+}
+
+// 处理搜索
+function handleSearch(event) {
+    event.preventDefault();
+    const searchText = document.getElementById('searchInput').value.toLowerCase().trim();
+
+    if (!searchText) {
+        resetTree();
+        return;
+    }
+
+    // 首先隐藏所有项
+    document.querySelectorAll('.taxonomy-item').forEach(item => {
+        item.style.display = 'none';
+    });
+
+    // 搜索并显示匹配项
+    const speciesItems = document.querySelectorAll('.species-item');
+    let hasMatches = false;
+
+    speciesItems.forEach(item => {
+        const speciesName = item.textContent.toLowerCase();
+        if (speciesName.includes(searchText)) {
+            item.style.display = '';
+            showParents(item);
+            hasMatches = true;
+        } else {
+            item.style.display = 'none';
+        }
+    });
+
+    // 如果没有匹配项，显示提示信息
+    if (!hasMatches) {
+        // 可以添加一个提示元素
+        const noResultsMsg = document.getElementById('noResultsMessage') ||
+            (() => {
+                const msg = document.createElement('div');
+                msg.id = 'noResultsMessage';
+                msg.className = 'text-gray-500 text-center py-4';
+                document.querySelector('.space-y-4').appendChild(msg);
+                return msg;
+            })();
+        noResultsMsg.textContent = `No results found for "${searchText}"`;
+        noResultsMsg.style.display = '';
+    } else {
+        const noResultsMsg = document.getElementById('noResultsMessage');
+        if (noResultsMsg) {
+            noResultsMsg.style.display = 'none';
+        }
+    }
+}
+
+// 添加事件监听器
+document.getElementById('searchForm').addEventListener('submit', handleSearch);
+
+// 添加实时搜索功能（可选）
+let searchTimeout;
+document.getElementById('searchInput').addEventListener('input', function(e) {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+        handleSearch(new Event('submit'));
+    }, 300); // 300ms 延迟
+});
+</script>
+
+{% endblock %}

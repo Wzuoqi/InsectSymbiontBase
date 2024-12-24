@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'article',
     'genome',
     'gene',
+    'host',
     'feedback',
     'tailwind',
 ]

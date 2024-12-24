@@ -230,8 +230,8 @@ def map(request):
 
 #     return render(request, "literatures.html")
 
-def host(request):
-    return render(request, "host.html")
+def hosts(request):
+    return render(request, "hosts.html")
 
 def contact(request):
     return render(request, "contact.html")
