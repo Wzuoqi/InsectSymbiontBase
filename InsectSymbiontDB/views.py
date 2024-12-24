@@ -233,4 +233,6 @@ def map(request):
 def host(request):
     return render(request, "host.html")
 
+def contact(request):
+    return render(request, "contact.html")
 

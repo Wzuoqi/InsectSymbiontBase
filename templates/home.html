@@ -76,7 +76,9 @@
                 <div>
                     <div class="flex items-start justify-center">
                         <h3 class="text-5xl font-bold tracking-tight">
-                            <a href="symbionts" class="text-gray-900 hover:text-blue-600">2,500</a>
+                            <a href="symbionts" class="text-gray-900 hover:text-blue-600">
+                                <span class="number-counter" data-target="2500">0</span>
+                            </a>
                         </h3>
                         <span class="text-blue-600 text-xl font-semibold">+</span>
                     </div>
@@ -95,7 +97,9 @@
                 <div>
                     <div class="flex items-start justify-center">
                         <h3 class="text-5xl font-bold tracking-tight">
-                            <a href="/host" class="text-gray-900 hover:text-blue-600">700</a>
+                            <a href="/host" class="text-gray-900 hover:text-blue-600">
+                                <span class="number-counter" data-target="700">0</span>
+                            </a>
                         </h3>
                         <span class="text-blue-600 text-xl font-semibold">+</span>
                     </div>
@@ -114,7 +118,9 @@
                 <div>
                     <div class="flex items-start justify-center">
                         <h3 class="text-5xl font-bold tracking-tight">
-                            <a href="/genomes" class="text-gray-900 hover:text-blue-600">3,000</a>
+                            <a href="/genomes" class="text-gray-900 hover:text-blue-600">
+                                <span class="number-counter" data-target="3000">0</span>
+                            </a>
                         </h3>
                         <span class="text-blue-600 text-xl font-semibold">+</span>
                     </div>
@@ -133,7 +139,9 @@
                 <div>
                     <div class="flex items-start justify-center">
                         <h3 class="text-5xl font-bold tracking-tight">
-                            <a href="/metagenomes" class="text-gray-900 hover:text-blue-600">1,300</a>
+                            <a href="/metagenomes" class="text-gray-900 hover:text-blue-600">
+                                <span class="number-counter" data-target="1300">0</span>
+                            </a>
                         </h3>
                         <span class="text-blue-600 text-xl font-semibold">+</span>
                     </div>
@@ -152,7 +160,9 @@
                 <div>
                     <div class="flex items-start justify-center">
                         <h3 class="text-5xl font-bold tracking-tight">
-                            <a href="/amplicons" class="text-gray-900 hover:text-blue-600">10,000</a>
+                            <a href="/amplicons" class="text-gray-900 hover:text-blue-600">
+                                <span class="number-counter" data-target="10000">0</span>
+                            </a>
                         </h3>
                         <span class="text-blue-600 text-xl font-semibold">+</span>
                     </div>
@@ -393,8 +403,56 @@
 {% endblock %}
 
 {% block extra_js %}
+<script src="{% static 'js/three.min.js' %}"></script>
+<script src="{% static 'js/vanta.cells.min.js' %}"></script>
 <script>
-// 等待所有资源加载完成
+// 数字计数动画函数
+function animateNumber(element, target) {
+    let current = 0;
+    const duration = 1000; // 动画持续时间（毫秒）
+    const steps = 50; // 动画步数
+    const increment = target / steps;
+    const stepTime = duration / steps;
+
+    const counter = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            element.textContent = target.toLocaleString();
+            clearInterval(counter);
+        } else {
+            element.textContent = Math.floor(current).toLocaleString();
+        }
+    }, stepTime);
+}
+
+// 观察者回调函数
+function handleIntersect(entries, observer) {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const counters = entry.target.querySelectorAll('.number-counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                animateNumber(counter, target);
+            });
+            observer.unobserve(entry.target); // 动画只执行一次
+        }
+    });
+}
+
+// 创建观察者
+const observer = new IntersectionObserver(handleIntersect, {
+    threshold: 0.1 // 当元素10%进入视口时触发
+});
+
+// 开始观察统计区域
+document.addEventListener('DOMContentLoaded', () => {
+    const statsSection = document.querySelector('.bg-gray-50.py-12');
+    if (statsSection) {
+        observer.observe(statsSection);
+    }
+});
+
+// 原有的 VANTA 背景初始化代码
 window.addEventListener('load', function() {
     try {
         if (typeof VANTA !== 'undefined' && typeof THREE !== 'undefined') {
@@ -407,8 +465,8 @@ window.addEventListener('load', function() {
                 minWidth: 200.00,
                 scale: 1.00,
                 color1: 0x0,
-                color2: 0x7c3aed,
-                size: 2.50,
+                color2: 0x6d28d9,
+                size: 2.00,
                 speed: 1.00
             });
         } else {
@@ -416,10 +474,29 @@ window.addEventListener('load', function() {
         }
     } catch (error) {
         console.error('Failed to initialize VANTA:', error);
-        // 后备方案
+        // 改进的后备方案
         const bgElement = document.getElementById('vanta-background');
         if (bgElement) {
-            bgElement.style.backgroundColor = '#4338ca';
+            bgElement.style.background = 'linear-gradient(45deg, #4338ca, #6d28d9, #7c3aed)';
+            bgElement.style.backgroundSize = '200% 200%';
+            bgElement.style.animation = 'gradient 15s ease infinite';
+
+            // 添加动画关键帧
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes gradient {
+                    0% {
+                        background-position: 0% 50%;
+                    }
+                    50% {
+                        background-position: 100% 50%;
+                    }
+                    100% {
+                        background-position: 0% 50%;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
         }
     }
 });

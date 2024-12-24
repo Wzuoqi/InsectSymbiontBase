@@ -16,7 +16,7 @@
     <script src="https://unpkg.com/tippy.js@6"></script>
 </head>
 
-<body class="bg-gray-50">
+<body class="bg-white">
     <header class="relative isolate z-10 bg-white">
         <nav class="mx-auto flex max-w-7xl items-center justify-between p-3 lg:px-8" aria-label="Global">
             <div class="flex lg:flex-1">
@@ -237,8 +237,15 @@
                         <div class="ml-8 mr-12">
                             <div class="flex items-center">
                                 <h5 class="text-xl font-semibold text-white">Cite database</h5>
-                                <button onclick="copyToClipboard()" class="text-white hover:text-gray-300 ml-4">
+                                <button id="copyButton" onclick="copyToClipboard()"
+                                    class="group relative ml-4 p-2 text-white hover:text-gray-300 rounded-lg hover:bg-white/10 transition-colors">
                                     <span class="h-6 w-6 icon-[ion--copy-outline]"></span>
+                                    <!-- Tooltip -->
+                                    <span id="tooltipText"
+                                        class="absolute -top-8 left-1/2 -translate-x-1/2 hidden group-hover:block
+                                        bg-gray-900 text-white text-xs py-1 px-2 rounded whitespace-nowrap">
+                                        Copy to clipboard
+                                    </span>
                                 </button>
                             </div>
                             <p id="citation-text" class="mt-2 text-base text-white">
@@ -271,7 +278,7 @@
     <p>base模板的Part1</p>
     {% endblock %}
 
-    <footer class="mt-36 bg-gray-900">
+    <footer class="mt-24 bg-gray-900">
         <div class="mx-auto max-w-7xl px-6 py-12 lg:px-8">
             <div class="xl:grid xl:grid-cols-3 xl:gap-8">
                 <!-- Logo和描述 -->
@@ -376,12 +383,83 @@
         }
         // Copy text to clipboard
         function copyToClipboard() {
-            var text = document.getElementById('citation-text').innerText;
-            navigator.clipboard.writeText(text).then(function () {
-                alert('Citation text copied to clipboard!');
-            }, function (err) {
-                console.error('Could not copy text: ', err);
-            });
+            const text = document.getElementById('citation-text').innerText;
+            const button = document.getElementById('copyButton');
+            const tooltip = document.getElementById('tooltipText');
+
+            // 检查是否支持 Clipboard API
+            if (navigator.clipboard && window.isSecureContext) {
+                // 使用现代的 Clipboard API
+                navigator.clipboard.writeText(text).then(() => {
+                    showCopySuccess();
+                }).catch(() => {
+                    // 如果 Clipboard API 失败，尝试后备方案
+                    if (fallbackCopyToClipboard(text)) {
+                        showCopySuccess();
+                    } else {
+                        showCopyError();
+                    }
+                });
+            } else {
+                // 直接使用后备方案
+                if (fallbackCopyToClipboard(text)) {
+                    showCopySuccess();
+                } else {
+                    showCopyError();
+                }
+            }
+        }
+
+        // 显示复制成功的视觉反馈
+        function showCopySuccess() {
+            const button = document.getElementById('copyButton');
+            const tooltip = document.getElementById('tooltipText');
+
+            tooltip.textContent = 'Copied!';
+            button.classList.add('text-green-400');
+
+            setTimeout(() => {
+                tooltip.textContent = 'Copy to clipboard';
+                button.classList.remove('text-green-400');
+            }, 2000);
+        }
+
+        // 显示复制失败的视觉反馈
+        function showCopyError() {
+            const button = document.getElementById('copyButton');
+            const tooltip = document.getElementById('tooltipText');
+
+            tooltip.textContent = 'Failed to copy';
+            button.classList.add('text-red-400');
+
+            setTimeout(() => {
+                tooltip.textContent = 'Copy to clipboard';
+                button.classList.remove('text-red-400');
+            }, 2000);
+        }
+
+        // 后备复制方案
+        function fallbackCopyToClipboard(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+
+            // 将文本域移出可视区域
+            textArea.style.position = 'fixed';
+            textArea.style.top = '0';
+            textArea.style.left = '-9999px';
+            textArea.style.opacity = '0';
+
+            document.body.appendChild(textArea);
+
+            try {
+                textArea.select();
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textArea);
+                return successful;
+            } catch (err) {
+                document.body.removeChild(textArea);
+                return false;
+            }
         }
 
         // Catalog 下拉菜单的 JavaScript
@@ -402,8 +480,6 @@
             });
         });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.cells.min.js"></script>
     {% block extra_js %}{% endblock %}
 </body>
 

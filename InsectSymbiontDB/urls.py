@@ -28,6 +28,7 @@ urlpatterns = [
     path("network/", views.network, name="network"),
     path("resources/", views.resources, name="resources"),
     path("host/", views.host, name="host"),
+    path("contact/", views.contact, name="contact"),
 
     #symbiont
     path('symbionts/',include(('symbiont.urls', 'symbiont'), namespace='symbiont')),
@@ -57,5 +58,6 @@ urlpatterns = [
 
     path("map/", views.map, name="map"),
 
+    path('feedback/', include('feedback.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # 添加媒体文件服务
