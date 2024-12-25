@@ -60,7 +60,7 @@
                                 <span class="icon-[material-symbols--microbiology-outline] text-2xl"></span>
                             </div>
                             <div>
-                                <div class="font-medium">4 Symbionts</div>
+                                <div class="font-medium">{{ related_symbionts.count }} Symbionts</div>
                                 <div class="text-sm text-gray-500">Associated</div>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                                 <span class="icon-[ri--meta-fill] text-2xl"></span>
                             </div>
                             <div>
-                                <div class="font-medium">2 Metagenomes</div>
+                                <div class="font-medium">{{ related_metagenomes.count }} Metagenomes</div>
                                 <div class="text-sm text-gray-500">Sequenced</div>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                                 <span class="icon-[ph--puzzle-piece-bold] text-2xl"></span>
                             </div>
                             <div>
-                                <div class="font-medium">5 Amplicons</div>
+                                <div class="font-medium">{{ related_amplicons.count }} Amplicons</div>
                                 <div class="text-sm text-gray-500">Available</div>
                             </div>
                         </div>
@@ -109,38 +109,46 @@
             </div>
         </div>
 
-        <!-- 基因组信息表格 -->
+        <!-- Host Genome Information -->
         <div class="p-6">
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-semibold text-gray-800">Genome Information</h2>
-                <a href="#" class="text-sm text-kabuli-600 hover:text-kabuli-800 flex items-center">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                    </svg>
-                    Download All Data
-                </a>
+                <div class="flex items-center gap-2">
+                    <h2 class="text-xl font-semibold text-gray-800">Host Genome</h2>
+                    <div class="relative group">
+                        <button class="text-gray-400 hover:text-gray-600">
+                            <span class="icon-[heroicons--question-mark-circle] w-5 h-5"></span>
+                        </button>
+                        <div class="absolute left-0 mt-2 w-72 bg-white shadow-lg rounded-lg p-4 text-sm text-gray-600 invisible group-hover:visible transition-all duration-200 z-10 border border-gray-100">
+                            <div class="space-y-2">
+                                <p><span class="font-semibold">Data Source:</span> Genome assemblies and annotations are collected from NCBI and InsectBase database.</p>
+                                <p><span class="font-semibold">BUSCO Score:</span> Quality assessment using BUSCO v5.4.3 against insecta_odb10 database.</p>
+                                <div class="text-xs text-gray-500 mt-2">
+                                    C: Complete, S: Single-copy, D: Duplicated,<br>
+                                    F: Fragmented, M: Missing, n: Total BUSCO groups
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="overflow-x-auto rounded-lg border border-gray-200">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead>
                         <tr class="bg-gray-50">
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Assembly</th>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Genome</th>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Annotation</th>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">NCBI Accession</th>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Level</th>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitter</th>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Strategy</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6">Species</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6">Genome</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6">Annotation</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/12">Level</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Busco</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        <tr class="hover:bg-gray-50">
+                        <tr class="hover:bg-gray-50 transition duration-150">
                             <td class="px-4 py-3 whitespace-nowrap">
-                                <a href="#" class="text-kabuli-600 hover:text-kabuli-800">GCA_009835225.1</a>
+                                <a href="#" class="text-kabuli-600 hover:text-kabuli-800 transition duration-150">Euborellia annulipes</a>
                             </td>
                             <td class="px-4 py-3 whitespace-nowrap">
-                                <a href="#" class="inline-flex items-center text-kabuli-600 hover:text-kabuli-800">
+                                <a href="#" class="inline-flex items-center text-kabuli-600 hover:text-kabuli-800 transition duration-150">
                                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
                                     </svg>
@@ -148,7 +156,7 @@
                                 </a>
                             </td>
                             <td class="px-4 py-3 whitespace-nowrap">
-                                <a href="#" class="inline-flex items-center text-kabuli-600 hover:text-kabuli-800">
+                                <a href="#" class="inline-flex items-center text-kabuli-600 hover:text-kabuli-800 transition duration-150">
                                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
                                     </svg>
@@ -158,38 +166,407 @@
                             <td class="px-4 py-3 whitespace-nowrap">
                                 <a href="https://www.ncbi.nlm.nih.gov/assembly/GCA_009835225.1"
                                    target="_blank"
-                                   class="text-kabuli-600 hover:text-kabuli-800">
+                                   class="text-kabuli-600 hover:text-kabuli-800 transition duration-150">
                                     GCA_009835225.1
                                 </a>
                             </td>
                             <td class="px-4 py-3 whitespace-nowrap text-gray-600">Scaffold</td>
-                            <td class="px-4 py-3 whitespace-nowrap text-gray-600">Belarusian State University</td>
-                            <td class="px-4 py-3 whitespace-nowrap text-gray-600">2020/1/9</td>
-                            <td class="px-4 py-3 whitespace-nowrap text-gray-600">Illumina MiSeq</td>
+                            <td class="px-4 py-3 text-gray-600 font-mono text-sm">
+                                <div class="flex items-center gap-1">
+                                    <span class="text-green-600">C:99.78%</span>
+                                    <span>[</span>
+                                    <span class="text-green-600">S:98.76%</span>,
+                                    <span class="text-yellow-600">D:1.02%</span>
+                                    <span>],</span>
+                                    <span class="text-yellow-600">F:0.15%</span>,
+                                    <span class="text-red-600">M:0.07%</span>,
+                                    <span class="text-gray-500">n:1367</span>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="mt-4 text-sm text-gray-500">
-                * Click on accession numbers to view details on NCBI
+        </div>
+    </div>
+
+    <!-- Related Symbionts -->
+    <section>
+        <div id="symbionts" class="bg-white shadow-lg rounded-lg p-6">
+            <!-- 标题和搜索区域 -->
+            <div class="flex flex-col gap-4 mb-6">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <div class="flex items-center gap-x-3">
+                            <h2 class="text-2xl font-semibold text-gray-800">Related Symbionts</h2>
+                            <span class="px-3 py-1 text-xs text-kabuli-600 bg-kabuli-100 rounded-full">{{ related_symbionts.count }} records</span>
+                        </div>
+                        <p class="mt-1 text-sm text-gray-500">Symbiont records associated with {{ host.species }}</p>
+                    </div>
+                </div>
+
+                <!-- 搜索区 -->
+                <div class="relative">
+                    <input type="text"
+                           id="symbiontFilter"
+                           placeholder="Filter symbionts..."
+                           class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border-0 rounded-lg focus:ring-2 focus:ring-kabuli-200 focus:bg-white transition-all duration-200">
+                    <span class="absolute left-3 top-3 text-gray-400">
+                        <span class="icon-[heroicons--magnifying-glass] w-5 h-5"></span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- 表格区域 -->
+            <div class="overflow-hidden rounded-lg border border-gray-200">
+                <div class="overflow-x-auto">
+                    <div class="overflow-y-auto max-h-[480px]">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead>
+                                <tr class="bg-gray-50 sticky top-0 z-10">
+                                    <th scope="col" class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <button class="flex items-center gap-x-2 focus:outline-none" onclick="sortTable('symbiont_name')">
+                                            <span>Symbiont</span>
+                                            <svg class="h-3" viewBox="0 0 10 11" fill="none">
+                                                <path d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z" fill="currentColor"/>
+                                                <path d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z" fill="currentColor"/>
+                                            </svg>
+                                        </button>
+                                    </th>
+                                    <th scope="col" class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Classification</th>
+                                    <th scope="col" class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Function</th>
+                                    <th scope="col" class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Function Tags</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                {% for symbiont in related_symbionts %}
+                                <tr class="hover:bg-gray-50/50 transition duration-150 symbiont-row">
+                                    <td class="px-4 py-4">
+                                        <div>
+                                            <a href="{% url 'symbiont:symbiont_detail' symbiont.id %}"
+                                               class="font-medium text-kabuli-800 hover:text-kabuli-600 hover:underline">
+                                                {{ symbiont.symbiont_name }}
+                                            </a>
+                                            {% if symbiont.symbiont_phylum and symbiont.symbiont_phylum != "NA" %}
+                                            <p class="text-xs text-gray-600">{{ symbiont.symbiont_phylum }}</p>
+                                            {% else %}
+                                            <p class="text-xs text-gray-400">-</p>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2
+                                            {% if symbiont.classification == 'Bacteria' %}
+                                                bg-orange-100 text-orange-800
+                                            {% elif symbiont.classification == 'Fungi' %}
+                                                bg-emerald-100 text-emerald-800
+                                            {% else %}
+                                                bg-gray-100 text-gray-800
+                                            {% endif %}">
+                                            {{ symbiont.classification|default:"Unknown" }}
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        {% if symbiont.function and symbiont.function != "NA" %}
+                                        <p class="text-sm text-gray-700">{{ symbiont.function|truncatechars:150 }}</p>
+                                        {% else %}
+                                        <p class="text-sm text-gray-400">-</p>
+                                        {% endif %}
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        {% if symbiont.function_tag and symbiont.function_tag != "NA" %}
+                                        <div class="flex flex-wrap gap-2">
+                                            {% for tag in symbiont.function_tags %}
+                                            <span class="px-2 py-1 text-xs font-medium rounded-full whitespace-nowrap {{ tag.color_class }}">
+                                                {{ tag.text }}
+                                            </span>
+                                            {% endfor %}
+                                        </div>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="4" class="px-6 py-12">
+                                        <div class="text-center">
+                                            <span class="icon-[heroicons--bug-ant] w-12 h-12 text-gray-300 mx-auto mb-4 block"></span>
+                                            <h3 class="text-lg font-medium text-gray-900 mb-1">No symbionts found</h3>
+                                            <p class="text-gray-500">No symbiont records associated with this host species.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // 客户端过滤功能
+            document.getElementById('symbiontFilter').addEventListener('input', function(e) {
+                const filter = e.target.value.toLowerCase();
+                const rows = document.querySelectorAll('.symbiont-row');
+
+                rows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(filter) ? '' : 'none';
+                });
+            });
+
+            // 排序功能
+            function sortTable(field) {
+                const urlParams = new URLSearchParams(window.location.search);
+                const currentOrder = urlParams.get('order');
+
+                let newOrder;
+                if (!currentOrder || currentOrder === 'id') {
+                    newOrder = field;
+                } else if (currentOrder === field) {
+                    newOrder = `-${field}`;
+                } else if (currentOrder === `-${field}`) {
+                    newOrder = 'id';
+                } else {
+                    newOrder = field;
+                }
+
+                urlParams.set('order', newOrder);
+                window.location.href = `${window.location.pathname}?${urlParams.toString()}`;
+            }
+        </script>
+    </section>
+
+    <!-- Metagenome Information -->
+    <div id="metagenome" class="bg-white shadow-lg rounded-lg p-6">
+        <div class="flex flex-col gap-4 mb-6">
+            <div class="flex justify-between items-center">
+                <div>
+                    <div class="flex items-center gap-x-3">
+                        <h2 class="text-2xl font-semibold text-gray-800">Metagenome Information</h2>
+                        <span class="px-3 py-1 text-xs text-kabuli-600 bg-kabuli-100 rounded-full">{{ related_metagenomes.count }} records</span>
+                    </div>
+                    <p class="mt-1 text-sm text-gray-500">Metagenome sequencing data associated with {{ host.species }}</p>
+                </div>
+            </div>
+
+            <!-- 搜索区 -->
+            <div class="relative">
+                <input type="text"
+                       id="metagenomeFilter"
+                       placeholder="Filter metagenomes..."
+                       class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border-0 rounded-lg focus:ring-2 focus:ring-kabuli-200 focus:bg-white transition-all duration-200">
+                <span class="absolute left-3 top-3 text-gray-400">
+                    <span class="icon-[heroicons--magnifying-glass] w-5 h-5"></span>
+                </span>
+            </div>
+        </div>
+
+        <!-- 表格区域 -->
+        <div class="overflow-hidden rounded-lg border border-gray-200">
+            <div class="overflow-x-auto">
+                <div class="overflow-y-auto max-h-[480px]">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr class="bg-gray-50 sticky top-0 z-10">
+                                <th scope="col" class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Run</th>
+                                <th scope="col" class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Platform</th>
+                                <th scope="col" class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+                                <th scope="col" class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                <th scope="col" class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">BioProject</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            {% for metagenome in related_metagenomes %}
+                            <tr class="hover:bg-gray-50/50 transition duration-150 metagenome-row">
+                                <td class="px-4 py-4">
+                                    <div>
+                                        <a href="/metagenomes/metagenome/{{ metagenome.run }}"
+                                           target="_blank"
+                                           class="font-medium text-kabuli-800 hover:text-kabuli-600 hover:underline">
+                                            {{ metagenome.run }}
+                                        </a>
+                                        <p class="text-xs text-gray-600">{{ metagenome.assay_type }}</p>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-4">
+                                    <div class="text-sm text-gray-900">
+                                        {% if metagenome.platform and metagenome.platform != "NA" %}
+                                            {{ metagenome.platform }}
+                                        {% else %}
+                                            <span class="text-gray-400">-</span>
+                                        {% endif %}
+                                        <p class="text-xs text-gray-600">
+                                            {% if metagenome.instrument and metagenome.instrument != "NA" %}
+                                                {{ metagenome.instrument }}
+                                            {% else %}
+                                                <span class="text-gray-400">-</span>
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-4">
+                                    <div class="text-sm text-gray-900">
+                                        {% if metagenome.geo_loc_name_country and metagenome.geo_loc_name_country != "NA" %}
+                                            {{ metagenome.geo_loc_name_country }}
+                                            {% if metagenome.lat_lon and metagenome.lat_lon != "NA" %}
+                                                <p class="text-xs text-gray-600">{{ metagenome.lat_lon }}</p>
+                                            {% endif %}
+                                        {% else %}
+                                            <span class="text-gray-400">-</span>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                <td class="px-4 py-4">
+                                    <div class="text-sm text-gray-900">{{ metagenome.collection_date }}</div>
+                                </td>
+                                <td class="px-4 py-4">
+                                    <a href="https://www.ncbi.nlm.nih.gov/bioproject/{{ metagenome.bioproject }}"
+                                       target="_blank"
+                                       class="text-sm text-kabuli-600 hover:text-kabuli-800">
+                                        {{ metagenome.bioproject }}
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="px-6 py-12">
+                                    <div class="text-center">
+                                        <span class="icon-[heroicons--document-chart-bar] w-12 h-12 text-gray-300 mx-auto mb-4 block"></span>
+                                        <h3 class="text-lg font-medium text-gray-900 mb-1">No metagenomes found</h3>
+                                        <p class="text-gray-500">No metagenome records associated with this host species.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- 其他模块保持不变 -->
-    <div id="symbionts" class="bg-white shadow-lg rounded-lg p-6">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Related Symbionts</h2>
-        <!-- 待完善 -->
-    </div>
-
-    <div id="metagenome" class="bg-white shadow-lg rounded-lg p-6">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Metagenome Information</h2>
-        <!-- 待完善 -->
-    </div>
-
+    <!-- Amplicon Information -->
     <div id="amplicon" class="bg-white shadow-lg rounded-lg p-6">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Amplicon Information</h2>
-        <!-- 待完善 -->
+        <div class="flex flex-col gap-4 mb-6">
+            <div class="flex justify-between items-center">
+                <div>
+                    <div class="flex items-center gap-x-3">
+                        <h2 class="text-2xl font-semibold text-gray-800">Amplicon Information</h2>
+                        <span class="px-3 py-1 text-xs text-kabuli-600 bg-kabuli-100 rounded-full">{{ related_amplicons.count }} records</span>
+                    </div>
+                    <p class="mt-1 text-sm text-gray-500">Amplicon sequencing data associated with {{ host.species }}</p>
+                </div>
+            </div>
+
+            <!-- 搜索区 -->
+            <div class="relative">
+                <input type="text"
+                       id="ampliconFilter"
+                       placeholder="Filter amplicons..."
+                       class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border-0 rounded-lg focus:ring-2 focus:ring-kabuli-200 focus:bg-white transition-all duration-200">
+                <span class="absolute left-3 top-3 text-gray-400">
+                    <span class="icon-[heroicons--magnifying-glass] w-5 h-5"></span>
+                </span>
+            </div>
+        </div>
+
+        <!-- 表格区域 -->
+        <div class="overflow-hidden rounded-lg border border-gray-200">
+            <div class="overflow-x-auto">
+                <div class="overflow-y-auto max-h-[480px]">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr class="bg-gray-50 sticky top-0 z-10">
+                                <th scope="col" class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Run</th>
+                                <th scope="col" class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Platform</th>
+                                <th scope="col" class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+                                <th scope="col" class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Environment</th>
+                                <th scope="col" class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Classification</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            {% for amplicon in related_amplicons %}
+                            <tr class="hover:bg-gray-50/50 transition duration-150 amplicon-row">
+                                <td class="px-4 py-4">
+                                    <div>
+                                        <a href="https://www.ncbi.nlm.nih.gov/sra/{{ amplicon.run }}"
+                                           target="_blank"
+                                           class="font-medium text-kabuli-800 hover:text-kabuli-600 hover:underline">
+                                            {{ amplicon.run }}
+                                        </a>
+                                        <p class="text-xs text-gray-600">{{ amplicon.assay_type }}</p>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-4">
+                                    <div class="text-sm text-gray-900">
+                                        {% if amplicon.platform and amplicon.platform != "NA" %}
+                                            {{ amplicon.platform }}
+                                            {% if amplicon.instrument and amplicon.instrument != "NA" %}
+                                                <p class="text-xs text-gray-600">{{ amplicon.instrument }}</p>
+                                            {% endif %}
+                                        {% else %}
+                                            <span class="text-gray-400">-</span>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                <td class="px-4 py-4">
+                                    <div class="text-sm text-gray-900">
+                                        {{ amplicon.geo_loc_name_country }}
+                                        {% if amplicon.lat_lon %}
+                                        <p class="text-xs text-gray-600">{{ amplicon.lat_lon }}</p>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                <td class="px-4 py-4">
+                                    <div class="text-sm text-gray-900">
+                                        {% if amplicon.env_broad_scale and amplicon.env_broad_scale != "NA" %}
+                                            {{ amplicon.env_broad_scale }}
+                                            {% if amplicon.env_local_scale and amplicon.env_local_scale != "NA" %}
+                                                <p class="text-xs text-gray-600">{{ amplicon.env_local_scale }}</p>
+                                            {% endif %}
+                                        {% else %}
+                                            <span class="text-gray-400">-</span>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                <td class="px-4 py-4">
+                                    <div class="inline px-3 py-1 text-sm font-normal rounded-full text-gray-800 bg-gray-100">
+                                        {{ amplicon.classification }}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="px-6 py-12">
+                                    <div class="text-center">
+                                        <span class="icon-[heroicons--dna] w-12 h-12 text-gray-300 mx-auto mb-4 block"></span>
+                                        <h3 class="text-lg font-medium text-gray-900 mb-1">No amplicons found</h3>
+                                        <p class="text-gray-500">No amplicon records associated with this host species.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script>
+        // 为metagenome和amplicon添加过滤功能
+        ['metagenome', 'amplicon'].forEach(type => {
+            document.getElementById(`${type}Filter`).addEventListener('input', function(e) {
+                const filter = e.target.value.toLowerCase();
+                const rows = document.querySelectorAll(`.${type}-row`);
+
+                rows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(filter) ? '' : 'none';
+                });
+            });
+        });
+    </script>
 </section>
 {% endblock %}

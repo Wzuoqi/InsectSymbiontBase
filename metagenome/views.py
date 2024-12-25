@@ -111,39 +111,3 @@ def metagenome_detail(request, run):
         'metagenome': metagenome,
         'symbionts': symbionts
     })
-
-@require_GET
-def autocomplete(request):
-    query = request.GET.get('term', '')
-    if len(query) < 2:
-        return JsonResponse([], safe=False)
-
-    # 从不同字段中获取建议
-    suggestions = set()
-    limit = 5
-
-    # 简化搜索字段，只保留最重要的几个
-    fields = [
-        ('host', 'Host'),
-        ('geo_loc_name_country', 'Country'),
-        ('geo_loc_name', 'Location'),
-        ('platform', 'Platform')
-    ]
-
-    for field, prefix in fields:
-        # 使用 startswith 而不是 icontains
-        values = Metagenome.objects.filter(
-            **{f"{field}__istartswith": query}
-        ).exclude(
-            **{f"{field}__exact": ''},
-            **{f"{field}__exact": 'NA'}
-        ).values_list(field, flat=True).distinct()[:limit]
-
-        for value in values:
-            if value:
-                suggestions.add(f"{prefix}: {value}")
-
-    # 转换为列表并排序
-    suggestions = sorted(list(suggestions))[:10]
-
-    return JsonResponse(suggestions, safe=False)

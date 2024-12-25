@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Host
-from django.db.models import Count
+from django.db.models import Count, Q
+from symbiont.models import Symbiont  # 导入Symbiont模型
+from metagenome.models import Metagenome
+from amplicon.models import Amplicon
 
 def hosts(request):
     # 获取所有分类数据并按层级组织
@@ -50,9 +53,79 @@ def genus_detail(request, genus_name):
         'hosts': hosts
     })
 
-def species_detail(request, species_name):
-    # 临时视图函数，后续可以扩展
-    host = get_object_or_404(Host, species=species_name)
-    return render(request, 'host/species_detail.html', {
-        'host': host
-    })
+def species_detail(request, species):
+    # 获取现有的host对象
+    host = get_object_or_404(Host, species=species)
+
+    # 获取species的前两个单词用于模糊匹配
+    species_words = host.species.split()[:2]
+    species_pattern = ' '.join(species_words)
+
+    # 查询相关的symbionts
+    related_symbionts = Symbiont.objects.filter(
+        Q(host_species__istartswith=species_pattern) &
+        ~Q(symbiont_name__in=['NA', 'None', '']),  # 过滤掉无效的symbiont_name
+    ).order_by('symbiont_name')
+
+    # 查询相关的metagenomes
+    related_metagenomes = Metagenome.objects.filter(
+        host__istartswith=species_pattern
+    ).order_by('-collection_date')
+
+    # 查询相关的amplicons
+    related_amplicons = Amplicon.objects.filter(
+        host__istartswith=species_pattern
+    ).order_by('-collection_date')
+
+    # 定义标签颜色映射
+    TAG_COLORS = {
+        # Nutrition - 绿色系
+        'Nitrogen fixation': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+        'Feeding habits': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+        'Probiotic': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+        'Nutrient provision': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+        'Digestive enzymes': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+        'Plastic degradation': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+        'Fungal farming': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+        'Sugar metabolism': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+
+        # Defense - 蓝色系
+        'Plant defense': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+        'Pesticide metabolization': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+        'Immune priming': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+        'Antimicrobials': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+        'Plant secondary metabolites': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+        'Natural enemy resistance': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+        'Pathogen interaction': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+        'Chemical biosynthesis': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+
+        # Physiology - 紫色系
+        'Growth and Development': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-800 dark:text-cyan-100',
+        'Fertility': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-800 dark:text-cyan-100',
+        'Pigmentation alteration': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-800 dark:text-cyan-100',
+        'Reproductive manipulation': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-800 dark:text-cyan-100',
+    }
+
+    # 处理function_tags
+    for symbiont in related_symbionts:
+        if symbiont.function_tag and symbiont.function_tag != "NA":
+            tags_with_colors = []
+            for tag in symbiont.function_tag.split(','):
+                tag = tag.strip()
+                if tag:
+                    tags_with_colors.append({
+                        'text': tag,
+                        'color_class': TAG_COLORS.get(tag, 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100')
+                    })
+            symbiont.function_tags = tags_with_colors
+        else:
+            symbiont.function_tags = []
+
+    context = {
+        'host': host,
+        'related_symbionts': related_symbionts,
+        'related_metagenomes': related_metagenomes,
+        'related_amplicons': related_amplicons,
+    }
+
+    return render(request, 'host/species_detail.html', context)
