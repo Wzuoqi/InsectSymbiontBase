@@ -148,8 +148,8 @@
                 </div>
 
                 <!-- Tools 下拉菜单 -->
-                <div class="relative">
-                    <button id="tools-btn" type="button"
+                <div class="relative" data-dropdown>
+                    <button type="button" data-dropdown-button
                         class="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
                         Tools
                         <svg class="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -158,8 +158,8 @@
                                 clip-rule="evenodd" />
                         </svg>
                     </button>
-                    <div id="tools-menu"
-                        class="absolute hidden left-1/2 z-10 mt-3 w-64 -translate-x-1/2 transform px-2 sm:px-0"> <!-- 增加宽度 -->
+                    <div data-dropdown-menu
+                        class="absolute hidden left-1/2 z-10 mt-3 w-64 -translate-x-1/2 transform px-2 sm:px-0">
                         <div class="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                             <div class="relative grid gap-4 bg-white px-4 py-4 sm:gap-6 sm:p-6">
                                 <a href="/blast" class="-m-2 flex items-start rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50">
@@ -192,8 +192,8 @@
                 </div>
 
                 <!-- Catalog 下拉菜单 -->
-                <div class="relative">
-                    <button id="catalog-btn" type="button"
+                <div class="relative" data-dropdown>
+                    <button type="button" data-dropdown-button
                         class="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
                         Catalog
                         <svg class="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -202,8 +202,8 @@
                                 clip-rule="evenodd" />
                         </svg>
                     </button>
-                    <div id="catalog-menu"
-                        class="absolute hidden left-1/2 z-10 mt-3 w-64 -translate-x-1/2 transform px-2 sm:px-0"> <!-- 增加宽度 -->
+                    <div data-dropdown-menu
+                        class="absolute hidden left-1/2 z-10 mt-3 w-64 -translate-x-1/2 transform px-2 sm:px-0">
                         <div class="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                             <div class="relative grid gap-4 bg-white px-4 py-4 sm:gap-6 sm:p-6">
                                 <a href="/genes" class="-m-2 flex items-start rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50">
@@ -465,8 +465,8 @@
             }
         }
 
-        // Catalog 下拉菜单的 JavaScript
         document.addEventListener('DOMContentLoaded', function() {
+            // Catalog 下拉菜单的处理
             const catalogBtn = document.getElementById('catalog-btn');
             const catalogMenu = document.getElementById('catalog-menu');
 
@@ -475,13 +475,61 @@
                 catalogMenu.classList.toggle('hidden');
             });
 
-            // 点击其他地方时关闭菜单
+            // 点击其他地方时关闭 Catalog 菜单
             document.addEventListener('click', function(event) {
                 if (!catalogBtn.contains(event.target) && !catalogMenu.contains(event.target)) {
                     catalogMenu.classList.add('hidden');
                 }
             });
+
+            // Tools 下拉菜单的处理
+            const toolsBtn = document.getElementById('tools-btn');
+            const toolsMenu = document.getElementById('tools-menu');
+
+            toolsBtn.addEventListener('click', function(event) {
+                event.stopPropagation();
+                toolsMenu.classList.toggle('hidden');
+            });
+
+            // 点击其他地方时关闭 Tools 菜单
+            document.addEventListener('click', function(event) {
+                if (!toolsBtn.contains(event.target) && !toolsMenu.contains(event.target)) {
+                    toolsMenu.classList.add('hidden');
+                }
+            });
+
+            // 防止 Tools 菜单内部点击事件冒泡
+            toolsMenu.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
         });
+
+        // 下拉菜单处理
+        document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('click', e => {
+                // 检查点击的元素是否是下拉按钮或其子元素
+                const isDropdownButton = e.target.matches("[data-dropdown-button], [data-dropdown-button] *")
+
+                // 如果点击的不是下拉按钮区域，且点击在下拉菜单内，则不做任何处理
+                if (!isDropdownButton && e.target.closest('[data-dropdown]') != null) return
+
+                let currentDropdown
+                if (isDropdownButton) {
+                    // 获取最近的下拉容器
+                    currentDropdown = e.target.closest('[data-dropdown]')
+                    // 切换下拉菜单的显示状态
+                    currentDropdown.querySelector('[data-dropdown-menu]').classList.toggle('hidden')
+                }
+
+                // 关闭其他所有打开的下拉菜单
+                document.querySelectorAll('[data-dropdown] [data-dropdown-menu]').forEach(dropdown => {
+                    const container = dropdown.closest('[data-dropdown]')
+                    if (container !== currentDropdown) {
+                        dropdown.classList.add('hidden')
+                    }
+                })
+            })
+        })
     </script>
     {% block extra_js %}{% endblock %}
 </body>
