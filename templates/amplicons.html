@@ -157,7 +157,7 @@
                             {% for amplicon in page_obj %}
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <a href="{% url 'amplicon:amplicon_detail' amplicon.id %}" class="text-indigo-600 hover:text-indigo-800">{{ amplicon.run }}</a>
+                                    <a href="{% url 'amplicon:amplicon_detail' amplicon.run %}" class="text-indigo-600 hover:text-indigo-800">{{ amplicon.run }}</a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     {% if amplicon.assay_type and amplicon.assay_type != "NA" %}

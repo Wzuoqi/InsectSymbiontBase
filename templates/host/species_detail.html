@@ -136,8 +136,9 @@
                     <thead>
                         <tr class="bg-gray-50">
                             <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6">Species</th>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6">Genome</th>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6">Annotation</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/12">Genome</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/12">Annotation</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6">Source</th>
                             <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/12">Level</th>
                             <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Busco</th>
                         </tr>
@@ -164,11 +165,9 @@
                                 </a>
                             </td>
                             <td class="px-4 py-3 whitespace-nowrap">
-                                <a href="https://www.ncbi.nlm.nih.gov/assembly/GCA_009835225.1"
-                                   target="_blank"
-                                   class="text-kabuli-600 hover:text-kabuli-800 transition duration-150">
+                                <span class="text-gray-600">
                                     GCA_009835225.1
-                                </a>
+                                </span>
                             </td>
                             <td class="px-4 py-3 whitespace-nowrap text-gray-600">Scaffold</td>
                             <td class="px-4 py-3 text-gray-600 font-mono text-sm">
@@ -302,6 +301,25 @@
                 </div>
             </div>
         </div>
+
+        <!-- Back to Table Button -->
+        <a href="/hosts"
+            class="fixed bottom-16 right-8 bg-kabuli-700 text-white rounded-full shadow-lg hover:bg-kabuli-800 transition-all duration-300 group">
+            <div class="flex items-center">
+                <div class="p-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
+                        </path>
+                    </svg>
+                </div>
+                <div class="w-0 group-hover:w-auto overflow-hidden transition-all duration-300 ease-in-out">
+                    <span
+                        class="text-white whitespace-nowrap pr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Back
+                        to Table</span>
+                </div>
+            </div>
+        </a>
 
         <script>
             // 客户端过滤功能

@@ -56,8 +56,8 @@ def amplicons(request):
 
     return render(request, "amplicons.html", context)
 
-def amplicon_detail(request, amplicon_id):
-    amplicon = get_object_or_404(Amplicon, id=amplicon_id)
+def amplicon_detail(request, run):
+    amplicon = get_object_or_404(Amplicon, run=run)
     context = {
         'amplicon': amplicon,
     }

@@ -8,5 +8,5 @@ app_name = 'amplicon'
 
 urlpatterns = [
     path('', views.amplicons, name='amplicons'),
-    path('amplicon/<int:amplicon_id>/', views.amplicon_detail, name='amplicon_detail'),
+    path('amplicon/<str:run>/', views.amplicon_detail, name='amplicon_detail'),
 ]
