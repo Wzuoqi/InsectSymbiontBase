@@ -15,7 +15,7 @@ Acyrthosiphon malvae	Hemiptera	Aleyrodidae	Aleyrodinae	Acyrthosiphon
 Acyrthosiphon pisum	Hemiptera	Aphididae	Aphidinae	Acyrthosiphon
 Adalia bipunctata	Coleoptera	Coccinellidae	Coccinellinae	Adalia
 Adalia decempunctata	Coleoptera	Coccinellidae	Coccinellinae	Adalia
-Adelges nordmannianae/piceae	Hemiptera	Adelgidae	None	Adelges
+Adelges nordmannianae	Hemiptera	Adelgidae	None	Adelges
 Adelges tsugae	Hemiptera	Adelgidae	None	Adelges
 Adelphocoris suturalis	Hemiptera	Miridae	Mirinae	Adelphocoris
 Aedes aegypti	Diptera	Culicidae	Culicinae	Aedes
@@ -71,7 +71,6 @@ Apis florea	Hymenoptera	Apidae	Apinae	Apis
 Apis mellifera	Hymenoptera	Apidae	Apinae	Apis
 Apolygus lucorum	Hemiptera	Miridae	Mirinae	Apolygus
 Arion ater	Stylommatophora	Arionidae	None	Arion
-Armadillidae	Isopoda	Armadillidae	None	Armadillidae
 Asobara japonica	Hymenoptera	Braconidae	Alysiinae	Asobara
 Asobara tabida	Hymenoptera	Formicidae	Pseudomyrmecinae	Asobara
 Aspongopus chinensis	Hemiptera	Dinidoridae	None	Aspongopus
@@ -264,7 +263,6 @@ Encarsia pergandiella	Hymenoptera	Aphelinidae	Coccophaginae	Encarsia
 Endoclita signifer	Lepidoptera	Pyralidae	Galleriinae	Endoclita
 Ensifera	Orthoptera	None	None	Ensifera
 Ephestia kuehniella	Lepidoptera	Pyralidae	Phycitinae	Ephestia
-Epibolus pulchripes	Spirobolida	Pachybolidae	None	Epibolus
 Epiphyas postvittana	Lepidoptera	Pyralidae	Galleriinae	Epiphyas
 Episyrphus balteatus	Diptera	Syrphidae	Syrphinae	Episyrphus
 Ericerus pela	Hemiptera	Coccidae	None	Ericerus
@@ -286,7 +284,6 @@ Euwallacea perbrevis	Coleoptera	Curculionidae	Scolytinae	Euwallacea
 Exorista sorbillans	Diptera	Tachinidae	Exoristinae	Exorista
 Eysarcoris ventralis	Hemiptera	Pentatomidae	Pentatominae	Eysarcoris
 Ferrisia virgata	Hemiptera	Aleyrodidae	Aleyrodinae	Ferrisia
-Folsomia candida	Entomobryomorpha	Isotomidae	Proisotominae	Folsomia
 Formica exsecta	Hymenoptera	Formicidae	Formicinae	Formica
 Fragariocoptes setiger	Trombidiformes	Phytoptidae	None	Fragariocoptes
 Frankliniella intonsa	Thysanoptera	Thripidae	Thripinae	Frankliniella
@@ -297,7 +294,6 @@ Gampsocleis gratiosa	Orthoptera	Anostostomatidae	Deinacridinae	Gampsocleis
 Geocoris proteus	Hemiptera	Lygaeidae	Geocoridae	Geocoris
 Georgecraigius atropalpus	Diptera	Glossinidae	None	Georgecraigius
 Globitermes sulphureus	Blattodea	Termitidae	Termitinae	Globitermes
-Glomeris connexa	Glomerida	Glomeridae	None	Glomeris
 Glossina brevipalpis	Diptera	Glossinidae	None	Glossina
 Glossina fuscipes fuscipes	Diptera	Glossinidae	None	Glossina
 Glossina morsitans	Diptera	Glossinidae	None	Glossina

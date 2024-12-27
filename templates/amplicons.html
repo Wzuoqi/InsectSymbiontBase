@@ -149,7 +149,7 @@
                                     Env Info
                                 </th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <a href="?sort_by=collection_date{% if search_query %}&search={{ search_query }}{% endif %}">Collection Date</a>
+                                    <a href="?sort_by=collection_date{% if search_query %}&search={{ search_query }}{% endif %}">Collection Year</a>
                                 </th>
                             </tr>
                         </thead>
@@ -177,7 +177,7 @@
                                         {% endif %}
                                     {% endif %}
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="italic px-6 py-4 whitespace-nowrap">
                                     {% if amplicon.host and amplicon.host != "NA" %}
                                         {{ amplicon.host }}
                                     {% endif %}
@@ -198,7 +198,13 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     {% if amplicon.collection_date and amplicon.collection_date != "NA" %}
-                                        {{ amplicon.collection_date }}
+                                        {% if amplicon.collection_date|length >= 4 %}
+                                            {{ amplicon.collection_date|slice:":4" }}
+                                        {% else %}
+                                            {{ amplicon.collection_date }}
+                                        {% endif %}
+                                    {% else %}
+                                        <span class="text-gray-400 dark:text-gray-500 italic"> - </span>
                                     {% endif %}
                                 </td>
                             </tr>

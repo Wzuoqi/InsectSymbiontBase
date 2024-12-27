@@ -93,12 +93,6 @@
             <a href="?filter=all{% if query %}&q={{ query }}{% endif %}" class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 {% if filter_type == 'all' or not filter_type %}bg-gray-100{% endif %} sm:text-sm dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
                 All
             </a>
-            <a href="?filter=wgs{% if query %}&q={{ query }}{% endif %}" class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 {% if filter_type == 'wgs' %}bg-gray-100{% endif %} sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
-                Pair
-            </a>
-            <a href="?filter=amplicon{% if query %}&q={{ query }}{% endif %}" class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 {% if filter_type == 'amplicon' %}bg-gray-100{% endif %} sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
-                Single
-            </a>
         </div>
 
         <!-- Search input field -->
@@ -140,7 +134,7 @@
                                     Geographic Location
                                 </th>
                                 <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    Collection Date
+                                    Collection Year
                                 </th>
                                 <th scope="col" class="relative py-3.5 px-4">
                                     <span class="sr-only">Details</span>
@@ -155,7 +149,7 @@
                                 </td>
                                 <td class="px-4 py-4 text-sm whitespace-nowrap">
                                     <div>
-                                        <h4 class="text-gray-700 dark:text-gray-200">{{ metagenome.host }}</h4>
+                                        <h4 class="italic text-gray-700 dark:text-gray-200">{{ metagenome.host }}</h4>
                                     </div>
                                 </td>
                                 <td class="px-4 py-4 text-gray-700 text-sm whitespace-nowrap">
@@ -172,7 +166,15 @@
                                     </div>
                                 </td>
                                 <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                    {{ metagenome.collection_date }}
+                                    {% if metagenome.collection_date and metagenome.collection_date != 'NA' %}
+                                        {% if metagenome.collection_date|length >= 4 %}
+                                            {{ metagenome.collection_date|slice:":4" }}
+                                        {% else %}
+                                            {{ metagenome.collection_date }}
+                                        {% endif %}
+                                    {% else %}
+                                        <span class="text-gray-400 dark:text-gray-500 italic"> - </span>
+                                    {% endif %}
                                 </td>
                                 <td class="px-4 py-4 text-sm whitespace-nowrap">
                                     <a href="{% url 'metagenome:metagenome_detail' metagenome.run %}" class="text-gray-500 transition-colors duration-200 dark:hover:text-cyan-500 dark:text-gray-300 hover:text-cyan-500 focus:outline-none">
