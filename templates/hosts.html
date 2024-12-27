@@ -316,9 +316,31 @@ async function initCharts() {
         const textColor = darkMode ? '#e5e7eb' : '#374151';
         const backgroundColor = darkMode ? '#1f2937' : '#ffffff';
 
+        // 饼图的配色方案保持不变
+        const pieColorPalette = [
+            '#4338ca', // 深蓝色
+            '#6366f1', // 靛蓝色
+            '#818cf8', // 中蓝色
+            '#93c5fd', // 浅蓝色
+            '#7c3aed', // 深紫色
+            '#8b5cf6', // 亮紫色
+            '#a78bfa'  // 浅紫色
+        ];
+
+        // 词云图使用新的配色方案
+        const wordCloudColors = [
+            '#1e40af', // 深蓝色
+            '#3730a3', // 深靛蓝色
+            '#5b21b6', // 深紫色
+            '#2563eb', // 亮蓝色
+            '#4f46e5', // 亮靛蓝色
+            '#7c3aed', // 亮紫色
+        ];
+
         // Order Distribution Chart
         orderDistributionChart = echarts.init(document.getElementById('orderDistributionChart'));
         const orderDistributionOption = {
+            color: pieColorPalette,  // 使用原有配色
             tooltip: {
                 trigger: 'item',
                 formatter: '{b}: {c} ({d}%)'
@@ -380,30 +402,26 @@ async function initCharts() {
                 shape: 'circle',
                 left: 'center',
                 top: 'center',
-                width: '95%',
-                height: '95%',
+                width: '100%',
+                height: '100%',
                 right: null,
                 bottom: null,
-                sizeRange: [12, 40],
-                rotationRange: [-30, 30],
-                rotationStep: 15,
-                gridSize: 15,
+                sizeRange: [10, 32],  // 稍微增加最大字号
+                rotationRange: [-25, 25],
+                rotationStep: 45,
+                gridSize: 10,
                 drawOutOfBound: false,
                 layoutAnimation: true,
                 textStyle: {
                     fontFamily: 'sans-serif',
-                    fontWeight: 'bold',
-                    color: '#94a3b8'
+                    fontWeight: 'normal',
                 },
                 emphasis: {
                     textStyle: {
-                        color: '#6366f1',
+                        fontWeight: 'bold',
                         shadowBlur: 10,
-                        shadowColor: '#333'
+                        shadowColor: 'rgba(0, 0, 0, 0.3)'
                     }
-                },
-                weightFactor: function (size) {
-                    return Math.pow(size, 1.1);
                 },
                 data: [
                     {
@@ -568,21 +586,49 @@ async function initCharts() {
                             fontSize: 12
                         }
                     }
-                ]
+                ].map((item, index) => {
+                    const maxValue = 73; // 最大value值
+                    // 根据数值大小分配不同的颜色
+                    let colorIndex;
+                    if (item.value >= 60) {
+                        colorIndex = 0; // 最高频率使用深蓝色
+                    } else if (item.value >= 45) {
+                        colorIndex = 1;
+                    } else if (item.value >= 35) {
+                        colorIndex = 2;
+                    } else if (item.value >= 25) {
+                        colorIndex = 3;
+                    } else if (item.value >= 20) {
+                        colorIndex = 4;
+                    } else {
+                        colorIndex = 5;
+                    }
+
+                    return {
+                        name: item.name,
+                        value: item.value,
+                        textStyle: {
+                            color: wordCloudColors[colorIndex],
+                            fontSize: Math.max(14, Math.min(32, 14 + item.value / 3)),  // 调整字体大小计算
+                            fontWeight: item.value >= 45 ? 'bold' : 'normal'  // 高频词加粗显示
+                        }
+                    };
+                })
             }]
         };
 
+        // 优化性能设置
         topSpeciesOption.series[0].layoutAnimation = false;
         topSpeciesOption.series[0].large = true;
-        topSpeciesOption.series[0].largeThreshold = 30;
+        topSpeciesOption.series[0].largeThreshold = 100;
+
+        topSpeciesChart.setOption(topSpeciesOption);
 
         // 添加点击事件处理
         topSpeciesChart.on('click', function(params) {
             document.getElementById('searchInput').value = params.data.name;
             handleSearch(new Event('submit'));
         });
-
-        topSpeciesChart.setOption(topSpeciesOption);
 
         // 响应窗口大小变化
         window.addEventListener('resize', () => {

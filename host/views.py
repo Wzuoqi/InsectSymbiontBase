@@ -4,6 +4,8 @@ from django.db.models import Count, Q
 from symbiont.models import Symbiont  # 导入Symbiont模型
 from metagenome.models import Metagenome
 from amplicon.models import Amplicon
+from django.db.models.functions import Length
+from django.db.models import Case, When, Value, IntegerField
 
 # 添加排序顺序常量
 INSECT_ORDER_SEQUENCE = [
@@ -91,11 +93,19 @@ def species_detail(request, species):
     species_words = host.species.split()[:2]
     species_pattern = ' '.join(species_words)
 
-    # 查询相关的symbionts
+    # 查询相关的symbionts，添加function长度注解并排序
     related_symbionts = Symbiont.objects.filter(
         Q(host_species__istartswith=species_pattern) &
-        ~Q(symbiont_name__in=['NA', 'None', '']),  # 过滤掉无效的symbiont_name
-    ).order_by('symbiont_name')
+        ~Q(symbiont_name__in=['NA', 'None', '']),
+    ).annotate(
+        function_length=Case(
+            When(function__isnull=True, then=Value(0)),
+            When(function='NA', then=Value(0)),
+            When(function='', then=Value(0)),
+            default=Length('function'),
+            output_field=IntegerField(),
+        )
+    ).order_by('-function_length', 'symbiont_name')  # 首先按function长度降序，然后按名称升序
 
     # 查询相关的metagenomes
     related_metagenomes = Metagenome.objects.filter(

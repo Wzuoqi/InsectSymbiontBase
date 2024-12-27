@@ -52,7 +52,7 @@
                 {% if genome.host and genome.host != "NA" %}
                 <div class="sm:col-span-1">
                     <dt class="text-sm font-medium text-gray-500">Host</dt>
-                    <dd class="mt-1 text-md text-gray-900">{{ genome.host }}</dd>
+                    <dd class="italic mt-1 text-md text-gray-900">{{ genome.host }}</dd>
                 </div>
                 {% endif %}
                 {% if genome.function and genome.function != "NA" %}
@@ -191,29 +191,61 @@
             <div class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                 <div class="sm:col-span-2">
                     <dt class="text-sm font-medium text-gray-500">GTDB Classification</dt>
-                    <dd class="mt-1 text-sm text-gray-900 bg-gray-100 p-2 rounded">{{ genome.gtdb_classification|default:"Unknown" }}</dd>
+                    <dd class="mt-1 text-sm text-gray-900 bg-gray-100 p-2 rounded">
+                        {% if genome.gtdb_classification and genome.gtdb_classification != "NA" %}
+                            {{ genome.gtdb_classification }}
+                        {% else %}
+                            <span class="text-gray-400">-</span>
+                        {% endif %}
+                    </dd>
                 </div>
                 <div class="sm:col-span-1">
                     <dt class="text-sm font-medium text-gray-500">GTDB Phylum</dt>
-                    <dd class="mt-1 text-sm text-gray-900">{{ genome.gtdb_phylum|default:"Unknown" }}</dd>
+                    <dd class="mt-1 text-sm text-gray-900">
+                        {% if genome.gtdb_phylum and genome.gtdb_phylum != "NA" %}
+                            {{ genome.gtdb_phylum }}
+                        {% else %}
+                            <span class="text-gray-400">-</span>
+                        {% endif %}
+                    </dd>
                 </div>
                 <div class="sm:col-span-1">
                     <dt class="text-sm font-medium text-gray-500">Closest Genome Reference</dt>
-                    <dd class="mt-1 text-sm text-gray-900">{{ genome.closest_genome_reference|default:"Unknown" }}</dd>
+                    <dd class="mt-1 text-sm text-gray-900">
+                        {% if genome.closest_genome_reference and genome.closest_genome_reference != "NA" %}
+                            {{ genome.closest_genome_reference }}
+                        {% else %}
+                            <span class="text-gray-400">-</span>
+                        {% endif %}
+                    </dd>
                 </div>
                 <div class="sm:col-span-1">
                     <dt class="text-sm font-medium text-gray-500">Closest Genome ANI</dt>
-                    <dd class="mt-1 text-sm text-gray-900">{{ genome.closest_genome_ani|floatformat:2 }}%</dd>
+                    <dd class="mt-1 text-sm text-gray-900">
+                        {% if genome.closest_genome_ani %}
+                            {{ genome.closest_genome_ani|floatformat:2 }}%
+                        {% else %}
+                            <span class="text-gray-400">-</span>
+                        {% endif %}
+                    </dd>
                 </div>
                 <div class="sm:col-span-1">
                     <dt class="text-sm font-medium text-gray-500">Classification Method</dt>
-                    <dd class="mt-1 text-sm text-gray-900">{{ genome.classification_method|default:"Unknown" }}</dd>
+                    <dd class="mt-1 text-sm text-gray-900">
+                        {% if genome.classification_method and genome.classification_method != "NA" %}
+                            {{ genome.classification_method }}
+                        {% else %}
+                            <span class="text-gray-400">-</span>
+                        {% endif %}
+                    </dd>
                 </div>
                 <div class="sm:col-span-2">
                     <dt class="text-sm font-medium text-gray-500">Note</dt>
                     <dd class="mt-1 text-sm text-gray-900">
                         {% if genome.note and genome.note != "NA" and genome.note != "None" %}
-                        {{ genome.note }}
+                            {{ genome.note }}
+                        {% else %}
+                            <span class="text-gray-400">-</span>
                         {% endif %}
                     </dd>
                 </div>
