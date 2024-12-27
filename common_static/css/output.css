@@ -3392,6 +3392,16 @@ video {
   background-color: rgb(255 255 255 / 0.1);
 }
 
+.hover\:bg-green-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 252 231 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-kabuli-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(223 239 255 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-opacity-20:hover {
   --tw-bg-opacity: 0.2;
 }

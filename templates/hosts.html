@@ -5,13 +5,53 @@
 {% load static %}
 
 <div class="container mx-auto px-4 py-8">
-    <!-- 标题部分 -->
-    <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-800 mb-2">Species Tree</h1>
-        <p class="text-gray-600">
-            Total Species: {{ total_species }} | Orders: {{ total_orders }}
-        </p>
-    </div>
+    <!-- Introduction Section -->
+    <section class="mb-12">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
+            <div class="flex-1">
+                <h1 class="text-4xl font-bold text-kabuli-900 dark:text-white mb-4">Insect Host</h1>
+                <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed max-w-4xl">
+                    A comprehensive collection of insect host species with symbionts records from our database. Currently containing
+                    <span class="font-semibold text-kabuli-700">{{ total_species }}</span> species across
+                    <span class="font-semibold text-kabuli-700">{{ total_orders }}</span> orders.
+                    This taxonomic tree helps researchers explore the diversity of insect hosts and their associated symbionts.
+                </p>
+            </div>
+            <div class="flex-none">
+                <div class="inline-flex items-center justify-center p-6 bg-kabuli-50 dark:bg-gray-800 rounded-2xl">
+                    <div class="text-center">
+                        <span class="block text-3xl font-bold text-kabuli-700 dark:text-kabuli-400">{{ total_species }}</span>
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Total Species</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <!-- Left Chart: Order Distribution -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center justify-between mb-3">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-white">Order Distribution</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Species distribution across insect orders</p>
+                    </div>
+                </div>
+                <div class="h-80" id="orderDistributionChart"></div>
+            </div>
+
+            <!-- Right Chart: Top Species -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center justify-between mb-3">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-white">Top 20 Species</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Most frequently recorded host species</p>
+                    </div>
+                </div>
+                <div class="h-80" id="topSpeciesChart"></div>
+            </div>
+        </div>
+    </section>
 
     <!-- 搜索框 -->
     <div class="mb-6">
@@ -28,61 +68,78 @@
 
     <!-- 进化树展示 -->
     <div class="space-y-4">
-        {% for order, order_data in taxonomy_tree.items %}
-        <div class="taxonomy-item order-item">
-            <!-- 目级别 -->
-            <div class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer"
+        <!-- 添加 Insecta 根节点 -->
+        <div class="taxonomy-item root-item">
+            <div class="flex items-center p-4 bg-kabuli-50 rounded-lg hover:bg-kabuli-100 cursor-pointer"
                  onclick="toggleChildren(this)">
                 <span class="toggle-icon mr-2">
-                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                     </svg>
                 </span>
-                <span class="font-semibold text-gray-800">{{ order }}</span>
-                <span class="ml-2 text-sm text-gray-500">({{ order_data.count }} species)</span>
+                <span class="font-bold text-gray-900">Insecta</span>
+                <span class="ml-2 text-sm text-gray-600">({{ total_species }} species in {{ total_orders }} orders)</span>
             </div>
 
-            <!-- 科级别 -->
-            <div class="children pl-6 mt-2 hidden">
-                {% for family, family_data in order_data.families.items %}
-                <div class="taxonomy-item family-item mb-2">
-                    <div class="flex items-center p-2 rounded hover:bg-gray-50 cursor-pointer"
+            <div class="children pl-6 mt-3">
+                {% for order, order_data in taxonomy_tree.items %}
+                <div class="taxonomy-item order-item mb-3">
+                    <!-- 目级别 -->
+                    <div class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer"
                          onclick="toggleChildren(this)">
                         <span class="toggle-icon mr-2">
-                            <svg class="w-3 h-3 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
                         </span>
-                        <span class="font-medium text-gray-700">{{ family }}</span>
-                        <span class="ml-2 text-sm text-gray-500">({{ family_data.count }} species)</span>
+                        <span class="font-semibold text-gray-800">{{ order }}</span>
+                        <span class="ml-2 text-sm text-gray-500">({{ order_data.count }} species)</span>
                     </div>
 
-                    <!-- 属级别 -->
-                    <div class="children pl-6 mt-1 hidden">
-                        {% for genus, genus_data in family_data.genera.items %}
-                        <div class="taxonomy-item genus-item mb-2">
-                            <div class="flex items-center p-2 rounded hover:bg-gray-50">
-                                <span class="toggle-icon mr-2 cursor-pointer" onclick="toggleChildren(this.parentElement)">
+                    <!-- 科级别 -->
+                    <div class="children pl-6 mt-2 hidden">
+                        {% for family, family_data in order_data.families.items %}
+                        <div class="taxonomy-item family-item mb-2">
+                            <div class="flex items-center p-2 rounded hover:bg-gray-50 cursor-pointer"
+                                 onclick="toggleChildren(this)">
+                                <span class="toggle-icon mr-2">
                                     <svg class="w-3 h-3 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                                     </svg>
                                 </span>
-                                <span class="text-gray-600 italic cursor-pointer" onclick="toggleChildren(this.parentElement)">
-                                    {{ genus }}
-                                </span>
-                                <span class="text-sm text-gray-500 ml-2">({{ genus_data.count }} species)</span>
-                                <span class="flex-grow"></span>
+                                <span class="font-medium text-gray-700">{{ family }}</span>
+                                <span class="ml-2 text-sm text-gray-500">({{ family_data.count }} species)</span>
                             </div>
 
-                            <!-- 种级别 -->
+                            <!-- 属级别 -->
                             <div class="children pl-6 mt-1 hidden">
-                                {% for species in genus_data.species %}
-                                <div class="species-item p-2 hover:bg-gray-50 rounded flex items-center group">
-                                    <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
-                                    <a href="{% url 'host:species_detail' species.species %}"
-                                       class="text-gray-800 italic font-medium group-hover:text-blue-600 transition-colors">
-                                        {{ species.species }}
-                                    </a>
+                                {% for genus, genus_data in family_data.genera.items %}
+                                <div class="taxonomy-item genus-item mb-2">
+                                    <div class="flex items-center p-2 rounded hover:bg-gray-50">
+                                        <span class="toggle-icon mr-2 cursor-pointer" onclick="toggleChildren(this.parentElement)">
+                                            <svg class="w-3 h-3 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                            </svg>
+                                        </span>
+                                        <span class="text-gray-600 italic cursor-pointer" onclick="toggleChildren(this.parentElement)">
+                                            {{ genus }}
+                                        </span>
+                                        <span class="text-sm text-gray-500 ml-2">({{ genus_data.count }} species)</span>
+                                        <span class="flex-grow"></span>
+                                    </div>
+
+                                    <!-- 种级别 -->
+                                    <div class="children pl-6 mt-1 hidden">
+                                        {% for species in genus_data.species %}
+                                        <div class="species-item p-2 hover:bg-gray-50 rounded flex items-center group">
+                                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
+                                            <a href="{% url 'host:species_detail' species.species %}"
+                                               class="text-gray-800 italic font-medium group-hover:text-blue-600 transition-colors">
+                                                {{ species.species }}
+                                            </a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
                                 </div>
                                 {% endfor %}
                             </div>
@@ -93,7 +150,6 @@
                 {% endfor %}
             </div>
         </div>
-        {% endfor %}
     </div>
 </div>
 
@@ -220,6 +276,335 @@ document.getElementById('searchInput').addEventListener('input', function(e) {
         handleSearch(new Event('submit'));
     }, 300); // 300ms 延迟
 });
+
+// 简化的 ECharts 加载函数
+function loadECharts() {
+    return new Promise((resolve, reject) => {
+        if (window.echarts) {
+            // 如果已经加载了词云图插件，直接返回
+            if (window.echarts.wordCloud) {
+                resolve(window.echarts);
+                return;
+            }
+        }
+
+        // 加载主要的 ECharts 库
+        const script = document.createElement('script');
+        script.src = '/static/js/echarts.min.js';
+
+        // 加载词云图插件
+        const wordCloudScript = document.createElement('script');
+        wordCloudScript.src = '/static/js/echarts-wordcloud.min.js';
+
+        script.onload = () => {
+            wordCloudScript.onload = () => resolve(window.echarts);
+            document.head.appendChild(wordCloudScript);
+        };
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
+
+// 声明全局变量来存储图表实例
+let orderDistributionChart = null;
+let topSpeciesChart = null;
+
+async function initCharts() {
+    try {
+        const echarts = await loadECharts();
+        const darkMode = document.documentElement.classList.contains('dark');
+        const textColor = darkMode ? '#e5e7eb' : '#374151';
+        const backgroundColor = darkMode ? '#1f2937' : '#ffffff';
+
+        // Order Distribution Chart
+        orderDistributionChart = echarts.init(document.getElementById('orderDistributionChart'));
+        const orderDistributionOption = {
+            tooltip: {
+                trigger: 'item',
+                formatter: '{b}: {c} ({d}%)'
+            },
+            legend: {
+                orient: 'vertical',
+                right: 10,
+                top: 'center',
+                textStyle: {
+                    color: textColor
+                }
+            },
+            series: [{
+                type: 'pie',
+                radius: ['40%', '70%'],
+                avoidLabelOverlap: true,
+                itemStyle: {
+                    borderRadius: 4,
+                    borderColor: backgroundColor,
+                    borderWidth: 2
+                },
+                label: {
+                    show: false
+                },
+                emphasis: {
+                    label: {
+                        show: true,
+                        fontSize: '14',
+                        fontWeight: 'bold'
+                    }
+                },
+                labelLine: {
+                    show: false
+                },
+                data: [
+                    { value: 121, name: 'Lepidoptera' },
+                    { value: 254, name: 'Coleoptera' },
+                    { value: 333, name: 'Hemiptera' },
+                    { value: 118, name: 'Diptera' },
+                    { value: 147, name: 'Hymenoptera' },
+                    { value: 92, name: 'Blattodea' },
+                    { value: 54, name: 'Others' }
+                ]
+            }]
+        };
+        orderDistributionChart.setOption(orderDistributionOption);
+
+        // Top Species Chart
+        topSpeciesChart = echarts.init(document.getElementById('topSpeciesChart'));
+        const topSpeciesOption = {
+            tooltip: {
+                show: true,
+                formatter: function(params) {
+                    return `${params.data.name}<br/>Studies: ${params.data.value}`;
+                }
+            },
+            series: [{
+                type: 'wordCloud',
+                shape: 'circle',
+                left: 'center',
+                top: 'center',
+                width: '95%',
+                height: '95%',
+                right: null,
+                bottom: null,
+                sizeRange: [12, 40],
+                rotationRange: [-30, 30],
+                rotationStep: 15,
+                gridSize: 15,
+                drawOutOfBound: false,
+                layoutAnimation: true,
+                textStyle: {
+                    fontFamily: 'sans-serif',
+                    fontWeight: 'bold',
+                    color: '#94a3b8'
+                },
+                emphasis: {
+                    textStyle: {
+                        color: '#6366f1',
+                        shadowBlur: 10,
+                        shadowColor: '#333'
+                    }
+                },
+                weightFactor: function (size) {
+                    return Math.pow(size, 1.1);
+                },
+                data: [
+                    {
+                        name: 'Spodoptera frugiperda',
+                        value: 73,
+                        textStyle: {
+                            color: '#7c3aed',
+                            fontSize: 40,
+                            rotation: 0
+                        }
+                    },
+                    {
+                        name: 'Drosophila melanogaster',
+                        value: 63,
+                        textStyle: {
+                            color: '#6d28d9',
+                            fontSize: 36,
+                            rotation: 0
+                        }
+                    },
+                    {
+                        name: 'Acyrthosiphon pisum',
+                        value: 56,
+                        textStyle: {
+                            color: '#5b21b6',
+                            fontSize: 32
+                        }
+                    },
+                    {
+                        name: 'Bemisia tabaci',
+                        value: 51,
+                        textStyle: {
+                            color: '#4c1d95',
+                            fontSize: 30
+                        }
+                    },
+                    {
+                        name: 'Plutella xylostella',
+                        value: 39,
+                        textStyle: {
+                            color: '#4338ca',
+                            fontSize: 28
+                        }
+                    },
+                    {
+                        name: 'Aedes aegypti',
+                        value: 36,
+                        textStyle: {
+                            color: '#1e40af',
+                            fontSize: 26
+                        }
+                    },
+                    {
+                        name: 'Bombyx mori',
+                        value: 35,
+                        textStyle: {
+                            color: '#1e3a8a',
+                            fontSize: 26
+                        }
+                    },
+                    {
+                        name: 'Bactrocera dorsalis',
+                        value: 32,
+                        textStyle: {
+                            color: '#1e3a8a',
+                            fontSize: 24
+                        }
+                    },
+                    {
+                        name: 'Nilaparvata lugens',
+                        value: 30,
+                        textStyle: {
+                            color: '#1e3a8a',
+                            fontSize: 22
+                        }
+                    },
+                    {
+                        name: 'Riptortus pedestris',
+                        value: 29,
+                        textStyle: {
+                            color: '#1e3a8a',
+                            fontSize: 22
+                        }
+                    },
+                    {
+                        name: 'Diaphorina citri',
+                        value: 27,
+                        textStyle: {
+                            color: '#64748b',
+                            fontSize: 20
+                        }
+                    },
+                    {
+                        name: 'Aphis gossypii',
+                        value: 30,
+                        textStyle: {
+                            color: '#64748b',
+                            fontSize: 20
+                        }
+                    },
+                    {
+                        name: 'Melanaphis bambusae',
+                        value: 25,
+                        textStyle: {
+                            color: '#64748b',
+                            fontSize: 18
+                        }
+                    },
+                    {
+                        name: 'Leptinotarsa decemlineata',
+                        value: 23,
+                        textStyle: {
+                            color: '#64748b',
+                            fontSize: 16
+                        }
+                    },
+                    {
+                        name: 'Anticarsia gemmatalis',
+                        value: 23,
+                        textStyle: {
+                            color: '#64748b',
+                            fontSize: 16
+                        }
+                    },
+                    {
+                        name: 'Scirpophaga incertulas',
+                        value: 22,
+                        textStyle: {
+                            color: '#64748b',
+                            fontSize: 14
+                        }
+                    },
+                    {
+                        name: 'Delia antiqua',
+                        value: 22,
+                        textStyle: {
+                            color: '#64748b',
+                            fontSize: 14
+                        }
+                    },
+                    {
+                        name: 'Oryctes rhinoceros',
+                        value: 20,
+                        textStyle: {
+                            color: '#64748b',
+                            fontSize: 13
+                        }
+                    },
+                    {
+                        name: 'Dendroctonus valens',
+                        value: 20,
+                        textStyle: {
+                            color: '#64748b',
+                            fontSize: 13
+                        }
+                    },
+                    {
+                        name: 'Rhynchophorus ferrugineus',
+                        value: 19,
+                        textStyle: {
+                            color: '#64748b',
+                            fontSize: 12
+                        }
+                    }
+                ]
+            }]
+        };
+
+        topSpeciesOption.series[0].layoutAnimation = false;
+        topSpeciesOption.series[0].large = true;
+        topSpeciesOption.series[0].largeThreshold = 30;
+
+        // 添加点击事件处理
+        topSpeciesChart.on('click', function(params) {
+            document.getElementById('searchInput').value = params.data.name;
+            handleSearch(new Event('submit'));
+        });
+
+        topSpeciesChart.setOption(topSpeciesOption);
+
+        // 响应窗口大小变化
+        window.addEventListener('resize', () => {
+            orderDistributionChart.resize();
+            topSpeciesChart.resize();
+        });
+
+    } catch (error) {
+        console.error('Failed to initialize charts:', error);
+        const chartContainers = document.querySelectorAll('#orderDistributionChart, #topSpeciesChart');
+        chartContainers.forEach(container => {
+            container.innerHTML = '<div class="text-center p-4 text-gray-500">Failed to load chart. Please refresh the page.</div>';
+        });
+    }
+}
+
+// 确保在 DOM 加载完成后初始化图表
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCharts);
+} else {
+    initCharts();
+}
 </script>
 
 {% endblock %}

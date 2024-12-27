@@ -5,6 +5,25 @@ from symbiont.models import Symbiont  # 导入Symbiont模型
 from metagenome.models import Metagenome
 from amplicon.models import Amplicon
 
+# 添加排序顺序常量
+INSECT_ORDER_SEQUENCE = [
+    'Zygentoma',
+    'Odonata',
+    'Phthiraptera',
+    'Dermaptera',
+    'Orthoptera',
+    'Phasmatodea',
+    'Mantodea',
+    'Blattodea',
+    'Thysanoptera',
+    'Hemiptera',
+    'Hymenoptera',
+    'Neuroptera',
+    'Coleoptera',
+    'Lepidoptera',
+    'Diptera'
+]
+
 def hosts(request):
     # 获取所有分类数据并按层级组织
     taxonomy_tree = {}
@@ -37,8 +56,19 @@ def hosts(request):
         taxonomy_tree[host.order]['families'][family]['genera'][host.genus]['species'].append(host)
         taxonomy_tree[host.order]['families'][family]['genera'][host.genus]['count'] += 1
 
+    # 对 taxonomy_tree 进行排序
+    sorted_taxonomy_tree = {}
+    for order in INSECT_ORDER_SEQUENCE:
+        if order in taxonomy_tree:
+            sorted_taxonomy_tree[order] = taxonomy_tree[order]
+
+    # 如果有其他目不在预定义序列中，将它们添加到末尾（可选）
+    for order in taxonomy_tree:
+        if order not in sorted_taxonomy_tree:
+            sorted_taxonomy_tree[order] = taxonomy_tree[order]
+
     context = {
-        'taxonomy_tree': taxonomy_tree,
+        'taxonomy_tree': sorted_taxonomy_tree,  # 使用排序后的字典
         'total_species': hosts.count(),
         'total_orders': len(taxonomy_tree)
     }
