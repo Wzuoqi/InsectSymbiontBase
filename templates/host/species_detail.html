@@ -6,11 +6,20 @@
 <section class="container mx-auto my-8 p-6 space-y-8">
     <!-- 面包屑导航 -->
     <nav class="text-sm text-gray-500 mb-6">
-        <a href="{% url 'host:hosts' %}" class="hover:text-kabuli-600">Hosts</a>
-        <span class="mx-2">/</span>
-        <a href="{% url 'host:genus_detail' host.genus %}" class="hover:text-kabuli-600 italic">{{ host.genus }}</a>
-        <span class="mx-2">/</span>
-        <span class="text-gray-900 italic">{{ host.species }}</span>
+        <div class="flex items-center space-x-2">
+            <a href="{% url 'host:hosts' %}" class="hover:text-kabuli-600">Hosts</a>
+            <span class="text-gray-400">/</span>
+            <a href="{% url 'host:order_detail' host.order %}"
+                class="hover:text-kabuli-600 font-medium">{{ host.order }}</a>
+            <span class="text-gray-400">/</span>
+            <a href="{% url 'host:family_detail' host.family %}"
+                class="hover:text-kabuli-600 font-medium">{{ host.family }}</a>
+            <span class="text-gray-400">/</span>
+            <a href="{% url 'host:genus_detail' host.genus %}"
+                class="hover:text-kabuli-600 font-medium italic">{{ host.genus }}</a>
+            <span class="text-gray-400">/</span>
+            <span class="text-gray-900 font-medium italic">{{ host.species }}</span>
+        </div>
     </nav>
 
     <!-- 基本信息和基因组信息的整合模块 -->

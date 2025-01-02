@@ -94,6 +94,16 @@
                         </span>
                         <span class="font-semibold text-gray-800">{{ order }}</span>
                         <span class="ml-2 text-sm text-gray-500">({{ order_data.count }} species)</span>
+                        <a href="{% url 'host:order_detail' order %}"
+                           class="text-gray-400 hover:text-blue-600 transition-colors ml-2"
+                           title="View order details"
+                           onclick="event.stopPropagation()">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </a>
+                        <span class="flex-grow"></span>
                     </div>
 
                     <!-- 科级别 -->
@@ -109,13 +119,23 @@
                                 </span>
                                 <span class="font-medium text-gray-700">{{ family }}</span>
                                 <span class="ml-2 text-sm text-gray-500">({{ family_data.count }} species)</span>
+                                <a href="{% url 'host:family_detail' family %}"
+                                   class="text-gray-400 hover:text-blue-600 transition-colors ml-2"
+                                   title="View family details"
+                                   onclick="event.stopPropagation()">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </a>
+                                <span class="flex-grow"></span>
                             </div>
 
                             <!-- 属级别 -->
                             <div class="children pl-6 mt-1 hidden">
                                 {% for genus, genus_data in family_data.genera.items %}
                                 <div class="taxonomy-item genus-item mb-2">
-                                    <div class="flex items-center p-2 rounded hover:bg-gray-50">
+                                    <div class="flex items-center p-2 rounded hover:bg-gray-50 group">
                                         <span class="toggle-icon mr-2 cursor-pointer" onclick="toggleChildren(this.parentElement)">
                                             <svg class="w-3 h-3 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -125,6 +145,14 @@
                                             {{ genus }}
                                         </span>
                                         <span class="text-sm text-gray-500 ml-2">({{ genus_data.count }} species)</span>
+                                        <a href="{% url 'host:genus_detail' genus %}"
+                                           class="text-gray-400 hover:text-blue-600 transition-colors ml-2"
+                                           title="View genus details">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                            </svg>
+                                        </a>
                                         <span class="flex-grow"></span>
                                     </div>
 
@@ -182,17 +210,28 @@ function toggleChildren(element) {
 
 // 重置所有节点的显示状态
 function resetTree() {
-    document.querySelectorAll('.taxonomy-item').forEach(item => {
+    // 显示所有taxonomy项
+    document.querySelectorAll('.taxonomy-item, .species-item').forEach(item => {
         item.style.display = '';
-        const children = item.querySelector('.children');
-        if (children) {
+    });
+
+    // 隐藏所有children区域（除了根节点）
+    document.querySelectorAll('.children').forEach((children, index) => {
+        if (!children.closest('.root-item')) {
             children.classList.add('hidden');
         }
-        const icon = item.querySelector('.toggle-icon svg');
-        if (icon) {
-            icon.classList.remove('rotate-180');
-        }
     });
+
+    // 重置所有图标方向
+    document.querySelectorAll('.toggle-icon svg').forEach(icon => {
+        icon.classList.remove('rotate-180');
+    });
+
+    // 移除可能存在的"无结果"提示
+    const noResultsMsg = document.getElementById('noResultsMessage');
+    if (noResultsMsg) {
+        noResultsMsg.style.display = 'none';
+    }
 }
 
 // 显示匹配项的所有父节点
@@ -273,7 +312,8 @@ let searchTimeout;
 document.getElementById('searchInput').addEventListener('input', function(e) {
     clearTimeout(searchTimeout);
     searchTimeout = setTimeout(() => {
-        handleSearch(new Event('submit'));
+        const event = new Event('submit');
+        handleSearch(event);
     }, 300); // 300ms 延迟
 });
 
@@ -406,7 +446,7 @@ async function initCharts() {
                 height: '100%',
                 right: null,
                 bottom: null,
-                sizeRange: [10, 32],  // 稍微增加最大字号
+                sizeRange: [8, 32],  // 稍微增加最大字号
                 rotationRange: [-25, 25],
                 rotationStep: 45,
                 gridSize: 10,
