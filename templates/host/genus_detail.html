@@ -32,13 +32,17 @@
 
                 <!-- 分类信息卡片组 -->
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-gray-50 rounded-lg p-4">
-                        <p class="text-sm text-gray-500 mb-1">Order</p>
-                        <p class="font-medium text-gray-900">{{ order_name }}</p>
+                    <div class="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors duration-200">
+                        <a href="{% url 'host:order_detail' order_name %}" class="block">
+                            <p class="text-sm text-gray-500 mb-1">Order</p>
+                            <p class="font-medium text-gray-900">{{ order_name }}</p>
+                        </a>
                     </div>
-                    <div class="bg-gray-50 rounded-lg p-4">
-                        <p class="text-sm text-gray-500 mb-1">Family</p>
-                        <p class="font-medium text-gray-900">{{ family_name }}</p>
+                    <div class="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors duration-200">
+                        <a href="{% url 'host:family_detail' family_name %}" class="block">
+                            <p class="text-sm text-gray-500 mb-1">Family</p>
+                            <p class="font-medium text-gray-900">{{ family_name }}</p>
+                        </a>
                     </div>
                 </div>
 
@@ -382,7 +386,10 @@
                                 </td>
                                 <td class="px-4 py-4">
                                     <div class="text-sm text-gray-900 italic">
-                                        {{ metagenome.host }}
+                                        <a href="{% url 'host:species_detail' metagenome.host %}"
+                                            class="font-medium text-kabuli-800 hover:text-kabuli-600 hover:underline">
+                                            {{ metagenome.host }}
+                                        </a>
                                     </div>
                                 </td>
                                 <td class="px-4 py-4">
@@ -461,6 +468,12 @@
                                     Run</th>
                                 <th scope="col"
                                     class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Classification</th>
+                                <th scope="col"
+                                    class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Host</th>
+                                <th scope="col"
+                                    class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Platform</th>
                                 <th scope="col"
                                     class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -468,12 +481,6 @@
                                 <th scope="col"
                                     class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Environment</th>
-                                <th scope="col"
-                                    class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Classification</th>
-                                <th scope="col"
-                                    class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Host</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -481,11 +488,24 @@
                             <tr class="hover:bg-gray-50/50 transition duration-150 amplicon-row">
                                 <td class="px-4 py-4">
                                     <div>
-                                        <a href="https://www.ncbi.nlm.nih.gov/sra/{{ amplicon.run }}" target="_blank"
+                                        <a href="{% url 'amplicon:amplicon_detail' amplicon.run %}" target="_blank"
                                             class="font-medium text-kabuli-800 hover:text-kabuli-600 hover:underline">
                                             {{ amplicon.run }}
                                         </a>
                                         <p class="text-xs text-gray-600">{{ amplicon.assay_type }}</p>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-4">
+                                    <div class="inline px-3 py-1 text-sm font-normal rounded-full text-gray-800 bg-gray-100">
+                                        {{ amplicon.classification }}
+                                    </div>
+                                </td>
+                                <td class="px-4 py-4">
+                                    <div class="text-sm text-gray-900 italic">
+                                        <a href="{% url 'host:species_detail' amplicon.host %}"
+                                            class="font-medium text-kabuli-800 hover:text-kabuli-600 hover:underline">
+                                            {{ amplicon.host }}
+                                        </a>
                                     </div>
                                 </td>
                                 <td class="px-4 py-4">
@@ -520,24 +540,12 @@
                                         {% endif %}
                                     </div>
                                 </td>
-                                <td class="px-4 py-4">
-                                    <div
-                                        class="inline px-3 py-1 text-sm font-normal rounded-full text-gray-800 bg-gray-100">
-                                        {{ amplicon.classification }}
-                                    </div>
-                                </td>
-                                <td class="px-4 py-4">
-                                    <div class="text-sm text-gray-900 italic">
-                                        {{ amplicon.host }}
-                                    </div>
-                                </td>
                             </tr>
                             {% empty %}
                             <tr>
                                 <td colspan="6" class="px-6 py-12">
                                     <div class="text-center">
-                                        <span
-                                            class="icon-[heroicons--dna] w-12 h-12 text-gray-300 mx-auto mb-4 block"></span>
+                                        <span class="icon-[heroicons--dna] w-12 h-12 text-gray-300 mx-auto mb-4 block"></span>
                                         <h3 class="text-lg font-medium text-gray-900 mb-1">No amplicons found</h3>
                                         <p class="text-gray-500">No amplicon records associated with {{ genus_name }} species.</p>
                                     </div>

@@ -10,6 +10,33 @@ import json
 from collections import Counter
 from django.db.models.functions import Substr, StrIndex
 
+# 添加 TAG_COLORS 作为全局变量
+TAG_COLORS = {
+    # Nutrition - 绿色系
+    'Nitrogen fixation': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+    'Feeding habits': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+    'Probiotic': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+    'Nutrient provision': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+    'Digestive enzymes': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+    'Plastic degradation': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+    'Fungal farming': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+    'Sugar metabolism': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
+    # Defense - 蓝色系
+    'Plant defense': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+    'Pesticide metabolization': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+    'Immune priming': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+    'Antimicrobials': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+    'Plant secondary metabolites': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+    'Natural enemy resistance': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+    'Pathogen interaction': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+    'Chemical biosynthesis': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+    # Physiology - 紫色系
+    'Growth and Development': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-800 dark:text-cyan-100',
+    'Fertility': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-800 dark:text-cyan-100',
+    'Pigmentation alteration': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-800 dark:text-cyan-100',
+    'Reproductive manipulation': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-800 dark:text-cyan-100',
+}
+
 # 添加排序顺序常量
 INSECT_ORDER_SEQUENCE = [
     'Zygentoma',
@@ -80,6 +107,63 @@ def hosts(request):
 
     return render(request, 'hosts.html', context)
 
+def species_detail(request, species):
+    # 获取现有的host对象
+    host = get_object_or_404(Host, species=species)
+
+    # 获取species的前两个单词用于模糊匹配
+    species_words = host.species.split()[:2]
+    species_pattern = ' '.join(species_words)
+
+    # 查询相关的symbionts，添加function长度注解并排序
+    related_symbionts = Symbiont.objects.filter(
+        Q(host_species__istartswith=species_pattern) &
+        ~Q(symbiont_name__in=['NA', 'None', '']),
+    ).annotate(
+        function_length=Case(
+            When(function__isnull=True, then=Value(0)),
+            When(function='NA', then=Value(0)),
+            When(function='', then=Value(0)),
+            default=Length('function'),
+            output_field=IntegerField(),
+        )
+    ).order_by('-function_length', 'symbiont_name')  # 首先按function长度降序，然后按名称升序
+
+    # 查询相关的metagenomes
+    related_metagenomes = Metagenome.objects.filter(
+        host__istartswith=species_pattern
+    ).order_by('-collection_date')
+
+    # 查询相关的amplicons
+    related_amplicons = Amplicon.objects.filter(
+        host__istartswith=species_pattern
+    ).order_by('-collection_date')
+
+    # 处理function_tags
+    for symbiont in related_symbionts:
+        if symbiont.function_tag and symbiont.function_tag not in ["NA", "", None]:
+            tags_with_colors = []
+            for tag in symbiont.function_tag.split(','):
+                tag = tag.strip()
+                if tag:
+                    tags_with_colors.append({
+                        'text': tag,
+                        'color_class': TAG_COLORS.get(tag, 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100')
+                    })
+            symbiont.function_tags = tags_with_colors
+        else:
+            symbiont.function_tags = []
+
+    context = {
+        'host': host,
+        'related_symbionts': related_symbionts,
+        'related_metagenomes': related_metagenomes,
+        'related_amplicons': related_amplicons,
+    }
+
+    return render(request, 'host/species_detail.html', context)
+
+
 def genus_detail(request, genus_name):
     # 获取该属所属的目和科
     first_host = Host.objects.filter(genus=genus_name).first()
@@ -124,33 +208,6 @@ def genus_detail(request, genus_name):
     ).order_by('-function_length', 'symbiont_name')
 
     # 处理function_tags
-    TAG_COLORS = {
-        # Nutrition - 绿色系
-        'Nitrogen fixation': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
-        'Feeding habits': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
-        'Probiotic': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
-        'Nutrient provision': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
-        'Digestive enzymes': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
-        'Plastic degradation': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
-        'Fungal farming': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
-        'Sugar metabolism': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
-        # Defense - 蓝色系
-        'Plant defense': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
-        'Pesticide metabolization': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
-        'Immune priming': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
-        'Antimicrobials': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
-        'Plant secondary metabolites': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
-        'Natural enemy resistance': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
-        'Pathogen interaction': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
-        'Chemical biosynthesis': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
-        # Physiology - 紫色系
-        'Growth and Development': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-800 dark:text-cyan-100',
-        'Fertility': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-800 dark:text-cyan-100',
-        'Pigmentation alteration': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-800 dark:text-cyan-100',
-        'Reproductive manipulation': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-800 dark:text-cyan-100',
-    }
-
-    # 处理function_tags
     for symbiont in symbionts:
         if symbiont.function_tag and symbiont.function_tag not in ["NA", "", None]:
             tags_with_colors = []
@@ -179,18 +236,25 @@ def genus_detail(request, genus_name):
 
     return render(request, 'host/genus_detail.html', context)
 
-def species_detail(request, species):
-    # 获取现有的host对象
-    host = get_object_or_404(Host, species=species)
 
-    # 获取species的前两个单词用于模糊匹配
-    species_words = host.species.split()[:2]
-    species_pattern = ' '.join(species_words)
+def family_detail(request, family_name):
+    """科详情页视图"""
+    # 获取该科下的所有宿主
+    hosts = Host.objects.filter(family=family_name)
 
-    # 查询相关的symbionts，添加function长度注解并排序
-    related_symbionts = Symbiont.objects.filter(
-        Q(host_species__istartswith=species_pattern) &
-        ~Q(symbiont_name__in=['NA', 'None', '']),
+    # 获取该科下的属统计
+    genera = hosts.values('genus').annotate(
+        species_count=Count('id')
+    ).order_by('-species_count')
+
+    # 获取该科所属的目
+    order = hosts.first().order if hosts.exists() else "Unknown"
+
+    # 查询相关的symbionts
+    symbionts = Symbiont.objects.filter(
+        host_family=family_name
+    ).filter(
+        ~Q(symbiont_name__in=['NA', 'None', ''])
     ).annotate(
         function_length=Case(
             When(function__isnull=True, then=Value(0)),
@@ -199,49 +263,20 @@ def species_detail(request, species):
             default=Length('function'),
             output_field=IntegerField(),
         )
-    ).order_by('-function_length', 'symbiont_name')  # 首先按function长度降序，然后按名称升序
+    ).order_by('-function_length', 'symbiont_name')
 
     # 查询相关的metagenomes
     related_metagenomes = Metagenome.objects.filter(
-        host__istartswith=species_pattern
+        host_family=family_name
     ).order_by('-collection_date')
 
     # 查询相关的amplicons
     related_amplicons = Amplicon.objects.filter(
-        host__istartswith=species_pattern
+        host_family=family_name
     ).order_by('-collection_date')
 
-    # 定义标签颜色映射
-    TAG_COLORS = {
-        # Nutrition - 绿色系
-        'Nitrogen fixation': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
-        'Feeding habits': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
-        'Probiotic': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
-        'Nutrient provision': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
-        'Digestive enzymes': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
-        'Plastic degradation': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
-        'Fungal farming': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
-        'Sugar metabolism': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
-
-        # Defense - 蓝色系
-        'Plant defense': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
-        'Pesticide metabolization': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
-        'Immune priming': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
-        'Antimicrobials': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
-        'Plant secondary metabolites': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
-        'Natural enemy resistance': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
-        'Pathogen interaction': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
-        'Chemical biosynthesis': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
-
-        # Physiology - 紫色系
-        'Growth and Development': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-800 dark:text-cyan-100',
-        'Fertility': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-800 dark:text-cyan-100',
-        'Pigmentation alteration': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-800 dark:text-cyan-100',
-        'Reproductive manipulation': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-800 dark:text-cyan-100',
-    }
-
     # 处理function_tags
-    for symbiont in related_symbionts:
+    for symbiont in symbionts:
         if symbiont.function_tag and symbiont.function_tag not in ["NA", "", None]:
             tags_with_colors = []
             for tag in symbiont.function_tag.split(','):
@@ -256,13 +291,19 @@ def species_detail(request, species):
             symbiont.function_tags = []
 
     context = {
-        'host': host,
-        'related_symbionts': related_symbionts,
+        'family_name': family_name,
+        'order_name': order,
+        'total_species': hosts.count(),
+        'total_genera': len(genera),
+        'genera': genera,
+        'total_symbionts': symbionts.count(),
+        'hosts': hosts.order_by('genus', 'species'),
+        'related_symbionts': symbionts,
         'related_metagenomes': related_metagenomes,
         'related_amplicons': related_amplicons,
     }
 
-    return render(request, 'host/species_detail.html', context)
+    return render(request, 'host/family_detail.html', context)
 
 def order_detail(request, order_name):
     """目详情页视图"""
@@ -274,13 +315,45 @@ def order_detail(request, order_name):
         species_count=Count('id')
     ).order_by('-species_count')
 
-    # 获取该目下的共生菌统计
-    species_list = hosts.values_list('species', flat=True)
+    # 查询相关的symbionts
     symbionts = Symbiont.objects.filter(
-        host_species__in=species_list
-    ).exclude(
-        symbiont_name__in=['NA', 'None', '']
-    )
+        host_order=order_name
+    ).filter(
+        ~Q(symbiont_name__in=['NA', 'None', ''])
+    ).annotate(
+        function_length=Case(
+            When(function__isnull=True, then=Value(0)),
+            When(function='NA', then=Value(0)),
+            When(function='', then=Value(0)),
+            default=Length('function'),
+            output_field=IntegerField(),
+        )
+    ).order_by('-function_length', 'symbiont_name')
+
+    # 查询相关的metagenomes
+    related_metagenomes = Metagenome.objects.filter(
+        host_order=order_name
+    ).order_by('-collection_date')
+
+    # 查询相关的amplicons
+    related_amplicons = Amplicon.objects.filter(
+        host_order=order_name
+    ).order_by('-collection_date')
+
+    # 处理function_tags
+    for symbiont in symbionts:
+        if symbiont.function_tag and symbiont.function_tag not in ["NA", "", None]:
+            tags_with_colors = []
+            for tag in symbiont.function_tag.split(','):
+                tag = tag.strip()
+                if tag:
+                    tags_with_colors.append({
+                        'text': tag,
+                        'color_class': TAG_COLORS.get(tag, 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100')
+                    })
+            symbiont.function_tags = tags_with_colors
+        else:
+            symbiont.function_tags = []
 
     context = {
         'order_name': order_name,
@@ -289,39 +362,9 @@ def order_detail(request, order_name):
         'families': families,
         'total_symbionts': symbionts.count(),
         'hosts': hosts.order_by('family', 'genus', 'species'),
+        'related_symbionts': symbionts,
+        'related_metagenomes': related_metagenomes,
+        'related_amplicons': related_amplicons,
     }
 
     return render(request, 'host/order_detail.html', context)
-
-def family_detail(request, family_name):
-    """科详情页视图"""
-    # 获取该科下的所有宿主
-    hosts = Host.objects.filter(family=family_name)
-
-    # 获取该科下的属统计
-    genera = hosts.values('genus').annotate(
-        species_count=Count('id')
-    ).order_by('-species_count')
-
-    # 获取该科下的共生菌统计
-    species_list = hosts.values_list('species', flat=True)
-    symbionts = Symbiont.objects.filter(
-        host_species__in=species_list
-    ).exclude(
-        symbiont_name__in=['NA', 'None', '']
-    )
-
-    # 获取该科所属的目
-    order = hosts.first().order if hosts.exists() else "Unknown"
-
-    context = {
-        'family_name': family_name,
-        'order_name': order,
-        'total_species': hosts.count(),
-        'total_genera': len(genera),
-        'genera': genera,
-        'total_symbionts': symbionts.count(),
-        'hosts': hosts.order_by('genus', 'species'),
-    }
-
-    return render(request, 'host/family_detail.html', context)
