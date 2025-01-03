@@ -8,6 +8,7 @@ class Metagenome(models.Model):
     assay_type = models.CharField(max_length=100, default="NA")
     biosample = models.CharField(max_length=100, db_index=True)
     bytes = models.BigIntegerField(null=True, blank=True)
+
     center_name = models.CharField(max_length=200)
     instrument = models.CharField(max_length=100)
     library_layout = models.CharField(max_length=50)
@@ -23,7 +24,12 @@ class Metagenome(models.Model):
     lat_lon = models.CharField(max_length=100, null=True, blank=True)
 
     host = models.CharField(max_length=200, db_index=True)
+    host_order = models.CharField(max_length=200, db_index=True, default="NA")
+    host_family = models.CharField(max_length=200, db_index=True, default="NA")
     isolation = models.CharField(max_length=200, db_index=True, default="NA")
+
+    description = models.CharField(max_length=2000, default="None")
+    doi = models.CharField(max_length=200, db_index=True,default="None")
 
     def __str__(self):
         return f"{self.run} - {self.host} ({self.geo_loc_name_country})"
