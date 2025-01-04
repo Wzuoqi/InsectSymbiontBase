@@ -231,59 +231,89 @@
         <div class="mt-12 bg-gray-50 p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg">
             <h4 class="text-2xl font-semibold text-kabuli-700 mb-6">Download</h4>
             <div class="space-y-4">
-
-                <!-- Related Data -->
-                {% if symbiont.related_accession and symbiont.related_accession != "NA" %}
-                <div class="bg-white rounded-lg shadow-sm p-4">
-                    <div class="flex items-center">
-                        <svg class="w-8 h-8 text-kabuli-600 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
-                            </path>
-                        </svg>
-                        <div class="min-w-0">
-                            <h5 class="text-md font-semibold text-gray-800">Related Data</h5>
-                            <p class="text-sm text-gray-600 break-words">{{ symbiont.related_accession }}</p>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-
-                <!-- Genome Files -->
-                {% if symbiont.genome_ids %}
+                {% if symbiont.processed_accessions or symbiont.genome_ids %}
+                    <!-- Related Data -->
+                    {% if symbiont.processed_accessions %}
                     <div class="bg-white rounded-lg shadow-sm p-4">
-                        <div class="flex items-center mb-3">
-                            <svg class="w-8 h-8 text-kabuli-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        <div class="flex items-center mb-4">
+                            <svg class="w-8 h-8 text-kabuli-600 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                                </path>
                             </svg>
-                            <h5 class="text-md font-semibold text-gray-800">Genome Download</h5>
+                            <h5 class="text-md font-semibold text-gray-800">Related Accession Numbers</h5>
                         </div>
-                        <div class="ml-11 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                            {% for genome_id in symbiont.genome_ids %}
-                                <div class="bg-gray-50 rounded-lg border border-gray-100 hover:border-kabuli-200 transition duration-300">
-                                    <a href="https://www.ncbi.nlm.nih.gov/assembly/{{ genome_id }}"
+
+                        <div class="space-y-4">
+                            {% for db_type, accessions in symbiont.processed_accessions.items %}
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <h6 class="text-sm font-semibold text-kabuli-700 mb-2">{{ db_type }}</h6>
+                                <div class="flex flex-wrap gap-2">
+                                    {% for accession in accessions %}
+                                    <a href="{% if db_type == 'Assembly' %}https://www.ncbi.nlm.nih.gov/assembly/{{ accession }}
+                                             {% elif db_type == 'SRA' %}https://www.ncbi.nlm.nih.gov/sra/{{ accession }}
+                                             {% elif db_type == 'Bioproject' %}https://www.ncbi.nlm.nih.gov/bioproject/{{ accession }}
+                                             {% elif db_type == 'GenBank' %}https://www.ncbi.nlm.nih.gov/nuccore/{{ accession }}
+                                             {% else %}https://www.ncbi.nlm.nih.gov/search/all/?term={{ accession }}{% endif %}"
                                        target="_blank"
-                                       class="flex items-center justify-between p-3">
-                                        <span class="text-sm text-gray-600">{{ genome_id }}</span>
-                                        <div class="flex items-center space-x-2">
-                                            <!-- View Icon -->
-                                            <svg class="w-5 h-5 text-kabuli-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                            </svg>
-                                            <!-- Download Icon -->
-                                            <svg class="w-5 h-5 text-kabuli-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                                            </svg>
-                                        </div>
+                                       class="inline-flex items-center px-3 py-1 bg-white rounded-md text-sm text-kabuli-600 hover:text-kabuli-800 hover:bg-kabuli-50 border border-kabuli-200 transition duration-200">
+                                        {{ accession }}
+                                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                        </svg>
                                     </a>
+                                    {% endfor %}
                                 </div>
+                            </div>
                             {% endfor %}
                         </div>
                     </div>
-                {% endif %}
+                    {% endif %}
 
+                    <!-- Genome Files -->
+                    {% if symbiont.genome_ids %}
+                        <div class="bg-white rounded-lg shadow-sm p-4">
+                            <div class="flex items-center mb-3">
+                                <svg class="w-8 h-8 text-kabuli-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                <h5 class="text-md font-semibold text-gray-800">Symbiont Genome</h5>
+                            </div>
+                            <div class="ml-11 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                                {% for genome_id in symbiont.genome_ids %}
+                                    <div class="bg-gray-50 rounded-lg border border-gray-100 hover:border-kabuli-200 transition duration-300">
+                                        <a href="https://www.ncbi.nlm.nih.gov/assembly/{{ genome_id }}"
+                                           target="_blank"
+                                           class="flex items-center justify-between p-3">
+                                            <span class="text-sm text-gray-600">{{ genome_id }}</span>
+                                            <div class="flex items-center space-x-2">
+                                                <!-- View Icon -->
+                                                <svg class="w-5 h-5 text-kabuli-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                                </svg>
+                                                <!-- Download Icon -->
+                                                <svg class="w-5 h-5 text-kabuli-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                                </svg>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <div class="text-center">
+                            <span class="icon-[material-symbols--download] w-12 h-12 text-gray-300 mx-auto mb-4 block"></span>
+                            <h3 class="text-lg font-medium text-gray-900 mb-1">No download data available</h3>
+                            <p class="text-gray-500">No sequence data or genome files are currently available for this symbiont.</p>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
 

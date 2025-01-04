@@ -80,6 +80,7 @@ def symbionts(request):
 
         symbionts_list = symbionts_list.filter(
             year_condition |
+            Q(id__icontains=query) |
             Q(host_order__icontains=query) |
             Q(host_family__icontains=query) |
             Q(host_subfamily__icontains=query) |
@@ -173,6 +174,77 @@ def symbionts(request):
 
 def symbionts_1(request):
     return render(request, "symbionts-1.html")
+
+def expand_accession_range(start, end):
+    """展开类似HM222405-HM222408这样的序列号范围"""
+    # 提取前缀和数字部分
+    prefix = ''.join(c for c in start if not c.isdigit())
+    start_num = int(''.join(c for c in start if c.isdigit()))
+    end_num = int(''.join(c for c in end if c.isdigit()))
+
+    # 生成范围内的所有序列号
+    return [f"{prefix}{str(num).zfill(len(str(start_num)))}"
+            for num in range(start_num, end_num + 1)]
+
+def process_accession_numbers(accession_str):
+    """处理序列号字符串，返回分类后的序列号字典"""
+    if not accession_str or accession_str == 'NA' or accession_str == '-':
+        return {}
+
+    # 存储不同类型的序列号
+    accession_dict = {
+        'Assembly': [],
+        'GenBank': [],
+        'SRA': [],
+        'Bioproject': [],
+        'Other': []
+    }
+
+    # 首先按逗号分割
+    parts = [p.strip() for p in accession_str.split(',')]
+
+    for part in parts:
+        # 检查是否是范围表示
+        if '-' in part:
+            start, end = [p.strip() for p in part.split('-')]
+            numbers = expand_accession_range(start, end)
+        else:
+            numbers = [part]
+
+        # 对每个序列号进行分类
+        for number in numbers:
+            number = number.strip()
+
+            # 使用正则表达式匹配不同格式
+            # Assembly (GCA开头)
+            if number.startswith('GCA'):
+                accession_dict['Assembly'].append(number)
+
+            # GenBank (两个字母开头+数字)
+            elif (len(number) >= 3 and
+                  number[:2].isalpha() and
+                  not number[:2].startswith('PR') and  # 排除PRJ开头的
+                  len(number) >= 3 and
+                  number[2:].replace('_', '').isdigit()):
+                accession_dict['GenBank'].append(number)
+
+            # SRA (三个字母开头+数字，第二个字母为R)
+            elif (len(number) >= 4 and
+                  number[:3].isalpha() and
+                  number[1].upper() == 'R' and
+                  number[3:].replace('_', '').isdigit()):
+                accession_dict['SRA'].append(number)
+
+            # Bioproject (PRJ开头)
+            elif number.startswith('PRJ'):
+                accession_dict['Bioproject'].append(number)
+
+            # 其他
+            else:
+                accession_dict['Other'].append(number)
+
+    # 移除空列表并排序
+    return {k: sorted(v) for k, v in accession_dict.items() if v}
 
 def symbiont_detail(request, symbiont_id):
     symbiont = get_object_or_404(Symbiont, id=symbiont_id)
@@ -287,6 +359,12 @@ def symbiont_detail(request, symbiont_id):
         symbiont.genome_ids = [id.strip() for id in symbiont.genome_id.split(',') if id.strip()]
     else:
         symbiont.genome_ids = []
+
+    # 处理related_accession
+    if symbiont.related_accession and symbiont.related_accession != "NA":
+        symbiont.processed_accessions = process_accession_numbers(symbiont.related_accession)
+    else:
+        symbiont.processed_accessions = {}
 
     context = {
         'symbiont': symbiont,
