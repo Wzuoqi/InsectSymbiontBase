@@ -15,20 +15,24 @@ class Article(models.Model):
         if self.authors in ["NA", "", None]:
             return "NA"
 
-        # 确定分隔符
-        separator = ";" if ";" in self.authors else ","
-        authors_list = [author.strip() for author in self.authors.split(separator)]
+        # 移除开头和结尾的分隔符
+        authors = self.authors.strip(";,")
 
-        # 如果作者少于等于5个，直接返回全部
+        # 统一分隔符：先将逗号替换为分号，然后按分号分割
+        authors_list = [author.strip() for author in authors.split(";") if author.strip()]
+
+        # 如果第一次分割后列表为空，尝试用逗号分割
+        if not authors_list:
+            authors_list = [author.strip() for author in authors.split(",") if author.strip()]
+
+        # 如果作者少于等于5个，直接返回全部，使用分号连接
         if len(authors_list) <= 5:
-            return separator + " ".join(authors_list)
+            return "; ".join(authors_list)
 
-        # 获取前三个和最后两个作者
+        # 对于超过5个作者的情况保持原有逻辑
         first_three = authors_list[:3]
         last_two = authors_list[-2:]
-
-        # 组合结果
-        return f"{separator} ".join(first_three) + " ... " + f"{separator} ".join(last_two)
+        return "; ".join(first_three) + " ... " + "; ".join(last_two)
 
     def __str__(self):
         return f"{self.id}: {self.title}"

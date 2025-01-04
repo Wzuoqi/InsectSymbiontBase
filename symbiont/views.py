@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Symbiont
 from django.core.paginator import Paginator
-from django.db.models import Q, F
+from django.db.models import Q, F, Case, When, Value, IntegerField
 from urllib.parse import urlencode
 import json
 from django.http import JsonResponse
@@ -180,10 +180,39 @@ def symbiont_detail(request, symbiont_id):
     # 获取symbiont_name的第一个单词
     symbiont_first_word = symbiont.symbiont_name.split()[0] if symbiont.symbiont_name else ""
 
-    # 获取相关文章 - 只使用第一个单词进行匹配
-    related_articles = Article.objects.filter(
+    # 获取host_species的前两个单词
+    host_species_words = symbiont.host_species.split()[:2] if symbiont.host_species else []
+    host_species_pattern = ' '.join(host_species_words) if host_species_words else ""
+
+    # 分别获取两种匹配的结果
+    symbiont_matches = set(Article.objects.filter(
         symbiont__istartswith=symbiont_first_word
-    ).order_by('-publish_time')
+    ).values_list('id', flat=True))
+
+    host_matches = set(Article.objects.filter(
+        species__istartswith=host_species_pattern
+    ).values_list('id', flat=True))
+
+    # 获取同时匹配的文章ID
+    both_matches = symbiont_matches & host_matches
+
+    # 获取所有相关文章并添加排序字段
+    related_articles = Article.objects.filter(
+        id__in=symbiont_matches | host_matches
+    ).annotate(
+        match_score=Case(
+            When(id__in=both_matches, then=Value(2)),  # 同时匹配得分最高
+            When(id__in=symbiont_matches, then=Value(1)),  # 仅匹配symbiont次之
+            When(id__in=host_matches, then=Value(1)),  # 仅匹配host同样
+            default=Value(0),
+            output_field=IntegerField(),
+        )
+    ).order_by('-match_score', '-publish_time')  # 首先按匹配分数排序，然后按发表时间
+
+    # 为每篇文章添加匹配标记
+    for article in related_articles:
+        article.matched_by_symbiont = article.id in symbiont_matches
+        article.matched_by_host = article.id in host_matches
 
     # 处理字段的缺失值 - 只处理模型中存在的字段
     fields = [
