@@ -100,133 +100,137 @@
 
             <!-- 表格区域 -->
             <div class="overflow-hidden rounded-lg border border-gray-200">
-                <div class="overflow-x-auto">
-                    <div class="overflow-y-auto max-h-[480px]">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead>
-                                <tr class="bg-gray-50 sticky top-0 z-10">
-                                    <th scope="col"
-                                        class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        <button class="flex items-center gap-x-2 focus:outline-none"
-                                            onclick="sortTable('symbiont_name')">
-                                            <span>Symbiont</span>
-                                            <svg class="h-3" viewBox="0 0 10 11" fill="none">
-                                                <path
-                                                    d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z"
-                                                    fill="currentColor" />
-                                                <path
-                                                    d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z"
-                                                    fill="currentColor" />
-                                            </svg>
-                                        </button>
-                                    </th>
-                                    <th scope="col"
-                                        class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Classification</th>
-                                    <th scope="col"
-                                        class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Host</th>
-                                    <th scope="col"
-                                        class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-3/8">
-                                        Function</th>
-                                    <th scope="col"
-                                        class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Function Tags</th>
-                                    <th scope="col"
-                                        class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Reference</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                {% for symbiont in related_symbionts %}
-                                <tr class="hover:bg-gray-50/50 transition duration-150 symbiont-row">
-                                    <td class="px-4 py-4">
-                                        <div>
-                                            <a href="{% url 'symbiont:symbiont_detail' symbiont.id %}"
-                                                class="font-medium text-kabuli-800 hover:text-kabuli-600 hover:underline">
-                                                {{ symbiont.symbiont_name }}
-                                            </a>
-                                            {% if symbiont.symbiont_phylum and symbiont.symbiont_phylum != "NA" %}
-                                            <p class="text-xs text-gray-600">{{ symbiont.symbiont_phylum }}</p>
-                                            {% else %}
-                                            <p class="text-xs text-gray-400">-</p>
-                                            {% endif %}
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-4">
-                                        <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2
-                                                {% if symbiont.classification == 'Bacteria' %}
-                                                    bg-orange-100 text-orange-800
-                                                {% elif symbiont.classification == 'Fungi' %}
-                                                    bg-emerald-100 text-emerald-800
-                                                {% else %}
-                                                    bg-gray-100 text-gray-800
-                                                {% endif %}">
-                                            {{ symbiont.classification|default:"Unknown" }}
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-4">
-                                        <div>
-                                            <a href="{% url 'host:species_detail' symbiont.host_species %}"
-                                                class="font-medium text-kabuli-800 hover:text-kabuli-600 hover:underline italic">
-                                                {{ symbiont.host_species }}
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-4">
-                                        {% if symbiont.function and symbiont.function != "NA" %}
-                                        <p class="text-sm text-gray-700">{{ symbiont.function|truncatechars:150 }}</p>
+                <table class="w-full table-fixed divide-y divide-gray-200">
+                    <colgroup>
+                        <col class="w-[15%]">
+                        <col class="w-[10%]">
+                        <col class="w-[15%]">
+                        <col class="w-[35%]">
+                        <col class="w-[15%]">
+                        <col class="w-[10%]">
+                    </colgroup>
+                    <thead>
+                        <tr class="bg-gray-50 sticky top-0 z-10">
+                            <th class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider truncate">
+                                <button class="flex items-center gap-x-2 focus:outline-none"
+                                    onclick="sortTable('symbiont_name')">
+                                    <span>Symbiont</span>
+                                    <svg class="h-3" viewBox="0 0 10 11" fill="none">
+                                        <path
+                                            d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z"
+                                            fill="currentColor" />
+                                        <path
+                                            d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </button>
+                            </th>
+                            <th class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider truncate">
+                                Classification
+                            </th>
+                            <th class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider truncate">
+                                Host
+                            </th>
+                            <th class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider truncate">
+                                Function
+                            </th>
+                            <th class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider truncate">
+                                Function Tags
+                            </th>
+                            <th class="px-4 py-3.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider truncate">
+                                Reference
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for symbiont in related_symbionts %}
+                        <tr class="hover:bg-gray-50/50 transition duration-150 symbiont-row">
+                            <td class="px-4 py-4 truncate">
+                                <div class="truncate">
+                                    <a href="{% url 'symbiont:symbiont_detail' symbiont.id %}"
+                                        class="font-medium text-kabuli-800 hover:text-kabuli-600 hover:underline truncate">
+                                        {{ symbiont.symbiont_name }}
+                                    </a>
+                                    {% if symbiont.symbiont_phylum and symbiont.symbiont_phylum != "NA" %}
+                                    <p class="text-xs text-gray-600 truncate">{{ symbiont.symbiont_phylum }}</p>
+                                    {% else %}
+                                    <p class="text-xs text-gray-400">-</p>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td class="px-4 py-4">
+                                <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 truncate
+                                        {% if symbiont.classification == 'Bacteria' %}
+                                            bg-orange-100 text-orange-800
+                                        {% elif symbiont.classification == 'Fungi' %}
+                                            bg-emerald-100 text-emerald-800
                                         {% else %}
-                                        <p class="text-sm text-gray-400">-</p>
-                                        {% endif %}
-                                    </td>
-                                    <td class="px-4 py-4">
-                                        {% if symbiont.function_tags %}
-                                        <div class="flex flex-wrap gap-2">
-                                            {% for tag in symbiont.function_tags %}
-                                            <span
-                                                class="px-2 py-1 text-xs font-medium rounded-full whitespace-nowrap {{ tag.color_class }}">
-                                                {{ tag.text }}
-                                            </span>
-                                            {% endfor %}
-                                        </div>
-                                        {% else %}
-                                        <span class="text-gray-400">-</span>
-                                        {% endif %}
-                                    </td>
-                                    <td class="px-4 py-4">
-                                        {% if symbiont.doi %}
-                                        <a href="https://doi.org/{{ symbiont.doi }}" target="_blank"
-                                            class="inline-flex items-center text-kabuli-600 hover:text-kabuli-800 transition-all duration-200">
-                                            <span class="icon-[heroicons--book-open] w-5 h-5"></span>
-                                        </a>
-                                        <a href="{% url 'symbiont:symbiont_detail' symbiont.id %}"
-                                            class="inline-flex items-center text-kabuli-600 hover:text-kabuli-800 transition-all duration-200 ml-2">
-                                            <span class="icon-[heroicons--eye] w-5 h-5"></span>
-                                        </a>
-                                        {% else %}
-                                        <span class="text-gray-400">-</span>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                {% empty %}
-                                <tr>
-                                    <td colspan="5" class="px-6 py-12">
-                                        <div class="text-center">
-                                            <span
-                                                class="icon-[heroicons--bug-ant] w-12 h-12 text-gray-300 mx-auto mb-4 block"></span>
-                                            <h3 class="text-lg font-medium text-gray-900 mb-1">No symbionts found</h3>
-                                            <p class="text-gray-500">No symbiont records associated with this host
-                                                species.
-                                            </p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                                            bg-gray-100 text-gray-800
+                                        {% endif %}">
+                                    {{ symbiont.classification|default:"Unknown" }}
+                                </div>
+                            </td>
+                            <td class="px-4 py-4">
+                                <div class="truncate">
+                                    <a href="{% url 'host:species_detail' symbiont.host_species|urlencode %}"
+                                        class="font-medium text-kabuli-800 hover:text-kabuli-600 hover:underline italic truncate">
+                                        {{ symbiont.host_species }}
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="px-4 py-4">
+                                {% if symbiont.function and symbiont.function != "NA" %}
+                                <p class="text-sm text-gray-700 line-clamp-2">{{ symbiont.function }}</p>
+                                {% else %}
+                                <p class="text-sm text-gray-400">-</p>
+                                {% endif %}
+                            </td>
+                            <td class="px-4 py-4">
+                                {% if symbiont.function_tags %}
+                                <div class="flex flex-wrap gap-2">
+                                    {% for tag in symbiont.function_tags %}
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full whitespace-nowrap truncate {{ tag.color_class }}">
+                                        {{ tag.text }}
+                                    </span>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                <span class="text-gray-400">-</span>
+                                {% endif %}
+                            </td>
+                            <td class="px-4 py-4">
+                                {% if symbiont.doi %}
+                                <div class="flex items-center space-x-2">
+                                    <a href="https://doi.org/{{ symbiont.doi }}" target="_blank"
+                                        class="text-kabuli-600 hover:text-kabuli-800 transition-all duration-200">
+                                        <span class="icon-[heroicons--book-open] w-5 h-5"></span>
+                                    </a>
+                                    <a href="{% url 'symbiont:symbiont_detail' symbiont.id %}"
+                                        class="text-kabuli-600 hover:text-kabuli-800 transition-all duration-200">
+                                        <span class="icon-[heroicons--eye] w-5 h-5"></span>
+                                    </a>
+                                </div>
+                                {% else %}
+                                <span class="text-gray-400">-</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="px-6 py-12">
+                                <div class="text-center">
+                                    <span
+                                        class="icon-[heroicons--bug-ant] w-12 h-12 text-gray-300 mx-auto mb-4 block"></span>
+                                    <h3 class="text-lg font-medium text-gray-900 mb-1">No symbionts found</h3>
+                                    <p class="text-gray-500">No symbiont records associated with this host
+                                        species.
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -364,7 +368,7 @@
                                 </td>
                                 <td class="px-4 py-4">
                                     <div class="text-sm text-gray-900 italic">
-                                        <a href="{% url 'host:species_detail' metagenome.host %}"
+                                        <a href="{% url 'host:species_detail' metagenome.host|urlencode %}"
                                             class="font-medium text-kabuli-800 hover:text-kabuli-600 hover:underline">
                                             {{ metagenome.host }}
                                         </a>
@@ -482,7 +486,7 @@
                                 </td>
                                 <td class="px-4 py-4">
                                     <div class="text-sm text-gray-900 italic">
-                                        <a href="{% url 'host:species_detail' amplicon.host %}"
+                                        <a href="{% url 'host:species_detail' amplicon.host|urlencode %}"
                                             class="font-medium text-kabuli-800 hover:text-kabuli-600 hover:underline">
                                             {{ amplicon.host }}
                                         </a>

@@ -6,6 +6,7 @@ from urllib.parse import urlencode
 import json
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
+from article.models import Article  # 添加这行导入
 
 # Create your views here.
 def symbionts(request):
@@ -176,6 +177,39 @@ def symbionts_1(request):
 def symbiont_detail(request, symbiont_id):
     symbiont = get_object_or_404(Symbiont, id=symbiont_id)
 
+    # 获取symbiont_name的第一个单词
+    symbiont_first_word = symbiont.symbiont_name.split()[0] if symbiont.symbiont_name else ""
+
+    # 获取相关文章 - 只使用第一个单词进行匹配
+    related_articles = Article.objects.filter(
+        symbiont__istartswith=symbiont_first_word
+    ).order_by('-publish_time')
+
+    # 处理字段的缺失值 - 只处理模型中存在的字段
+    fields = [
+        'classification', 'symbiont_phylum', 'symbiont_order', 'symbiont_genus',
+        'host_order', 'host_family', 'host_subfamily', 'host_species',
+        'function', 'localization', 'transmission_mode'
+    ]
+
+    for field in fields:
+        value = getattr(symbiont, field)
+        if value in [None, '', 'NA']:
+            setattr(symbiont, field, '-')
+
+    # 获取对应的文章信息
+    if symbiont.doi and symbiont.doi != "NA":
+        try:
+            article = Article.objects.get(doi=symbiont.doi)
+            symbiont.formatted_authors = article.formatted_authors
+            symbiont.publish_year = article.publish_time
+        except Article.DoesNotExist:
+            symbiont.formatted_authors = None
+            symbiont.publish_year = None
+    else:
+        symbiont.formatted_authors = None
+        symbiont.publish_year = None
+
     # 定义标签颜色映射 (与symbionts视图保持一致)
     TAG_COLORS = {
         # Nutrition - 绿色系
@@ -227,6 +261,7 @@ def symbiont_detail(request, symbiont_id):
 
     context = {
         'symbiont': symbiont,
+        'related_articles': related_articles,
     }
     return render(request, 'symbiont_detail.html', context)
 
@@ -235,7 +270,7 @@ def autocomplete(request):
     query = request.GET.get('term', '')
     if len(query) < 2:  # 只在输入至少2个字符时才返回建议
         return JsonResponse([], safe=False)
- 
+
     # 从不同字段中获取建议
     suggestions = set()  # 使用集合去重
 

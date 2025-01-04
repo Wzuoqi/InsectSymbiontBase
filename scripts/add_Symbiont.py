@@ -43,10 +43,12 @@ def main():
         '共生体分类阶元': 'symbiont_taxon',
         '共生体名称': 'symbiont_name',
         '种类': 'classification',
+        '寄生位置': 'localization',
+        '传播模式': 'transmission_mode',
         '功能': 'function',
         '功能标签': 'function_tag',
         '共生体序列数据': 'related_accession',
-        '基因组序号': 'genome_id',  # 新增字段映射
+        '基因组序号': 'genome_id',
         '参考文献': 'reference',
         'doi号': 'doi',
         '期刊': 'journal',

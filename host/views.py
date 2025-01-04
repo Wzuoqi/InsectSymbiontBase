@@ -9,6 +9,7 @@ from django.db.models import Case, When, Value, IntegerField
 import json
 from collections import Counter
 from django.db.models.functions import Substr, StrIndex
+from article.models import Article
 
 # 添加 TAG_COLORS 作为全局变量
 TAG_COLORS = {
@@ -139,6 +140,12 @@ def species_detail(request, species):
         host__istartswith=species_pattern
     ).order_by('-collection_date')
 
+    # 修改相关文献查询逻辑
+    related_articles = Article.objects.filter(
+        Q(species__icontains=species_pattern) |  # 使用模糊匹配
+        Q(species__iexact=species)  # 精确匹配完整物种名
+    ).order_by('-publish_time')  # 按发表时间降序排序
+
     # 处理function_tags
     for symbiont in related_symbionts:
         if symbiont.function_tag and symbiont.function_tag not in ["NA", "", None]:
@@ -159,6 +166,7 @@ def species_detail(request, species):
         'related_symbionts': related_symbionts,
         'related_metagenomes': related_metagenomes,
         'related_amplicons': related_amplicons,
+        'related_articles': related_articles,
     }
 
     return render(request, 'host/species_detail.html', context)

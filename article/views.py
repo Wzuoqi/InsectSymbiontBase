@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from django.db.models import Q
 from .models import Article
@@ -51,3 +51,10 @@ def get_page_range(current_page, total_pages, window=5):
         start_page = max(total_pages - window + 1, 1)
 
     return range(start_page, end_page + 1)
+
+def article_detail(request, doi):
+    article = get_object_or_404(Article, doi=doi)
+    context = {
+        'article': article,
+    }
+    return render(request, 'article/article_detail.html', context)

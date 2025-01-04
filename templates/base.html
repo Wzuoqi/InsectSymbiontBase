@@ -264,7 +264,7 @@
                 </div>
 
                 <a href="/network" class="text-sm font-semibold leading-6 text-gray-900">Network</a>
-                <a href="/articles" class="text-sm font-semibold leading-6 text-gray-900">Literatures</a>
+                <a href="{% url 'article:articles' %}" class="text-sm font-semibold leading-6 text-gray-900">Literatures</a>
                 <a href="/resources" class="text-sm font-semibold leading-6 text-gray-900">Resources</a>
             </div>
             <div class="hidden lg:flex lg:flex-1 lg:justify-end">
@@ -346,7 +346,7 @@
                             <h3 class="text-sm font-semibold leading-6 text-white">Resources</h3>
                             <ul role="list" class="mt-4 space-y-3">
                                 <li>
-                                    <a href="/articles" class="text-sm leading-6 text-gray-300 hover:text-white">Literatures</a>
+                                    <a href="{% url 'article:articles' %}" class="text-sm leading-6 text-gray-300 hover:text-white">Literatures</a>
                                 </li>
                                 <li>
                                     <a href="/genes" class="text-sm leading-6 text-gray-300 hover:text-white">Gene Catalog</a>

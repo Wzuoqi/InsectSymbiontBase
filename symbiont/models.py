@@ -18,6 +18,8 @@ class Symbiont(models.Model):
     symbiont_name = models.CharField(max_length=200, blank=True, null=True, db_index=True, default="NA")
     classification = models.CharField(max_length=100, default="NA")
     # funcion
+    localization = models.CharField(max_length=100, default="NA")
+    transmission_mode = models.CharField(max_length=100, default="NA")
     function = models.TextField(blank=True, null=True, default="NA")
     function_tag = models.CharField(max_length=200, blank=True, null=True, default="NA")
     related_accession = models.CharField(max_length=2000, blank=True, null=True, default="NA")
