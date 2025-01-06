@@ -109,9 +109,61 @@ def hosts(request):
     return render(request, 'hosts.html', context)
 
 def species_detail(request, species):
-    # 获取现有的host对象
-    host = get_object_or_404(Host, species=species)
+    # 尝试获取完整匹配的host对象
+    try:
+        host = Host.objects.get(species=species)
+    except Host.DoesNotExist:
+        # 如果完整匹配失败，尝试只用前两个词匹配
+        species_words = species.split()[:2]
+        species_pattern = ' '.join(species_words)
+        try:
+            host = Host.objects.get(species__istartswith=species_pattern)
+        except Host.DoesNotExist:
+            # 如果仍然找不到，渲染一个特殊的页面
+            # 获取所有相关数据
+            related_symbionts = Symbiont.objects.filter(
+                Q(host_species__istartswith=species_pattern) &
+                ~Q(symbiont_name__in=['NA', 'None', ''])
+            ).order_by('symbiont_name')
 
+            related_metagenomes = Metagenome.objects.filter(
+                host__istartswith=species_pattern
+            ).order_by('-collection_date')
+
+            related_amplicons = Amplicon.objects.filter(
+                host__istartswith=species_pattern
+            ).order_by('-collection_date')
+
+            related_articles = Article.objects.filter(
+                Q(species__icontains=species_pattern)
+            ).order_by('-publish_time')
+
+            # 处理function_tags
+            for symbiont in related_symbionts:
+                if symbiont.function_tag and symbiont.function_tag not in ["NA", "", None]:
+                    tags_with_colors = []
+                    for tag in symbiont.function_tag.split(','):
+                        tag = tag.strip()
+                        if tag:
+                            tags_with_colors.append({
+                                'text': tag,
+                                'color_class': TAG_COLORS.get(tag, 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100')
+                            })
+                    symbiont.function_tags = tags_with_colors
+                else:
+                    symbiont.function_tags = []
+
+            context = {
+                'species_name': species,
+                'related_symbionts': related_symbionts,
+                'related_metagenomes': related_metagenomes,
+                'related_amplicons': related_amplicons,
+                'related_articles': related_articles,
+                'is_unregistered': True
+            }
+            return render(request, 'host/unregistered_species.html', context)
+
+    # 如果找到了host对象，继续原来的逻辑
     # 获取species的前两个单词用于模糊匹配
     species_words = host.species.split()[:2]
     species_pattern = ' '.join(species_words)

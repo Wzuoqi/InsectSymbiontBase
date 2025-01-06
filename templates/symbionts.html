@@ -224,7 +224,9 @@
                                     <div>
                                         {% if symbiont.host_species and symbiont.host_species != "NA" %}
                                         <h2 class="italic font-medium text-gray-900 dark:text-white">
-                                            <a href="/" class="hover:underline">
+                                            <a href="/hosts/species/{{ symbiont.host_species|urlencode }}/"
+                                               class="hover:text-kabuli-600 dark:hover:text-kabuli-400 transition-colors duration-200"
+                                               title="View details for {{ symbiont.host_species }}">
                                                 {{ symbiont.host_species }}
                                             </a>
                                         </h2>
@@ -262,9 +264,11 @@
                                     {% if symbiont.function_tags %}
                                     <div class="flex flex-wrap gap-2">
                                         {% for tag in symbiont.function_tags %}
-                                            <span class="px-2 py-1 text-sm font-medium rounded-full whitespace-nowrap {{ tag.color_class }}">
+                                            <a href="?function_tag={{ tag.text|urlencode }}"
+                                               class="px-2 py-1 text-sm font-medium rounded-full whitespace-nowrap {{ tag.color_class }} hover:opacity-80 transition-opacity cursor-pointer"
+                                               title="Search records with {{ tag.text }} function">
                                                 {{ tag.text }}
-                                            </span>
+                                            </a>
                                         {% endfor %}
                                     </div>
                                     {% endif %}
@@ -956,7 +960,7 @@ function sortTable(field) {
     // 确定新的排序方向
     let newOrder;
     if (!currentOrder || currentOrder === 'id') {
-        // 从默认���序切换到正序
+        // 从默认排序切换到正序
         newOrder = field;
     } else if (currentOrder === field) {
         // 从正序切换到倒序

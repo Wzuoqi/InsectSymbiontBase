@@ -149,20 +149,46 @@
                                 </td>
                                 <td class="px-4 py-4 text-sm whitespace-nowrap">
                                     <div>
-                                        <h4 class="italic text-gray-700 dark:text-gray-200">{{ metagenome.host }}</h4>
+                                        {% if metagenome.host and metagenome.host != "NA" %}
+                                        <h4 class="italic text-gray-700 dark:text-gray-200">
+                                            {% with host_words=metagenome.host.split|slice:":2"|join:" " %}
+                                            <a href="/hosts/species/{{ host_words|urlencode }}/"
+                                               class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors duration-200"
+                                               title="View details for {{ metagenome.host }}">
+                                                {{ metagenome.host }}
+                                            </a>
+                                            {% endwith %}
+                                        </h4>
+                                        {% else %}
+                                        <h4 class="italic text-gray-400 dark:text-gray-500">-</h4>
+                                        {% endif %}
                                     </div>
                                 </td>
                                 <td class="px-4 py-4 text-gray-700 text-sm whitespace-nowrap">
-                                    {{ metagenome.biosample }}
+                                    {% if metagenome.biosample and metagenome.biosample != "NA" %}
+                                        {{ metagenome.biosample }}
+                                    {% else %}
+                                        <span class="text-gray-400 dark:text-gray-500 italic">-</span>
+                                    {% endif %}
                                 </td>
                                 <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                    <div class="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
-                                        {{ metagenome.assay_type }}
-                                    </div>
+                                    {% if metagenome.assay_type and metagenome.assay_type != "NA" %}
+                                        <div class="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
+                                            {{ metagenome.assay_type }}
+                                        </div>
+                                    {% else %}
+                                        <span class="text-gray-400 dark:text-gray-500 italic">-</span>
+                                    {% endif %}
                                 </td>
                                 <td class="px-4 py-4 text-sm whitespace-nowrap">
                                     <div>
-                                        <h4 class="text-gray-700 dark:text-gray-200">{{ metagenome.geo_loc_name_country }} - {{ metagenome.geo_loc_name_country_continent }}</h4>
+                                        {% if metagenome.geo_loc_name_country != "NA" and metagenome.geo_loc_name_country_continent != "NA" %}
+                                            <h4 class="text-gray-700 dark:text-gray-200">
+                                                {{ metagenome.geo_loc_name_country }} - {{ metagenome.geo_loc_name_country_continent }}
+                                            </h4>
+                                        {% else %}
+                                            <h4 class="text-gray-400 dark:text-gray-500 italic">-</h4>
+                                        {% endif %}
                                     </div>
                                 </td>
                                 <td class="px-4 py-4 text-sm whitespace-nowrap">

@@ -37,8 +37,18 @@
                         {{article.id}}. {{ article.title }}
                     </h3>
                     {% if article.species and article.species != "NA" %}
-                    <span class="bg-orange-500 text-white italic text-sm font-bold ml-2 px-2 py-1 rounded">{{ article.species }}</span>
-                    <span class="bg-kabuli-700 text-white italic text-sm font-bold ml-2 px-2 py-1 rounded">{{ article.symbiont }}</span>
+                    <a href="/hosts/species/{{ article.species|urlencode }}/"
+                       class="inline-block bg-orange-500 text-white italic text-sm font-bold ml-2 px-2 py-1 rounded hover:bg-orange-600 transition-colors duration-200"
+                       title="View all records for {{ article.species }}">
+                        {{ article.species }}
+                    </a>
+                    {% endif %}
+                    {% if article.symbiont and article.symbiont != "NA" %}
+                    <a href="/symbionts/?q={{ article.symbiont|urlencode }}"
+                       class="inline-block bg-kabuli-700 text-white italic text-sm font-bold ml-2 px-2 py-1 rounded hover:bg-kabuli-800 transition-colors duration-200"
+                       title="Search all records for {{ article.symbiont }}">
+                        {{ article.symbiont }}
+                    </a>
                     {% endif %}
                     <p class="text-gray-700">{{ article.authors }}</p>
                     <p class="font-sans font-semibold text-sm text-kabuli-900">{{article.journal}}, {{article.publish_time}}</p>

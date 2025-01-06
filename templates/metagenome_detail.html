@@ -89,6 +89,28 @@
                 </div>
             </div>
         </div>
+
+        <!-- 新增的介绍文字 -->
+        <div class="mb-6 text-gray-600 bg-gradient-to-r from-cyan-50 to-gray-50 p-5 rounded-lg border border-cyan-100">
+            <div class="flex items-start space-x-3">
+                <span class="icon-[material-symbols--info-outline-rounded] text-cyan-600 text-xl mt-0.5"></span>
+                <div class="space-y-2">
+                    <p class="text-sm leading-relaxed">
+                        This section aims to identify potential <span class="font-medium text-cyan-700">functional symbionts</span> in this metagenome sample, with scoring based on:
+                    </p>
+                    <ul class="text-sm grid grid-cols-1 md:grid-cols-2 gap-2 ml-4 list-disc marker:text-cyan-500">
+                        <li class="text-gray-700">Relative abundance in sample</li>
+                        <li class="text-gray-700">Species-level matches with known symbionts</li>
+                        <li class="text-gray-700">Host insect order matches</li>
+                        <li class="text-gray-700">Functional record completeness</li>
+                    </ul>
+                    <p class="text-sm text-gray-500 italic mt-2">
+                        Note: Showing top 3 highest scoring records for each species/genus
+                    </p>
+                </div>
+            </div>
+        </div>
+
         <div class="mb-4">
             <input type="text" id="symbiontSearch" placeholder="Search symbionts..."
                    class="p-2 border rounded-lg w-full">
