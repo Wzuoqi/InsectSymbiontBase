@@ -33,8 +33,43 @@ class Genome(models.Model):
     classification_method = models.CharField(max_length=200, blank=True, null=True)
     note = models.TextField(blank=True, null=True)
 
+    @property
+    def symbiont_name(self):
+        """
+        Returns the symbiont name based on either reference_name or the species name from gtdb_classification.
+        If neither is available, returns None.
+        """
+        # First try reference_name
+        if self.reference_name and self.reference_name != "NA" and self.reference_name != "#N/A":
+            return self.reference_name
+
+        # Then try gtdb_classification
+        if self.gtdb_classification and self.gtdb_classification != "NA" and self.gtdb_classification != "#N/A":
+            try:
+                # Split the classification string by semicolon
+                taxa = [t.strip() for t in self.gtdb_classification.split(';') if t.strip()]
+                if taxa:
+                    last_taxon = taxa[-1]
+                    # Remove any content within parentheses
+                    if '(' in last_taxon:
+                        last_taxon = last_taxon.split('(')[0].strip()
+                    # If it's a species name (starts with s__), return the full name
+                    if last_taxon.startswith('s__'):
+                        return last_taxon[3:]  # Remove the s__ prefix for species
+                    # For other taxonomic levels, keep the prefix
+                    return last_taxon
+            except Exception as e:
+                print(f"Error processing GTDB classification for {self.genome_id}: {e}")
+                print(f"GTDB classification: {self.gtdb_classification}")
+
+        return None
+
     def __str__(self):
-        return f"{self.genome_id} - {self.host}"
+        name = self.symbiont_name
+        if not name:
+            name = self.genome_id
+        host = f" - {self.host}" if self.host and self.host != "NA" and self.host != "#N/A" else ""
+        return f"{name}{host}"
 
     class Meta:
         ordering = ['host', 'genome_id']

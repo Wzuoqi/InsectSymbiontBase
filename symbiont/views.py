@@ -7,6 +7,7 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
 from article.models import Article  # 添加这行导入
+from genome.models import Genome  # 添加这行导入
 
 # Create your views here.
 def symbionts(request):
@@ -356,7 +357,22 @@ def symbiont_detail(request, symbiont_id):
 
     # 处理genome_ids
     if symbiont.genome_id and symbiont.genome_id != "NA":
-        symbiont.genome_ids = [id.strip() for id in symbiont.genome_id.split(',') if id.strip()]
+        genome_ids = [id.strip() for id in symbiont.genome_id.split(',') if id.strip()]
+        # 获取每个 genome_id 对应的 Genome 对象
+        genome_objects = []
+        for gid in genome_ids:
+            try:
+                genome = Genome.objects.get(genome_id=gid)
+                genome_objects.append({
+                    'id': gid,
+                    'symbiont_name': genome.symbiont_name
+                })
+            except Genome.DoesNotExist:
+                genome_objects.append({
+                    'id': gid,
+                    'symbiont_name': None
+                })
+        symbiont.genome_ids = genome_objects
     else:
         symbiont.genome_ids = []
 
