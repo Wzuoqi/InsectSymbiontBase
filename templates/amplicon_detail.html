@@ -72,21 +72,24 @@
         <div class="bg-gray-50 p-6 rounded-md shadow-md">
             <h2 class="text-xl font-semibold text-indigo-800 mb-4">Sample Information</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {% if amplicon.host and amplicon.host != "NA" %}
-                    <p><span class="font-bold text-indigo-600">Host:</span> {{ amplicon.host }}</p>
-                {% endif %}
-                {% if amplicon.isolation and amplicon.isolation != "NA" %}
-                    <p><span class="font-bold text-indigo-600">Isolation:</span> {{ amplicon.isolation }}</p>
-                {% endif %}
-                {% if amplicon.biosample_model and amplicon.biosample_model != "NA" %}
-                    <p><span class="font-bold text-indigo-600">Biosample Model:</span> {{ amplicon.biosample_model }}</p>
-                {% endif %}
-                {% if amplicon.collection_date and amplicon.collection_date != "NA" %}
-                    <p><span class="font-bold text-indigo-600">Collection Date:</span> {{ amplicon.collection_date }}</p>
-                {% endif %}
-                {% if amplicon.host_sex and amplicon.host_sex != "NA" %}
-                    <p><span class="font-bold text-indigo-600">Host Sex:</span> {{ amplicon.host_sex }}</p>
-                {% endif %}
+                <p>
+                    <span class="font-bold text-indigo-600">Host:</span>
+                    {% if amplicon.host and amplicon.host != "NA" %}
+                        {% with host_words=amplicon.host.split|slice:":2"|join:" " %}
+                        <a href="/hosts/species/{{ host_words|urlencode }}/"
+                           class="italic hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200"
+                           title="View details for {{ amplicon.host }}">
+                            {{ amplicon.host }}
+                        </a>
+                        {% endwith %}
+                    {% else %}
+                        <span class="italic text-gray-400">-</span>
+                    {% endif %}
+                </p>
+                <p><span class="font-bold text-indigo-600">Isolation:</span> {% if amplicon.isolation and amplicon.isolation != "NA" %}{{ amplicon.isolation }}{% else %}-{% endif %}</p>
+                <p><span class="font-bold text-indigo-600">Biosample Model:</span> {% if amplicon.biosample_model and amplicon.biosample_model != "NA" %}{{ amplicon.biosample_model }}{% else %}-{% endif %}</p>
+                <p><span class="font-bold text-indigo-600">Collection Date:</span> {% if amplicon.collection_date and amplicon.collection_date != "NA" %}{{ amplicon.collection_date }}{% else %}-{% endif %}</p>
+                <p><span class="font-bold text-indigo-600">Host Sex:</span> {% if amplicon.host_sex and amplicon.host_sex != "NA" %}{{ amplicon.host_sex }}{% else %}-{% endif %}</p>
             </div>
         </div>
 

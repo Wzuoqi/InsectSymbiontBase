@@ -66,7 +66,7 @@ def metagenomes(request):
         'page_obj': page_obj,
         'query': query,
         'filter_type': filter_type,
-        'search_params': search_params.urlencode(),
+        'search_params': search_params.urlencode() if search_params else '{}',
     }
 
     # 渲染模板并返回响应

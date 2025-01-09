@@ -3,6 +3,7 @@
 {% block Part1 %}
 
 {% comment %} Introduction Section {% endcomment %}
+{% if not query and not filter_type or filter_type == 'all' and search_params == '{}' %}
 <section class="container px-4 mx-auto mt-10">
     <!-- Header Section -->
     <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
@@ -52,9 +53,10 @@
         </div>
     </div>
 </section>
+{% endif %}
 
-{% comment %} Original Genome Catalog Table Section {% endcomment %}
-<section class="container px-4 mx-auto mt-10">
+{% comment %} Genome Catalog Table Section {% endcomment %}
+<section class="container px-4 mx-auto {% if query or filter_type or search_params != '{}' %}mt-6{% else %}mt-10{% endif %}">
     {% load static %}
     <div class="sm:flex sm:items-center sm:justify-between">
         <div>
@@ -186,7 +188,17 @@
                                     {% endif %}
                                 </td>
                                 <td class="px-4 py-4 text-sm font-medium italic whitespace-nowrap">
-                                    {{ genome.host }}
+                                    {% if genome.host and genome.host != "NA" %}
+                                        {% with host_words=genome.host.split|slice:":2"|join:" " %}
+                                        <a href="/hosts/species/{{ host_words|urlencode }}/"
+                                           class="hover:text-kabuli-600 dark:hover:text-kabuli-400 transition-colors duration-200"
+                                           title="View details for {{ genome.host }}">
+                                            {{ genome.host }}
+                                        </a>
+                                        {% endwith %}
+                                    {% else %}
+                                        <span class="text-gray-400 dark:text-gray-500"> - </span>
+                                    {% endif %}
                                 </td>
                                 <td class="px-4 py-4 text-sm text-center whitespace-nowrap">
                                     {{ genome.completeness|floatformat:2 }}%

@@ -3,6 +3,7 @@
 {% block Part1 %}
 
 {% comment %} Introduction Section {% endcomment %}
+{% if not search_query and not filter_type or filter_type == 'all' and search_params == '{}' %}
 <section class="container px-4 mx-auto mt-10">
     <!-- Header Section -->
     <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
@@ -55,9 +56,10 @@
         </div>
     </div>
 </section>
+{% endif %}
 
-<!-- 原有的section内容开始 -->
-<section class="container px-4 mx-auto mt-10">
+{% comment %} Amplicons Table {% endcomment %}
+<section class="container px-4 mx-auto {% if search_query or filter_type or search_params != '{}' %}mt-6{% else %}mt-10{% endif %}">
     {% load static %}
     <div class="sm:flex sm:items-center sm:justify-between">
         <div>
@@ -179,7 +181,13 @@
                                 </td>
                                 <td class="italic px-6 py-4 whitespace-nowrap">
                                     {% if amplicon.host and amplicon.host != "NA" %}
-                                        {{ amplicon.host }}
+                                        {% with host_words=amplicon.host.split|slice:":2"|join:" " %}
+                                        <a href="/hosts/species/{{ host_words|urlencode }}/"
+                                           class="text-indigo-600 hover:text-indigo-800"
+                                           title="View details for {{ amplicon.host }}">
+                                            {{ amplicon.host }}
+                                        </a>
+                                        {% endwith %}
                                     {% endif %}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">

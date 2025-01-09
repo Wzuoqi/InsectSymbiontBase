@@ -47,11 +47,18 @@ def amplicons(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
+    # 获取所有的GET参数
+    search_params = request.GET.copy()
+    if 'page' in search_params:
+        del search_params['page']
+
+    # 构建上下文字典
     context = {
         'page_obj': page_obj,
         'sort_by': sort_by,
         'search_query': search_query,
         'filter_type': filter_type,
+        'search_params': search_params.urlencode() if search_params else '{}',
     }
 
     return render(request, "amplicons.html", context)

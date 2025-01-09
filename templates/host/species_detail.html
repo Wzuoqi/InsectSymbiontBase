@@ -36,13 +36,6 @@
                             {{ host.common_name|default:"Scientific name only" }}
                         </span>
                     </div>
-                    <div class="text-sm text-gray-500">
-                        <a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id={{ host.ncbi_taxonomy_id }}"
-                           target="_blank"
-                           class="hover:text-kabuli-600">
-                           NCBI: {{ host.ncbi_taxonomy_id|default:"Not available" }}
-                        </a>
-                    </div>
                 </div>
 
                 <!-- 分类信息卡片组 -->

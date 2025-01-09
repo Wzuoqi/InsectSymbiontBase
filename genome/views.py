@@ -70,17 +70,10 @@ def genomes(request):
     if gtdb_class:
         genomes = genomes.filter(gtdb_classification__icontains=gtdb_class)
 
-    # 准备搜索参数以供JavaScript使用
-    search_params = {
-        'genome_id': genome_id or '',
-        'source_id': source_id or '',
-        'host': host or '',
-        'source': source or '',
-        'completeness_min': completeness_min or '',
-        'contamination_max': contamination_max or '',
-        'gtdb_phylum': gtdb_phylum or '',
-        'gtdb_class': gtdb_class or '',
-    }
+    # 获取所有的GET参数
+    search_params = request.GET.copy()
+    if 'page' in search_params:
+        del search_params['page']
 
     # 分页处理
     paginator = Paginator(genomes, 25)  # 每页显示25条记录
@@ -99,12 +92,13 @@ def genomes(request):
         del query_dict['page']
     query_string = query_dict.urlencode()
 
+    # 构建上下文字典
     context = {
         'page_obj': page_obj,
         'query': query,
         'filter_type': filter_type,
         'current_order': order,
-        'search_params': json.dumps(search_params),
+        'search_params': search_params.urlencode() if search_params else '{}',
         'query_string': query_string,
     }
 

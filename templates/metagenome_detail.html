@@ -11,11 +11,11 @@
         <div class="bg-gray-50 p-6 rounded-md shadow-md">
             <h2 class="text-xl font-semibold text-cyan-800 mb-4">Basic Information</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <p><span class="font-bold text-cyan-600">Run:</span> {{ metagenome.run }}</p>
-                <p><span class="font-bold text-cyan-600">Assay Type:</span> {{ metagenome.assay_type }}</p>
-                <p><span class="font-bold text-cyan-600">Biosample:</span> {{ metagenome.biosample }}</p>
-                <p><span class="font-bold text-cyan-600">Bytes:</span> {{ metagenome.bytes|default:"N/A" }}</p>
-                <p><span class="font-bold text-cyan-600">Center Name:</span> {{ metagenome.center_name }}</p>
+                <p><span class="font-bold text-cyan-600">Run:</span> {% if metagenome.run and metagenome.run != "NA" %}{{ metagenome.run }}{% else %}-{% endif %}</p>
+                <p><span class="font-bold text-cyan-600">Assay Type:</span> {% if metagenome.assay_type and metagenome.assay_type != "NA" %}{{ metagenome.assay_type }}{% else %}-{% endif %}</p>
+                <p><span class="font-bold text-cyan-600">Biosample:</span> {% if metagenome.biosample and metagenome.biosample != "NA" %}{{ metagenome.biosample }}{% else %}-{% endif %}</p>
+                <p><span class="font-bold text-cyan-600">Bytes:</span> {% if metagenome.bytes and metagenome.bytes != "NA" %}{{ metagenome.bytes }}{% else %}-{% endif %}</p>
+                <p><span class="font-bold text-cyan-600">Center Name:</span> {% if metagenome.center_name and metagenome.center_name != "NA" %}{{ metagenome.center_name }}{% else %}-{% endif %}</p>
             </div>
         </div>
 
@@ -23,31 +23,44 @@
         <div class="bg-gray-50 p-6 rounded-md shadow-md">
             <h2 class="text-xl font-semibold text-cyan-800 mb-4">Sequencing Information</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <p><span class="font-bold text-cyan-600">Instrument:</span> {{ metagenome.instrument }}</p>
-                <p><span class="font-bold text-cyan-600">Library Layout:</span> {{ metagenome.library_layout }}</p>
-                <p><span class="font-bold text-cyan-600">Library Selection:</span> {{ metagenome.library_selection }}</p>
-                <p><span class="font-bold text-cyan-600">Platform:</span> {{ metagenome.platform }}</p>
-                <p><span class="font-bold text-cyan-600">Bioproject:</span> {{ metagenome.bioproject }}</p>
+                <p><span class="font-bold text-cyan-600">Instrument:</span> {% if metagenome.instrument and metagenome.instrument != "NA" %}{{ metagenome.instrument }}{% else %}-{% endif %}</p>
+                <p><span class="font-bold text-cyan-600">Library Layout:</span> {% if metagenome.library_layout and metagenome.library_layout != "NA" %}{{ metagenome.library_layout }}{% else %}-{% endif %}</p>
+                <p><span class="font-bold text-cyan-600">Library Selection:</span> {% if metagenome.library_selection and metagenome.library_selection != "NA" %}{{ metagenome.library_selection }}{% else %}-{% endif %}</p>
+                <p><span class="font-bold text-cyan-600">Platform:</span> {% if metagenome.platform and metagenome.platform != "NA" %}{{ metagenome.platform }}{% else %}-{% endif %}</p>
+                <p><span class="font-bold text-cyan-600">Bioproject:</span> {% if metagenome.bioproject and metagenome.bioproject != "NA" %}{{ metagenome.bioproject }}{% else %}-{% endif %}</p>
             </div>
         </div>
 
         <div class="bg-gray-50 p-6 rounded-md shadow-md">
             <h2 class="text-xl font-semibold text-cyan-800 mb-4">Geographic Information</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <p><span class="font-bold text-cyan-600">Country:</span> {{ metagenome.geo_loc_name_country }}</p>
-                <p><span class="font-bold text-cyan-600">Continent:</span> {{ metagenome.geo_loc_name_country_continent }}</p>
-                <p><span class="font-bold text-cyan-600">Location Name:</span> {{ metagenome.geo_loc_name }}</p>
-                <p><span class="font-bold text-cyan-600">Latitude/Longitude:</span> {{ metagenome.lat_lon|default:"N/A" }}</p>
+                <p><span class="font-bold text-cyan-600">Country:</span> {% if metagenome.geo_loc_name_country and metagenome.geo_loc_name_country != "NA" %}{{ metagenome.geo_loc_name_country }}{% else %}-{% endif %}</p>
+                <p><span class="font-bold text-cyan-600">Continent:</span> {% if metagenome.geo_loc_name_country_continent and metagenome.geo_loc_name_country_continent != "NA" %}{{ metagenome.geo_loc_name_country_continent }}{% else %}-{% endif %}</p>
+                <p><span class="font-bold text-cyan-600">Location Name:</span> {% if metagenome.geo_loc_name and metagenome.geo_loc_name != "NA" %}{{ metagenome.geo_loc_name }}{% else %}-{% endif %}</p>
+                <p><span class="font-bold text-cyan-600">Latitude/Longitude:</span> {% if metagenome.lat_lon and metagenome.lat_lon != "NA" %}{{ metagenome.lat_lon }}{% else %}-{% endif %}</p>
             </div>
         </div>
 
         <div class="bg-gray-50 p-6 rounded-md shadow-md">
             <h2 class="text-xl font-semibold text-cyan-800 mb-4">Sample Information</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <p><span class="font-bold text-cyan-600">Host:</span> {{ metagenome.host }}</p>
-                <p><span class="font-bold text-cyan-600">Isolation:</span> {{ metagenome.isolation }}</p>
-                <p><span class="font-bold text-cyan-600">Biosample Model:</span> {{ metagenome.biosample_model }}</p>
-                <p><span class="font-bold text-cyan-600">Collection Date:</span> {{ metagenome.collection_date }}</p>
+                <p>
+                    <span class="font-bold text-cyan-600">Host:</span>
+                    {% if metagenome.host and metagenome.host != "NA" %}
+                        {% with host_words=metagenome.host.split|slice:":2"|join:" " %}
+                        <a href="/hosts/species/{{ host_words|urlencode }}/"
+                           class="italic hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors duration-200"
+                           title="View details for {{ metagenome.host }}">
+                            {{ metagenome.host }}
+                        </a>
+                        {% endwith %}
+                    {% else %}
+                        <span class="italic text-gray-400">-</span>
+                    {% endif %}
+                </p>
+                <p><span class="font-bold text-cyan-600">Isolation:</span> {% if metagenome.isolation and metagenome.isolation != "NA" %}{{ metagenome.isolation }}{% else %}-{% endif %}</p>
+                <p><span class="font-bold text-cyan-600">Biosample Model:</span> {% if metagenome.biosample_model and metagenome.biosample_model != "NA" %}{{ metagenome.biosample_model }}{% else %}-{% endif %}</p>
+                <p><span class="font-bold text-cyan-600">Collection Date:</span> {% if metagenome.collection_date and metagenome.collection_date != "NA" %}{{ metagenome.collection_date }}{% else %}-{% endif %}</p>
             </div>
         </div>
     </div>

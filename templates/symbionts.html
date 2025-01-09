@@ -3,6 +3,7 @@
 {% block Part1 %}
 
 {% comment %} Introduction Section {% endcomment %}
+{% if not query and not filter_type or filter_type == 'all' and search_params == '{}' %}
 <section class="container px-4 mx-auto mt-10">
     <!-- Header Section -->
     <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
@@ -50,9 +51,10 @@
         </div>
     </div>
 </section>
+{% endif %}
 
 {% comment %} Symbionts Table {% endcomment %}
-<section class="container px-4 mx-auto mt-10">
+<section class="container px-4 mx-auto {% if query or filter_type or search_params != '{}' %}mt-6{% else %}mt-10{% endif %}">
     {% load static %}
     <div class="sm:flex sm:items-center sm:justify-between">
         <div>

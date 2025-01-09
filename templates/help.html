@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block Part1 %}
+{% load static %}
+
+<!-- 帮助文档头部区域 -->
+<div class="bg-gray-50 border-b">
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-gray-900">Help Documentation</h1>
+        <p class="mt-2 text-gray-600">Comprehensive guide to using InsectSymbiontBase</p>
+    </div>
+</div>
+
+<!-- 导航栏 -->
+<div class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4">
+        <nav class="flex space-x-8 overflow-x-auto" id="help-nav">
+            <button data-tab="overview" class="py-4 px-1 border-b-2 border-blue-500 font-medium text-blue-600 whitespace-nowrap tab-button">
+                Overview
+            </button>
+            <button data-tab="search" class="py-4 px-1 border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap tab-button">
+                Search Guide
+            </button>
+            <button data-tab="tools" class="py-4 px-1 border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap tab-button">
+                Analysis Tools
+            </button>
+            <button data-tab="data" class="py-4 px-1 border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap tab-button">
+                Data Download
+            </button>
+            <button data-tab="api" class="py-4 px-1 border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap tab-button">
+                API Access
+            </button>
+            <button data-tab="faq" class="py-4 px-1 border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap tab-button">
+                FAQ
+            </button>
+        </nav>
+    </div>
+</div>
+
+<!-- 主要内容区域 -->
+<div class="max-w-7xl mx-auto px-4 py-12">
+    <!-- Overview Section -->
+    <div id="overview" class="tab-content active">
+        <div class="space-y-8">
+            <!-- Database Introduction -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">About InsectSymbiontBase</h3>
+                <p class="text-gray-600 mb-4">
+                    InsectSymbiontBase is a comprehensive database dedicated to insect symbionts research. It provides extensive resources including functional records, genomes, metagenomes, and research tools to empower scientific discovery and exploration.
+                </p>
+
+                <!-- Database Statistics -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <div class="flex items-center mb-2">
+                            <span class="icon-[material-symbols--functions] text-2xl text-blue-600 mr-2"></span>
+                            <h4 class="font-semibold text-gray-900">Functional Records</h4>
+                        </div>
+                        <p class="text-gray-600">Over 2,500 verified symbiont function records from scientific literature</p>
+                    </div>
+
+                    <div class="bg-purple-50 rounded-lg p-4">
+                        <div class="flex items-center mb-2">
+                            <span class="icon-[ph--meta-logo-bold] text-2xl text-purple-600 mr-2"></span>
+                            <h4 class="font-semibold text-gray-900">Sequencing Data</h4>
+                        </div>
+                        <p class="text-gray-600">Comprehensive collection of genomes, metagenomes, and amplicon data</p>
+                    </div>
+
+                    <div class="bg-green-50 rounded-lg p-4">
+                        <div class="flex items-center mb-2">
+                            <span class="icon-[material-symbols--build] text-2xl text-green-600 mr-2"></span>
+                            <h4 class="font-semibold text-gray-900">Analysis Tools</h4>
+                        </div>
+                        <p class="text-gray-600">Advanced tools for sequence analysis and symbiont identification</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Start Guide -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Quick Start Guide</h3>
+                <div class="space-y-6">
+                    <!-- Step 1 -->
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
+                            <span class="text-blue-600 font-semibold">1</span>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-medium text-gray-900">Browse Database</h4>
+                            <p class="mt-1 text-gray-600">Navigate through our comprehensive collection of symbiont records using the main navigation menu.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
+                            <span class="text-blue-600 font-semibold">2</span>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-medium text-gray-900">Search Records</h4>
+                            <p class="mt-1 text-gray-600">Use our advanced search functionality to find specific symbiont records, genomes, or related data.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
+                            <span class="text-blue-600 font-semibold">3</span>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-medium text-gray-900">Analyze Data</h4>
+                            <p class="mt-1 text-gray-600">Utilize our analysis tools for sequence alignment, symbiont identification, and more.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Guide Section -->
+    <div id="search" class="tab-content hidden">
+        <div class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">How to Search</h3>
+            <!-- Add search guide content -->
+        </div>
+    </div>
+
+    <!-- Analysis Tools Section -->
+    <div id="tools" class="tab-content hidden">
+        <div class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">Available Tools</h3>
+            <!-- Add tools content -->
+        </div>
+    </div>
+
+    <!-- Data Download Section -->
+    <div id="data" class="tab-content hidden">
+        <div class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">Download Instructions</h3>
+            <!-- Add download content -->
+        </div>
+    </div>
+
+    <!-- API Access Section -->
+    <div id="api" class="tab-content hidden">
+        <div class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">API Documentation</h3>
+            <!-- Add API content -->
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div id="faq" class="tab-content hidden">
+        <div class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">Frequently Asked Questions</h3>
+            <!-- Add FAQ content -->
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    function switchTab(tabId) {
+        // 移除所有活动状态
+        tabButtons.forEach(button => {
+            button.classList.remove('border-blue-500', 'text-blue-600');
+            button.classList.add('border-transparent', 'text-gray-500');
+        });
+        tabContents.forEach(content => {
+            content.classList.add('hidden');
+            content.classList.remove('active');
+        });
+
+        // 设置当前标签为活动状态
+        const activeButton = document.querySelector(`[data-tab="${tabId}"]`);
+        const activeContent = document.getElementById(tabId);
+
+        activeButton.classList.remove('border-transparent', 'text-gray-500');
+        activeButton.classList.add('border-blue-500', 'text-blue-600');
+
+        // 添加过渡效果
+        activeContent.classList.remove('hidden');
+        activeContent.classList.add('active');
+
+        // 更新 URL hash
+        window.location.hash = tabId;
+    }
+
+    // 点击事件处理
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const tabId = button.getAttribute('data-tab');
+            switchTab(tabId);
+        });
+    });
+
+    // 根据 URL hash 切换到相应的标签
+    const hash = window.location.hash.slice(1);
+    if (hash && document.getElementById(hash)) {
+        switchTab(hash);
+    }
+});
+</script>
+
+<style>
+/* 添加过渡效果 */
+.tab-content {
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.tab-content.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.tab-content.hidden {
+    display: none;
+}
+</style>
+{% endblock %}

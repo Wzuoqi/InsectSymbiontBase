@@ -9,6 +9,7 @@ class Host(models.Model):
     genus = models.CharField(max_length=100, help_text="genus")
     common_name = models.CharField(max_length=200, blank=True, help_text="common name")
     description = models.TextField(blank=True, help_text="description text")
+    
 
     def __str__(self):
         return self.species

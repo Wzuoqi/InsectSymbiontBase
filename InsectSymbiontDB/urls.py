@@ -28,6 +28,7 @@ urlpatterns = [
     path("network/", views.network, name="network"),
     path("resources/", views.resources, name="resources"),
     path("contact/", views.contact, name="contact"),
+    path("help/", views.help, name="help"),
 
     #symbiont
     path('symbionts/',include(('symbiont.urls', 'symbiont'), namespace='symbiont')),

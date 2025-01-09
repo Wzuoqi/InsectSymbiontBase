@@ -58,7 +58,7 @@ def main():
     }
 
     try:
-        with open('./data/genomes241211.tab', 'r', encoding='UTF-8') as file:
+        with open('./data/genomes250109.tab', 'r', encoding='UTF-8') as file:
             # 读取并验证表头
             headers = file.readline().strip().split('\t')
 

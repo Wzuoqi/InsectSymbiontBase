@@ -167,14 +167,12 @@ def symbionts(request):
         'filter_type': filter_type,
         'current_order': order_by,
         'query_string': query_string,
-        'search_params': json.dumps(search_params),  # 将 search_params 转换为 JSON 字符串
+        'search_params': json.dumps(search_params) if search_params else '{}',  # 修改这行
     }
 
     # 渲染模板并返回响应
     return render(request, "symbionts.html", context)
 
-def symbionts_1(request):
-    return render(request, "symbionts-1.html")
 
 def expand_accession_range(start, end):
     """展开类似HM222405-HM222408这样的序列号范围"""
