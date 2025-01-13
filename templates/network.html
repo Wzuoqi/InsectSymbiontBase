@@ -272,6 +272,10 @@
                         scale: true,
                         label: false,
                         focus: 'adjacency',
+                        lineStyle: {
+                            width: 4,
+                            opacity: 1
+                        },
                         itemStyle: {
                             borderWidth: 0,
                             borderColor: '#fff',
@@ -284,6 +288,7 @@
                         color: '#778899',
                         curveness: 0.15,
                         opacity: 0.7,
+                        width: 2
                     }
                 }
             ]
@@ -296,15 +301,51 @@
 
         // 修改点击事件处理
         myChart.on('click', function(params) {
-            if (params.dataType === 'node' && !isDragging) {
-                if (params.data.type.toLowerCase() === 'host') {
-                    var hostUrl = '/hosts/species/' + encodeURIComponent(params.name) + '/';
-                    window.open(hostUrl, '_blank');
-                } else {
-                    // 所有非 host 类型的节点都作为 symbiont 处理
-                    var symbiontUrl = '/symbionts/?q=' + encodeURIComponent(params.name.replace(' ', '+'));
-                    window.open(symbiontUrl, '_blank');
+            if (!isDragging) {
+                if (params.dataType === 'node') {
+                    if (params.data.type.toLowerCase() === 'host') {
+                        var hostUrl = '/hosts/species/' + encodeURIComponent(params.name) + '/';
+                        window.open(hostUrl, '_blank');
+                    } else {
+                        var symbiontUrl = '/symbionts/?q=' + encodeURIComponent(params.name.replace(' ', '+'));
+                        window.open(symbiontUrl, '_blank');
+                    }
+                } else if (params.dataType === 'edge') {
+                    const sourceNode = option.series[0].data.find(node => node.name === params.data.source);
+                    const targetNode = option.series[0].data.find(node => node.name === params.data.target);
+
+                    let hostSpecies = '';
+                    let symbiontName = '';
+
+                    if (sourceNode.type.toLowerCase() === 'host') {
+                        hostSpecies = sourceNode.name;
+                        symbiontName = targetNode.name;
+                    } else {
+                        hostSpecies = targetNode.name;
+                        symbiontName = sourceNode.name;
+                    }
+
+                    const searchParams = new URLSearchParams({
+                        'host_species': hostSpecies,
+                        'symbiont_name': symbiontName
+                    });
+
+                    const searchUrl = `/symbionts/?${searchParams.toString()}`;
+                    window.open(searchUrl, '_blank');
                 }
+            }
+        });
+
+        // 添加边的鼠标悬停效果
+        myChart.getZr().on('mousemove', function(params) {
+            const pointInPixel = [params.offsetX, params.offsetY];
+            const pointInGrid = myChart.convertFromPixel({seriesIndex: 0}, pointInPixel);
+
+            const edgeEl = myChart.getZr().handler.findHover(pointInPixel[0], pointInPixel[1]);
+            if (edgeEl && edgeEl.dataIndex !== undefined && edgeEl.seriesIndex === 0) {
+                document.body.style.cursor = 'pointer';
+            } else {
+                document.body.style.cursor = 'default';
             }
         });
 

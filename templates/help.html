@@ -5,9 +5,13 @@
 
 <!-- 帮助文档头部区域 -->
 <div class="bg-gray-50 border-b">
-    <div class="max-w-7xl mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold text-gray-900">Help Documentation</h1>
-        <p class="mt-2 text-gray-600">Comprehensive guide to using InsectSymbiontBase</p>
+    <div class="max-w-7xl mx-auto px-4 py-4">
+        <div class="flex items-center space-x-3">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Help</h1>
+                <p class="text-gray-500 text-sm mt-2">Get started with InsectSymbiontBase</p>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -18,8 +22,8 @@
             <button data-tab="overview" class="py-4 px-1 border-b-2 border-blue-500 font-medium text-blue-600 whitespace-nowrap tab-button">
                 Overview
             </button>
-            <button data-tab="search" class="py-4 px-1 border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap tab-button">
-                Search Guide
+            <button data-tab="browse" class="py-4 px-1 border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap tab-button">
+                Browse Data
             </button>
             <button data-tab="tools" class="py-4 px-1 border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap tab-button">
                 Analysis Tools
@@ -118,11 +122,254 @@
         </div>
     </div>
 
-    <!-- Search Guide Section -->
-    <div id="search" class="tab-content hidden">
-        <div class="bg-white rounded-lg shadow-sm p-6">
-            <h3 class="text-xl font-semibold text-gray-900 mb-4">How to Search</h3>
-            <!-- Add search guide content -->
+    <!-- Browse Data Section -->
+    <div id="browse" class="tab-content hidden">
+        <div class="flex">
+            <!-- 简化的左侧导航栏 -->
+            <div class="w-56 flex-shrink-0">
+                <nav class="pr-4 sticky top-4">
+                    <div class="space-y-1">
+                        <h4 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">Contents</h4>
+                        <!-- 主要导航项 -->
+                        <div class="space-y-2">
+                            <a href="#home"
+                               class="block text-sm relative pl-3 py-2 hover:bg-gray-50 rounded-md transition-colors group">
+                                <div class="absolute left-0 inset-y-0 w-1 bg-blue-500 rounded-full transform scale-y-0 group-[.active]:scale-y-100 transition-transform"></div>
+                                <span class="text-gray-600 group-[.active]:text-blue-600 group-hover:text-blue-600">Home</span>
+                            </a>
+                            <a href="#symbiont-records"
+                               class="block text-sm relative pl-3 py-2 hover:bg-gray-50 rounded-md transition-colors group">
+                                <div class="absolute left-0 inset-y-0 w-1 bg-blue-500 rounded-full transform scale-y-0 group-[.active]:scale-y-100 transition-transform"></div>
+                                <span class="text-gray-600 group-[.active]:text-blue-600 group-hover:text-blue-600">Symbiont Record</span>
+                            </a>
+                            <a href="#insect-host"
+                               class="block text-sm relative pl-3 py-2 hover:bg-gray-50 rounded-md transition-colors group">
+                                <div class="absolute left-0 inset-y-0 w-1 bg-blue-500 rounded-full transform scale-y-0 group-[.active]:scale-y-100 transition-transform"></div>
+                                <span class="text-gray-600 group-[.active]:text-blue-600 group-hover:text-blue-600">Insect Host</span>
+                            </a>
+                            <a href="#metagenome"
+                               class="block text-sm relative pl-3 py-2 hover:bg-gray-50 rounded-md transition-colors group">
+                                <div class="absolute left-0 inset-y-0 w-1 bg-blue-500 rounded-full transform scale-y-0 group-[.active]:scale-y-100 transition-transform"></div>
+                                <span class="text-gray-600 group-[.active]:text-blue-600 group-hover:text-blue-600">Metagenome</span>
+                            </a>
+                            <a href="#amplicon"
+                               class="block text-sm relative pl-3 py-2 hover:bg-gray-50 rounded-md transition-colors group">
+                                <div class="absolute left-0 inset-y-0 w-1 bg-blue-500 rounded-full transform scale-y-0 group-[.active]:scale-y-100 transition-transform"></div>
+                                <span class="text-gray-600 group-[.active]:text-blue-600 group-hover:text-blue-600">Amplicon</span>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- 扩展的右侧内容区域 -->
+            <div class="flex-1 max-w-4xl">
+                <div class="pl-8 py-6 space-y-12">
+                    <!-- Database Overview -->
+                    <section id="database-overview" class="scroll-mt-16">
+                        <h1 class="text-3xl font-bold text-kabuli-900 mb-6">Browse Guide</h1>
+                        <div class="prose prose-blue max-w-none">
+                            <p style="text-indent: 1em;">InsectSymbiontBase provides comprehensive access to various types of data related to insect symbionts. This guide will help you navigate through our data browsing interfaces and make the most of our search capabilities.</p>
+
+                            <div class="bg-blue-50 rounded-lg p-4 my-4">
+                                <h4 class="text-blue-800 font-medium mb-2">Quick Tip</h4>
+                                <p style="text-indent: 1em;" class="text-blue-700">Use the navigation menu on the left to quickly jump to different sections of this guide. Each section provides detailed information about specific data types and search features.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Home Section -->
+                    <section id="home" class="scroll-mt-16">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">1. Home</h2>
+                        <div class="prose prose-blue max-w-none">
+                            <p style="text-indent: 1em;">The home page provides an overview of the database content and quick access to main features.</p>
+
+                            <!-- 主页说明 -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <img src="{% static 'img/help/home1.jpg' %}" alt="Home Page Overview" class="w-full rounded-lg shadow-sm mb-4">
+                                    <div class="space-y-4">
+                                        <p class="text-gray-600">The home page consists of three main sections:</p>
+                                        <ol class="list-decimal pl-5 space-y-2 text-gray-600">
+                                            <li><strong>Main Navigation Bar:</strong> Access to different data browsing interfaces and tools</li>
+                                            <li><strong>Quick Access Cards:</strong> Direct links to major data categories including Symbiont Records, Insect Hosts, Metagenome, and Amplicon data</li>
+                                            <li><strong>Database Statistics:</strong> Overview of current data volume in the database, click number to browse the specific page</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Symbiont Record Section -->
+                    <section id="symbiont-records" class="scroll-mt-16">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">2. Symbiont Record</h2>
+                        <div class="prose prose-blue max-w-none">
+                            <p style="text-indent: 1em;">Browse and search through our comprehensive collection of symbiont records.</p>
+
+                            <!-- Introduction Section -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <img src="{% static 'img/help/symbiont1.png' %}" alt="Symbiont Introduction" class="w-full rounded-lg shadow-sm mb-4">
+                                    <div class="space-y-2">
+                                        <p class="text-gray-600">The Symbiont Record page provides an overview of:</p>
+                                        <ul class="list-disc pl-5 text-gray-600">
+                                            <li>Total number of symbiont records from literatures in the database</li>
+                                            <li>Distribution of symbiont records across different phylums</li>
+                                            <li>View the classification of Function Tags and the number of Symbiont Records</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <!-- Data Table Section -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <h3 class="text-lg font-semibold mb-4">2.1 Symbiont Records Table</h3>
+                                    <img src="{% static 'img/help/symbiont2.png' %}" alt="Symbiont Data Table" class="w-full rounded-lg shadow-sm mb-4">
+                                    <div class="space-y-2">
+                                        <p style="text-indent: 1em;" class="text-gray-600">The Function Symbionts Table provides an intuitive interface for exploring symbiont records. You can filter by
+                                        symbiont type, view detailed record information, and explore tags, hosts, and references. </p>
+                                        <p style="text-indent: 1em;" class="text-gray-600">View detailed guidance through images and on-page guidelines.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Search Section -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <h3 class="text-lg font-semibold mb-4">2.2 Symbiont Search</h3>
+                                    <img src="{% static 'img/help/symbiont_search.png' %}" alt="Symbiont Search Interface"
+                                        class="w-full rounded-lg shadow-sm mb-4">
+                                    <div class="space-y-2">
+                                        <p style="text-indent: 1em;" class="text-gray-600">You can easily find any symbiont record of interest using
+                                            the basic search, which allows queries across multiple fields such as symbiont name, host, function, and
+                                            associated tags. Additionally, the search feature includes helpful tools like autocompletion and
+                                            associative suggestions to streamline your exploration.</p>
+                                        <p style="text-indent: 1em;" class="text-gray-600">You can also use the advanced search to customize
+                                            multi-field filters and retrieve records that match your specific interests.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Symbiont Detail Section -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <h3 class="text-lg font-semibold mb-4">2.3 Symbiont Detail</h3>
+
+                                    <!-- Basic Information -->
+                                    <div class="space-y-4">
+                                        <img src="{% static 'img/help/symbiont_detail1.png' %}" alt="Symbiont Basic Information"
+                                            class="w-full rounded-lg shadow-sm mb-4">
+                                        <div class="space-y-2">
+                                            <p style="text-indent: 1em;" class="text-gray-600">The Symbiont Detail page displays comprehensive information about a specific symbiont record, including:</p>
+                                            <ul class="list-disc pl-5 text-gray-600">
+                                                <li>Basic taxonomic classification (Click each taxon to view all related information)</li>
+                                                <li>Detailed functions with tags are manually extracted and curated from the original article</li>
+                                                <li>Localization and transmission mode are provided if included in the reference article</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Associated Data -->
+                                    <div class="mt-8 space-y-4">
+                                        <img src="{% static 'img/help/symbiont_detail2.png' %}" alt="Symbiont Associated Data"
+                                            class="w-full rounded-lg shadow-sm mb-4">
+                                        <div class="space-y-2">
+                                            <ul class="list-disc pl-5 text-gray-600">
+                                                <li>Supporting Reference for this record including the authors, journal and the link to original article</li>
+                                                <li>Download: Curated symbiont genomes and other related data links, including 16S sequences, amplicons, and metagenomes etc</li>
+                                                <li>Other publications related to the symbiont and host associated with this record</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </section>
+
+                    <!-- Insect Host Section -->
+                    <section id="insect-host" class="scroll-mt-16">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">3. Insect Host</h2>
+                        <div class="prose prose-blue max-w-none">
+                            <p style="text-indent: 1em;">Explore information about insect hosts and their associated symbionts.</p>
+
+                            <!-- Host Tree Section -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <h3 class="text-lg font-semibold mb-4">3.1 Host Tree</h3>
+
+                                    <!-- Introduction -->
+                                    <div class="space-y-4">
+                                        <img src="{% static 'img/help/hosts.png' %}" alt="Host Tree Overview"
+                                            class="w-full rounded-lg shadow-sm mb-4">
+                                        <div class="space-y-2">
+                                            <p style="text-indent: 1em;" class="text-gray-600">The Host Tree page provides a comprehensive visualization of insect hosts in our database:</p>
+                                            <ul class="list-disc pl-5 text-gray-600">
+                                                <li>1. The left panel shows the total number of host records and their distribution across different orders</li>
+                                                <li>2. The right panel displays the most frequently recorded host species, which can be directly searched by click</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Tree Classification -->
+                                    <div class="mt-8 space-y-4">
+                                        <div class="space-y-2">
+                                            <p style="text-indent: 1em;" class="text-gray-600">The interactive taxonomic tree allows you to:</p>
+                                            <ul class="list-disc pl-5 text-gray-600">
+                                                <li>Navigate through different taxonomic levels from order to species</li>
+                                                <li>Click on any node to view detailed information about that taxonomic group</li>
+                                                <li>See the number of symbiont records associated with each host group</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Host Detail Section -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <h3 class="text-lg font-semibold mb-4">3.2 Host Detail</h3>
+
+                                    <div class="space-y-4">
+                                        <img src="{% static 'img/help/host_detail.png' %}" alt="Host Detail Page"
+                                            class="w-full rounded-lg shadow-sm mb-4">
+                                        <div class="space-y-2">
+                                            <p style="text-indent: 1em;" class="text-gray-600">The Host Detail page provides comprehensive information about a specific insect host and its associated symbionts:</p>
+                                            <ul class="list-disc pl-5 text-gray-600">
+                                                <li><strong>Host Information:</strong> Complete taxonomic classification and basic information about the host species</li>
+                                                <li><strong>Associated Symbionts:</strong> List of all symbionts recorded for this host, including their functions and relationships. Click to see records detail</li>
+                                                <li><strong>Sequence Data:</strong> Available metagenome and amplicon data associated with this host (Figure not show)</li>
+                                                <li><strong>Literature References:</strong> Publications documenting this host with its symbionts</li>                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Metagenome Section -->
+                    <section id="metagenome" class="scroll-mt-16">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">4. Metagenome</h2>
+                        <div class="prose prose-blue max-w-none">
+                            <p style="text-indent: 1em;">Access and analyze metagenome data from various insect-symbiont studies.</p>
+                        </div>
+                    </section>
+
+                    <!-- Amplicon Section -->
+                    <section id="amplicon" class="scroll-mt-16">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">5. Amplicon</h2>
+                        <div class="prose prose-blue max-w-none">
+                            <p style="text-indent: 1em;">Browse amplicon sequencing data and related analyses.</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -163,6 +410,7 @@
 
 {% block extra_js %}
 <script>
+// Tab切换功能
 document.addEventListener('DOMContentLoaded', function() {
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
@@ -182,30 +430,103 @@ document.addEventListener('DOMContentLoaded', function() {
         const activeButton = document.querySelector(`[data-tab="${tabId}"]`);
         const activeContent = document.getElementById(tabId);
 
-        activeButton.classList.remove('border-transparent', 'text-gray-500');
-        activeButton.classList.add('border-blue-500', 'text-blue-600');
+        if (activeButton && activeContent) {
+            activeButton.classList.remove('border-transparent', 'text-gray-500');
+            activeButton.classList.add('border-blue-500', 'text-blue-600');
 
-        // 添加过渡效果
-        activeContent.classList.remove('hidden');
-        activeContent.classList.add('active');
-
-        // 更新 URL hash
-        window.location.hash = tabId;
+            // 添加过渡效果
+            activeContent.classList.remove('hidden');
+            activeContent.classList.add('active');
+        }
     }
 
     // 点击事件处理
     tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault(); // 阻止默认行为
             const tabId = button.getAttribute('data-tab');
             switchTab(tabId);
+            // 使用 replaceState 而不是直接修改 hash
+            const newUrl = new URL(window.location);
+            newUrl.hash = tabId;
+            window.history.replaceState({}, '', newUrl);
         });
     });
 
-    // 根据 URL hash 切换到相应的标签
+    // 页面加载时根据 URL hash 切换到相应的标签
     const hash = window.location.hash.slice(1);
     if (hash && document.getElementById(hash)) {
         switchTab(hash);
+    } else {
+        // 如果没有hash或hash无效，默认显示overview标签
+        switchTab('overview');
     }
+
+    // 监听 hashchange 事件
+    window.addEventListener('hashchange', () => {
+        const newHash = window.location.hash.slice(1);
+        if (newHash && document.getElementById(newHash)) {
+            switchTab(newHash);
+        }
+    });
+});
+</script>
+
+<script>
+// 帮助页面内部导航功能
+document.addEventListener('DOMContentLoaded', function() {
+    // 只处理帮助页面内的导航链接（#help-nav以外的导航）
+    const helpNavLinks = document.querySelectorAll('nav:not(#help-nav) a[href^="#"]');
+
+    helpNavLinks.forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            // 只处理页内锚点链接
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    // 移除所有active类
+                    helpNavLinks.forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    // 添加active类到当前项
+                    this.classList.add('active');
+
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+
+    // 监听滚动以高亮当前章节
+    const observerOptions = {
+        root: null,
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                // 只更新帮助页面内的导航链接
+                helpNavLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    }, observerOptions);
+
+    // 只观察帮助页面内的section
+    document.querySelectorAll('section[id]').forEach((section) => {
+        observer.observe(section);
+    });
 });
 </script>
 
@@ -224,6 +545,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 .tab-content.hidden {
     display: none;
+}
+
+/* 导航链接hover效果 */
+nav:not(#help-nav) a {
+    transition: all 0.2s ease-in-out;
+}
+
+nav:not(#help-nav) a:hover {
+    background-color: rgba(59, 130, 246, 0.05);
+}
+
+/* 活动项样式 */
+nav:not(#help-nav) a.active {
+    background-color: rgba(59, 130, 246, 0.1);
 }
 </style>
 {% endblock %}

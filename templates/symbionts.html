@@ -3,7 +3,7 @@
 {% block Part1 %}
 
 {% comment %} Introduction Section {% endcomment %}
-{% if not query and not filter_type or filter_type == 'all' and search_params == '{}' %}
+{% if show_introduction %}
 <section class="container px-4 mx-auto mt-10">
     <!-- Header Section -->
     <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">

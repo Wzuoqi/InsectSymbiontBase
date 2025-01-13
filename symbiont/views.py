@@ -160,6 +160,22 @@ def symbionts(request):
         del query_params['page']
     query_string = urlencode(query_params)
 
+    # 添加调试信息
+    print("Debug values:")
+    print(f"query: '{query}'")
+    print(f"filter_type: '{filter_type}'")
+    print(f"search_params: '{search_params}'")
+    print(f"order_by: '{order_by}'")
+
+    # 获取当前完整的请求路径
+    current_path = request.get_full_path()
+
+    # 判断是否是纯净的/symbionts/路径
+    show_introduction = (current_path == '/symbionts/' or current_path == '/symbionts')
+
+    # 打印最终结果
+    print(f"show_introduction: {show_introduction}")
+
     # 构建上下文字典
     context = {
         'page_obj': page_obj,
@@ -167,7 +183,8 @@ def symbionts(request):
         'filter_type': filter_type,
         'current_order': order_by,
         'query_string': query_string,
-        'search_params': json.dumps(search_params) if search_params else '{}',  # 修改这行
+        'search_params': json.dumps(search_params) if search_params else '{}',
+        'show_introduction': show_introduction,
     }
 
     # 渲染模板并返回响应
