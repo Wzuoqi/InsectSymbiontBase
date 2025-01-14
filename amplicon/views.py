@@ -2,8 +2,52 @@ from django.shortcuts import render, get_object_or_404
 from .models import Amplicon
 from django.core.paginator import Paginator
 from django.db.models import Q
+from datetime import datetime
 
 # Create your views here.
+
+def format_collection_date(date_str):
+    """
+    Convert various date formats to year
+    """
+    if not date_str or date_str == "NA":
+        return None
+
+    try:
+        # 尝试将字符串转换为整数
+        date_num = int(date_str)
+
+        # 如果是合理的年份范围（1900-2024）
+        if 1900 <= date_num <= 2024:
+            return str(date_num)
+
+        # 如果是两位数年份（如70表示1970）
+        if 0 <= date_num <= 99:
+            year = 1900 + date_num
+            return str(year) if year <= 2024 else None
+
+        # 如果是Unix时间戳
+        if date_num > 10000:  # 假设大于10000的是时间戳
+            try:
+                year = datetime.fromtimestamp(date_num).year
+                return str(year) if 1900 <= year <= 2024 else None
+            except ValueError:
+                return None
+
+    except ValueError:
+        # 如果不是数字，尝试其他日期格式
+        try:
+            # 尝试解析常见的日期格式
+            for fmt in ['%Y-%m-%d', '%Y/%m/%d', '%Y']:
+                try:
+                    year = datetime.strptime(date_str, fmt).year
+                    return str(year) if 1900 <= year <= 2024 else None
+                except ValueError:
+                    continue
+        except:
+            return None
+
+    return None
 
 def amplicons(request):
     # Get all Amplicon objects
@@ -51,6 +95,12 @@ def amplicons(request):
     search_params = request.GET.copy()
     if 'page' in search_params:
         del search_params['page']
+
+    # 在构建context之前添加日期处理
+    for amplicon in page_obj:
+        if amplicon.collection_date:
+            formatted_date = format_collection_date(amplicon.collection_date)
+            amplicon.formatted_year = formatted_date or 'Invalid date'
 
     # 构建上下文字典
     context = {

@@ -1,0 +1,18 @@
+
+
+Metagenome
+    \metabat
+        ID.bins.tar.gz
+        ID.depth.txt
+        ID.bin.BinInfo.txt
+    \megahit
+        ID.contigs.fa
+        ID.1000.contigs.fa
+        ID.gene.fa
+        ID.anno.pep.fa
+        ID.gff
+    ID.kraken.txt
+    ID.S.kreport
+    ID.bracken.S
+    ID.kraken.krona.html
+    bins_qa.txt

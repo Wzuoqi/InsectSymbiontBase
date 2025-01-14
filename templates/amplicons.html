@@ -205,14 +205,10 @@
                                     {% endif %}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    {% if amplicon.collection_date and amplicon.collection_date != "NA" %}
-                                        {% if amplicon.collection_date|length >= 4 %}
-                                            {{ amplicon.collection_date|slice:":4" }}
-                                        {% else %}
-                                            {{ amplicon.collection_date }}
-                                        {% endif %}
+                                    {% if amplicon.formatted_year and amplicon.formatted_year != "Invalid date" %}
+                                        {{ amplicon.formatted_year }}
                                     {% else %}
-                                        <span class="text-gray-400 dark:text-gray-500 italic"> - </span>
+                                        <span class="text-gray-400 dark:text-gray-500 italic">{{ amplicon.formatted_year|default:"-" }}</span>
                                     {% endif %}
                                 </td>
                             </tr>

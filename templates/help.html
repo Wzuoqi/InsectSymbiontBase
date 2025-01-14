@@ -26,10 +26,10 @@
                 Browse Data
             </button>
             <button data-tab="tools" class="py-4 px-1 border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap tab-button">
-                Analysis Tools
+                Tools
             </button>
-            <button data-tab="data" class="py-4 px-1 border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap tab-button">
-                Data Download
+            <button data-tab="network" class="py-4 px-1 border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap tab-button">
+                Network
             </button>
             <button data-tab="api" class="py-4 px-1 border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap tab-button">
                 API Access
@@ -376,16 +376,128 @@
     <!-- Analysis Tools Section -->
     <div id="tools" class="tab-content hidden">
         <div class="bg-white rounded-lg shadow-sm p-6">
-            <h3 class="text-xl font-semibold text-gray-900 mb-4">Available Tools</h3>
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">Tools</h3>
             <!-- Add tools content -->
         </div>
     </div>
 
-    <!-- Data Download Section -->
-    <div id="data" class="tab-content hidden">
-        <div class="bg-white rounded-lg shadow-sm p-6">
-            <h3 class="text-xl font-semibold text-gray-900 mb-4">Download Instructions</h3>
-            <!-- Add download content -->
+    <!-- Network Section -->
+    <div id="network" class="tab-content hidden">
+        <div class="max-w-4xl mx-auto">
+            <div class="py-6 space-y-12">
+                <!-- Network Overview -->
+                <section id="network-overview" class="scroll-mt-16">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">Network Analysis</h1>
+                    <div class="prose prose-blue max-w-none">
+                        <p style="text-indent: 1em;">We built the network of symbionts (genera) with certain functions and their insects (species) based on their symbiosis relationships from literatures.</p>
+
+                        <div class="bg-blue-50 rounded-lg p-4 my-4">
+                            <h4 class="text-blue-800 font-medium mb-2">Quick Tip</h4>
+                            <p style="text-indent: 1em;" class="text-blue-700">The network visualization helps you understand the complex relationships between insects and their symbionts, revealing patterns of host-symbiont associations and functional distributions.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Network Visualization -->
+                <section class="scroll-mt-16">
+                    <div class="border rounded-lg p-6 bg-gray-50">
+                        <h3 class="text-lg font-semibold mb-4">Network Visualization</h3>
+                        <img src="{% static 'img/help/network.png' %}" alt="Network Visualization" class="w-full rounded-lg shadow-sm mb-4">
+                        <div class="space-y-4">
+                            <p class="text-gray-600">The network visualization provides several key features:</p>
+                            <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                                <li><strong>Node Types:</strong>
+                                    <ul class="list-circle pl-5 mt-2">
+                                        <li>Orange circular nodes represent insect hosts (species level)</li>
+                                        <li>Blue circular nodes represent symbionts (genus level)</li>
+                                    </ul>
+                                    <p class="text-sm text-gray-500 mt-2">Note: Vital symbiont genera have been highlighted with special colors</p>
+                                </li>
+                                <li><strong>Edge Connections:</strong> Lines between nodes represent documented symbiotic relationships from literature</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Interactive Features -->
+                <section class="scroll-mt-16">
+                    <div class="border rounded-lg p-6 bg-gray-50">
+                        <h3 class="text-lg font-semibold mb-4">Interactive Features</h3>
+                        <div class="space-y-6">
+                            <!-- Node Hover Interaction -->
+                            <div class="bg-white rounded-lg p-6 shadow-sm">
+                                <h4 class="font-medium text-gray-900 mb-3">Node Hover Interaction</h4>
+                                <p class="text-gray-600 mb-4">Hover over any node to highlight its direct connections, making it easier to focus on specific relationships:</p>
+                                <img src="{% static 'img/help/network_hover.png' %}" alt="Network Hover Example" class="w-full rounded-lg shadow-sm">
+                                <p class="text-sm text-gray-500 mt-2">Example: Hovering over Wolbachia highlights its connections to various insect hosts</p>
+                            </div>
+
+                            <!-- Link Hover Interaction -->
+                            <div class="bg-white rounded-lg p-6 shadow-sm">
+                                <h4 class="font-medium text-gray-900 mb-3">Link Hover Interaction</h4>
+                                <p class="text-gray-600 mb-4">Hover over any connection line to emphasize the specific relationship between a symbiont and its host. Click the link to view the detailed symbiosis record:</p>
+                                <img src="{% static 'img/help/link_hover.png' %}" alt="Link Hover Example" class="w-full rounded-lg shadow-sm">
+                                <p class="text-sm text-gray-500 mt-2">Example: Hovering over a connection highlights the specific symbiont-host relationship</p>
+                            </div>
+
+                            <!-- Node Click Interaction -->
+                            <div class="bg-white rounded-lg p-6 shadow-sm">
+                                <h4 class="font-medium text-gray-900 mb-3">Node Click Interaction</h4>
+                                <div class="space-y-4">
+                                    <p class="text-gray-600">The network provides several click-based interactions:</p>
+                                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                                        <li>Click on nodes to maintain the highlight state of their connections</li>
+                                        <li>Click symbiont nodes (blue) to view detailed symbiont information</li>
+                                        <li>Click host nodes (orange) to view detailed host information</li>
+                                        <li>Drag nodes to customize the network layout for better visualization</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Search and Filter -->
+                <section class="scroll-mt-16">
+                    <div class="border rounded-lg p-6 bg-gray-50">
+                        <h3 class="text-lg font-semibold mb-4">Search and Filter</h3>
+                        <div class="space-y-6">
+                            <!-- Search Feature -->
+                            <div class="bg-white rounded-lg p-6 shadow-sm">
+                                <h4 class="font-medium text-gray-900 mb-3">Network Search</h4>
+                                <p class="text-gray-600 mb-4">Given the complexity of the network, we provide a powerful search function to help you locate specific nodes and their relationships. When you search for a node, it will be highlighted with a golden glow to make it stand out:</p>
+                                <img src="{% static 'img/help/search.png' %}" alt="Network Search Example" class="w-full rounded-lg shadow-sm">
+                                <p class="text-sm text-gray-500 mt-2">Example: Searching for "Rickettsia" highlights the node and its connections in the network</p>
+                                <div class="mt-4 bg-blue-50 rounded-lg p-4">
+                                    <h5 class="text-blue-800 font-medium mb-2">Search Tips</h5>
+                                    <ul class="list-disc pl-5 text-blue-700">
+                                        <li>Search is case-insensitive for your convenience</li>
+                                        <li>Partial matches are supported to help you find related nodes</li>
+                                        <li>Results update in real-time as you type</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Filter Feature -->
+                            <div class="bg-white rounded-lg p-6 shadow-sm">
+                                <h4 class="font-medium text-gray-900 mb-3">Network Filter</h4>
+                                <p class="text-gray-600 mb-4">Our filtering system allows you to focus on specific symbiont-host relationships by selecting nodes from the right panel. This helps you visualize exactly the relationships you're interested in:</p>
+                                <img src="{% static 'img/help/network_filter.png' %}" alt="Network Filter Example" class="w-full rounded-lg shadow-sm">
+                                <p class="text-sm text-gray-500 mt-2">Example: Filtering the network to show specific symbiont-host relationships</p>
+                                <div class="mt-4 space-y-4">
+                                    <p class="text-gray-600">The filter panel provides several options:</p>
+                                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                                        <li><strong>Host Filters:</strong> Filter by insect orders or specific host species</li>
+                                        <li><strong>Symbiont Filters:</strong> Filter by symbiont genera or specific functions</li>
+                                        <li><strong>Relationship Filters:</strong> Focus on specific types of symbiotic relationships</li>
+                                    </ul>
+                                    <p class="text-gray-600">Multiple filters can be combined to create more specific views of the network, helping you focus on exactly the relationships you want to explore.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
 

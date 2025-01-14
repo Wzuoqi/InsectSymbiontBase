@@ -76,38 +76,71 @@
 
             searchTerm = searchTerm.toLowerCase();
 
-            // 找到匹配的节点
-            const matchedNode = originalData.find(node =>
+            // 找到所有匹配的节点
+            const matchedNodes = originalData.filter(node =>
                 node.name.toLowerCase().includes(searchTerm)
             );
 
-            if (!matchedNode) {
+            if (matchedNodes.length === 0) {
                 return {
                     nodes: originalData,
                     links: originalLinks
                 };
             }
 
-            // 找到与搜索节点相关的所有连接
-            const relatedLinks = originalLinks.filter(link =>
-                link.source === matchedNode.name || link.target === matchedNode.name
-            );
-
-            // 收集所有相关节点的名称
+            // 创建一个Set来存储所有相关节点的名称
             const relatedNodeNames = new Set();
-            relatedNodeNames.add(matchedNode.name);
-            relatedLinks.forEach(link => {
-                relatedNodeNames.add(link.source);
-                relatedNodeNames.add(link.target);
+            matchedNodes.forEach(node => relatedNodeNames.add(node.name));
+
+            // 找到与所有匹配节点相关的连接
+            const relatedLinks = originalLinks.filter(link => {
+                const isRelated = matchedNodes.some(node =>
+                    link.source === node.name || link.target === node.name
+                );
+                if (isRelated) {
+                    relatedNodeNames.add(link.source);
+                    relatedNodeNames.add(link.target);
+                }
+                return isRelated;
             });
 
-            // 过滤出相关节点
+            // 过滤出所有相关节点
             const filteredNodes = originalData.filter(node =>
                 relatedNodeNames.has(node.name)
             );
 
+            // 高亮匹配的节点
+            const highlightedNodes = filteredNodes.map(node => {
+                const isMatch = node.name.toLowerCase().includes(searchTerm);
+                const category = categories.find(cat =>
+                    cat.name.toLowerCase() === node.type.toLowerCase()
+                );
+                return {
+                    ...node,
+                    itemStyle: {
+                        ...category.itemStyle,
+                        // 如果是匹配节点，添加发光效果和轻微的颜色调整
+                        shadowBlur: isMatch ? 20 : 0,
+                        shadowColor: isMatch ? 'rgba(255, 215, 0, 0.6)' : undefined, // 金色光晕
+                        opacity: isMatch ? 1 : 0.6,
+                        // 保持原有颜色但略微调亮
+                        color: isMatch ? adjustColor(category.itemStyle.color, 20) : category.itemStyle.color
+                    }
+                };
+            });
+
+            // 添加颜色调整辅助函数
+            function adjustColor(color, percent) {
+                const num = parseInt(color.replace('#', ''), 16),
+                    amt = Math.round(2.55 * percent),
+                    R = Math.min(255, ((num >> 16) + amt)),
+                    G = Math.min(255, (((num >> 8) & 0x00FF) + amt)),
+                    B = Math.min(255, ((num & 0x0000FF) + amt));
+                return `#${(1 << 24 | R << 16 | G << 8 | B).toString(16).slice(1)}`;
+            }
+
             return {
-                nodes: filteredNodes,
+                nodes: highlightedNodes,
                 links: relatedLinks
             };
         }
@@ -128,10 +161,12 @@
                     return cat.name.toLowerCase() === node.type.toLowerCase();
                 });
                 return {
+                    ...node,
                     name: node.name,
                     symbol: category.symbol,
                     itemStyle: {
-                        color: category.itemStyle.color
+                        ...category.itemStyle,
+                        ...node.itemStyle // 保留高亮样式
                     },
                     category: category.name,
                     symbolSize: Math.min(16 + (nodeDegree[node.name] || 0) * 3, 108),
@@ -142,6 +177,29 @@
             });
             option.series[0].links = filteredData.links;
             myChart.setOption(option, true);
+
+            // 添加搜索结果提示
+            const searchTerm = document.getElementById('searchInput').value;
+            if (searchTerm) {
+                const matchedCount = filteredData.nodes.filter(node =>
+                    node.name.toLowerCase().includes(searchTerm.toLowerCase())
+                ).length;
+
+                // 创建或更新提示信息
+                let resultInfo = document.getElementById('searchResultInfo');
+                if (!resultInfo) {
+                    resultInfo = document.createElement('div');
+                    resultInfo.id = 'searchResultInfo';
+                    resultInfo.className = 'text-sm text-gray-600 mt-2 italic';
+                    document.getElementById('searchInput').parentNode.appendChild(resultInfo);
+                }
+                resultInfo.textContent = `Found ${matchedCount} matching node${matchedCount !== 1 ? 's' : ''} (highlighted with golden glow)`;
+            } else {
+                const resultInfo = document.getElementById('searchResultInfo');
+                if (resultInfo) {
+                    resultInfo.remove();
+                }
+            }
         }
 
         // 添加搜索和重置事件监听器
@@ -307,7 +365,7 @@
                         var hostUrl = '/hosts/species/' + encodeURIComponent(params.name) + '/';
                         window.open(hostUrl, '_blank');
                     } else {
-                        var symbiontUrl = '/symbionts/?q=' + encodeURIComponent(params.name.replace(' ', '+'));
+                        var symbiontUrl = '/symbionts/?q=' + encodeURIComponent(params.name);
                         window.open(symbiontUrl, '_blank');
                     }
                 } else if (params.dataType === 'edge') {
@@ -325,10 +383,9 @@
                         symbiontName = sourceNode.name;
                     }
 
-                    const searchParams = new URLSearchParams({
-                        'host_species': hostSpecies,
-                        'symbiont_name': symbiontName
-                    });
+                    const searchParams = new URLSearchParams();
+                    searchParams.set('host_species', hostSpecies);
+                    searchParams.set('symbiont_name', symbiontName);
 
                     const searchUrl = `/symbionts/?${searchParams.toString()}`;
                     window.open(searchUrl, '_blank');
