@@ -218,9 +218,103 @@
             <div class="space-y-2 text-sm text-gray-600">
                 <p>Supported formats:</p>
                 <ul class="list-disc ml-5 space-y-1">
-                    <li>Kraken2 report format (taxonomy ID, count, percentage)</li>
-                    <li>MetaPhlAn output (species name, relative abundance)</li>
+                    <li>
+                        <button class="format-btn text-kabuli-600 hover:text-kabuli-700 hover:underline" data-format="kraken">
+                            Kraken2 report format
+                        </button>
+                        <span class="text-gray-500">(taxonomy ID, count, percentage)</span>
+                    </li>
+                    <li>
+                        <button class="format-btn text-kabuli-600 hover:text-kabuli-700 hover:underline" data-format="metaphlan">
+                            MetaPhlAn output
+                        </button>
+                        <span class="text-gray-500">(species name, relative abundance)</span>
+                    </li>
+                    <li>
+                        <button class="format-btn text-kabuli-600 hover:text-kabuli-700 hover:underline" data-format="krona">
+                            Krona input format
+                        </button>
+                        <span class="text-gray-500">(hierarchical taxonomy data)</span>
+                    </li>
                 </ul>
+
+                <!-- Format Examples Section -->
+                <div class="mt-4 space-y-4">
+                    <!-- Kraken Example -->
+                    <div id="kraken-example" class="format-example hidden">
+                        <div class="bg-white p-3 rounded border border-gray-200">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="text-sm font-medium text-gray-900">Kraken2 Format Example</h4>
+                                <button class="copy-btn text-kabuli-600 hover:text-kabuli-700 text-sm flex items-center gap-1">
+                                    <span class="icon-[heroicons--clipboard] w-4 h-4"></span>
+                                    Copy
+                                </button>
+                            </div>
+                            <pre class="text-xs text-gray-600 overflow-x-auto whitespace-pre"><code>88.92  1496657  0       R1      131567  cellular organisms
+84.60  1423946  0       P       1224    Pseudomonadota
+83.28  1401693  0       C       1236    Gammaproteobacteria
+77.02  1296383  0       O       91347   Enterobacterales
+45.86  771940   0       F       543     Enterobacteriaceae
+14.67  246853   0       G       570     Klebsiella
+6.39   107581   107581  S       573     Klebsiella pneumoniae
+2.43   40874    40874   S       1134687 Klebsiella michiganensis
+1.87   31462    31462   S       571     Klebsiella oxytoca
+1.70   28547    28547   S       2058152 Klebsiella grimontii</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- MetaPhlAn Example -->
+                    <div id="metaphlan-example" class="format-example hidden">
+                        <div class="bg-white p-3 rounded border border-gray-200">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="text-sm font-medium text-gray-900">MetaPhlAn Format Example</h4>
+                                <button class="copy-btn text-kabuli-600 hover:text-kabuli-700 text-sm flex items-center gap-1">
+                                    <span class="icon-[heroicons--clipboard] w-4 h-4"></span>
+                                    Copy
+                                </button>
+                            </div>
+                            <pre class="text-xs text-gray-600 overflow-x-auto whitespace-pre"><code>#mpa_vJun23_CHOCOPhlAnSGB_202403
+#SampleID    Metaphlan_Analysis
+k__Bacteria|p__Proteobacteria|c__Gammaproteobacteria|o__Orbales|f__Orbaceae|g__Gilliamella|s__Gilliamella_apicola    34.01688
+k__Bacteria|p__Proteobacteria|c__Alphaproteobacteria|o__Hyphomicrobiales|f__Bartonellaceae|g__Bartonella|s__Bartonella_apihabitans    24.04517
+k__Bacteria|p__Proteobacteria|c__Betaproteobacteria|o__Neisseriales|f__Neisseriaceae|g__Snodgrassella|s__Snodgrassella_alvi    16.99456
+k__Bacteria|p__Proteobacteria|c__Alphaproteobacteria|o__Rhodospirillales|f__Acetobacteraceae|g__Commensalibacter|s__Commensalibacter_sp_AMU001    7.93988
+k__Bacteria|p__Proteobacteria|c__Gammaproteobacteria|o__Orbales|f__Orbaceae|g__Frischella|s__Frischella_perrara    6.94744
+k__Bacteria|p__Proteobacteria|c__Gammaproteobacteria|o__Enterobacterales|f__Enterobacteriaceae|g__Cedecea|s__Cedecea_davisae    4.10539
+k__Bacteria|p__Firmicutes|c__Bacilli|o__Lactobacillales|f__Lactobacillaceae|g__Lactobacillus|s__Lactobacillus_apis    1.96699
+k__Bacteria|p__Proteobacteria|c__Gammaproteobacteria|o__Pseudomonadales|f__Pseudomonadaceae|g__Pseudomonas|s__Pseudomonas_fragi    1.29202
+k__Bacteria|p__Firmicutes|c__Bacilli|o__Lactobacillales|f__Lactobacillaceae|g__Apilactobacillus|s__Apilactobacillus_kunkeei    0.62533
+k__Bacteria|p__Proteobacteria|c__Gammaproteobacteria|o__Enterobacterales|f__Erwiniaceae|g__Rosenbergiella|s__Rosenbergiella_nectarea    0.53353</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Krona Example -->
+                    <div id="krona-example" class="format-example hidden">
+                        <div class="bg-white p-3 rounded border border-gray-200">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="text-sm font-medium text-gray-900">Krona Format Example</h4>
+                                <button class="copy-btn text-kabuli-600 hover:text-kabuli-700 text-sm flex items-center gap-1">
+                                    <span class="icon-[heroicons--clipboard] w-4 h-4"></span>
+                                    Copy
+                                </button>
+                            </div>
+                            <pre class="text-xs text-gray-600 overflow-x-auto whitespace-pre"><code>2382    Bacteria    Proteobacteria    Alphaproteobacteria    Rhizobiales    Beijerinckiaceae    Methylobacterium    Methylobacterium bullatum
+478     Bacteria    Proteobacteria    Alphaproteobacteria    Rickettsiales    Anaplasmataceae    Wolbachia    Wolbachia sp003516275
+247     Bacteria    Proteobacteria    Alphaproteobacteria    Rickettsiales    Anaplasmataceae    Wolbachia    Wolbachia pipientis
+215     Bacteria    Proteobacteria    Alphaproteobacteria    Sphingomonadales    Sphingomonadaceae    Sphingomonas    Sphingomonas cynarae
+159     Bacteria    Proteobacteria    Alphaproteobacteria    Sphingomonadales    Sphingomonadaceae    Sphingomonas    Sphingomonas glacialis
+146     Bacteria    Proteobacteria    Alphaproteobacteria    Caulobacterales    Caulobacteraceae    Brevundimonas    Brevundimonas lenta
+106     Bacteria    Proteobacteria    Alphaproteobacteria    Rhizobiales    Beijerinckiaceae    Methylobacterium    Methylobacterium sp001424705
+101     Bacteria    Proteobacteria    Alphaproteobacteria    Rickettsiales    Anaplasmataceae    Wolbachia    Wolbachia endosymbiont
+89      Bacteria    Proteobacteria    Alphaproteobacteria    Sphingomonadales    Sphingomonadaceae    Sphingomonas    Sphingomonas sp001421355
+78      Bacteria    Proteobacteria    Alphaproteobacteria    Rhizobiales    Rhizobiaceae    Aureimonas    Aureimonas glaciei</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-xs text-gray-500 mt-2">
+                    We recommend using the Kraken format for Metagenomes data and the Krona format for Amplicon data.
+                </p>
                 <p class="text-xs text-gray-500 mt-2">
                     Need help? Check out our <a href="#" class="text-kabuli-600 hover:underline">documentation</a> for
                     detailed format specifications.
@@ -686,6 +780,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         if (loadingSpinner) loadingSpinner.classList.add('hidden');
                         if (resultsContent) resultsContent.classList.remove('hidden');
+                    } else if (data.status === 'no_matches') {
+                        // 显示无匹配结果的提示
+                        if (resultsSection) resultsSection.classList.remove('hidden');
+                        if (loadingSpinner) loadingSpinner.classList.add('hidden');
+                        if (resultsContent) resultsContent.classList.add('hidden');
+                        if (errorMessage) {
+                            errorMessage.innerHTML = `
+                                <div class="flex flex-col items-center justify-center py-8">
+                                    <div class="text-gray-400 mb-4">
+                                        <span class="icon-[heroicons--magnifying-glass] w-12 h-12"></span>
+                                    </div>
+                                    <h3 class="text-lg font-medium text-gray-900 mb-2">No Results Found</h3>
+                                    <p class="text-gray-600 text-center max-w-md">
+                                        ${data.message}
+                                    </p>
+                                    <div class="mt-4 text-sm text-gray-500">
+                                        <p>You might want to:</p>
+                                        <ul class="list-disc ml-6 mt-2">
+                                            <li>Check if your input file format is correct</li>
+                                            <li>Verify your taxonomic names</li>
+                                            <li>Try searching with different parameters</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            `;
+                            errorMessage.classList.remove('hidden');
+                        }
                     } else {
                         throw new Error(data.message || 'An error occurred');
                     }
@@ -767,6 +888,50 @@ document.addEventListener('DOMContentLoaded', function() {
         rows.forEach(row => {
             const text = row.textContent.toLowerCase();
             row.style.display = text.includes(searchText) ? '' : 'none';
+        });
+    });
+
+    // 添加格式示例切换功能
+    const formatButtons = document.querySelectorAll('.format-btn');
+    const formatExamples = document.querySelectorAll('.format-example');
+
+    formatButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const format = this.getAttribute('data-format');
+
+            // 隐藏所有示例
+            formatExamples.forEach(example => {
+                example.classList.add('hidden');
+            });
+
+            // 显示选中的示例
+            const targetExample = document.getElementById(`${format}-example`);
+            if (targetExample) {
+                targetExample.classList.remove('hidden');
+            }
+        });
+    });
+
+    // 复制按钮功能
+    const copyButtons = document.querySelectorAll('.copy-btn');
+
+    copyButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const preElement = this.closest('.format-example').querySelector('pre');
+            const textToCopy = preElement.textContent;
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                // 更新按钮文本为 "Copied!"
+                const originalContent = this.innerHTML;
+                this.innerHTML = '<span class="icon-[heroicons--check] w-4 h-4"></span>Copied!';
+
+                // 2秒后恢复原始文本
+                setTimeout(() => {
+                    this.innerHTML = originalContent;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text:', err);
+            });
         });
     });
 });

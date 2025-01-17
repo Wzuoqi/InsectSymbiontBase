@@ -173,6 +173,13 @@ def batch_search(request):
                 # 合并所有匹配结果
                 all_matches = species_matches + filtered_genus_matches
 
+                # 如果没有找到任何匹配结果
+                if not all_matches:
+                    return JsonResponse({
+                        'status': 'no_matches',
+                        'message': 'No matching symbiont records found. Please check if your input format is correct and try again.'
+                    })
+
                 # 添加目匹配信息
                 all_matches = add_order_matching(all_matches, host_order)
 

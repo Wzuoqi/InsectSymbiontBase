@@ -1,0 +1,1 @@
+Percentage	Kraken_Name	DB_ID	Order	Insect_Species	Symbiont_Genus	Symbiont_Species	Function	Species_Match	Order_Match	Insect_Match	Total_Score
