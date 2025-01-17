@@ -93,15 +93,17 @@ def blast_search(request):
 def batch_search(request):
     """处理批量搜索请求"""
     if request.method == 'POST':
-        print("Received POST request") # 调试日志
+        print("Received POST request")
 
         try:
             # 获取表单数据
             host_order = request.POST.get('host_order')
             host_name = request.POST.get('host_name')
+            file_type = request.POST.get('file_type', 'kraken')  # 默认为 kraken 格式
 
-            print(f"Host Order: {host_order}") # 调试日志
-            print(f"Host Name: {host_name}") # 调试日志
+            print(f"Host Order: {host_order}")
+            print(f"Host Name: {host_name}")
+            print(f"File Type: {file_type}")
 
             # 验证必要参数
             if not host_order or not host_name:
@@ -157,12 +159,12 @@ def batch_search(request):
                 symbiont_db = read_symbiont_db(os.path.join(settings.BASE_DIR, "symbiontsDB.txt"))
                 print(f"Loaded symbiont database with {len(symbiont_db)} entries") # 调试日志
 
-                # 进行物种级别的比对
-                species_matches = match_species_level(input_file_path, symbiont_db)
+                # 进行物种级别的比对，传入文件类型
+                species_matches = match_species_level(input_file_path, symbiont_db, file_type)
                 print(f"Found {len(species_matches)} species matches") # 调试日志
 
-                # 进行属级别的比对
-                genus_matches = match_genus_level(input_file_path, symbiont_db)
+                # 进行属级别的比对，传入文件类型
+                genus_matches = match_genus_level(input_file_path, symbiont_db, file_type)
                 print(f"Found {len(genus_matches)} genus matches") # 调试日志
 
                 # 过滤属级别的匹配结果

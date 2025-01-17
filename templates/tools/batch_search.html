@@ -61,6 +61,30 @@
             </div>
         </div>
 
+        <!-- File Type Selection -->
+        <div class="mb-6 max-w-xl mx-auto">
+            <label for="file-type" class="block text-sm font-medium text-gray-900 mb-1 flex items-center gap-2">
+                <span class="icon-[heroicons--document-text] w-5 h-5 text-kabuli-600"></span>
+                File Type
+            </label>
+            <div class="relative">
+                <select
+                    id="file-type"
+                    name="file-type"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg appearance-none focus:ring-2 focus:ring-kabuli-500 focus:border-transparent bg-white"
+                >
+                    <option value="kraken">Kraken</option>
+                    <option value="metaphlan">MetaPhlAn</option>
+                    <option value="qiime">QIIME</option>
+                    <option value="vsearch">VSEARCH</option>
+                </select>
+                <span class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                    <span class="icon-[heroicons--chevron-down] w-5 h-5"></span>
+                </span>
+            </div>
+            <p class="mt-1 text-sm text-gray-500">Select the format of your input data</p>
+        </div>
+
         <!-- File Upload Section -->
         <div id="file-upload" class="tab-content">
             <div class="max-w-xl mx-auto">
@@ -426,6 +450,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 // 获取并添加 CSRF token
                 const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
                 formData.append('csrfmiddlewaretoken', csrftoken);
+
+                // 获取文件类型
+                const fileType = document.getElementById('file-type').value;
+                formData.append('file_type', fileType);
+                console.log('File type:', fileType);
 
                 // 获取当前激活的 tab
                 const activeTab = document.querySelector('.tab-btn.active');
