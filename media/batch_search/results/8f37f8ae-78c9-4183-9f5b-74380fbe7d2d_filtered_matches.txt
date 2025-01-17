@@ -1,0 +1,12 @@
+Percentage	Kraken_Name	DB_ID	Order	Insect_Species	Symbiont_Genus	Symbiont_Species	Function	Species_Match	Order_Match	Insect_Match	Total_Score
+21.38	Methylobacterium	RISB2340	Lepidoptera	Saturniidae	Methylobacterium	Methylobacterium	Nitrogen fixation	False	True	False	31.72
+21.38	Methylobacterium	RISB1440	Diptera	Lutzomyia evansi	Methylobacterium	Methylobacterium	Methylobacterium can be important in several physiological and metabolic processes in Lu. evansi, which suggests that interactions could occur with Leishmania parasite	False	False	False	24.72
+10.84	Sphingomonas	RISB0134	Lepidoptera	Spodoptera frugiperda	Sphingomonas	Sphingomonas sp.	provide a protective effect to against chlorantraniliprole stress to S. frugiperda	False	True	False	22.48
+21.38	Methylobacterium	RISB2053	Orthoptera	Atractomorpha sinensis	Methylobacterium	Methylobacterium sp.	associated with cellulolytic enzymes	False	False	False	22.1
+10.84	Sphingomonas	RISB0168	Lepidoptera	Oligia apameoides	Sphingomonas	Sphingomonas	None	False	True	False	20.84
+10.84	Sphingomonas	RISB0420	Hemiptera	Aphis gossypii	Sphingomonas	Sphingomonas	Sphingomonas could mediate A. gossypii resistance to imidacloprid by hydroxylation and nitroreduction	False	False	False	12.86
+2.05	Wolbachia pipientis	RISB0766	Diptera	Aedes fluviatilis	Wolbachia	Wolbachia pipientis	The presence of Wolbachia pipientis improves energy performance in A. fluviatilis cells; it affects the regulation of key energy sources such as lipids, proteins, and carbohydrates, making the distribution of actin more peripheral and with extensions that come into contact with neighboring cells.	True	False	False	12.05
+0.11	Nocardioides	RISB1914	Lepidoptera	Hyles euphorbiae	Nocardioides	Nocardioides	able to degrade alkaloids and/or latex	False	True	False	10.87
+2.05	Wolbachia pipientis	RISB1515	Diptera	Drosophila melanogaster	Wolbachia	Wolbachia pipientis	increases the recombination rate observed across two genomic intervals and increases the efficacy of natural selection in hosts	True	False	False	9.59
+2.05	Wolbachia pipientis	RISB1354	Diptera	Drosophila melanogaster	Wolbachia	Wolbachia pipientis	Wolbachia influence octopamine metabolism in the Drosophila females, which is by the symbiont genotype	True	False	False	9.09
+1.12	Brevundimonas	RISB1703	Diptera	Phlebotomus papatasi	Brevundimonas	Brevundimonas sp.	None	False	False	False	1.12

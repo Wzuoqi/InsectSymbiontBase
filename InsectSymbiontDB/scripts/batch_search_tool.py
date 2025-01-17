@@ -152,7 +152,7 @@ def process_input_file(input_file, file_type):
 
     Args:
         input_file: 输入文件路径
-        file_type: 文件类型 ('kraken', 'metaphlan', 'qiime', 'vsearch')
+        file_type: 文件类型 ('kraken', 'metaphlan', 'krona')
 
     Returns:
         list: 标准格式的记录列表
@@ -161,14 +161,101 @@ def process_input_file(input_file, file_type):
         return convert_kraken_format(input_file)
     elif file_type == 'metaphlan':
         return convert_metaphlan_format(input_file)
-    elif file_type == 'qiime':
-        # TODO: 实现QIIME格式转换
-        raise NotImplementedError("QIIME format conversion not implemented yet")
-    elif file_type == 'vsearch':
-        # TODO: 实现VSEARCH格式转换
-        raise NotImplementedError("VSEARCH format conversion not implemented yet")
+    elif file_type == 'krona':
+        return convert_krona_format(input_file)
     else:
         raise ValueError(f"Unsupported file type: {file_type}")
+
+def convert_krona_format(input_file):
+    """将 Krona 格式转换为标准格式
+
+    Krona 格式示例:
+    reads_count kingdom phylum class order family genus species
+
+    Args:
+        input_file: Krona 格式的输入文件路径
+
+    Returns:
+        list: 转换后的记录列表
+    """
+    # 首先计算总reads数
+    total_reads = 0
+    records_dict = {'S': {}, 'G': {}}  # 用于存储合并后的记录
+
+    with open(input_file, 'r', encoding='utf-8') as f:
+        # 计算总reads数
+        for line in f:
+            if line.strip() and not line.startswith('#'):
+                fields = line.strip().split('\t')
+                try:
+                    total_reads += int(fields[0])
+                except (ValueError, IndexError):
+                    continue
+
+        # 重置文件指针
+        f.seek(0)
+
+        # 处理每一行
+        for line in f:
+            if line.strip() and not line.startswith('#'):
+                fields = line.strip().split('\t')
+                if len(fields) < 7:  # 至少需要到genus列
+                    continue
+
+                try:
+                    reads_count = int(fields[0])
+                    percentage = round((reads_count / total_reads) * 100, 2)
+
+                    # 处理属名称
+                    if len(fields) >= 7 and fields[6].strip():
+                        genus = fields[6].split('_')[0]  # 只保留第一个单词
+
+                        # 更新属记录
+                        if genus in records_dict['G']:
+                            records_dict['G'][genus] += percentage
+                        else:
+                            records_dict['G'][genus] = percentage
+
+                    # 处理物种名称
+                    if len(fields) >= 8 and fields[7].strip():
+                        species_parts = fields[7].split('_')[0].split()  # 分割并去除_后的内容
+                        if len(species_parts) >= 2:
+                            # 只保留前两个单词
+                            species = ' '.join(species_parts[:2])
+
+                            # 更新物种记录
+                            if species in records_dict['S']:
+                                records_dict['S'][species] += percentage
+                            else:
+                                records_dict['S'][species] = percentage
+
+                except (ValueError, IndexError):
+                    continue
+
+    # 转换合并后的记录为标准格式
+    converted_records = []
+
+    # 添加物种记录
+    for species, percentage in records_dict['S'].items():
+        record = {
+            'percentage': round(percentage, 2),  # 保留两位小数
+            'taxon_type': 'S',
+            'name': species,
+            'other_fields': [None] * 3
+        }
+        converted_records.append(record)
+
+    # 添加属记录
+    for genus, percentage in records_dict['G'].items():
+        record = {
+            'percentage': round(percentage, 2),  # 保留两位小数
+            'taxon_type': 'G',
+            'name': genus,
+            'other_fields': [None] * 3
+        }
+        converted_records.append(record)
+
+    return converted_records
 
 def match_species_level(kraken_file, symbiont_db, file_type='kraken'):
     """进行物种级别的比对"""
