@@ -9,10 +9,12 @@ Metagenome
         ID.contigs.fa
         ID.1000.contigs.fa
         ID.gene.fa
+        ID.cdhit.gene.fa
         ID.anno.pep.fa
         ID.gff
     ID.kraken.txt
     ID.S.kreport
     ID.bracken.S
     ID.kraken.krona.html
+    ID.diamond.tab
     bins_qa.txt

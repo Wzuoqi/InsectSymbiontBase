@@ -13,7 +13,7 @@
                 Our database currently contains <span class="font-semibold text-cyan-700"> 1338 </span> metagenome samples,
                 covering various insect species and their microbial communities across different geographical locations and sequencing platforms.
                 The raw data were first quality-controlled using Fastp, followed by taxonomic composition analysis through
-                two workflows: Kraken2 and MetaPhIAn. Visualization was performed using Krona. Additionally, the metagenomes were
+                the Kraken2 workflow. Visualization was performed using Krona. Additionally, the metagenomes were
                 assembled into contigs using Megahit, and binning was conducted with the Metabat2 workflow. High-quality MAGs were
                 extracted based on CheckM results.
             </p>
@@ -46,7 +46,7 @@
             <div class="flex items-center justify-between mb-3">
                 <div>
                     <h3 class="text-lg font-semibold text-gray-700 dark:text-white">Size Distribution</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Distribution of metagenome sizes (GB)</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Distribution of metagenome sizes</p>
                 </div>
             </div>
             <div class="h-80" id="sizeDistChart"></div>
@@ -305,7 +305,9 @@
                     </div>
                     <div>
                         <label for="geo_loc_name" class="block text-sm font-medium text-gray-700">Geographic Location Name</label>
-                        <input type="text" id="geo_loc_name" name="geo_loc_name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring focus:ring-cyan-500 focus:ring-opacity-50">
+                        <input type="text" id="geo_loc_name" name="geo_loc_name"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring focus:ring-cyan-500 focus:ring-opacity-50"
+                            placeholder="e.g., Norway:Inndyr">
                     </div>
                     <div>
                         <label for="biosample_model" class="block text-sm font-medium text-gray-700">Biosample Model</label>
@@ -413,34 +415,85 @@
                 const platformOption = {
                     tooltip: {
                         trigger: 'item',
-                        triggerOn: 'mousemove'
+                        formatter: '{a} <br/>{b}: {c} ({d}%)'
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        right: '5%',
+                        top: 'middle',
+                        textStyle: {
+                            color: textColor
+                        }
                     },
                     series: [{
-                        type: 'sankey',
-                        emphasis: {
-                            focus: 'adjacency'
+                        name: 'Continental Distribution',
+                        type: 'pie',
+                        radius: ['40%', '70%'],
+                        avoidLabelOverlap: false,
+                        itemStyle: {
+                            borderRadius: 10,
+                            borderColor: backgroundColor,
+                            borderWidth: 2
                         },
-                        data: [
-                            { name: 'Illumina' },
-                            { name: 'PacBio' },
-                            { name: 'Oxford Nanopore' },
-                            { name: 'Paired-end' },
-                            { name: 'Single-end' },
-                            { name: 'Long-read' }
-                        ],
-                        links: [
-                            { source: 'Illumina', target: 'Paired-end', value: 300 },
-                            { source: 'Illumina', target: 'Single-end', value: 200 },
-                            { source: 'PacBio', target: 'Long-read', value: 100 },
-                            { source: 'Oxford Nanopore', target: 'Long-read', value: 80 }
-                        ],
                         label: {
+                            show: true,
+                            formatter: '{b}: {c}\n({d}%)',
                             color: textColor
                         },
-                        lineStyle: {
-                            color: 'gradient',
-                            curveness: 0.5
-                        }
+                        emphasis: {
+                            label: {
+                                show: true,
+                                fontSize: '14',
+                                fontWeight: 'bold'
+                            }
+                        },
+                        labelLine: {
+                            show: true
+                        },
+                        data: [
+                            {
+                                value: 387,
+                                name: 'Europe',
+                                itemStyle: {
+                                    color: '#22d3ee'
+                                }
+                            },
+                            {
+                                value: 310,
+                                name: 'South America',
+                                itemStyle: {
+                                    color: '#67e8f9'
+                                }
+                            },
+                            {
+                                value: 308,
+                                name: 'Asia',
+                                itemStyle: {
+                                    color: '#06b6d4'
+                                }
+                            },
+                            {
+                                value: 265,
+                                name: 'North America',
+                                itemStyle: {
+                                    color: '#0891b2'
+                                }
+                            },
+                            {
+                                value: 80,
+                                name: 'Africa',
+                                itemStyle: {
+                                    color: '#0e7490'
+                                }
+                            },
+                            {
+                                value: 8,
+                                name: 'Oceania',
+                                itemStyle: {
+                                    color: '#155e75'
+                                }
+                            }
+                        ]
                     }]
                 };
                 platformChart.setOption(platformOption);
@@ -469,8 +522,8 @@
                     },
                     xAxis: {
                         type: 'category',
-                        data: ['0-1', '1-2', '2-5', '5-10', '10-20', '20+'],
-                        name: 'Size (GB)',
+                        data: ['0-500MB', '500MB-1GB', '1-3GB','3-5GB','5-10GB', '10+GB'],
+                        name: 'Size',
                         nameLocation: 'middle',
                         nameGap: 30,
                         axisLabel: {
@@ -495,7 +548,7 @@
                         barWidth: '60%',
                         data: [
                             {
-                                value: 120,
+                                value: 646,
                                 itemStyle: {
                                     color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                                         { offset: 0, color: '#22d3ee' },
@@ -504,7 +557,7 @@
                                 }
                             },
                             {
-                                value: 200,
+                                value: 213,
                                 itemStyle: {
                                     color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                                         { offset: 0, color: '#22d3ee' },
@@ -513,7 +566,7 @@
                                 }
                             },
                             {
-                                value: 150,
+                                value: 308,
                                 itemStyle: {
                                     color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                                         { offset: 0, color: '#22d3ee' },
@@ -522,7 +575,7 @@
                                 }
                             },
                             {
-                                value: 80,
+                                value: 104,
                                 itemStyle: {
                                     color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                                         { offset: 0, color: '#22d3ee' },
@@ -531,7 +584,7 @@
                                 }
                             },
                             {
-                                value: 40,
+                                value: 62,
                                 itemStyle: {
                                     color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                                         { offset: 0, color: '#22d3ee' },
@@ -540,7 +593,7 @@
                                 }
                             },
                             {
-                                value: 20,
+                                value: 28,
                                 itemStyle: {
                                     color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                                         { offset: 0, color: '#22d3ee' },

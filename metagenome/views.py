@@ -12,12 +12,28 @@ def metagenomes(request):
     metagenomes_list = Metagenome.objects.all()
 
     # 处理高级搜索
-    search_fields = ['run', 'assay_type', 'biosample', 'center_name', 'instrument', 'library_layout', 'library_selection', 'platform', 'bioproject', 'geo_loc_name_country', 'geo_loc_name_country_continent', 'geo_loc_name', 'biosample_model', 'lat_lon', 'host']
+    search_fields = [
+        'run', 'assay_type', 'biosample', 'center_name', 'instrument',
+        'library_layout', 'library_selection', 'platform', 'bioproject',
+        'geo_loc_name_country', 'geo_loc_name_country_continent',
+        'geo_loc_name', 'biosample_model', 'host'
+    ]
+
     search_query = Q()
     for field in search_fields:
         value = request.GET.get(field)
         if value:
-            search_query &= Q(**{f"{field}__icontains": value})
+            # 对于地理位置字段进行特殊处理，支持冒号分隔的格式
+            if field == 'geo_loc_name':
+                locations = value.split(':')
+                loc_query = Q()
+                for loc in locations:
+                    loc = loc.strip()
+                    if loc:
+                        loc_query |= Q(geo_loc_name__icontains=loc)
+                search_query &= loc_query
+            else:
+                search_query &= Q(**{f"{field}__icontains": value})
 
     if search_query:
         metagenomes_list = metagenomes_list.filter(search_query)
@@ -32,22 +48,20 @@ def metagenomes(request):
     # 处理普通搜索
     query = request.GET.get('q')
     if query:
-        metagenomes_list = metagenomes_list.filter(
-            Q(run__icontains=query) |
-            Q(assay_type__icontains=query) |
-            Q(biosample__icontains=query) |
-            Q(center_name__icontains=query) |
-            Q(instrument__icontains=query) |
-            Q(platform__icontains=query) |
-            Q(bioproject__icontains=query) |
-            Q(geo_loc_name_country__icontains=query) |
-            Q(geo_loc_name_country_continent__icontains=query) |
-            Q(geo_loc_name__icontains=query) |
-            Q(biosample_model__icontains=query) |
-            Q(host__icontains=query)
-        )
+        basic_query = Q()
+        for field in search_fields:
+            # 对于地理位置字段进行特殊处理
+            if field == 'geo_loc_name':
+                locations = query.split(':')
+                for loc in locations:
+                    loc = loc.strip()
+                    if loc:
+                        basic_query |= Q(geo_loc_name__icontains=loc)
+            else:
+                basic_query |= Q(**{f"{field}__icontains": query})
+        metagenomes_list = metagenomes_list.filter(basic_query)
 
-    # 创建分页器对象,每页显示10条记录
+    # 创建分页器对象,每页显示25条记录
     paginator = Paginator(metagenomes_list, 25)
 
     # 获取当前页码,如果没有指定则默认为第1页
