@@ -20,13 +20,8 @@
     <header class="relative isolate z-10 bg-white">
         <nav class="mx-auto flex max-w-7xl items-center justify-between p-3 lg:px-8" aria-label="Global">
             <div class="flex lg:flex-1">
-                <a href="/" class="-m-1.5 p-1.5">
-                    <img class="h-9 w-auto" src="{% static 'nav_logo.svg' %}" alt="Home">
-                </a>
-                <a href="/" class="-m-1.5 p-1.5">
-                    <span class="sr-only">InsectSymbiontBase</span>
-                    <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                        alt="">
+                <a href="/" class="-m-1.5 p-1.5 flex items-center group">
+                    <img class="h-8 w-auto" src="{% static 'logo.svg' %}" alt="Logo">
                 </a>
             </div>
             <div class="flex lg:hidden">
@@ -286,7 +281,10 @@
             <div class="xl:grid xl:grid-cols-3 xl:gap-8">
                 <!-- Logo和描述 -->
                 <div class="space-y-6">
-                    <img class="h-7 brightness-0 invert" src="{% static 'nav_logo.svg' %}" alt="InsectSymbiontBase">
+                    <div class="flex items-center">
+                        <img class="h-8 w-auto brightness-0 invert" src="{% static 'logo.png' %}" alt="InsectSymbiontBase">
+                        <span class="ml-2 text-xl font-semibold text-white">InsectSymbiontBase</span>
+                    </div>
                     <p class="text-sm leading-6 text-gray-300">
                         A comprehensive database for insect symbionts, offering extensive resources to empower scientific discovery.
                     </p>
