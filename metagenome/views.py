@@ -102,7 +102,8 @@ def metagenome_detail(request, run):
             next(f)
             for line in f:
                 parts = line.strip().split('\t')
-                if len(parts) >= 11:
+                # 确保有足够的字段（现在需要12个字段，因为新增了insect_match）
+                if len(parts) >= 12:
                     symbiont = {
                         'percentage': float(parts[0]),
                         'name': parts[1],
@@ -114,7 +115,8 @@ def metagenome_detail(request, run):
                         'function': parts[7],
                         'species_match': parts[8] == 'True',
                         'order_match': parts[9] == 'True',
-                        'total_score': float(parts[10])
+                        'insect_match': parts[10] == 'True',  # 新增字段
+                        'total_score': float(parts[11])       # 总分的位置变更
                     }
                     symbionts.append(symbiont)
 

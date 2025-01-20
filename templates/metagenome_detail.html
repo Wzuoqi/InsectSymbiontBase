@@ -96,7 +96,7 @@
                             <li>Completeness and richness of functional records</li>
                         </ul>
                         <p class="text-gray-300 text-sm leading-relaxed"></p>
-                            Note: only the three highest scoring comparison records were retained for each species or genus in the sample
+                            Note: only the three highest scoring comparison records were retained for each symbiont species or genus in the sample
                         </p>
                     </div>
                 </div>
@@ -175,15 +175,12 @@
                                     <div class="group relative">
                                         <span class="icon-[fa6-solid--bacterium] w-4 h-4 text-green-600 cursor-help"></span>
                                         <div class="invisible group-hover:visible absolute left-5 top-0
-                                               bg-gray-800 text-white font-medium text-sm px-3 py-2 rounded-lg
-                                               shadow-lg min-w-[200px] z-20
-                                               transition-all duration-200 transform">
+                                                   bg-gray-800 text-white font-medium text-sm px-3 py-2 rounded-lg
+                                                   shadow-lg min-w-[200px] z-20
+                                                   transition-all duration-200 transform">
                                             <div class="flex items-center gap-2">
                                                 <span class="icon-[fa6-solid--bacterium] w-4 h-4 text-green-400"></span>
                                                 <span>Species-level Match</span>
-                                            </div>
-                                            <div class="text-xs text-gray-300 mt-1">
-                                                Symbiont found in database at species level
                                             </div>
                                         </div>
                                     </div>
@@ -192,15 +189,26 @@
                                     <div class="group relative">
                                         <span class="icon-[material-symbols--pest-control-rounded] w-5 h-5 text-blue-600 cursor-help"></span>
                                         <div class="invisible group-hover:visible absolute left-5 top-0
-                                               bg-gray-800 text-white font-medium text-sm px-3 py-2 rounded-lg
-                                               shadow-lg min-w-[200px] z-20
-                                               transition-all duration-200 transform">
+                                                   bg-gray-800 text-white font-medium text-sm px-3 py-2 rounded-lg
+                                                   shadow-lg min-w-[200px] z-20
+                                                   transition-all duration-200 transform">
                                             <div class="flex items-center gap-2">
                                                 <span class="icon-[material-symbols--pest-control-rounded] w-5 h-5 text-blue-400"></span>
                                                 <span>Host Order Match</span>
                                             </div>
-                                            <div class="text-xs text-gray-300 mt-1">
-                                                Host insect belongs to the same order
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if symbiont.insect_match %}
+                                    <div class="group relative">
+                                        <span class="icon-[material-symbols--bug-report] w-5 h-5 text-purple-600 cursor-help"></span>
+                                        <div class="invisible group-hover:visible absolute left-5 top-0
+                                                   bg-gray-800 text-white font-medium text-sm px-3 py-2 rounded-lg
+                                                   shadow-lg min-w-[200px] z-20
+                                                   transition-all duration-200 transform">
+                                            <div class="flex items-center gap-2">
+                                                <span class="icon-[material-symbols--bug-report] w-5 h-5 text-purple-400"></span>
+                                                <span>Host Species Match</span>
                                             </div>
                                         </div>
                                     </div>

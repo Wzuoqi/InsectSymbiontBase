@@ -57,7 +57,7 @@ def main():
     }
 
     try:
-        with open('./data/symbionts241210.tab', 'r', encoding='UTF-8') as file:
+        with open('./data/symbionts250120.tab', 'r', encoding='UTF-8') as file:
             # 读取并验证表头
             headers = file.readline().strip().split('\t')
             english_headers = file.readline().strip().split('\t')  # 读取英文表头行
