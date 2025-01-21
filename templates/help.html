@@ -373,11 +373,295 @@
         </div>
     </div>
 
-    <!-- Analysis Tools Section -->
+    <!-- Tools Section -->
     <div id="tools" class="tab-content hidden">
-        <div class="bg-white rounded-lg shadow-sm p-6">
-            <h3 class="text-xl font-semibold text-gray-900 mb-4">Tools</h3>
-            <!-- Add tools content -->
+        <div class="flex">
+            <!-- 左侧导航栏 -->
+            <div class="w-56 flex-shrink-0">
+                <nav class="pr-4 sticky top-4">
+                    <div class="space-y-1">
+                        <h4 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">Contents</h4>
+                        <!-- 主要导航项 -->
+                        <div class="space-y-2">
+                            <a href="#blast"
+                               class="block text-sm relative pl-3 py-2 hover:bg-gray-50 rounded-md transition-colors group">
+                                <div class="absolute left-0 inset-y-0 w-1 bg-blue-500 rounded-full transform scale-y-0 group-[.active]:scale-y-100 transition-transform"></div>
+                                <span class="text-gray-600 group-[.active]:text-blue-600 group-hover:text-blue-600">BLAST</span>
+                            </a>
+                            <a href="#batch-search"
+                               class="block text-sm relative pl-3 py-2 hover:bg-gray-50 rounded-md transition-colors group">
+                                <div class="absolute left-0 inset-y-0 w-1 bg-blue-500 rounded-full transform scale-y-0 group-[.active]:scale-y-100 transition-transform"></div>
+                                <span class="text-gray-600 group-[.active]:text-blue-600 group-hover:text-blue-600">Batch Search</span>
+                            </a>
+                            <a href="#interactive-map"
+                               class="block text-sm relative pl-3 py-2 hover:bg-gray-50 rounded-md transition-colors group">
+                                <div class="absolute left-0 inset-y-0 w-1 bg-blue-500 rounded-full transform scale-y-0 group-[.active]:scale-y-100 transition-transform"></div>
+                                <span class="text-gray-600 group-[.active]:text-blue-600 group-hover:text-blue-600">Interactive Map</span>
+                            </a>
+                            <a href="#composition-compare"
+                               class="block text-sm relative pl-3 py-2 hover:bg-gray-50 rounded-md transition-colors group">
+                                <div class="absolute left-0 inset-y-0 w-1 bg-blue-500 rounded-full transform scale-y-0 group-[.active]:scale-y-100 transition-transform"></div>
+                                <span class="text-gray-600 group-[.active]:text-blue-600 group-hover:text-blue-600">Composition Compare</span>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- 右侧内容区域 -->
+            <div class="flex-1 max-w-4xl">
+                <div class="pl-8 py-6 space-y-12">
+                    <!-- Tools Overview -->
+                    <section id="tools-overview" class="scroll-mt-16">
+                        <h1 class="text-3xl font-bold text-kabuli-900 mb-6">Analysis Tools Guide</h1>
+                        <div class="prose prose-blue max-w-none">
+                            <p style="text-indent: 1em;">InsectSymbiontBase provides a suite of powerful analysis tools to help researchers explore and analyze insect symbiont data. This guide will help you understand and effectively use each tool.</p>
+
+                            <div class="bg-blue-50 rounded-lg p-4 my-4">
+                                <h4 class="text-blue-800 font-medium mb-2">Quick Tip</h4>
+                                <p style="text-indent: 1em;" class="text-blue-700">Each tool is designed for specific analysis needs. Use the navigation menu on the left to jump to detailed instructions for each tool.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- BLAST Section -->
+                    <section id="blast" class="scroll-mt-16">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">1. BLAST</h2>
+                        <div class="prose prose-blue max-w-none">
+                            <p style="text-indent: 1em;">Search for sequence similarity against our comprehensive database of symbiont sequences.</p>
+
+                            <!-- BLAST Interface -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <img src="{% static 'img/help/blast.png' %}" alt="BLAST Interface" class="w-full rounded-lg shadow-sm mb-4">
+                                    <div class="space-y-4">
+                                        <h3 class="text-lg font-semibold">How to Use BLAST</h3>
+                                        <ol class="list-decimal pl-5 space-y-2 text-gray-600">
+                                            <li><strong>Input Sequence:</strong> Paste your query sequence in FASTA format</li>
+                                            <li><strong>Select Database:</strong> Choose from available databases (Genomes, 16S rRNA, etc.)</li>
+                                            <li><strong>Set Parameters:</strong> Adjust BLAST parameters as needed</li>
+                                            <li><strong>Submit:</strong> Click "Submit" to start the search</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Batch Search Section -->
+                    <section id="batch-search" class="scroll-mt-16">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">2. Batch Search</h2>
+                        <div class="prose prose-blue max-w-none">
+                            <p style="text-indent: 1em;">The Batch Search tool helps you identify potential symbionts from taxonomic composition data of your samples. This powerful tool supports multiple input formats and provides comprehensive analysis of symbiont-host relationships.</p>
+
+                            <!-- Overview and Interface -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <h3 class="text-lg font-semibold mb-4">Interface Overview</h3>
+                                    <img src="{% static 'img/help/batch_search_overview.png' %}" alt="Batch Search Interface Overview" class="w-full rounded-lg shadow-sm mb-4">
+                                    <div class="space-y-4">
+                                        <p class="text-gray-600">The Batch Search interface consists of several key components:</p>
+                                        <ul class="list-disc pl-5 text-gray-600">
+                                            <li><strong>Input Methods:</strong> Choose between file upload or direct text input</li>
+                                            <li><strong>File Type Selection:</strong> Support for Kraken, MetaPhlAn, and Krona formats</li>
+                                            <li><strong>Host Information:</strong> Specify the insect host details</li>
+                                            <li><strong>Guide Section:</strong> Click highlight name to see detailed examples of supported input formats</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Input Methods -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <h3 class="text-lg font-semibold mb-4">Data Input Methods</h3>
+
+                                    <!-- File Upload -->
+                                    <div class="mb-6">
+                                        <h4 class="text-base font-medium text-gray-900 mb-3">1. File Upload</h4>
+                                        <img src="{% static 'img/help/batch_search_upload.png' %}" alt="File Upload Interface" class="w-full rounded-lg shadow-sm mb-4">
+                                        <div class="space-y-2">
+                                            <p class="text-gray-600">The file upload interface allows you to:</p>
+                                            <ul class="list-disc pl-5 text-gray-600">
+                                                <li>Drag and drop files directly into the upload area</li>
+                                                <li>Click to browse and select files from your computer</li>
+                                                <li>View upload status and file information</li>
+                                                <li>Supported formats: .txt, .tsv, .csv, .tab (max 10MB)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Text Input -->
+                                    <div class="mb-6">
+                                        <h4 class="text-base font-medium text-gray-900 mb-3">2. Text Input</h4>
+                                        <img src="{% static 'img/help/batch_search_text.png' %}" alt="Text Input Interface" class="w-full rounded-lg shadow-sm mb-4">
+                                        <div class="space-y-2">
+                                            <p class="text-gray-600">The text input option allows you to:</p>
+                                            <ul class="list-disc pl-5 text-gray-600">
+                                                <li>Directly paste your taxonomic composition data</li>
+                                                <li>Preview and edit data before submission</li>
+                                                <li>Quickly test small datasets</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- File Format Example -->
+                                    <div class="mb-6">
+                                        <h4 class="text-base font-medium text-gray-900 mb-3">3. File Format Example</h4>
+                                        <img src="{% static 'img/help/batch_search_format.png' %}" alt="File Format Example" class="w-full rounded-lg shadow-sm mb-4">
+                                        <div class="space-y-2">
+                                            <p class="text-gray-600">Here are some important reminders when preparing your files:</p>
+                                            <ul class="list-disc pl-5 text-gray-600">
+                                                <li><strong>Ensure Correct Name:</strong> Make sure your species or genus names are consistent with NCBI taxnomy</li>
+                                                <li><strong>Data Accuracy:</strong> Verify that the data in your files is accurate and properly formatted</li>
+                                                <li><strong>File Naming:</strong> Use clear and descriptive file names to avoid confusion</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- Host Information -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <h3 class="text-lg font-semibold mb-4">Host Information</h3>
+                                    <img src="{% static 'img/help/batch_search_host.png' %}" alt="Host Information Section" class="w-full rounded-lg shadow-sm mb-4">
+                                    <div class="space-y-4">
+                                        <p class="text-gray-600">Provide accurate host information to improve search results:</p>
+                                        <ul class="list-disc pl-5 text-gray-600">
+                                            <li><strong>Host Name:</strong> Enter the scientific name or common name of your insect host</li>
+                                            <li><strong>Host Order:</strong> Select the taxonomic order from the dropdown menu</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Results Interpretation -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <h3 class="text-lg font-semibold mb-4">Understanding Results</h3>
+                                    <img src="{% static 'img/help/batch_search_result.png' %}" alt="Results Interface" class="w-full rounded-lg shadow-sm mb-4">
+                                    <div class="space-y-4">
+                                        <p class="text-gray-600">The results section provides comprehensive information about potential symbionts:</p>
+                                        <ul class="list-disc pl-5 text-gray-600">
+                                            <li><strong>Match Indicators:</strong>
+                                                <ul class="list-circle pl-5 mt-2">
+                                                    <li><span class="text-green-600">Species Match:</span> Exact species-level match in database</li>
+                                                    <li><span class="text-blue-600">Host Order Match:</span> Found in the same insect order</li>
+                                                    <li><span class="text-purple-600">Host Species Match:</span> Found in the same host species</li>
+                                                </ul>
+                                            </li>
+                                            <li><strong>Score Composition:</strong> Based on multiple factors including:
+                                                <ul class="list-circle pl-5 mt-2">
+                                                    <li>Symbiont abundance in your sample</li>
+                                                    <li>Species match bonus</li>
+                                                    <li>Host match bonus</li>
+                                                    <li>Function richness</li>
+                                                </ul>
+                                            </li>
+                                            <li><strong>Additional Features:</strong>
+                                                <ul class="list-circle pl-5 mt-2">
+                                                    <li>Search within results</li>
+                                                    <li>Download complete results</li>
+                                                    <li>View detailed symbiont records</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tips and Best Practices -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <h3 class="text-lg font-semibold mb-4">Tips and Best Practices</h3>
+                                    <div class="space-y-4">
+                                        <div class="bg-blue-50 rounded-lg p-4">
+                                            <h4 class="text-blue-800 font-medium mb-2">For Best Results:</h4>
+                                            <ul class="list-disc pl-5 text-blue-700">
+                                                <li>Provide accurate host taxonomic information</li>
+                                                <li>Use standardized taxonomic names in your input data</li>
+                                                <li>Check the format guide for proper data formatting</li>
+                                                <li>Consider using Kraken format for metagenomes and Krona format for amplicon data</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Interactive Map Section -->
+                    <section id="interactive-map" class="scroll-mt-16">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">3. Interactive Map</h2>
+                        <div class="prose prose-blue max-w-none">
+                            <p style="text-indent: 1em;">The Interactive Map provides a geographical visualization of insect symbiont samples worldwide, allowing you to explore the spatial distribution of different types of sequencing data.</p>
+
+                            <!-- Map Overview -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <h3 class="text-lg font-semibold mb-4">Map Overview</h3>
+                                    <img src="{% static 'img/help/map_overview.png' %}" alt="Interactive Map Interface" class="w-full rounded-lg shadow-sm mb-4">
+                                    <div class="space-y-4">
+                                        <p class="text-gray-600">The interactive map offers several key features to help you explore sample distributions:</p>
+
+                                        <!-- Interactive Features -->
+                                        <div class="bg-white rounded-lg p-4 space-y-4">
+                                            <div class="flex items-start space-x-3">
+                                                <span class="icon-[heroicons--cursor-arrow-ripple] w-6 h-6 text-blue-600 mt-1 flex-shrink-0"></span>
+                                                <div>
+                                                    <h4 class="font-medium text-gray-900">Hover Information</h4>
+                                                    <p class="text-gray-600">Hover over any bubble on the map to view detailed information about the sample:</p>
+                                                    <ul class="list-disc pl-5 text-gray-600 mt-2">
+                                                        <li>Sample data type (Amplicon/Metagenome)</li>
+                                                        <li>Precise geographical coordinates</li>
+                                                        <li>Host species information</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex items-start space-x-3">
+                                                <span class="icon-[heroicons--magnifying-glass-plus] w-6 h-6 text-green-600 mt-1 flex-shrink-0"></span>
+                                                <div>
+                                                    <h4 class="font-medium text-gray-900">Zoom Control</h4>
+                                                    <p class="text-gray-600">Use mouse scroll wheel to zoom in/out on the map:</p>
+                                                    <ul class="list-disc pl-5 text-gray-600 mt-2">
+                                                        <li>Zoom in to explore densely sampled areas</li>
+                                                        <li>View detailed distribution of nearby samples</li>
+                                                        <li>Zoom out for a global perspective</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex items-start space-x-3">
+                                                <span class="icon-[heroicons--arrow-top-right-on-square] w-6 h-6 text-purple-600 mt-1 flex-shrink-0"></span>
+                                                <div>
+                                                    <h4 class="font-medium text-gray-900">Sample Details</h4>
+                                                    <ul class="list-disc pl-5 text-gray-600 mt-2">
+                                                        <li>Visit the Amplicon page for amplicon sequencing data</li>
+                                                        <li>Check the Metagenome page for metagenomic data</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Composition Compare Section -->
+                    <section id="composition-compare" class="scroll-mt-16">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">4. Composition Compare</h2>
+                        <div class="prose prose-blue max-w-none">
+                            <p style="text-indent: 1em;">Compare symbiont compositions across different host species or groups.</p>
+
+                            <!-- Content will be added here -->
+                        </div>
+                    </section>
+                </div>
+            </div>
         </div>
     </div>
 

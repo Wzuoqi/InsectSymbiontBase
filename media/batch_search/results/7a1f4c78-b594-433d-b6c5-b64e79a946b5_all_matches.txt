@@ -1,0 +1,379 @@
+Percentage	Kraken_Name	DB_ID	Order	Insect_Species	Symbiont_Genus	Symbiont_Species	Function	Species_Match	Order_Match	Insect_Match	Total_Score
+22.55	Escherichia	RISB0128	Coleoptera	Tribolium castaneum	Escherichia	Escherichia coli	may produce 4,8-dimethyldecanal (DMD) production that is strongly associated with attraction to females and host pheromone communication	False	True	True	55.269999999999996
+31.31	Buchnera aphidicola	RISB0236	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	Buchnera the nutritional endosymbiont of A. pisum is located inside of bacteriocytes and requires aspartate from the aphid host, because it cannot make it de novo. Further Buchnera needs aspartate for the biosynthesis of the essential amino acids lysine and threonine, which the aphid and Buchnera require for survival	True	False	False	41.31
+31.31	Buchnera aphidicola	RISB2485	Hemiptera	Macrosiphum euphorbiae	Buchnera	Buchnera aphidicola	symbiont expression patterns differ between aphid clones with differing levels of virulence, and are influenced by the aphids' host plant. Potentially, symbionts may contribute to differential adaptation of aphids to host plant resistance	True	False	False	41.07
+31.31	Buchnera aphidicola	RISB0685	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	It supplies the host with vitamins and essential amino acids, such as arginine and methionine that aphids cannot synthesize or derive insufficiently from their diet, the phloem sap of plants	True	False	False	40.11
+31.31	Buchnera aphidicola	RISB0462	Hemiptera	Sitobion miscanthi	Buchnera	Buchnera aphidicola	B. aphidicola derive a proteins GroES induced hydrogen peroxide accumulation and callose deposition in wheat and further activated the plant salic acid and jasmonic acid defense pathways	True	False	False	40.03
+31.31	Buchnera aphidicola	RISB1301	Hemiptera	Aphis gossypii	Buchnera	Buchnera aphidicola	aphids are dependent on this microorganism for the production of the essential amino acids, vitamins and sterols that are necessary for their normal development and reproduction	True	False	False	39.85
+31.31	Buchnera aphidicola	RISB1302	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola	aphids are dependent on this microorganism for the production of the essential amino acids, vitamins and sterols that are necessary for their normal development and reproduction	True	False	False	39.85
+31.31	Buchnera aphidicola	RISB1039	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	metabolic constraints or antisense transcripts may reduce Buchnera-mediated production of pantothenate, resulting in poor aphid performance on pantothenate-free diets	True	False	False	39.63
+31.31	Buchnera aphidicola	RISB2453	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	Purine metabolism genes in the symbiotic bacterium Buchnera complement aphid genes, and Buchnera can meet its nucleotide requirement from aphid-derived guanosine	True	False	False	39.53
+31.31	Buchnera aphidicola	RISB2569	Hemiptera	Baizongia pistaciae	Buchnera	Buchnera aphidicola	support the exploitation of the poor diet of plant-phloem sap by aphids through supplementation of deficient nutrients, primarily essential amino acids	True	False	False	39.33
+31.31	Buchnera aphidicola	RISB0778	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola	aphid endosymbiont Buchnera aphidicola can facilitate cucumber mosaic virus (CMV) transmission by modulating plant volatile profiles	True	False	False	38.95
+31.31	Buchnera aphidicola	RISB1686	Hemiptera	Lachninae	Buchnera	Buchnera aphidicola	Buchnera supplies essential nutrients to its hosts for normal development and is the obligate symbiont in nearly all aphid species	True	False	False	38.91
+31.31	Buchnera aphidicola	RISB1650	Hemiptera	Cinara cedri	Buchnera	Buchnera aphidicola BCc	provides essential amino acids, coenzymes, and vitamins to enable it to adapt to a plant-based juice-based lifestyle	True	False	False	38.63
+31.31	Buchnera aphidicola	RISB2365	Hemiptera	Cinara tujafilina	Buchnera	Buchnera aphidicola	the subfamily Lachninae harbors two coprimary bacteria that fulfill the metabolic needs of the whole consortium	True	False	False	38.53
+31.31	Buchnera aphidicola	RISB1159	Hemiptera	Aphis gossypii	Buchnera	Buchnera aphidicola	increased density of endosymbiotic Buchnera related to pesticide resistance in yellow morph of melon aphid	True	False	False	38.43
+31.31	Buchnera aphidicola	RISB0719	Hemiptera	Sipha maydis	Buchnera	Buchnera aphidicola	producing of certain B vitamins (in particular biotin/B7 and riboflavin/B2) and essential amino acids	True	False	False	38.33
+31.31	Buchnera aphidicola	RISB0721	Hemiptera	Periphyllus lyropictus	Buchnera	Buchnera aphidicola	producing of certain B vitamins (in particular biotin/B7 and riboflavin/B4) and essential amino acids	True	False	False	38.33
+31.31	Buchnera aphidicola	RISB1486	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	in senescent bacteriocytes, the endosymbionts are degraded through a lysosomal-dependent mechanism	True	False	False	38.27
+31.31	Buchnera aphidicola	RISB2454	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	the pea aphid lacks the capacity to synthesize arginine, which is produced by Buchnera APS	True	False	False	38.11
+31.31	Buchnera aphidicola	RISB1951	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola	B. aphidicola disruption down-regulated the expression of the Mp63 salivary protein gene	True	False	False	38.07
+31.31	Buchnera aphidicola	RISB1519	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	involved in the biosynthesis of more than 10 essential amino acids	True	False	False	37.63
+31.31	Buchnera aphidicola	RISB0335	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	can synthesize and provide some essential nutrients for its host	True	False	False	37.59
+31.31	Buchnera aphidicola	RISB1448	Hemiptera	Cinara strobi	Buchnera	Buchnera aphidicola	contribute to the hosts’ supply of essential nutrients	True	False	False	37.39
+31.31	Buchnera aphidicola	RISB2615	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	Synthetic Essential amino acid tryptophan	True	False	False	37.13
+31.31	Buchnera aphidicola	RISB2081	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	producing essential amino acids (EAAs)	True	False	False	37.07
+31.31	Buchnera aphidicola	RISB0702	Hemiptera	Aphis craccivora	Buchnera	Buchnera aphidicola	obligatory nutritional symbiont	True	False	False	36.93
+31.31	Buchnera aphidicola	RISB1389	Hemiptera	Aphis gossypii	Buchnera	Buchnera aphidicola	nutrient-provisioning	True	False	False	36.73
+31.31	Buchnera aphidicola	RISB1390	Hemiptera	Aphis fabae	Buchnera	Buchnera aphidicola	nutrient-provisioning	True	False	False	36.73
+31.31	Buchnera aphidicola	RISB2064	Hemiptera	Sitobion miscanthi	Buchnera	Buchnera aphidicola	obligate symbiont	True	False	False	36.65
+31.31	Buchnera aphidicola	RISB2519	Hemiptera	Aphis glycines	Buchnera	Buchnera aphidicola	obligate symbiont	True	False	False	36.65
+31.31	Buchnera aphidicola	RISB0051	Diptera	Episyrphus balteatus	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB0105	Hemiptera	Diuraphis noxia	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB0235	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB0290	Lepidoptera	Helicoverpa armigera	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB0411	Hemiptera	Melanaphis sacchari	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB0651	Hemiptera	Melanaphis bambusae	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB1114	Hemiptera	Pentalonia nigronervosa	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB1212	Hemiptera	Cinara cuneomaculata	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB1626	Hemiptera	Lachninae	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB1627	Hemiptera	Lachninae	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB1628	Hemiptera	Lachninae	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB1629	Hemiptera	Lachninae	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB1859	Hemiptera	Acyrthosiphon pisum	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2128	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. USDA	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2129	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. USDA pLeu	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2130	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. USDA pTrp	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2131	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. USDA pTrp	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2132	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. W1None6	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2133	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. W1None6 pLeu	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2134	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. W1None6 pTrp	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2135	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. GNoneNone2	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2136	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. GNoneNone2 pLeu	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2137	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. GNoneNone2 pTrp	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2138	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. FNoneNone9	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2139	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. FNoneNone9 pLeu	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2140	Hemiptera	Myzus persicae	Buchnera	Buchnera aphidicola str. FNoneNone9 pTrp	None	True	False	False	36.31
+31.31	Buchnera aphidicola	RISB2378	Hemiptera	Cinara cedri	Buchnera	Buchnera aphidicola	None	True	False	False	36.31
+22.55	Escherichia	RISB1339	Lepidoptera	Manduca sexta	Escherichia	Escherichia coli	modulate immunity-related gene expression in the infected F0 larvae, and also in their offspring, triggered immune responses in the infected host associated with shifts in both DNA methylation and histone acetylation	False	False	False	26.87
+22.55	Escherichia	RISB2120	Lepidoptera	Galleria mellonella	Escherichia	Escherichia coli	mediate trans-generational immune priming	False	False	False	23.37
+22.55	Escherichia	RISB0412	Hemiptera	Melanaphis sacchari	Escherichia	Escherichia coli	None	False	False	False	22.55
+22.55	Escherichia	RISB0635	Hemiptera	Diaphorina citri	Escherichia	Escherichia Shigella	None	False	False	False	22.55
+22.55	Escherichia	RISB1769	Diptera	Calliphoridae	Escherichia	Escherichia coli	None	False	False	False	22.55
+22.55	Escherichia	RISB1770	Diptera	Muscidae	Escherichia	Escherichia coli	None	False	False	False	22.55
+0.94	Proteus vulgaris	RISB0001	Coleoptera	Leptinotarsa decemlineata	Proteus	Proteus vulgaris Ld01	produces toxic hydrogen cyanide (HCN) and a mandelonitrile-producing cyanoglucoside, amygdalin, which protect the insect from predation	True	True	False	18.64
+0.18	Streptomyces sp. NBC_00162	RISB0777	Coleoptera	Copris tripartitus	Streptomyces	Streptomyces sp. AT67	contribute brood ball hygiene by inhibiting fungal parasites in the environment	True	True	False	16.759999999999998
+0.67	Bacillus cereus	RISB1056	Coleoptera	Oryctes rhinoceros	Bacillus	Bacillus cereus ATCC 14579	provide symbiotic digestive functions to Oryctes	True	True	False	16.63
+0.67	Bacillus cereus	RISB1778	Coleoptera	Lissorhoptrus oryzophilus	Bacillus	Bacillus cereus	might be promising paratransgenesis candidates	True	True	False	16.59
+0.45	Klebsiella pneumoniae	RISB1153	Coleoptera	Tenebrio molitor	Klebsiella	Klebsiella pneumoniae ZM1	degrading plastics	True	True	False	15.809999999999999
+0.45	Klebsiella pneumoniae	RISB1154	Coleoptera	Zophobas morio	Klebsiella	Klebsiella pneumoniae ZM1	degrading plastics	True	True	False	15.809999999999999
+0.79	Wolbachia	RISB1452	Coleoptera	Octodonta nipae	Wolbachia	Wolbachia	Wolbachia harbored dominantly in a female than the male adult, while, no significant differences were observed between male and female body parts and tissues	False	True	False	13.93
+0.79	Wolbachia	RISB2107	Coleoptera	Sitophilus zeamais	Wolbachia	Wolbachia	Wolbachia directly favored weevil fertility and exhibited only mild indirect effects, usually enhancing the SZPE effect	False	True	False	13.17
+0.79	Wolbachia	RISB1282	Coleoptera	Ips sp.	Wolbachia	Wolbachia	inducing cytoplasmic incompatibility, resulting in reproductive distortions and hence	False	True	False	12.49
+0.79	Wolbachia	RISB0971	Coleoptera	Oulema melanopus	Wolbachia	Wolbachia	may be associated with insect reproduction and maturation of their sexual organs	False	True	False	12.39
+0.79	Wolbachia	RISB0533	Coleoptera	Acalolepta fraudatrix	Wolbachia	Wolbachia	infecting A. fraudatrix causes cytoplasmic incompatibility in the host insect	False	True	False	12.33
+0.79	Wolbachia	RISB1955	Coleoptera	Sitona obsoletus	Wolbachia	Wolbachia	potential defensive properties against he parasitoid Microctonus aethiopoides	False	True	False	12.33
+0.79	Wolbachia	RISB2307	Coleoptera	Lissorhoptrus oryzophilus	Wolbachia	Wolbachia	Wolbachia are necessary for oocyte production in Lissorhoptrus oryzophilus	False	True	False	12.27
+0.79	Wolbachia	RISB2463	Coleoptera	Diabrotica virgifera virgifera	Wolbachia	Wolbachia	mediate the down-regulation of many maize defenses via their insect hosts	False	True	False	12.25
+0.79	Wolbachia	RISB2465	Coleoptera	Diabrotica virgifera	Wolbachia	Wolbachia sp.	Silencing of maize (host plant) defence induction via insect host	False	True	False	12.09
+0.79	Wolbachia	RISB2576	Coleoptera	Callosobruchus chinensis	Wolbachia	wBruAus	wBruAus is exceptionally resistant to tetracycline and rifampicin	False	True	False	12.09
+0.79	Wolbachia	RISB2574	Coleoptera	Callosobruchus chinensis	Wolbachia	wBruCon	caused cytoplasmic incompatibility of the host insect	False	True	False	11.85
+0.79	Wolbachia	RISB2575	Coleoptera	Callosobruchus chinensis	Wolbachia	wBruOri	caused cytoplasmic incompatibility of the host insect	False	True	False	11.85
+0.79	Wolbachia	RISB2464	Coleoptera	Diabrotica virgifera virgifera	Wolbachia	Wolbachia	influence down-regulation of defense genes in maize	False	True	False	11.81
+0.79	Wolbachia	RISB2608	Coleoptera	Sitophilus oryzae	Wolbachia	Wolbachia	it causes nucleocytoplasmic incompatibility	False	True	False	11.65
+0.79	Wolbachia	RISB2553	Coleoptera	Coccotrypes dactyliperda	Wolbachia	Wolbachia	required for oogenesis in C. dactyliperda	False	True	False	11.61
+0.28	Vibrio	RISB1810	Coleoptera	Monochamus galloprovincialis	Vibrio	Vibrio	Have the ability for degradation of cellulose, proteins and starch	False	True	False	11.6
+0.79	Wolbachia	RISB2610	Coleoptera	Adalia bipunctata	Wolbachia	Wolbachia	kill male hosts during embryogenesis	False	True	False	11.51
+0.79	Wolbachia	RISB2621	Coleoptera	Tribolium confusum	Wolbachia	Wolbachia pipientis	induces cytoplasmic incompatibility	False	True	False	11.49
+0.79	Wolbachia	RISB2622	Coleoptera	Hypera postica	Wolbachia	Wolbachia pipientis	induces cytoplasmic incompatibility	False	True	False	11.49
+0.79	Wolbachia	RISB2605	Coleoptera	Tribolium madens	Wolbachia	Wolbachia	induces embryonic male killing	False	True	False	11.39
+0.79	Wolbachia	RISB0754	Coleoptera	Tribolium confusum	Wolbachia	Wolbachia wTcon	None	False	True	False	10.79
+0.79	Wolbachia	RISB1213	Coleoptera	Polygraphus proximus	Wolbachia	Wolbachia	None	False	True	False	10.79
+0.79	Wolbachia	RISB1395	Coleoptera	Octodonta nipae	Wolbachia	Wolbachia	None	False	True	False	10.79
+0.79	Wolbachia	RISB1578	Coleoptera	Oreina cacaliae	Wolbachia	Wolbachia ST375	None	False	True	False	10.79
+0.79	Wolbachia	RISB2350	Coleoptera	Curculio sikkimensis	Wolbachia	Wolbachia	None	False	True	False	10.79
+0.79	Wolbachia	RISB2578	Coleoptera	Callosobruchus chinensis	Wolbachia	Wolbachia	None	False	True	False	10.79
+0.67	Bacillus cereus	RISB2161	Blattodea	Termitidae	Bacillus	Bacillus cereus TAUC5	The ability of these arthropods to feed on wood, foliage and detritus is likely to involve catalysis by different types of cellulases/hemicellulases that are secreted by gut microbiota to digest the structural and recalcitrant lignocellulosic residues in their foods.	True	False	False	10.67
+0.67	Bacillus cereus	RISB2162	Blattodea	Termitidae	Bacillus	Bacillus cereus F837/76	The ability of these arthropods to feed on wood, foliage and detritus is likely to involve catalysis by different types of cellulases/hemicellulases that are secreted by gut microbiota to digest the structural and recalcitrant lignocellulosic residues in their foods.	True	False	False	10.67
+0.45	Klebsiella pneumoniae	RISB2185	Lepidoptera	Scirpophaga incertulas	Klebsiella	Klebsiella pneumoniae L-13	The ability of these arthropods to feed on wood, foliage and detritus is likely to involve catalysis by different types of cellulases/hemicellulases that are secreted by gut microbiota to digest the structural and recalcitrant lignocellulosic residues in their foods.	True	False	False	10.45
+0.45	Klebsiella pneumoniae	RISB2186	Lepidoptera	Scirpophaga incertulas	Klebsiella	Klebsiella pneumoniae L-13	The ability of these arthropods to feed on wood, foliage and detritus is likely to involve catalysis by different types of cellulases/hemicellulases that are secreted by gut microbiota to digest the structural and recalcitrant lignocellulosic residues in their foods.	True	False	False	10.45
+0.38	Candidatus Pantoea carbekii	RISB1046	Hemiptera	Halyomorpha halys	Pantoea	Pantoea carbekii	provides its host with essential nutrients, vitamins, cofactors and protection of the most vulnerable stages of early development (1st nymphal stages). Pantoea carbekii is highly stress tolerant, especially once secreted to cover the eggs, by its unique biofilm-formation properties, securing host offspring survival	True	False	False	10.38
+0.23	Arsenophonus sp. aPb	RISB1047	Hemiptera	Aphis gossypii	Arsenophonus	Arsenophonus sp.	secondary symbiont reduction led to reduction of the total life span and intrinsic rate of natural increase as well as appearance of the deformed dead offspring. H. defensa and Arsenophonus contributed to the fitness of A. gossypii by enhancing its performance, but not through parasitoid resistance.	True	False	False	10.23
+0.23	Arsenophonus sp. aPb	RISB1300	Hemiptera	Aphis gossypii	Arsenophonus	Arsenophonus sp.	Arsenophonus sp. can have different effects on its hosts, including obligate mutualism in blood-sucking insects, improving the performance of whiteflies, or through facultative mutualism by protecting psyllids against parasitoid attacks.	True	False	False	9.97
+0.67	Bacillus cereus	RISB2489	Lepidoptera	Anticarsia gemmatalis	Bacillus	Bacillus cereus	allow the adaptation of this insect to plants rich in protease inhibitors, minimizing the potentially harmful consequences of protease inhibitors from some of this insect host plants, such as soybean	True	False	False	9.65
+0.41	Candidatus Schneideria nysicola	RISB0872	Hemiptera	Nysius sp.	Candidatus Schneideria	Candidatus Schneideria nysicola isolate NB	synthesize four B vitamins(Pan, pantothenate;Fol, folate; Rib, riboflavin; Pyr, pyridoxine) and five Essential Amino Acids(Ile, isoleucine; Val, valine; Lys, lysine; Thr, threonine; Phe, phenylalanine)	True	False	False	9.43
+0.41	Candidatus Schneideria nysicola	RISB0873	Hemiptera	Nysius sp.	Candidatus Schneideria	Candidatus Schneideria nysicola isolate NR	synthesize four B vitamins(Pan, pantothenate;Fol, folate; Rib, riboflavin; Pyr, pyridoxine) and five Essential Amino Acids(Ile, isoleucine; Val, valine; Lys, lysine; Thr, threonine; Phe, phenylalanine)	True	False	False	9.43
+0.41	Candidatus Schneideria nysicola	RISB0874	Hemiptera	Nysius sp.	Candidatus Schneideria	Candidatus Schneideria nysicola isolate NT	synthesize four B vitamins(Pan, pantothenate;Fol, folate; Rib, riboflavin; Pyr, pyridoxine) and five Essential Amino Acids(Ile, isoleucine; Val, valine; Lys, lysine; Thr, threonine; Phe, phenylalanine)	True	False	False	9.43
+0.18	Streptomyces sp. NBC_00162	RISB0943	Hymenoptera	Polybia plebeja	Streptomyces	Streptomyces sp. M54	this bacterium produces antimicrobial compounds that are active against Hirsutella citriformis, a natural fungal enemy of its host, and the human pathogens Staphylococcus aureus and Candida albicans	True	False	False	9.14
+0.18	Streptomyces sp. NBC_00162	RISB2334	Hymenoptera	Sirex noctilio	Streptomyces	Streptomyces sp. SA3_actG	degrading woody substrates and that such degradation may assist in nutrient acquisition by S. noctilio, thus contributing to its ability to be established in forested habitats worldwide	True	False	False	8.88
+0.18	Streptomyces sp. NBC_00162	RISB2335	Hymenoptera	Sirex noctilio	Streptomyces	Streptomyces sp. SA3_actF	degrading woody substrates and that such degradation may assist in nutrient acquisition by S. noctilio, thus contributing to its ability to be established in forested habitats worldwide	True	False	False	8.88
+0.18	Streptomyces sp. NBC_00162	RISB2336	Hymenoptera	Sirex noctilio	Streptomyces	Streptomyces sp. ACTE	degrading woody substrates and that such degradation may assist in nutrient acquisition by S. noctilio, thus contributing to its ability to be established in forested habitats worldwide	True	False	False	8.88
+0.62	Blattabacterium cuenoti	RISB0133	Blattodea	Panesthiinae	Blattabacterium	Blattabacterium cuenoti	enables hosts to subsist on a nutrient-poor diet; endosymbiont genome erosions are associated with repeated host transitions to an underground life	True	False	False	8.56
+0.3	Wigglesworthia glossinidia	RISB0369	Diptera	Glossina morsitans	Wigglesworthia	Wigglesworthia glossinidia	symbiont-derived factors, likely B vitamins, are critical for the proper function of both lipid biosynthesis and lipolysis to maintain tsetse fly fecundity	True	False	False	8.4
+0.23	Arsenophonus sp. aPb	RISB1048	Hemiptera	Aphis gossypii	Arsenophonus	Arsenophonus sp.	symbiont reduction led to reduction of the total life span and intrinsic rate of natural increase as well as appearance of the deformed dead offspring	True	False	False	8.23
+2.78	Arsenophonus nasoniae	RISB0428	Hymenoptera	Nasonia vitripennis	Arsenophonus	Arsenophonus nasoniae	male killing	True	False	False	8.02
+2.78	Arsenophonus nasoniae	RISB2483	Hymenoptera	Nasonia vitripennis	Arsenophonus	Arsenophonus nasoniae	male-killing	True	False	False	8.02
+2.78	Arsenophonus nasoniae	RISB0366	Hymenoptera	Pachycrepoideus vindemmiae	Arsenophonus	Arsenophonus nasoniae	None	True	False	False	7.78
+0.35	Candidatus Tachikawaea gelatinosa	RISB2112	Hemiptera	Urostylis westwoodii	Candidatus Tachikawaea	Candidatus Tachikawaea gelatinosa	the symbiont localizes to a specialized midgut region and supplies essential amino acids deficient in the host's diet	True	False	False	7.69
+0.35	Candidatus Tachikawaea gelatinosa	RISB2113	Hemiptera	Urostylis annulicornis	Candidatus Tachikawaea	Candidatus Tachikawaea gelatinosa	the symbiont localizes to a specialized midgut region and supplies essential amino acids deficient in the host's diet	True	False	False	7.69
+0.18	Streptomyces sp. NBC_00162	RISB1134	Hymenoptera	mud dauber wasp	Streptomyces	Streptomyces sp.	secondary metabolites derived from a Streptomyces sp. displayed significant inhibitory activity against hexokinase II	True	False	False	7.52
+0.67	Bacillus cereus	RISB2237	Lepidoptera	Anticarsia gemmatalis	Bacillus	Bacillus cereus	mitigation of the negative effects of proteinase inhibitors produced by the host plant	True	False	False	7.39
+0.3	Wigglesworthia glossinidia	RISB1786	Diptera	Glossina morsitans	Wigglesworthia	Wigglesworthia glossinidia	Synthesis of a large number of B vitamins, to supplement the host nutritional deficiencies of the diet	True	False	False	7.34
+0.67	Bacillus cereus	RISB1822	Lepidoptera	Plutella xylostella	Bacillus	Bacillus cereus	degradation of acephate, used acephate as a source of carbon and energy for growth	True	False	False	7.31
+0.67	Bacillus cereus	RISB2491	Lepidoptera	Anticarsia gemmatalis	Bacillus	Bacillus cereus	protein hydrolase activity for proteases, serine proteases, and cysteine proteases	True	False	False	7.31
+0.67	Bacillus cereus	RISB1826	Lepidoptera	Plutella xylostella	Bacillus	Bacillus cereus	degradation of indoxacarb,  it could use indoxacarb for metabolism and growth	True	False	False	7.21
+2.16	Candidatus Erwinia haradaeae	RISB1632	Hemiptera	Lachninae	Erwinia	Candidatus Erwinia haradaeae	None	True	False	False	7.16
+0.23	Pantoea dispersa	RISB0182	Lepidoptera	Spodoptera frugiperda	Pantoea	Pantoea dispersa	detoxify benzoxazinoids (secondary metabolites produced by maize) and promote caterpillar growth	True	False	False	7.15
+0.18	Streptomyces sp. NBC_00162	RISB2327	Hymenoptera	Acromyrmex octospinosus	Streptomyces	Streptomyces sp.	symbiont makes multiple antifungals, including Antimycins A1–A4, which support the fungus farming	True	False	False	7.12
+0.22	Candidatus Ishikawella capsulata	RISB2368	Hemiptera	Megacopta punctatissima	Candidatus Ishikawella	Candidatus Ishikawella capsulata	Microbe compensates for nutritional deficiency of host diet by supplying essential amino acids	True	False	False	7.1
+0.18	Streptomyces sp. NBC_00162	RISB1391	Hymenoptera	Tetragonisca angustula	Streptomyces	Streptomyces sp.	producing antibiotic, exhibit antimicrobial activity, mainly to Gram-positive bacteria and fungi	True	False	False	7.1
+0.94	Proteus vulgaris	RISB2460	Lepidoptera	Bombyx mori	Proteus	Proteus vulgaris	degradation of cellulose, xylan, pectin and starch	True	False	False	6.94
+3.8	Candidatus Blochmanniella	RISB2542	Hymenoptera	Camponotus	Candidatus Blochmanniella	Blochmannia floridanus	Blochmannia provide essential amino acids to its host,Camponotus floridanus, and that it may also play a role in nitrogen recycling via its functional urease	False	False	False	6.94
+3.8	Candidatus Blochmanniella	RISB1827	Hymenoptera	Camponotus floridanus	Candidatus Blochmanniella	Blochmannia floridanus	a modulation of immune gene expression which may facilitate tolerance towards the endosymbionts and thus may contribute to their transovarial transmission	False	False	False	6.88
+0.67	Bacillus cereus	RISB2239	Lepidoptera	Anticarsia gemmatalis	Bacillus	Bacillus cereus	Against plant-derived protease inhibitor; pest control	True	False	False	6.75
+0.67	Bacillus cereus	RISB0019	Lepidoptera	Scirpophaga incertulas	Bacillus	Bacillus cereus strain NRYSBBC-1	degrade Chlorpyrifos and Chlorantraniliprole in vitro	True	False	False	6.73
+0.23	Pantoea dispersa	RISB1413	Diptera	Bactrocera dorsalis	Pantoea	Pantoea dispersa	causing female Bactrocera dorsalis laid more eggs but had shorter lifespan	True	False	False	6.71
+0.23	Arsenophonus sp. aPb	RISB0982	Hymenoptera	Vespula penalica	Arsenophonus	Arsenophonus sp.	Arsenophonus sp. has been negatively associated with honeybee hive health	True	False	False	6.69
+0.67	Bacillus cereus	RISB2238	Lepidoptera	Anticarsia gemmatalis	Bacillus	Bacillus cereus	process serine- and cysteine-proteinase activities	True	False	False	6.67
+0.67	Bacillus cereus	RISB1415	Blattodea	Psammotermes hypostoma	Bacillus	Bacillus cereus	isolates showed significant cellulolytic activity	True	False	False	6.65
+3.8	Candidatus Blochmanniella	RISB2448	Hymenoptera	Camponotus floridanus	Candidatus Blochmanniella	Candidatus Blochmanniella floridana	nutritional contribution of the bacteria to host metabolism by production of essential amino acids and urease-mediated nitrogen recycling	False	False	False	6.54
+0.45	Klebsiella pneumoniae	RISB2459	Lepidoptera	Bombyx mori	Klebsiella	Klebsiella pneumoniae	degradation of cellulose, xylan, pectin and starch	True	False	False	6.45
+0.3	Wigglesworthia glossinidia	RISB2577	Diptera	Glossina brevipalpis	Wigglesworthia	Wigglesworthia glossinidia brevipalpis	provide its tsetse host with metabolites such as vitamins	True	False	False	6.44
+0.57	Providencia rettgeri	RISB1001	Diptera	Anastrepha obliqua	Providencia	Providencia rettgeri	improve the sexual competitiveness of males	True	False	False	6.43
+3.8	Candidatus Blochmanniella	RISB2570	Hymenoptera	Camponotus floridanus	Candidatus Blochmanniella	Blochmannia floridanus	Blochmannia is able to supply nitrogen and sulfur compounds to the host while it takes advantage of the host metabolic machinery	False	False	False	6.36
+0.62	Blattabacterium cuenoti	RISB0518	Blattodea	Cryptocercus punctulatus	Blattabacterium	Blattabacterium cuenoti	collaborative arginine biosynthesis	True	False	False	6.32
+0.62	Blattabacterium cuenoti	RISB0519	Blattodea	Mastotermes darwiniensis	Blattabacterium	Blattabacterium cuenoti	collaborative arginine biosynthesis	True	False	False	6.32
+0.38	Candidatus Pantoea carbekii	RISB2115	Hemiptera	Halyomorpha halys	Pantoea	Candidatus Pantoea carbekii	the primary bacterial symbiont of H. halys	True	False	False	6.22
+0.23	Pantoea dispersa	RISB0381	Thysanoptera	Thrips tabaci	Pantoea	Pantoea dispersa	gut symbionts are required for their development	True	False	False	6.19
+0.45	Klebsiella pneumoniae	RISB1994	Lepidoptera	Diatraea saccharalis	Klebsiella	Klebsiella pneumoniae	possess cellulose degrading activity	True	False	False	6.17
+0.45	Klebsiella pneumoniae	RISB2052	Orthoptera	Locusta migratoria	Klebsiella	Klebsiella pneumoniae	associated with cellulolytic enzymes	True	False	False	6.17
+0.57	Providencia rettgeri	RISB1169	Diptera	Bactrocera dorsalis	Providencia	Providencia rettgeri strain BD11	Promote the growth of larvae	True	False	False	6.13
+0.62	Blattabacterium cuenoti	RISB0093	Blattodea	Blattella germanica	Blattabacterium	Blattabacterium cuenoti	obligate endosymbiont	True	False	False	6.04
+0.22	Candidatus Ishikawella capsulata	RISB2543	Hemiptera	Megacopta punctatissima	Candidatus Ishikawella	Candidatus Ishikawella capsulata	Enhance pest status of the insect host	True	False	False	5.98
+0.67	Bacillus cereus	RISB1872	Diptera	Aedes aegypti	Bacillus	Bacillus cereus	gut microbiome	True	False	False	5.95
+0.3	Wigglesworthia glossinidia	RISB2356	Diptera	Glossina fuscipes fuscipes	Wigglesworthia	Wigglesworthia glossinidia	influence host vector competence	True	False	False	5.94
+0.26	Providencia alcalifaciens	RISB1168	Diptera	Bactrocera dorsalis	Providencia	Providencia alcalifaciens strain BD1None	Promote the growth of larvae	True	False	False	5.82
+0.79	Wolbachia	RISB0190	Hymenoptera	Encarsia formosa	Wolbachia	Wolbachia	Wolbachia's parthenogenesis-induction feminization factor (piff) gene modulates sex determination in Encarsia formosa by regulating doublesex (dsx) expression. When Wolbachia is removed, female-specific dsx decreases while male-specific dsx increases, resulting in haploid male offspring	False	False	False	5.79
+0.79	Wolbachia	RISB0263	Lepidoptera	Homona magnanima	Wolbachia	Wolbachia	To achieve Male killing (MK), Wolbachia impaired the host dosage compensation system and triggered abnormal apoptosis in male embryos.Also, disrupted the sex-determination cascade of males by inducing female-type splice variants of doublesex (dsx), a downstream regulator of the sex-determining gene cascade.	False	False	False	5.79
+0.79	Wolbachia	RISB0264	Lepidoptera	Homona magnanima	Wolbachia	Wolbachia	To achieve Male killing (MK), Spiroplasma triggered abnormal apoptosis in male embryos. Also, disrupted the sex-determination cascade of males by inducing female-type splice variants of doublesex (dsx), a downstream regulator of the sex-determining gene cascade.	False	False	False	5.79
+0.79	Wolbachia	RISB0766	Diptera	Aedes fluviatilis	Wolbachia	Wolbachia pipientis	The presence of Wolbachia pipientis improves energy performance in A. fluviatilis cells; it affects the regulation of key energy sources such as lipids, proteins, and carbohydrates, making the distribution of actin more peripheral and with extensions that come into contact with neighboring cells.	False	False	False	5.79
+0.79	Wolbachia	RISB0987	Hymenoptera	Trichogramma brassicae	Wolbachia	Wolbachia	Wolbachia affects the post-eclosion host preference of female wasps; Wolbachia-infected wasps did not show any host preference and more frequently switched hosts in the laboratory, while uninfected wasps significantly preferred to lay eggs on the host species they developed on. Additionally, Wolbachia significantly improved the emergence rate of infected wasps when reared on new hosts	False	False	False	5.79
+0.79	Wolbachia	RISB1549	Diptera	Delia radicum	Wolbachia	Wolbachia	Wolbachia infection significantly reduced hatch rate in infected eggs (by 10%) but improved larvo-nymphal viability sufficiently so that infected eggs nevertheless yielded as many adults as uninfected ones, albeit with a 1.5% longer total development time	False	False	False	5.79
+0.79	Wolbachia	RISB1648	Hymenoptera	Trichogramma brassicae	Wolbachia	Wolbachia	memory retention was always shorter in the infected wasps than in the uninfected ones. Wolbachia infection may select for reduced memory retention because shorter memory induces infected wasps to disperse in new environments and avoid competition with uninfected wasps by forgetting cues related to previously visited environments	False	False	False	5.79
+0.79	Wolbachia	RISB1775	Diptera	Calliphoridae	Wolbachia	Wolbachiaspp.	This intracellular symbiont plays important roles in manipulating invertebrate reproductive biology by killing males, feminization, parthenogenesis or cytoplasmic incompatibility, and it has been extensively studied as a biological control agent for arthropods	False	False	False	5.79
+0.79	Wolbachia	RISB1776	Diptera	Muscidae	Wolbachia	Wolbachiaspp.	This intracellular symbiont plays important roles in manipulating invertebrate reproductive biology by killing males, feminization, parthenogenesis or cytoplasmic incompatibility, and it has been extensively studied as a biological control agent for arthropods	False	False	False	5.79
+0.79	Wolbachia	RISB1787	Lepidoptera	Ephestia kuehniella	Wolbachia	Wolbachia	when infected with Wolbachia, it exhibits cytoplasmic incompatibility between uninfected females and infected males. We found that E. kuehniella suffers costs as a result of Wolbachia infection, through decreased larval survival and adult longevity, and prolonged developmental period	False	False	False	5.79
+0.79	Wolbachia	RISB1861	Diptera	Drosophila melanogaster	Wolbachia	Wolbachia	be reported both to extend and shorten longevity. The main molecular pathways underlying the lifespan-modulating effects of Wolbachia remain unclear, however insulin/insulin-like growth factor, immune deficiency, ecdysteroid synthesis and signaling and c-Jun N-terminal kinase pathways as well as heat shock protein synthesis and autophagy have been proposed to play a role	False	False	False	5.79
+0.3	Wigglesworthia glossinidia	RISB2472	Diptera	Glossina morsitans	Wigglesworthia	Wigglesworthia glossinidia	can synthesize thiamine	True	False	False	5.76
+1.47	Clostridium	RISB2301	Hemiptera	Pyrrhocoris apterus	Clostridium	Clostridium sp. clone KP2NoneW3	could play an important role for the insect by degrading complex dietary components, providing nutrient supplementation, or detoxifying noxious chemicals (e.g. cyclopropenoic fatty acids or gossypol) in the diet	False	False	False	5.69
+0.67	Bacillus cereus	RISB1701	Diptera	Phlebotomus papatasi	Bacillus	Bacillus cereus	None	True	False	False	5.67
+0.62	Blattabacterium cuenoti	RISB2141	Blattodea	Blatta orientalis	Blattabacterium	Blattabacterium cuenoti	None	True	False	False	5.62
+0.79	Wolbachia	RISB1584	Hymenoptera	Nasonia vitripennis	Wolbachia	Wolbachia	there were few significant changes in immune or reproductive proteins between samples with and without Wolbachia infection. Differentially expressed proteins were involved in the binding process, catalytic activity, and the metabolic process	False	False	False	5.61
+0.79	Wolbachia	RISB0779	Diptera	Drosophila melanogaster	Wolbachia	Wolbachia	Wolbachia infection affects differential gene expression in Drosophila testis.Genes involved in carbohydrate metabolism, lysosomal degradation, proteolysis, lipid metabolism, and immune response were upregulated in the presence of Wolbachia	False	False	False	5.59
+0.23	Arsenophonus sp. aPb	RISB2518	Hemiptera	Aphis glycines	Arsenophonus	Arsenophonus sp.	obligate symbiont	True	False	False	5.57
+0.57	Providencia rettgeri	RISB1352	Hymenoptera	Nasonia vitripennis	Providencia	Providencia rettgeri NVITNone3	None	True	False	False	5.57
+3.8	Candidatus Blochmanniella	RISB1487	Hymenoptera	Camponotus floridanus	Candidatus Blochmanniella	Blochmannia floridanus	recycling nitrogen and helping to synthesize amino acids, fatty acids, and nucleotides	False	False	False	5.52
+0.79	Wolbachia	RISB1408	Diptera	Anastrepha fraterculus	Wolbachia	Wolbachia	Wolbachia is the only known reproductive symbiont present in these morphotypes. Wolbachia reduced the ability for embryonic development in crosses involving cured females and infected males within each morphotype (uni-directional CI).	False	False	False	5.47
+0.45	Klebsiella pneumoniae	RISB0511	Lepidoptera	Plutella xylostella	Klebsiella	Klebsiella pneumoniae	None	True	False	False	5.45
+0.45	Klebsiella pneumoniae	RISB1771	Diptera	Muscidae	Klebsiella	Klebsiella pneumoniae	None	True	False	False	5.45
+0.79	Wolbachia	RISB2547	Lepidoptera	Eurema hecabe	Wolbachia	Wolbachia	the butterfly Eurema hecabe is infected with two different strains (wHecCI2 and wHecFem2) of the bacterial endosymbiont Wolbachia, genetic males are transformed into functional females, resulting in production of all-female broods.	False	False	False	5.41
+3.8	Candidatus Blochmanniella	RISB2505	Blattodea	Blattella germanica	Candidatus Blochmanniella	Blochmannia	produce ammonia from dietary urea and then use it as a source of nitrogen	False	False	False	5.26
+0.25	Gilliamella	RISB0102	Hymenoptera	Apis mellifera	Gilliamella	Gilliamella apicola	Gilliamella apicola carries the gene for the desaturase FADS2, which is able to metabolize polyunsaturated fatty acids from pollen and synthesize endocannabinoid, a lipogenic neuroactive substance, thereby modulating reward learning and memory in honeybees.	False	False	False	5.25
+0.25	Gilliamella	RISB0176	Hymenoptera	Apis mellifera	Gilliamella	Gilliamella apicola	Bifidobacterium provides complementary demethylation service to promote Gilliamella growth on methylated homogalacturonan, an enriched polysaccharide of pectin. In exchange, Gilliamella shares digestive products with Bifidobacterium, through which a positive interaction is established	False	False	False	5.25
+0.25	Gilliamella	RISB0177	Hymenoptera	Apis cerana	Gilliamella	Gilliamella apicola	Bifidobacterium provides complementary demethylation service to promote Gilliamella growth on methylated homogalacturonan, an enriched polysaccharide of pectin. In exchange, Gilliamella shares digestive products with Bifidobacterium, through which a positive interaction is established	False	False	False	5.25
+0.23	Arsenophonus sp. aPb	RISB0367	Lepidoptera	Polyommatus bellargus	Arsenophonus	Arsenophonus sp.	None	True	False	False	5.23
+0.23	Arsenophonus sp. aPb	RISB0431	Hemiptera	Agonoscena pistaciae	Arsenophonus	Arsenophonus sp.	None	True	False	False	5.23
+0.17	Candidatus Annandia adelgestsuga	RISB2207	Hemiptera	Adelges tsugae	Candidatus Annandia	Candidatus Annandia adelgestsuga	None	True	False	False	5.17
+0.16	Candidatus Palibaumannia cicadellinicola	RISB1594	Hemiptera	Graphocephala coccinea	Candidatus Palibaumannia	Candidatus Palibaumannia cicadellinicola	None	True	False	False	5.16
+0.16	Candidatus Palibaumannia cicadellinicola	RISB1595	Hemiptera	Graphocephala coccinea	Candidatus Palibaumannia	Candidatus Palibaumannia cicadellinicola strain Gra	None	True	False	False	5.16
+0.14	Candidatus Megaera polyxenophila	RISB0587	None	Multiple species	Candidatus Megaera	Candidatus Megaera polyxenophila	None	True	False	False	5.14
+0.79	Wolbachia	RISB1606	Diptera	Drosophila melanogaster	Wolbachia	Wolbachia	Upregulate expression of Pale and Ddc, mediates the expression of dopamine related genes, increase total sleep time in both male and female Drosophila melanogaster and decreases the sleep quality of their insect hosts	False	False	False	5.13
+0.79	Wolbachia	RISB2344	Diptera	Drosophila melanogaster	Wolbachia	Wolbachia	Wolbachia infection changes the expression of several genes putatively associated with spermatogenesis including JH induced protein-26 and Mst84Db, or involved in immune (kenny) or metabolism (CG4988-RA)	False	False	False	4.85
+0.79	Wolbachia	RISB2265	Diptera	Anopheles stephensi	Wolbachia	Wolbachia	Wolbachia strain wAlbB displays the ability to induce high levels of cytoplasmic incompatibility, wAlbB conferred resistance in the mosquito to the human malaria parasite Plasmodium falciparum	False	False	False	4.63
+3.8	Candidatus Blochmanniella	RISB2355	Hymenoptera	Camponotus floridanus	Candidatus Blochmanniella	Candidatus Blochmanniella floridana	Interaction with the host's immune system	False	False	False	4.62
+0.79	Wolbachia	RISB1444	Hemiptera	Laodelphax striatellus	Wolbachia	Wolbachia wStri	Wolbachia-infected host embryonic development genes revealed Ddx1 mRNAs, which is required for host viability and in the germ line, accumulated in the posterior region of 3-day-old embryos	False	False	False	4.55
+0.79	Wolbachia	RISB1539	Hemiptera	Cimex lectularius	Wolbachia	Wolbachia	wCle provisions the bed bug with B vitamins.It is likely that because of wCle’s nutritional contribution to the bed bug, its titer increases in relation to bed bug growth and development.	False	False	False	4.53
+0.79	Wolbachia	RISB2036	Diptera	Drosophila melanogaster	Wolbachia	Wolbachia	A specific strain of Wolbachia was observed to reduce the initiation of aggressive encounters in Drosophila males, which may achieved by influencing the production of octopamine.	False	False	False	4.35
+0.79	Wolbachia	RISB2601	Hymenoptera	Asobara tabida	Wolbachia	Wolbachia	Wolbachia is necessary for oogenesis in these A. tabida strains，aposymbiotic female wasps were completely incapable of producing mature oocytes and therefore could not reproduce	False	False	False	4.33
+0.79	Wolbachia	RISB2322	Diptera	Aedes aegypti	Wolbachia	Wolbachia	Wolbachia induce resistance to a number of human pathogens, including dengue virus (DENV), Plasmodium, and filarial nematodes, but the molecular mechanism involved is unclear	False	False	False	4.27
+3.8	Candidatus Blochmanniella	RISB2329	Hymenoptera	Camponotus japonicus	Candidatus Blochmanniella	Candidatus Blochmanniella	obligate symbiont	False	False	False	4.14
+0.79	Wolbachia	RISB0418	Hymenoptera	Habrobracon hebetor	Wolbachia	Wolbachia	indicate significant effects of the intracellular symbiotic bacterium Wolbachia on the metabolism of H. hebetor larvae and on the activity of its digestive enzymes	False	False	False	4.05
+0.79	Wolbachia	RISB2473	Lepidoptera	Phyllonorycter blancardella	Wolbachia	Wolbachia	P. blancardella relies on bacterial endosymbionts (possibly Wolbachia) to manipulate the physiology of its host plant, resulting in the green-island phenotype	False	False	False	3.95
+0.79	Wolbachia	RISB2474	Lepidoptera	Phyllonorycter blancardella	Wolbachia	Wolbachia sp.	To increase host insect fitness, the maintenance of chlorophyll and nutrient-rich “green island” (insect feeding site) in senescent leaves of the host plant	False	False	False	3.91
+3.8	Candidatus Blochmanniella	RISB0254	Hymenoptera	Camponotus pennalicus	Candidatus Blochmanniella	Candidatus Blochmanniella pennsylvanica	None	False	False	False	3.8
+0.79	Wolbachia	RISB1233	Diptera	Anopheles coluzzii	Wolbachia	Wolbachia wAnga	wAnga may influence or interact with the Anopheles microbiota, which may contribute to the impact of wAnga on Anopheles biology and vectorial capacity	False	False	False	3.79
+0.79	Wolbachia	RISB1332	Diptera	Rhagoletis cerasi	Wolbachia	Wolbachia	can alter the reproduction of hosts through various manipulations, like cytoplasmic incompatibility (CI), enhancing its spread in new host populations	False	False	False	3.79
+0.79	Wolbachia	RISB2614	Diptera	Drosophila melanogaster	Wolbachia	Wolbachia popcorn	begins massive proliferation in the adult, causing widespread degeneration of tissues, including brain, retina, and muscle, culminating in early death	False	False	False	3.79
+0.79	Wolbachia	RISB0988	Hymenoptera	Trichogramma brassicae	Wolbachia	Wolbachia	the wasp's infection with Wolbachia may lead to impairment of post-eclosion host preference and facilitates growing up on different host species	False	False	False	3.67
+0.79	Wolbachia	RISB2486	Diptera	Aedes aegypti	Wolbachia	Wolbachia	Wolbachia symbiont in Aedes aegypti limits infection with dengue, Chikungunya, and Plasmodium; Wolbachia also halves adult lifespan	False	False	False	3.41
+0.79	Wolbachia	RISB1520	Diptera	Drosophila melanogaster	Wolbachia	Wolbachia	enhance nanos expression via the bacterial TomO protein in order to fuel germ stem cell maintenance in infected Drosophila females	False	False	False	3.39
+0.79	Wolbachia	RISB1499	Diptera	Aedes aegypti	Wolbachia	Wolbachia strain wMel	induce cytoplasmic incompatibility and control the spread of arboviruses around the world through blockage of viral transmission	False	False	False	3.35
+0.79	Wolbachia	RISB1515	Diptera	Drosophila melanogaster	Wolbachia	Wolbachia pipientis	increases the recombination rate observed across two genomic intervals and increases the efficacy of natural selection in hosts	False	False	False	3.33
+0.79	Wolbachia	RISB1936	Hymenoptera	Asobara japonica	Wolbachia	Wolbachia	do not affect development of the host female reproductive tract and eggs, but do enhance host-searching ability of female wasps	False	False	False	3.33
+0.79	Wolbachia	RISB1442	Hymenoptera	Habrobracon hebetor	Wolbachia	Wolbachia	Wolbachia induces cytoplasmic incompatibility (CI) in H. hebetor and affects host mating behavior in favor of its transmission	False	False	False	3.31
+0.79	Wolbachia	RISB1532	Thysanoptera	Hoplothrips carpathicus	Wolbachia	Wolbachia	This bacterium can eliminate males, turn them into females, sterilize uninfected females or behave as a mutualistic symbiont	False	False	False	3.27
+0.79	Wolbachia	RISB0447	Diptera	Drosophila melanogaster	Wolbachia	Wolbachia	Wolbachia can protect insects against the La Jolla virus (LJV; Iflaviridae) and Newfield virus (NFV; Permutotetraviridae)	False	False	False	3.21
+0.79	Wolbachia	RISB1382	Lepidoptera	Thitarodes pui	Wolbachia	Wolbachia	play important roles in helping the host larva to digest foods, adapt to extreme environments, or resist pathogens	False	False	False	3.07
+0.79	Wolbachia	RISB0491	Hemiptera	Cimex hemipterus	Wolbachia	Wolbachia	the disruption of the abundant Wolbachia could be related to the enhanced susceptibility towards the insecticides	False	False	False	3.05
+0.79	Wolbachia	RISB0215	Hemiptera	Circulifer tenellus	Wolbachia	Wolbachia	Wolbachia may increase this insect's ability to tolerate or acquire the pathogen Candidatus Phytoplasma trifolii	False	False	False	3.03
+0.79	Wolbachia	RISB2291	Hemiptera	Sogatella furcifera	Wolbachia	Wolbachia	dual infection with Cardinium and Wolbachia induced strong cytoplasmic incompatibility (CI) in a single host	False	False	False	2.95
+0.79	Wolbachia	RISB1683	Hymenoptera	Asobara japonica	Wolbachia	Wolbachia	the sensitivity to oxidative stress was increased when host is infected by Wolbachia, rather than decreased	False	False	False	2.93
+0.79	Wolbachia	RISB0822	Hemiptera	Nilaparvata lugens	Wolbachia	Wolbachia	orchestrate host detoxification metabolism via the CncC pathway to promote host insecticide resistance	False	False	False	2.83
+0.79	Wolbachia	RISB0985	Diptera	Drosophila melanogaster	Wolbachia	Wolbachia	Wolbach regulates the host's transcriptional response to viral infection and affects viral replication	False	False	False	2.83
+0.79	Wolbachia	RISB1354	Diptera	Drosophila melanogaster	Wolbachia	Wolbachia pipientis	Wolbachia influence octopamine metabolism in the Drosophila females, which is by the symbiont genotype	False	False	False	2.83
+0.79	Wolbachia	RISB1844	Diptera	Drosophila melanogaster	Wolbachia	Wolbachia	the presence of Wolbachia and Spiroplasma in D. melanogaster up-regulated certain immune-related genes	False	False	False	2.83
+0.79	Wolbachia	RISB0563	Diptera	Chrysomya megacephala	Wolbachia	Wolbachia	Wolbachia increases the resistance to arbovirus infection, resulting in decreased virus transmission.	False	False	False	2.81
+0.79	Wolbachia	RISB2508	Diptera	Drosophila simulans	Wolbachia	Wolbachia	increase olfactory response of flies by regulating the expression of olfaction-related genes in hosts	False	False	False	2.81
+0.79	Wolbachia	RISB0698	Hemiptera	Nilaparvata lugens	Wolbachia	Wolbachia wStri	reduces bacterial species richness and reshapes bacterial community structure in Nilaparvata lugens	False	False	False	2.77
+0.79	Wolbachia	RISB0957	Diptera	Aedes albopictus	Wolbachia	Wolbachia	antibiotics induced histopathological damage and reactive oxygen species production in the ovaries	False	False	False	2.75
+0.79	Wolbachia	RISB2595	Thysanoptera	Franklinothrips vespiformis	Wolbachia	Wolbachia	cause thelytoky, which is a form of parthenogenesis in which females produce females without males	False	False	False	2.75
+0.79	Wolbachia	RISB1933	Hemiptera	Pentalonia nigronervosa	Wolbachia	Wolbachia sp.（wPn）	Wolbachia increases production by its host of reactive oxygen species and its antioxidant system	False	False	False	2.71
+0.79	Wolbachia	RISB0986	Hemiptera	Nilaparvata lugens	Wolbachia	Wolbachia	enhances expression of P450 NlCYP4CE1 in Nilaparvata lugens in response to imidacloprid stress	False	False	False	2.67
+0.79	Wolbachia	RISB2517	Hymenoptera	Muscidifurax uniraptor	Wolbachia	Wolbachia wUni	responsible for the induction of parthenogenesis in the parasitoid wasp Muscidifurax uniraptor	False	False	False	2.67
+0.79	Wolbachia	RISB1083	Hemiptera	Yamatotettix flavovittatus	Wolbachia	Wolbachia	Wolbachia-infected lineages had prolonged immature development periods and female longevity	False	False	False	2.61
+0.17	Yersinia	RISB0492	Hemiptera	Cimex hemipterus	Yersinia	Yersinia	the disruption of the abundant Yersinia possibly could be related to the enhanced susceptibility towards the insecticides	False	False	False	2.59
+0.79	Wolbachia	RISB0170	Hemiptera	Pseudoregma bambucicola	Wolbachia	Wolbachia	influences the reproduction of its hosts to facilitate its proliferation and transmission	False	False	False	2.57
+0.79	Wolbachia	RISB0171	Hemiptera	Purohita taiwanensis	Wolbachia	Wolbachia	influences the reproduction of its hosts to facilitate its proliferation and transmission	False	False	False	2.57
+0.79	Wolbachia	RISB0172	Hemiptera	Tropidocephala brunnipennis	Wolbachia	Wolbachia	influences the reproduction of its hosts to facilitate its proliferation and transmission	False	False	False	2.57
+0.79	Wolbachia	RISB0173	Hemiptera	Antonina pretiosa	Wolbachia	Wolbachia	influences the reproduction of its hosts to facilitate its proliferation and transmission	False	False	False	2.57
+0.79	Wolbachia	RISB0448	Hymenoptera	Trichogramma	Wolbachia	Wolbachia	increased superparasitism by Wolbachia-infected females compared with uninfected females	False	False	False	2.55
+0.79	Wolbachia	RISB0799	Hemiptera	Pseudoregma bambucicola	Wolbachia	Wolbachia	may regulate the loss of sexual reproduction or has a nutritional role in P. bambucicola	False	False	False	2.55
+0.79	Wolbachia	RISB1744	Diptera	Drosophila melanogaster	Wolbachia	Wolbachia	Wolbachia strain wMel changes the composition of gut commensal bacteria in the fruit fly	False	False	False	2.55
+0.79	Wolbachia	RISB2516	Diptera	Drosophila simulans	Wolbachia	Wolbachia wRi	induces very strong cytoplasmic incompatibility in its natural host Drosophila simulans	False	False	False	2.53
+1.47	Clostridium	RISB0028	Lepidoptera	Sesamia inferens	Paraclostridium	Paraclostridium sp. strain NRPSBPS-1	degrade Chlorpyrifos and Chlorantraniliprole in vitro	False	False	False	2.53
+0.79	Wolbachia	RISB2323	Diptera	Aedes albopictus	Wolbachia	Wolbachia wAlbA	induces cytoplasmic incompatibility and blocks dengue transmission in Aedes albopictus	False	False	False	2.51
+0.79	Wolbachia	RISB2324	Diptera	Aedes albopictus	Wolbachia	Wolbachia wAlbB	induces cytoplasmic incompatibility and blocks dengue transmission in Aedes albopictus	False	False	False	2.51
+0.79	Wolbachia	RISB0189	Diptera	Drosophila suzukii	Wolbachia	Wolbachia	Wolbachia positively affected female fecundity and offspring mass after a diet shift	False	False	False	2.47
+0.56	Xenorhabdus	RISB1372	Lepidoptera	Spodoptera frugiperda	Xenorhabdus	Xenorhabdus rhabduscin	the products of the symbiont gene cluster inhibit Spodoptera frugiperda phenoloxidase activity	False	False	False	2.44
+0.79	Wolbachia	RISB1287	Lepidoptera	Chilo suppressalis	Wolbachia	Wolbachia	Wolbachia reduce the susceptibility of C. suppressalis to fipronil and avermectin	False	False	False	2.41
+0.79	Wolbachia	RISB0106	Diptera	Drosophila melanogaster	Wolbachia	Wolbachia wMelPop	The virulent wMelPop can improve the learning and memory capacity of Drosophila.	False	False	False	2.39
+0.79	Wolbachia	RISB0111	Diptera	Aedes aegypti	Wolbachia	Wolbachia strain wAlbB	Dengue reduction increased with Wolbachia frequency to a predicted 75.8% at 100%	False	False	False	2.39
+0.79	Wolbachia	RISB2043	Hemiptera	Homalodisca vitripennis	Wolbachia	Wolbachia ftsZ	likely interact with pathogen Xylella fastidiosa in the cibarium and precibarium	False	False	False	2.39
+0.79	Wolbachia	RISB2073	Hemiptera	Cimex lectularius	Wolbachia	wCle	be essential for host’s growth and reproduction via provisioning of B vitamins	False	False	False	2.35
+0.79	Wolbachia	RISB2352	Lepidoptera	Hypolimnas bolina	Wolbachia	Wolbachia	Male-killing, in which symbionts kill the male progeny of infected females	False	False	False	2.27
+0.79	Wolbachia	RISB2462	Lepidoptera	Hypolimnas bolina	Wolbachia	Wolbachia	Male-killing, in which symbionts kill the male progeny of infected females	False	False	False	2.27
+0.79	Wolbachia	RISB0457	Lepidoptera	Ostrinia furnacalis	Wolbachia	Wolbachia wFur	manipulate the sexual development and reproduction of their insect hosts.	False	False	False	2.25
+0.79	Wolbachia	RISB1445	Hemiptera	Nilaparvata lugens	Wolbachia	Wolbachia	supplement biotin and riboflavin to enhance reproduction in planthoppers	False	False	False	2.23
+0.79	Wolbachia	RISB2309	Lepidoptera	Spodoptera exempta	Wolbachia	Wolbachia	male killing; driving a selective sweep on armyworm haplotype diversity	False	False	False	2.21
+0.79	Wolbachia	RISB1425	Hymenoptera	Formica exsecta	Wolbachia	Wolbachia wFex	show considerable rates of gene transfer from the symbiont to the host	False	False	False	2.19
+0.79	Wolbachia	RISB0569	Hemiptera	Sogatella furcifera	Wolbachia	Wolbachia	reduce microbiome diversity and modify host metabolism and fecundity	False	False	False	2.15
+0.79	Wolbachia	RISB0756	Diptera	Aedes fluviatilis	Wolbachia	Wolbachia	modulates metabolism and immunity during Aedes fluviatilis oogenesis	False	False	False	2.15
+0.79	Wolbachia	RISB1569	Lepidoptera	Phyllonorycter mespilella	Wolbachia	Wolbachia	modulation of plant CK levels is impaired in the Wolbachia-free host	False	False	False	2.15
+0.79	Wolbachia	RISB2121	Diptera	Aedes fluviatilis	Wolbachia	Wolbachia pipientis	A. fluviatilis and Wolbachia may be modulated by glycogen metabolism	False	False	False	2.15
+0.79	Wolbachia	RISB1290	Hemiptera	Nilaparvata lugens	Wolbachia	Wolbachia	enhances expression of NlCYP4CE1 in response to imidacloprid stress	False	False	False	2.13
+0.79	Wolbachia	RISB1935	Lepidoptera	Corcyra cephalonica	Wolbachia	Wolbachia wCcep	induces reproductive incompatibility in the whitefly Bemisia tabaci	False	False	False	2.13
+0.79	Wolbachia	RISB2556	Diptera	Exorista sorbillans	Wolbachia	Wolbachia	Wolbachia infection enhanced the fecundity of Exorista sorbillans	False	False	False	2.09
+0.79	Wolbachia	RISB0011	Hemiptera	Sogatella furcifera	Wolbachia	Wolbachia	significantly decreased the diversity of the microbial community	False	False	False	2.07
+0.79	Wolbachia	RISB2383	Lepidoptera	Euchloe hecabe	Wolbachia	Wolbachia	Complete feminisation of genetic males into functional females	False	False	False	2.03
+0.79	Wolbachia	RISB2384	Lepidoptera	Eurema mandarina	Wolbachia	Wolbachia	Complete feminisation of genetic males into functional females	False	False	False	2.03
+0.56	Xenorhabdus	RISB2270	Hemiptera	Acyrthosiphon pisum	Xenorhabdus	Xenorhabdus bovienii	have the gene PIN1 encoding the protease inhibitor protein against aphids	False	False	False	2.02
+0.79	Wolbachia	RISB0444	Diptera	Culex quinquefasciatus	Wolbachia	Wolbachia	Wolbachia can inhibit the presence of Thorsellia and Serratia	False	False	False	2.01
+0.79	Wolbachia	RISB0678	Diptera	Drosophila melanogaster	Wolbachia	Wolbachia pipientis	Increasing Heat Stress Resistance of Drosophila melanogaster	False	False	False	1.99
+0.79	Wolbachia	RISB0711	Trombidiformes	Fragariocoptes setiger	Wolbachia	Wolbachia	it may have unexpected properties, including gall formation.	False	False	False	1.99
+0.79	Wolbachia	RISB2612	Hymenoptera	Trichogramma bourarachae	Wolbachia	Wolbachia	Wolbachia is associated with a higher fecundity of strains	False	False	False	1.95
+0.79	Wolbachia	RISB0191	Hymenoptera	Trichogramma pretiosum	Wolbachia	Wolbachia	Wolbachia titers are relate to sex determination of host	False	False	False	1.91
+0.79	Wolbachia	RISB2566	Diptera	Ceratitis capitata	Wolbachia	Wolbachia	induced complete cytoplasmic incompatibility in the host	False	False	False	1.91
+0.79	Wolbachia	RISB2321	Lepidoptera	Spodoptera exempta	Wolbachia	Wolbachia	Wolbachia make host more susceptible to viral infection	False	False	False	1.89
+0.79	Wolbachia	RISB1289	Hemiptera	Laodelphax striatellus	Wolbachia	Wolbachia	supply biotin and riboflavin to enhance reproduction	False	False	False	1.83
+0.79	Wolbachia	RISB1656	Hemiptera	Bemisia tabaci	Wolbachia	Wolbachia	leads to female bias and may affect host resistance	False	False	False	1.81
+0.79	Wolbachia	RISB0400	Phthiraptera	Menacanthus eurysternus	Wolbachia	Wolbachia	a causative agent of cytoplasmic incompatibility	False	False	False	1.75
+0.79	Wolbachia	RISB0414	Hemiptera	Melanaphis sacchari	Wolbachia	Wolbachia	involved in feminization and parthenogenesis	False	False	False	1.67
+0.79	Wolbachia	RISB2342	Hymenoptera	Nasonia giraulti	Wolbachia	Wolbachia pipientis	Increase mate acceptance of infected females	False	False	False	1.67
+0.79	Wolbachia	RISB1443	Diptera	Neoceratitis asiatica	Wolbachia	Wolbachia	induce complete cytoplasmic incompatibility	False	False	False	1.65
+0.79	Wolbachia	RISB2314	Diptera	Culex pipiens	Wolbachia	Wolbachia	induces cytoplasmic incompatibility (CI)	False	False	False	1.59
+0.79	Wolbachia	RISB0178	Lepidoptera	Spodoptera frugiperda	Wolbachia	Wolbachia	inducing cytoplasmic incompatibility	False	False	False	1.51
+0.79	Wolbachia	RISB2540	Blattodea	Supella longipalpa	Wolbachia	Wolbachia	induces reproductive incompatibility	False	False	False	1.51
+0.79	Wolbachia	RISB2611	Lepidoptera	Acraea encedon	Wolbachia	Wolbachia	kill male hosts during embryogenesis	False	False	False	1.51
+0.79	Wolbachia	RISB2617	Diptera	Aedes albopictus	Wolbachia	Wolbachia pipientis	induces cytoplasmic incompatibility	False	False	False	1.49
+0.79	Wolbachia	RISB2618	Diptera	Culex pipiens	Wolbachia	Wolbachia pipientis	induces cytoplasmic incompatibility	False	False	False	1.49
+0.79	Wolbachia	RISB2619	Diptera	Drosophila simulans	Wolbachia	Wolbachia pipientis	induces cytoplasmic incompatibility	False	False	False	1.49
+0.79	Wolbachia	RISB2620	Diptera	Drosophila simulans	Wolbachia	Wolbachia pipientis	induces cytoplasmic incompatibility	False	False	False	1.49
+0.79	Wolbachia	RISB1201	Diptera	Rhagoletis cerasi	Wolbachia	Wolbachia	causes cytoplasmic incompatibility	False	False	False	1.47
+0.79	Wolbachia	RISB1202	Diptera	Drosophila simulans	Wolbachia	Wolbachia pipientis	causes cytoplasmic incompatibility	False	False	False	1.47
+0.79	Wolbachia	RISB2589	Hymenoptera	Cotesia sesamiae	Wolbachia	Wolbachia	causes cytoplasmic incompatibility	False	False	False	1.47
+1.47	Clostridium	RISB1959	Hemiptera	Pyrrhocoridae	Clostridium	Clostridium	None	False	False	False	1.47
+0.79	Wolbachia	RISB1432	Diptera	Culex pipiens	Wolbachia	Wolbachia	alter host reproductive behavior	False	False	False	1.43
+0.79	Wolbachia	RISB2501	Hymenoptera	Encarsia inaron	Wolbachia	Wolbachia	Wolbachia caused CI in E. inaron	False	False	False	1.43
+0.79	Wolbachia	RISB0955	Hymenoptera	Cephalcia chuxiongica	Wolbachia	Wolbachia	associated with parthenogenesis	False	False	False	1.41
+0.79	Wolbachia	RISB1647	Hymenoptera	Trichogramma brassicae	Wolbachia	Wolbachia	Decrease of memory retention	False	False	False	1.35
+0.79	Wolbachia	RISB1045	Lepidoptera	Homona magnanima	Wolbachia	Wolbachia	partial strain male killing	False	False	False	1.33
+0.79	Wolbachia	RISB1441	Diptera	Lutzomyia evansi	Wolbachia	Wolbachia	regulate host reproduction	False	False	False	1.31
+0.79	Wolbachia	RISB2072	Hemiptera	Cimex lectularius	Wolbachia	Wolbachia sp.	Provisioning of B vitamins	False	False	False	1.31
+0.79	Wolbachia	RISB1237	Diptera	Aedes aegypti	Wolbachia	Wolbachia	Increase dopamine levels	False	False	False	1.27
+0.79	Wolbachia	RISB0033	Hemiptera	Cimex lectularius	Wolbachia	Wolbachia wCle	supplying B vitamins	False	False	False	1.19
+0.85	Candidatus Profftia	RISB1664	Hemiptera	Adelgidae	Candidatus Profftia	Candidatus Profftia spp.	None	False	False	False	0.85
+0.79	Wolbachia	RISB0036	Diptera	Aedes aegypti	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0239	Thysanoptera	Frankliniella intonsa	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0255	Hymenoptera	Camponotus pennalicus	Wolbachia	Wolbachia pipientis	None	False	False	False	0.79
+0.79	Wolbachia	RISB0285	Hymenoptera	Formica	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0373	Lepidoptera	Tuta absoluta	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0408	Hymenoptera	Homalotylus sp.	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0409	Hymenoptera	Oomyzus scaposus	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0410	Hymenoptera	Tetrastichus epilachnae	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0434	Hemiptera	Agonoscena pistaciae	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0445	Blattodea	Blattella germanica	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0446	Blattodea	Periplaneta americana	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0461	Hymenoptera	Spalangia cameroni	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0534	Orthoptera	Velarifictorus micado	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0535	Orthoptera	Velarifictorus aspersus	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0536	Orthoptera	Velarifictorus khasiensis	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0537	Orthoptera	Teleogryllus emma	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0538	Orthoptera	Teleogryllus occipitalis	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0539	Orthoptera	Teleogryllus infernalis	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0540	Orthoptera	Teleogryllus mitratus	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0541	Orthoptera	Loxoblemmus sp.	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0542	Orthoptera	Loxoblemmus angulatus	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0543	Orthoptera	Loxoblemmus doenitzi	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0544	Orthoptera	Loxoblemmus taicoun	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0545	Orthoptera	Loxoblemmus jacobsoni	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0546	Orthoptera	Loxoblemmus montanus	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0547	Orthoptera	Mitius minor	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0548	Orthoptera	Dianemobius sp.	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0549	Orthoptera	Polionemobius taprobanensis	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0550	Orthoptera	Comidoblemmus nipponensis	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0571	Hemiptera	Rheumatobates mangrovensis	Wolbachia	Wolbachia wRmang	None	False	False	False	0.79
+0.79	Wolbachia	RISB0572	Hemiptera	Limnogonus franciscanus	Wolbachia	Wolbachia wLfran	None	False	False	False	0.79
+0.79	Wolbachia	RISB0629	Thysanoptera	Frankliniella intonsa	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0637	Hemiptera	Diaphorina citri	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0751	Hemiptera	Diaphorina citri	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0852	Hemiptera	Philaenus spumarius	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0853	Hemiptera	Philaenus signatus	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0889	Hemiptera	Anoecia corni	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0895	Hemiptera	Diaphorina citri	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0965	Hemiptera	Diaphorina citri	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB0996	Hemiptera	Cimex hemipterus	Wolbachia	Wolbachia massiliensis sp. Nov	None	False	False	False	0.79
+0.79	Wolbachia	RISB1076	Diptera	Mayetiola destructor	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB1090	Hemiptera	Aleurocanthus spiniferus	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB1115	Hemiptera	Pentalonia nigronervosa	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB1189	Hemiptera	Kaburagia rhusicola	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB1190	Hemiptera	Schlechtendalia chinensis	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB1191	Hemiptera	Pemphigus yunnanensis	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB1266	Hemiptera	Platygerris assimetricus	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB1267	Hemiptera	Potamobates horvathi	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB1268	Hemiptera	Potamobates tridentatus	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB1269	Hemiptera	Rheumatobates bergrothi	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB1270	Hemiptera	Rheumatobates ornatus	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB1271	Hemiptera	Telmatometra withei	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB1288	Lepidoptera	Lobesia botrana	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB1349	Hymenoptera	Paratrechina longicornis	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB1615	Diptera	Orseolia oryzae	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB1713	Diptera	Phlebotomus papatasi	Wolbachia	Wolbachia sp.	None	False	False	False	0.79
+0.79	Wolbachia	RISB1716	Hemiptera	Bemisia tabaci	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB1825	Thysanoptera	Thrips palmi	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB1965	Diptera	Aedes albopictus	Wolbachia	Wolbachia pipientis	None	False	False	False	0.79
+0.79	Wolbachia	RISB2046	Hemiptera	Trialeurodes sp.	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB2317	Diptera	Anastrepha striata	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB2343	Lepidoptera	Chilo suppressalis	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB2374	Diptera	Pseudolynchia canariensis	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB2586	Hemiptera	Hishimonoides sellatiformis	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.79	Wolbachia	RISB2587	Hemiptera	Hishimonus sellatus	Wolbachia	Wolbachia	None	False	False	False	0.79
+0.25	Gilliamella	RISB0620	Lepidoptera	Spodoptera frugiperda	Gilliamella	Gilliamella	degrade amygdalin	False	False	False	0.59
+0.51	Vagococcus	RISB0042	Diptera	Aldrichina grahami	Vagococcus	Vagococcus	None	False	False	False	0.51
+0.44	Flavobacterium	RISB0659	Hemiptera	Melanaphis bambusae	Flavobacterium	Flavobacterium johnsoniae	None	False	False	False	0.44
+0.25	Gilliamella	RISB1945	Hymenoptera	Apis cerana	Gilliamella	Gilliamella apicola	None	False	False	False	0.25
+0.19	Cupriavidus	RISB0694	Hemiptera	Alydus tomentosus	Cupriavidus	Cupriavidus pauculus	None	False	False	False	0.19
+0.17	Yersinia	RISB0407	Hymenoptera	Anaphes nitens	Yersinia	Yersinia massiliensis	None	False	False	False	0.17
+0.17	Yersinia	RISB1322	Hymenoptera	Vespa mandarinia	Yersinia	Yersinia	None	False	False	False	0.17
+0.17	Yersinia	RISB1323	Hymenoptera	Vespa simillima	Yersinia	Yersinia	None	False	False	False	0.17
+0.15	Legionella	RISB1687	Phthiraptera	Polyplax serrata	Legionella	Candidatus Legionella polyplacis	None	False	False	False	0.15
