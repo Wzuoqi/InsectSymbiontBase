@@ -32,9 +32,11 @@
                 <div>
                     <div class="flex items-center gap-4 mb-2">
                         <h1 class="italic text-3xl font-bold text-gray-800">{{ host.species }}</h1>
+                        {% if host.common_name %}
                         <span class="px-3 py-1 text-sm bg-kabuli-50 text-kabuli-700 rounded-full">
-                            {{ host.common_name|default:"Scientific name only" }}
+                            {{ host.common_name }}
                         </span>
+                        {% endif %}
                     </div>
                 </div>
 
@@ -100,10 +102,19 @@
 
             <!-- 右侧：图片 -->
             <div class="ml-8 flex-shrink-0">
-                <div class="w-80 h-48 rounded-lg overflow-hidden shadow-md">
-                    <img src="{% static 'img/Osmia_bicornis.jpg' %}"
-                         alt="{{ host.species }}"
-                         class="w-full h-full object-cover">
+                <div class="w-80 space-y-2">
+                    <div class="h-64 rounded-lg overflow-hidden shadow-md">
+                        <img src="{% static image_path %}"
+                             alt="{{ host.species }}"
+                             class="w-full h-full object-cover"
+                             onerror="this.onerror=null;this.src='{% static default_image %}'">
+                    </div>
+                    {% if host.figure_source %}
+                    <div class="text-xs text-gray-500 text-center">
+                        <span class="icon-[heroicons--photo] mr-1"></span>
+                        Image source: {{ host.figure_source }}
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -111,9 +122,14 @@
         <!-- 描述信息 -->
         <div class="p-6 border-b border-gray-100">
             <div class="prose max-w-none">
-                <p class="text-gray-600">
-                    {{ host.description|default:"No description available for this species." }}
-                </p>
+                {% if host.description %}
+                    <p class="text-gray-600">{{ host.description }}</p>
+                {% else %}
+                    <div class="text-gray-400 italic">
+                        <span class="icon-[heroicons--information-circle] mr-2"></span>
+                        No description available for this species
+                    </div>
+                {% endif %}
             </div>
         </div>
 
@@ -122,78 +138,51 @@
             <div class="flex justify-between items-center mb-4">
                 <div class="flex items-center gap-2">
                     <h2 class="text-xl font-semibold text-gray-800">Host Genome</h2>
-                    <div class="relative group">
-                        <button class="text-gray-400 hover:text-gray-600">
-                            <span class="icon-[heroicons--question-mark-circle] w-5 h-5"></span>
-                        </button>
-                        <div class="absolute left-0 mt-2 w-72 bg-white shadow-lg rounded-lg p-4 text-sm text-gray-600 invisible group-hover:visible transition-all duration-200 z-10 border border-gray-100">
-                            <div class="space-y-2">
-                                <p><span class="font-semibold">Data Source:</span> Genome assemblies and annotations are collected from NCBI and InsectBase database.</p>
-                                <p><span class="font-semibold">BUSCO Score:</span> Quality assessment using BUSCO v5.4.3 against insecta_odb10 database.</p>
-                                <div class="text-xs text-gray-500 mt-2">
-                                    C: Complete, S: Single-copy, D: Duplicated,<br>
-                                    F: Fragmented, M: Missing, n: Total BUSCO groups
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% if host.genome_id %}
+                    <span class="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-full">
+                        {{ host.genome_level|default:"Assembly" }}
+                    </span>
+                    {% endif %}
                 </div>
             </div>
+
+            {% if host.genome_id or host.busco %}
             <div class="overflow-x-auto rounded-lg border border-gray-200">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead>
                         <tr class="bg-gray-50">
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6">Species</th>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/12">Genome</th>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/12">Annotation</th>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6">Source</th>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/12">Level</th>
-                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Busco</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Genome ID</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Level</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">BUSCO Assessment</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        <tr class="hover:bg-gray-50 transition duration-150">
-                            <td class="px-4 py-3 whitespace-nowrap">
-                                <a href="#" class="text-kabuli-600 hover:text-kabuli-800 transition duration-150">Osmia bicornis</a>
+                        <tr>
+                            <td class="px-4 py-3 font-mono text-gray-900">
+                                {{ host.genome_id|default:"-" }}
                             </td>
-                            <td class="px-4 py-3 whitespace-nowrap">
-                                <a href="#" class="inline-flex items-center text-kabuli-600 hover:text-kabuli-800 transition duration-150">
-                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                                    </svg>
-                                    FTP
-                                </a>
+                            <td class="px-4 py-3 text-gray-600">
+                                {{ host.genome_level|default:"-" }}
                             </td>
-                            <td class="px-4 py-3 whitespace-nowrap">
-                                <a href="#" class="inline-flex items-center text-kabuli-600 hover:text-kabuli-800 transition duration-150">
-                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                                    </svg>
-                                    FTP
-                                </a>
-                            </td>
-                            <td class="px-4 py-3 whitespace-nowrap">
-                                <span class="text-gray-600">
-                                    GCA_009835225.1
-                                </span>
-                            </td>
-                            <td class="px-4 py-3 whitespace-nowrap text-gray-600">Scaffold</td>
-                            <td class="px-4 py-3 text-gray-600 font-mono text-sm">
-                                <div class="flex items-center gap-1">
-                                    <span class="text-green-600">C:99.78%</span>
-                                    <span>[</span>
-                                    <span class="text-green-600">S:98.76%</span>,
-                                    <span class="text-yellow-600">D:1.02%</span>
-                                    <span>],</span>
-                                    <span class="text-yellow-600">F:0.15%</span>,
-                                    <span class="text-red-600">M:0.07%</span>,
-                                    <span class="text-gray-500">n:1367</span>
+                            <td class="px-4 py-3">
+                                {% if host.busco %}
+                                <div class="font-mono text-sm text-gray-900">
+                                    {{ host.busco }}
                                 </div>
+                                {% else %}
+                                <span class="text-gray-400">-</span>
+                                {% endif %}
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            {% else %}
+            <div class="text-center py-8 text-gray-400">
+                <span class="icon-[heroicons--information-circle] mr-2"></span>
+                No genome information available
+            </div>
+            {% endif %}
         </div>
     </div>
 

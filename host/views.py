@@ -213,8 +213,12 @@ def species_detail(request, species):
         else:
             symbiont.function_tags = []
 
+    # 在context中添加图片路径
+    image_filename = f"{host.species.replace(' ', '_')}.jpg"
     context = {
         'host': host,
+        'image_path': f'img/host/{image_filename}',
+        'default_image': 'img/host/default_host.jpg',
         'related_symbionts': related_symbionts,
         'related_metagenomes': related_metagenomes,
         'related_amplicons': related_amplicons,

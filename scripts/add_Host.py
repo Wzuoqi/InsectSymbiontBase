@@ -20,6 +20,10 @@ django.setup()
 from host.models import Host
 from django.db import IntegrityError
 
+def process_none(value):
+    """将'None'字符串转换为Python None"""
+    return None if str(value).lower() == 'none' else value
+
 def main():
     # 删除所有现有的 Host 记录
     deleted_count = Host.objects.all().delete()[0]
@@ -29,7 +33,7 @@ def main():
     error_count = 0
 
     try:
-        with open('./data/hosts241224.tab', 'r', encoding='UTF-8') as file:
+        with open('./data/hosts250124.tab', 'r', encoding='UTF-8') as file:
             # 跳过标题行
             header = file.readline().strip()
 
@@ -37,24 +41,31 @@ def main():
                 try:
                     # 分割数据行
                     values = line.strip().split('\t')
-                    if len(values) != 5 or not line.strip():  # 跳过空行和格式不正确的行
+                    if len(values) != 11 or not line.strip():  # 更新字段数量检查
+                        print(f"跳过第 {line_number} 行: 字段数量不符 ({len(values)}/11)")
+                        error_count += 1
                         continue
 
-                    # 解析数据
-                    species, order, family, subfamily, genus = values
-
-                    # 处理 'None' 值
-                    subfamily = None if subfamily.lower() == 'none' else subfamily
+                    # 解析数据（根据实际字段顺序调整索引）
+                    (
+                        species, order, family, subfamily, genus,
+                        common_name, description, figure_source,
+                        genome_id, genome_level, busco
+                    ) = values
 
                     # 创建 Host 记录
                     host_data = {
                         'species': species,
                         'order': order,
                         'family': family,
-                        'subfamily': subfamily,
+                        'subfamily': process_none(subfamily),
                         'genus': genus,
-                        'common_name': '',  # 设置默认空字符串
-                        'description': ''   # 设置默认空字符串
+                        'common_name': process_none(common_name) or '',
+                        'description': process_none(description) or '',
+                        'figure_source': process_none(figure_source),
+                        'genome_id': process_none(genome_id),
+                        'genome_level': process_none(genome_level),
+                        'busco': process_none(busco)
                     }
 
                     # 创建新的 Host 对象
@@ -70,6 +81,7 @@ def main():
                     print(f"错误：处理第 {line_number} 行时出现问题:")
                     print(f"  错误类型: {type(e).__name__}")
                     print(f"  错误信息: {str(e)}")
+                    print(f"  原始数据: {line.strip()}")
                     error_count += 1
 
         print(f"\n数据导入完成:")
