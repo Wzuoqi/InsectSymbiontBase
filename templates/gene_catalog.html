@@ -1,0 +1,334 @@
+{% extends "base.html" %}
+
+{% block Part1 %}
+
+<!-- Title and Introduction Section with Statistics -->
+<section class="container px-4 mx-auto mt-10">
+    <div class="flex flex-col lg:flex-row items-start justify-between gap-8 mb-12">
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-4">
+                <h1 class="text-4xl font-bold text-kabuli-900 dark:text-white">Gene Catalog</h1>
+                <span class="px-3 py-1 text-xs text-kabuli-600 bg-kabuli-100 rounded-full dark:bg-gray-800 dark:text-kabuli-400">15,045,111 genes</span>
+            </div>
+            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed max-w-4xl">
+                A comprehensive collection of protein coding genes from 713 organisms. Our database provides detailed information about gene functions, annotations, and cross-references to major biological databases.
+            </p>
+        </div>
+        <div class="grid grid-cols-2 gap-4 lg:w-auto w-full">
+            <div class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+                <span class="block text-2xl font-bold text-kabuli-700 dark:text-kabuli-400">713</span>
+                <span class="text-sm text-gray-600 dark:text-gray-400">Organisms</span>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+                <span class="block text-2xl font-bold text-kabuli-700 dark:text-kabuli-400">15M+</span>
+                <span class="text-sm text-gray-600 dark:text-gray-400">Total Genes</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Search Section -->
+<section class="container px-4 mx-auto">
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <!-- Basic Search -->
+        <div class="flex flex-col gap-4">
+            <div class="relative">
+                <input type="text"
+                       placeholder="Enter gene description, e.g., P450, Odorant receptor"
+                       class="w-full pl-14 pr-4 py-3 text-gray-700 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                       style="padding-left: 3.5rem;">
+                <div class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center w-6">
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Advanced Search Toggle -->
+            <div class="flex items-center justify-between">
+                <button type="button"
+                        onclick="toggleAdvancedSearch()"
+                        class="flex items-center gap-2 text-sm text-kabuli-600 hover:text-kabuli-700 dark:text-kabuli-400 dark:hover:text-kabuli-300">
+                    <span>Advanced Search</span>
+                    <svg id="chevron" class="w-4 h-4 transition-transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+                <button type="submit" class="px-6 py-2 bg-kabuli-600 text-white rounded-lg hover:bg-kabuli-700 transition-colors">
+                    Search
+                </button>
+            </div>
+
+            <!-- Advanced Search Options -->
+            <div id="advancedSearch" class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Organism</label>
+                        <select class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            <option>All Organisms</option>
+                            <option>Insect</option>
+                            <option>Plant</option>
+                            <option>Bacteria</option>
+                            <option>Fungus</option>
+                            <option>Virus</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Gene Symbol</label>
+                        <input type="text" placeholder="e.g., CYP6B1" class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">UniProt ID</label>
+                        <input type="text" placeholder="e.g., Q9VCA9" class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Pfam Domain</label>
+                        <input type="text" placeholder="e.g., PF00067" class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Gene Word Cloud Section -->
+<section class="container px-4 mx-auto mt-6">
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h2 class="text-lg font-semibold text-gray-700 dark:text-white">Popular Genes</h2>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Click on any gene which you may interested in</p>
+            </div>
+        </div>
+        <div id="geneCloud" class="h-80"></div>
+    </div>
+</section>
+
+<!-- JavaScript for Advanced Search Toggle -->
+<script>
+function toggleAdvancedSearch() {
+    const advancedSearch = document.getElementById('advancedSearch');
+    const chevron = document.getElementById('chevron');
+    advancedSearch.classList.toggle('hidden');
+    chevron.classList.toggle('rotate-180');
+}
+
+// Remove the initial hidden class when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    const advancedSearch = document.getElementById('advancedSearch');
+    const chevron = document.getElementById('chevron');
+    // Make sure advanced search is visible by default
+    advancedSearch.classList.remove('hidden');
+    // Make sure chevron is rotated to show expanded state
+    chevron.classList.add('rotate-180');
+});
+</script>
+
+<!-- ECharts Word Cloud Script -->
+<script>
+// 简化的 ECharts 加载函数
+function loadECharts() {
+    return new Promise((resolve, reject) => {
+        if (window.echarts) {
+            // 如果已经加载了词云图插件，直接返回
+            if (window.echarts.wordCloud) {
+                resolve(window.echarts);
+                return;
+            }
+        }
+
+        // 加载主要的 ECharts 库
+        const script = document.createElement('script');
+        script.src = '/static/js/echarts.min.js';
+
+        // 加载词云图插件
+        const wordCloudScript = document.createElement('script');
+        wordCloudScript.src = '/static/js/echarts-wordcloud.min.js';
+
+        script.onload = () => {
+            wordCloudScript.onload = () => resolve(window.echarts);
+            document.head.appendChild(wordCloudScript);
+        };
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
+
+// 声明图表实例
+let geneCloudChart = null;
+
+async function initCharts() {
+    try {
+        const echarts = await loadECharts();
+        const darkMode = document.documentElement.classList.contains('dark');
+        const textColor = darkMode ? '#e5e7eb' : '#374151';
+
+        // 词云图配色方案
+        const wordCloudColors = [
+            '#1e40af', // 深蓝色
+            '#3730a3', // 深靛蓝色
+            '#5b21b6', // 深紫色
+            '#2563eb', // 亮蓝色
+            '#4f46e5', // 亮靛蓝色
+            '#7c3aed'  // 亮紫色
+        ];
+
+        // Gene Cloud Chart
+        const chartDom = document.getElementById('geneCloud');
+        if (!chartDom) return;
+
+        geneCloudChart = echarts.init(chartDom);
+
+        const option = {
+            tooltip: {
+                show: false
+            },
+            series: [{
+                type: 'wordCloud',
+                shape: 'circle',
+                left: 'center',
+                top: 'center',
+                width: '90%',
+                height: '90%',
+                right: null,
+                bottom: null,
+                sizeRange: [16, 32],
+                rotationRange: [-30, 30],
+                rotationStep: 45,
+                gridSize: 15,
+                drawOutOfBound: false,
+                layoutAnimation: false,
+                textStyle: {
+                    fontFamily: 'Inter, system-ui, sans-serif',
+                    fontWeight: 'normal',
+                    color: function() {
+                        return wordCloudColors[Math.floor(Math.random() * wordCloudColors.length)];
+                    }
+                },
+                emphasis: {
+                    focus: 'self',
+                    textStyle: {
+                        fontWeight: 'normal',
+                        shadowBlur: 5,
+                        shadowColor: 'rgba(0, 0, 0, 0.2)'
+                    }
+                },
+                blur: {
+                    textStyle: {
+                        opacity: 0.3
+                    }
+                },
+                data: [
+                    // 基因家族
+                    { name: "Cytochrome P450", value: 1000 },
+                    { name: "Odorant receptor", value: 950 },
+                    { name: "Heat shock protein", value: 900 },
+                    { name: "Glutathione S-transferase", value: 850 },
+                    { name: "ATP-binding cassette", value: 800 },
+                    { name: "Serine protease", value: 780 },
+                    { name: "Cuticular protein", value: 760 },
+                    { name: "Chemosensory protein", value: 740 },
+
+                    // 酶类
+                    { name: "Carboxylesterase", value: 720 },
+                    { name: "Lipase", value: 700 },
+                    { name: "Chitinase", value: 680 },
+                    { name: "Trehalase", value: 660 },
+                    { name: "Amylase", value: 640 },
+                    { name: "Phosphatase", value: 620 },
+                    { name: "Dehydrogenase", value: 600 },
+
+                    // 激素和受体
+                    { name: "Juvenile hormone", value: 580 },
+                    { name: "Vitellogenin", value: 560 },
+                    { name: "Hormone receptor", value: 540 },
+                    { name: "Nuclear receptor", value: 520 },
+                    { name: "Insulin receptor", value: 500 },
+
+                    // 免疫相关
+                    { name: "Defensin", value: 480 },
+                    { name: "Antimicrobial peptide", value: 460 },
+                    { name: "Toll-like receptor", value: 440 },
+                    { name: "Immune protein", value: 420 },
+                    { name: "Lysozyme", value: 400 },
+
+                    // 转运蛋白
+                    { name: "Sugar transporter", value: 380 },
+                    { name: "Ion channel", value: 360 },
+                    { name: "Amino acid transporter", value: 340 },
+                    { name: "Membrane protein", value: 320 },
+
+                    // 信号通路
+                    { name: "Kinase", value: 300 },
+                    { name: "G protein", value: 280 },
+                    { name: "Signal peptide", value: 260 },
+                    { name: "Growth factor", value: 240 },
+
+                    // 结构蛋白
+                    { name: "Actin", value: 220 },
+                    { name: "Tubulin", value: 200 },
+                    { name: "Myosin", value: 180 },
+                    { name: "Collagen", value: 160 },
+
+                    // 转录因子
+                    { name: "Zinc finger", value: 140 },
+                    { name: "Transcription factor", value: 120 },
+                    { name: "Homeobox", value: 100 },
+
+                    // 其他重要蛋白
+                    { name: "Ubiquitin", value: 90 },
+                    { name: "Ribosomal protein", value: 85 },
+                    { name: "Chaperone", value: 80 },
+                    { name: "Proteasome", value: 75 },
+                    { name: "Histone", value: 70 }
+                ].map(item => ({
+                    name: item.name,
+                    value: item.value,
+                    textStyle: {
+                        color: wordCloudColors[Math.floor(Math.random() * wordCloudColors.length)]
+                    }
+                }))
+            }]
+        };
+
+        geneCloudChart.setOption(option);
+
+        // 响应窗口大小变化
+        window.addEventListener('resize', function() {
+            geneCloudChart && geneCloudChart.resize();
+        });
+
+        // 响应暗色模式变化
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.attributeName === 'class' && geneCloudChart) {
+                    geneCloudChart.dispose();
+                    geneCloudChart = echarts.init(chartDom);
+                    geneCloudChart.setOption(option);
+                }
+            });
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+
+    } catch (error) {
+        console.error('Failed to initialize gene cloud:', error);
+        const cloudContainer = document.getElementById('geneCloud');
+        if (cloudContainer) {
+            cloudContainer.innerHTML = '<div class="text-center p-4 text-gray-500">Failed to load gene cloud. Please refresh the page.</div>';
+        }
+    }
+}
+
+// 在 DOM 加载完成后初始化
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCharts);
+} else {
+    initCharts();
+}
+</script>
+
+{% endblock %}

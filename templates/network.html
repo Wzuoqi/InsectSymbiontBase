@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block Part1 %}
 <section class="container mx-auto p-6">
@@ -54,7 +55,7 @@
     <div class="mt-4" id="main"></div>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script src="{% static 'js/echarts.min.js' %}"></script>
     <script src="/static/js/network-data.js"></script>
     <script>
         var chartDom = document.getElementById('main');
