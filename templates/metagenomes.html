@@ -8,8 +8,8 @@
     <!-- Header Section -->
     <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
         <div class="flex-1">
-            <h1 class="text-4xl font-bold text-cyan-900 dark:text-white mb-4">Metagenome</h1>
-            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed max-w-4xl">
+            <h1 class="text-4xl font-bold text-cyan-900 dark:text-cyan-800 mb-4">Metagenome</h1>
+            <p class="text-sm text-gray-600 dark:text-gray-600 leading-relaxed max-w-4xl">
                 Our database currently contains <span class="font-semibold text-cyan-700"> 1338 </span> metagenome samples,
                 covering various insect species and their microbial communities across different geographical locations and sequencing platforms.
                 The raw data were first quality-controlled using Fastp, followed by taxonomic composition analysis through
@@ -62,12 +62,12 @@
         <div>
             <div class="flex items-center gap-x-3">
                 <!-- Title for the metagenomes section -->
-                <h2 class="text-xl font-bold text-cyan-800 dark:text-white">Metagenomes</h2>
+                <h2 class="text-xl font-bold text-cyan-800 dark:text-cyan-800">Metagenomes</h2>
                 <!-- Display the total count of records -->
                 <span class="px-3 py-1 text-xs text-cyan-600 bg-cyan-100 rounded-full dark:bg-gray-800 dark:text-cyan-400">{{ page_obj.paginator.count }} records</span>
             </div>
             <!-- Brief description of the metagenome records -->
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">Metagenome records associated with insect symbionts from public databases worldwide.</p>
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-600">Metagenome records associated with insect symbionts from public databases worldwide.</p>
         </div>
 
         <div class="flex items-center mt-4 gap-x-3">
@@ -169,9 +169,11 @@
                                 </td>
                                 <td class="px-4 py-4 text-gray-700 text-sm whitespace-nowrap">
                                     {% if metagenome.biosample and metagenome.biosample != "NA" %}
+                                    <h4 class="text-gray-700 dark:text-gray-200">
                                         {{ metagenome.biosample }}
+                                    </h4>
                                     {% else %}
-                                        <span class="text-gray-400 dark:text-gray-500 italic">-</span>
+                                        <span class="text-gray-400 dark:text-gray-200 italic">-</span>
                                     {% endif %}
                                 </td>
                                 <td class="px-4 py-4 text-sm whitespace-nowrap">
@@ -190,19 +192,22 @@
                                                 {{ metagenome.geo_loc_name_country }} - {{ metagenome.geo_loc_name_country_continent }}
                                             </h4>
                                         {% else %}
-                                            <h4 class="text-gray-400 dark:text-gray-500 italic">-</h4>
+                                            <h4 class="text-gray-400 dark:text-gray-200 italic">-</h4>
                                         {% endif %}
                                     </div>
                                 </td>
                                 <td class="px-4 py-4 text-sm whitespace-nowrap">
+
                                     {% if metagenome.collection_date and metagenome.collection_date != 'NA' %}
+                                    <h4 class="text-gray-700 dark:text-gray-200">
                                         {% if metagenome.collection_date|length >= 4 %}
                                             {{ metagenome.collection_date|slice:":4" }}
                                         {% else %}
                                             {{ metagenome.collection_date }}
                                         {% endif %}
+                                    </h4>
                                     {% else %}
-                                        <span class="text-gray-400 dark:text-gray-500 italic"> - </span>
+                                        <span class="text-gray-400 dark:text-gray-200 italic"> - </span>
                                     {% endif %}
                                 </td>
                                 <td class="px-4 py-4 text-sm whitespace-nowrap">
