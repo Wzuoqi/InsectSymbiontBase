@@ -671,6 +671,46 @@
         </div>
     </div>
 
+    <!-- Core Symbiont Composition -->
+    {% if has_core_taxa %}
+    <div id="core-symbionts" class="bg-white shadow-lg rounded-lg p-6">
+        <div class="flex flex-col gap-4 mb-6">
+            <div>
+                <div class="flex items-center gap-x-3">
+                    <h2 class="text-2xl font-semibold text-gray-800">Core Microbiome Composition</h2>
+                </div>
+                <p class="mt-1 text-sm text-gray-500">
+                    Core microbiome composition is derived from available metagenomic and amplicon sequencing data, calculated based on the relative abundance and coverage of symbionts across different samples. The representativeness of this analysis may vary depending on the number of available samples and should be considered as a reference guide.
+                    <a href="/help#core-microbiome" class="inline-flex items-center gap-1 text-kabuli-600 hover:text-kabuli-800 hover:underline mt-2">
+                        <span class="icon-[heroicons--information-circle]"></span>
+                        <span>See calculation details in Help documentation</span>
+                        <span class="icon-[heroicons--arrow-top-right-on-square-20-solid] text-xs"></span>
+                    </a>
+                </p>
+            </div>
+        </div>
+
+        {% if has_krona_data %}
+        <!-- Krona Chart -->
+        <div class="bg-gray-50 rounded-lg p-4">
+            <h3 class="text-lg font-medium text-gray-800 mb-4">Interactive Taxonomy Visualization</h3>
+            <div class="h-[600px]">
+                <iframe src="{% static krona_html_path %}"
+                        class="w-full h-full rounded-lg border border-gray-200"
+                        frameborder="0">
+                </iframe>
+            </div>
+        </div>
+        {% else %}
+        <div class="text-center py-12">
+            <span class="icon-[heroicons--chart-pie] w-12 h-12 text-gray-300 mx-auto mb-4 block"></span>
+            <h3 class="text-lg font-medium text-gray-900 mb-1">No core symbiont data available</h3>
+            <p class="text-gray-500">Core microbiome composition data is not available for this species.</p>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
     <script>
         // 为metagenome、amplicon和article添加过滤功能
         ['metagenome', 'amplicon', 'article'].forEach(type => {

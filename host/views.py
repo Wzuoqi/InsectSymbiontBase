@@ -10,6 +10,8 @@ import json
 from collections import Counter
 from django.db.models.functions import Substr, StrIndex
 from article.models import Article
+import os
+from django.conf import settings
 
 # 添加 TAG_COLORS 作为全局变量
 TAG_COLORS = {
@@ -215,6 +217,25 @@ def species_detail(request, species):
 
     # 在context中添加图片路径
     image_filename = f"{host.species.replace(' ', '_')}.jpg"
+
+    # 添加核心共生菌组成相关的文件路径
+    species_underscore = host.species.replace(' ', '_')
+    species_core_taxa_dir = os.path.join(settings.STATICFILES_DIRS[0], 'core_taxa', species_underscore)
+
+    # 检查物种的core_taxa目录是否存在
+    has_core_taxa = os.path.exists(species_core_taxa_dir)
+
+    # 初始化变量
+    has_krona_data = False
+    krona_html_path = None
+
+    # 只有在目录存在时才进行后续处理
+    if has_core_taxa:
+        krona_html_path = f'core_taxa/{species_underscore}/{species_underscore}.krona.html'
+
+        # 检查文件是否存在（在common_static目录下）
+        has_krona_data = os.path.exists(os.path.join(settings.STATICFILES_DIRS[0], krona_html_path))
+
     context = {
         'host': host,
         'image_path': f'img/host/{image_filename}',
@@ -223,6 +244,10 @@ def species_detail(request, species):
         'related_metagenomes': related_metagenomes,
         'related_amplicons': related_amplicons,
         'related_articles': related_articles,
+        # 添加核心共生菌相关的上下文
+        'has_core_taxa': has_core_taxa,
+        'has_krona_data': has_krona_data,
+        'krona_html_path': krona_html_path if has_krona_data else None,
     }
 
     return render(request, 'host/species_detail.html', context)
