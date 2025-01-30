@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from django.core.paginator import Paginator
 from .models import Gene
@@ -9,7 +9,7 @@ def genes(request):
     source_id = request.GET.get('source_id', '').strip()
     nr_id = request.GET.get('nr_id', '').strip()
     nr_annotation = request.GET.get('nr_annotation', '').strip()
-    nr_species = request.GET.get('nr_species', '').strip()
+    host = request.GET.get('host', '').strip()
     go_terms = request.GET.get('go_terms', '').strip()
     kegg_ko = request.GET.get('kegg_ko', '').strip()
     kegg_pathway = request.GET.get('kegg_pathway', '').strip()
@@ -33,8 +33,8 @@ def genes(request):
         genes_query = genes_query.filter(nr_id__iexact=nr_id)
     if nr_annotation:
         genes_query = genes_query.filter(nr_annotation__icontains=nr_annotation)
-    if nr_species:
-        genes_query = genes_query.filter(nr_species__icontains=nr_species)
+    if host:
+        genes_query = genes_query.filter(host__icontains=host)
     if go_terms:
         # GO terms are usually uppercase but we'll make it case insensitive
         genes_query = genes_query.filter(go_terms__icontains=go_terms)
@@ -58,7 +58,7 @@ def genes(request):
         'source_id': source_id,
         'nr_id': nr_id,
         'nr_annotation': nr_annotation,
-        'nr_species': nr_species,
+        'host': host,
         'go_terms': go_terms,
         'kegg_ko': kegg_ko,
         'kegg_pathway': kegg_pathway,
@@ -68,5 +68,6 @@ def genes(request):
 
     return render(request, 'gene_catalog.html', context)
 
-def gene_detail(request):
-    return render(request, 'gene_catalog.html')
+def gene_detail(request, source_id, gene_id):
+    gene = get_object_or_404(Gene, source_id=source_id, gene_id=gene_id)
+    return render(request, 'gene_detail.html', {'gene': gene})

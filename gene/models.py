@@ -1,6 +1,7 @@
 from django.db import models
 
 class Gene(models.Model):
+    host = models.CharField(max_length=200, db_index=True, default='None')  # Host
     source_id = models.CharField(max_length=200, db_index=True)  # Source ID
     gene_id = models.CharField(max_length=200, db_index=True)  # Gene ID
     nr_id = models.CharField(max_length=200, null=True, blank=True)  # NR ID

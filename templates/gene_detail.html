@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block Part1 %}
+<div class="container px-4 mx-auto mt-10">
+    <!-- Header Section -->
+    <div class="mb-8">
+        <div class="flex items-center gap-4 mb-4">
+            <a href="{% url 'gene:genes' %}" class="text-kabuli-600 hover:text-kabuli-700 dark:text-kabuli-400">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+            </a>
+            <div>
+                <h1 class="text-3xl font-bold text-kabuli-900 dark:text-white">
+                    {{ gene.gene_id }} | {{ gene.host|default:"Unknown Host" }}
+                </h1>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                    Source ID: {{ gene.source_id }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Basic Information -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+            <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Basic Information</h2>
+            <dl class="space-y-4">
+                <div>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Host</dt>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ gene.host|default:"Not available" }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">NR Annotation</dt>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ gene.nr_annotation|default:"Not available" }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">NR ID</dt>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ gene.nr_id|default:"Not available" }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Description</dt>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ gene.description|default:"Not available" }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Gene Length</dt>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ gene.gene_length }} bp</dd>
+                </div>
+            </dl>
+        </div>
+
+        <!-- Functional Annotation -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+            <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Functional Annotation</h2>
+            <dl class="space-y-4">
+                <div>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">GO Terms</dt>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ gene.go_terms|default:"Not available" }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">KEGG KO</dt>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ gene.kegg_ko|default:"Not available" }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">KEGG Pathway</dt>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ gene.kegg_pathway|default:"Not available" }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Preferred Name</dt>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ gene.preferred_name|default:"Not available" }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Pfam Domains</dt>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ gene.pfams|default:"Not available" }}</dd>
+                </div>
+            </dl>
+        </div>
+
+        <!-- Sequence Information -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 lg:col-span-2">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-4">
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Sequence</h2>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">
+                        Length: {{ gene.gene_length }} bp
+                    </span>
+                </div>
+                <button onclick="copySequence()"
+                        class="flex items-center gap-2 px-3 py-1 text-sm bg-kabuli-100 text-kabuli-800 rounded-lg hover:bg-kabuli-200 dark:bg-gray-700 dark:text-kabuli-300 dark:hover:bg-gray-600 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
+                    </svg>
+                    <span id="copyButtonText">Copy</span>
+                </button>
+            </div>
+            <div class="relative">
+                <div id="sequence"
+                     class="font-mono text-sm bg-gray-50 dark:bg-gray-900 p-4 rounded-lg whitespace-pre-wrap"
+                     style="max-height: 400px; overflow-y: auto;">
+                    {{ gene.sequence }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function formatSequence(sequence, chunkSize = 120) {
+    // Split sequence into chunks
+    const chunks = [];
+    for (let i = 0; i < sequence.length; i += chunkSize) {
+        chunks.push(sequence.slice(i, i + chunkSize));
+    }
+    return chunks.join('\n');
+}
+
+function copySequence() {
+    // Get the original sequence without formatting
+    const sequence = '{{ gene.sequence|escapejs }}';
+
+    // Use the newer clipboard API if available
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(sequence).then(() => {
+            showCopyFeedback();
+        }).catch((err) => {
+            console.error('Failed to copy:', err);
+            fallbackCopyToClipboard(sequence);
+        });
+    } else {
+        fallbackCopyToClipboard(sequence);
+    }
+}
+
+function fallbackCopyToClipboard(text) {
+    // Fallback for older browsers
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';  // Prevent scrolling to bottom
+    document.body.appendChild(textarea);
+    textarea.select();
+
+    try {
+        document.execCommand('copy');
+        showCopyFeedback();
+    } catch (err) {
+        console.error('Failed to copy:', err);
+    } finally {
+        document.body.removeChild(textarea);
+    }
+}
+
+function showCopyFeedback() {
+    const button = document.getElementById('copyButtonText');
+    const originalText = button.textContent;
+    button.textContent = 'Copied!';
+
+    setTimeout(() => {
+        button.textContent = originalText;
+    }, 2000);
+}
+
+// Format sequence on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const sequenceDiv = document.getElementById('sequence');
+    const sequence = '{{ gene.sequence|escapejs }}';
+    sequenceDiv.textContent = formatSequence(sequence);
+});
+</script>
+
+{% endblock %}

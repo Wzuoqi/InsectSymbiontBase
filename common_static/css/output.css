@@ -2311,8 +2311,16 @@ video {
   white-space: pre;
 }
 
+.whitespace-pre-wrap {
+  white-space: pre-wrap;
+}
+
 .break-words {
   overflow-wrap: break-word;
+}
+
+.break-all {
+  word-break: break-all;
 }
 
 .rounded {
@@ -4280,6 +4288,10 @@ video {
 }
 
 @media (min-width: 1024px) {
+  .lg\:col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+
   .lg\:-mx-8 {
     margin-left: -2rem;
     margin-right: -2rem;
@@ -4509,6 +4521,11 @@ video {
   .dark\:text-yellow-400 {
     --tw-text-opacity: 1;
     color: rgb(250 204 21 / var(--tw-text-opacity));
+  }
+
+  .dark\:text-kabuli-300 {
+    --tw-text-opacity: 1;
+    color: rgb(119 202 255 / var(--tw-text-opacity));
   }
 
   .dark\:hover\:bg-cyan-500:hover {

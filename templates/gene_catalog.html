@@ -88,7 +88,7 @@
                                class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">NR Annotation</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Annotation</label>
                         <input type="text"
                                name="nr_annotation"
                                value="{{ nr_annotation }}"
@@ -96,11 +96,11 @@
                                class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">NR Species</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Host</label>
                         <input type="text"
-                               name="nr_species"
-                               value="{{ nr_species }}"
-                               placeholder="e.g., Drosophila melanogaster"
+                               name="host"
+                               value="{{ host }}"
+                               placeholder="e.g., Apis mellifera"
                                class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     </div>
                     <div>
@@ -143,7 +143,7 @@
 
 <!-- Search Results Section -->
 <section class="container px-4 mx-auto mt-6">
-    {% if request.GET.query or request.GET.source_id or request.GET.nr_id or request.GET.nr_annotation or request.GET.nr_species or request.GET.go_terms or request.GET.kegg_ko or request.GET.kegg_pathway or request.GET.pfams %}
+    {% if request.GET.query or request.GET.source_id or request.GET.nr_id or request.GET.nr_annotation or request.GET.host or request.GET.go_terms or request.GET.kegg_ko or request.GET.kegg_pathway or request.GET.pfams %}
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
             {% if genes %}
                 <div class="flex items-center justify-between mb-4">
@@ -156,8 +156,9 @@
                         <thead>
                             <tr class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 <th class="px-6 py-3">Gene ID</th>
-                                <th class="px-6 py-3">Description</th>
-                                <th class="px-6 py-3">Species</th>
+                                <th class="px-6 py-3">Source ID</th>
+                                <th class="px-6 py-3">NR Annotation</th>
+                                <th class="px-6 py-3">Host</th>
                                 <th class="px-6 py-3">Length</th>
                             </tr>
                         </thead>
@@ -165,13 +166,18 @@
                             {% for gene in genes %}
                             <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
                                 <td class="px-6 py-4 text-sm font-medium text-kabuli-600 dark:text-kabuli-400">
-                                    {{ gene.gene_id }}
+                                    <a href="{% url 'gene:gene_detail' source_id=gene.source_id gene_id=gene.gene_id %}">
+                                        {{ gene.gene_id }}
+                                    </a>
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                    {{ gene.source_id }}
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
                                     {{ gene.nr_annotation|default:"N/A" }}
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
-                                    {{ gene.nr_species|default:"N/A" }}
+                                    {{ gene.host|default:"N/A" }}
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
                                     {{ gene.gene_length }}
@@ -187,14 +193,14 @@
                 <div class="flex items-center justify-between mt-6">
                     <div class="flex items-center gap-2">
                         {% if genes.has_previous %}
-                        <a href="{% url 'gene:genes' %}?page={{ genes.previous_page_number }}&query={{ query }}&source_id={{ source_id }}&nr_id={{ nr_id }}&nr_annotation={{ nr_annotation }}&nr_species={{ nr_species }}&go_terms={{ go_terms }}&kegg_ko={{ kegg_ko }}&kegg_pathway={{ kegg_pathway }}&pfams={{ pfams }}"
+                        <a href="{% url 'gene:genes' %}?page={{ genes.previous_page_number }}&query={{ query }}&source_id={{ source_id }}&nr_id={{ nr_id }}&nr_annotation={{ nr_annotation }}&host={{ host }}&go_terms={{ go_terms }}&kegg_ko={{ kegg_ko }}&kegg_pathway={{ kegg_pathway }}&pfams={{ pfams }}"
                            class="px-3 py-1 text-sm text-kabuli-600 bg-kabuli-100 rounded-lg hover:bg-kabuli-200 dark:bg-gray-700 dark:text-kabuli-400 dark:hover:bg-gray-600">
                             Previous
                         </a>
                         {% endif %}
 
                         {% if genes.has_next %}
-                        <a href="{% url 'gene:genes' %}?page={{ genes.next_page_number }}&query={{ query }}&source_id={{ source_id }}&nr_id={{ nr_id }}&nr_annotation={{ nr_annotation }}&nr_species={{ nr_species }}&go_terms={{ go_terms }}&kegg_ko={{ kegg_ko }}&kegg_pathway={{ kegg_pathway }}&pfams={{ pfams }}"
+                        <a href="{% url 'gene:genes' %}?page={{ genes.next_page_number }}&query={{ query }}&source_id={{ source_id }}&nr_id={{ nr_id }}&nr_annotation={{ nr_annotation }}&host={{ host }}&go_terms={{ go_terms }}&kegg_ko={{ kegg_ko }}&kegg_pathway={{ kegg_pathway }}&pfams={{ pfams }}"
                            class="px-3 py-1 text-sm text-kabuli-600 bg-kabuli-100 rounded-lg hover:bg-kabuli-200 dark:bg-gray-700 dark:text-kabuli-400 dark:hover:bg-gray-600">
                             Next
                         </a>
