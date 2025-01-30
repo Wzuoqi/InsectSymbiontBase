@@ -4541,6 +4541,11 @@ video {
     background-color: rgb(3 149 244 / var(--tw-bg-opacity));
   }
 
+  .dark\:hover\:bg-gray-700:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+  }
+
   .dark\:hover\:text-cyan-400:hover {
     --tw-text-opacity: 1;
     color: rgb(34 211 238 / var(--tw-text-opacity));

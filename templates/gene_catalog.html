@@ -31,9 +31,11 @@
 <section class="container px-4 mx-auto">
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
         <!-- Basic Search -->
-        <div class="flex flex-col gap-4">
+        <form method="GET" action="{% url 'gene:genes' %}" class="flex flex-col gap-4">
             <div class="relative">
                 <input type="text"
+                       name="query"
+                       value="{{ query }}"
                        placeholder="Enter gene description, e.g., P450, Odorant receptor"
                        class="w-full pl-14 pr-4 py-3 text-gray-700 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                        style="padding-left: 3.5rem;">
@@ -54,41 +56,162 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                     </svg>
                 </button>
-                <button type="submit" class="px-6 py-2 bg-kabuli-600 text-white rounded-lg hover:bg-kabuli-700 transition-colors">
-                    Search
-                </button>
+                <div class="flex items-center gap-2">
+                    <a href="{% url 'gene:genes' %}"
+                       class="px-6 py-2 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
+                        Reset
+                    </a>
+                    <button type="submit"
+                            class="px-6 py-2 bg-kabuli-600 text-white rounded-lg hover:bg-kabuli-700 transition-colors">
+                        Search
+                    </button>
+                </div>
             </div>
 
             <!-- Advanced Search Options -->
             <div id="advancedSearch" class="pt-4 border-t border-gray-200 dark:border-gray-700">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Organism</label>
-                        <select class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                            <option>All Organisms</option>
-                            <option>Insect</option>
-                            <option>Plant</option>
-                            <option>Bacteria</option>
-                            <option>Fungus</option>
-                            <option>Virus</option>
-                        </select>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Source ID</label>
+                        <input type="text"
+                               name="source_id"
+                               value="{{ source_id }}"
+                               placeholder="e.g., ISDB_001"
+                               class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Gene Symbol</label>
-                        <input type="text" placeholder="e.g., CYP6B1" class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">NR ID</label>
+                        <input type="text"
+                               name="nr_id"
+                               value="{{ nr_id }}"
+                               placeholder="e.g., NR_123456"
+                               class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">UniProt ID</label>
-                        <input type="text" placeholder="e.g., Q9VCA9" class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">NR Annotation</label>
+                        <input type="text"
+                               name="nr_annotation"
+                               value="{{ nr_annotation }}"
+                               placeholder="e.g., cytochrome P450"
+                               class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Pfam Domain</label>
-                        <input type="text" placeholder="e.g., PF00067" class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">NR Species</label>
+                        <input type="text"
+                               name="nr_species"
+                               value="{{ nr_species }}"
+                               placeholder="e.g., Drosophila melanogaster"
+                               class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">GO Terms</label>
+                        <input type="text"
+                               name="go_terms"
+                               value="{{ go_terms }}"
+                               placeholder="e.g., GO:0016491"
+                               class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">KEGG KO</label>
+                        <input type="text"
+                               name="kegg_ko"
+                               value="{{ kegg_ko }}"
+                               placeholder="e.g., K00001"
+                               class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">KEGG Pathway</label>
+                        <input type="text"
+                               name="kegg_pathway"
+                               value="{{ kegg_pathway }}"
+                               placeholder="e.g., ko00010"
+                               class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Pfam Domains</label>
+                        <input type="text"
+                               name="pfams"
+                               value="{{ pfams }}"
+                               placeholder="e.g., PF00067"
+                               class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-kabuli-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
+</section>
+
+<!-- Search Results Section -->
+<section class="container px-4 mx-auto mt-6">
+    {% if request.GET.query or request.GET.source_id or request.GET.nr_id or request.GET.nr_annotation or request.GET.nr_species or request.GET.go_terms or request.GET.kegg_ko or request.GET.kegg_pathway or request.GET.pfams %}
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+            {% if genes %}
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-gray-700 dark:text-white">Search Results</h2>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">Found {{ total_count }} results</span>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead>
+                            <tr class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th class="px-6 py-3">Gene ID</th>
+                                <th class="px-6 py-3">Description</th>
+                                <th class="px-6 py-3">Species</th>
+                                <th class="px-6 py-3">Length</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                            {% for gene in genes %}
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                                <td class="px-6 py-4 text-sm font-medium text-kabuli-600 dark:text-kabuli-400">
+                                    {{ gene.gene_id }}
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                    {{ gene.nr_annotation|default:"N/A" }}
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                    {{ gene.nr_species|default:"N/A" }}
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                    {{ gene.gene_length }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                {% if genes.has_other_pages %}
+                <div class="flex items-center justify-between mt-6">
+                    <div class="flex items-center gap-2">
+                        {% if genes.has_previous %}
+                        <a href="{% url 'gene:genes' %}?page={{ genes.previous_page_number }}&query={{ query }}&source_id={{ source_id }}&nr_id={{ nr_id }}&nr_annotation={{ nr_annotation }}&nr_species={{ nr_species }}&go_terms={{ go_terms }}&kegg_ko={{ kegg_ko }}&kegg_pathway={{ kegg_pathway }}&pfams={{ pfams }}"
+                           class="px-3 py-1 text-sm text-kabuli-600 bg-kabuli-100 rounded-lg hover:bg-kabuli-200 dark:bg-gray-700 dark:text-kabuli-400 dark:hover:bg-gray-600">
+                            Previous
+                        </a>
+                        {% endif %}
+
+                        {% if genes.has_next %}
+                        <a href="{% url 'gene:genes' %}?page={{ genes.next_page_number }}&query={{ query }}&source_id={{ source_id }}&nr_id={{ nr_id }}&nr_annotation={{ nr_annotation }}&nr_species={{ nr_species }}&go_terms={{ go_terms }}&kegg_ko={{ kegg_ko }}&kegg_pathway={{ kegg_pathway }}&pfams={{ pfams }}"
+                           class="px-3 py-1 text-sm text-kabuli-600 bg-kabuli-100 rounded-lg hover:bg-kabuli-200 dark:bg-gray-700 dark:text-kabuli-400 dark:hover:bg-gray-600">
+                            Next
+                        </a>
+                        {% endif %}
+                    </div>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">
+                        Page {{ genes.number }} of {{ genes.paginator.num_pages }}
+                    </span>
+                </div>
+                {% endif %}
+            {% else %}
+                <div class="text-center py-8">
+                    <p class="text-gray-500 dark:text-gray-400">No results found for your search criteria.</p>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
 </section>
 
 <!-- Gene Word Cloud Section -->
@@ -130,18 +253,15 @@ document.addEventListener('DOMContentLoaded', function() {
 function loadECharts() {
     return new Promise((resolve, reject) => {
         if (window.echarts) {
-            // 如果已经加载了词云图插件，直接返回
             if (window.echarts.wordCloud) {
                 resolve(window.echarts);
                 return;
             }
         }
 
-        // 加载主要的 ECharts 库
         const script = document.createElement('script');
         script.src = '/static/js/echarts.min.js';
 
-        // 加载词云图插件
         const wordCloudScript = document.createElement('script');
         wordCloudScript.src = '/static/js/echarts-wordcloud.min.js';
 
@@ -163,17 +283,11 @@ async function initCharts() {
         const darkMode = document.documentElement.classList.contains('dark');
         const textColor = darkMode ? '#e5e7eb' : '#374151';
 
-        // 词云图配色方案
         const wordCloudColors = [
-            '#1e40af', // 深蓝色
-            '#3730a3', // 深靛蓝色
-            '#5b21b6', // 深紫色
-            '#2563eb', // 亮蓝色
-            '#4f46e5', // 亮靛蓝色
-            '#7c3aed'  // 亮紫色
+            '#1e40af', '#3730a3', '#5b21b6',
+            '#2563eb', '#4f46e5', '#7c3aed'
         ];
 
-        // Gene Cloud Chart
         const chartDom = document.getElementById('geneCloud');
         if (!chartDom) return;
 
@@ -181,7 +295,10 @@ async function initCharts() {
 
         const option = {
             tooltip: {
-                show: false
+                show: true,
+                formatter: function(params) {
+                    return `Click to search: ${params.name}`;
+                }
             },
             series: [{
                 type: 'wordCloud',
@@ -208,79 +325,69 @@ async function initCharts() {
                 emphasis: {
                     focus: 'self',
                     textStyle: {
-                        fontWeight: 'normal',
-                        shadowBlur: 5,
-                        shadowColor: 'rgba(0, 0, 0, 0.2)'
-                    }
-                },
-                blur: {
-                    textStyle: {
-                        opacity: 0.3
+                        fontWeight: 'bold',
+                        shadowBlur: 10,
+                        shadowColor: 'rgba(0, 0, 0, 0.3)'
                     }
                 },
                 data: [
-                    // 基因家族
-                    { name: "Cytochrome P450", value: 1000 },
-                    { name: "Odorant receptor", value: 950 },
-                    { name: "Heat shock protein", value: 900 },
-                    { name: "Glutathione S-transferase", value: 850 },
-                    { name: "ATP-binding cassette", value: 800 },
-                    { name: "Serine protease", value: 780 },
-                    { name: "Cuticular protein", value: 760 },
-                    { name: "Chemosensory protein", value: 740 },
+                    { name: "Reverse Transcriptase", value: 1000 },
+                    { name: "DDE-type Integrase", value: 950 },
+                    { name: "Transposase", value: 900 },
+                    { name: "MFS transporter", value: 850 },
+                    { name: "RNase H-like", value: 800 },
+                    { name: "RNA-directed DNA polymerase", value: 780 },
+                    { name: "Endonuclease", value: 760 },
+                    { name: "Phosphatase", value: 740 },
+                    { name: "ABC transporter", value: 720 },
+                    { name: "ATP-binding protein", value: 700 },
+                    { name: "cytochrome P450", value: 680 },
+                    { name: "AAA family ATPase", value: 660 },
+                    { name: "SDR family oxidoreductase", value: 640 },
+                    { name: "Tyrosine-type Recombinase", value: 620 },
+                    { name: "LysR family", value: 600 },
+                    { name: "GNAT family N-acetyltransferase", value: 600 },
+                    { name: "IS630 family transposase", value: 560 },
+                    { name: "GIY-YIG nuclease", value: 540 },
+                    { name: "TonB-dependent receptor", value: 520 },
+                    { name: "FAD-dependent oxidoreductase", value: 500 },
+                    { name: "DNA helicase", value: 500 },
 
-                    // 酶类
-                    { name: "Carboxylesterase", value: 720 },
-                    { name: "Lipase", value: 700 },
-                    { name: "Chitinase", value: 680 },
-                    { name: "Trehalase", value: 660 },
-                    { name: "Amylase", value: 640 },
-                    { name: "Phosphatase", value: 620 },
-                    { name: "Dehydrogenase", value: 600 },
-
-                    // 激素和受体
-                    { name: "Juvenile hormone", value: 580 },
-                    { name: "Vitellogenin", value: 560 },
-                    { name: "Hormone receptor", value: 540 },
-                    { name: "Nuclear receptor", value: 520 },
-                    { name: "Insulin receptor", value: 500 },
-
-                    // 免疫相关
-                    { name: "Defensin", value: 480 },
-                    { name: "Antimicrobial peptide", value: 460 },
-                    { name: "Toll-like receptor", value: 440 },
-                    { name: "Immune protein", value: 420 },
-                    { name: "Lysozyme", value: 400 },
-
-                    // 转运蛋白
-                    { name: "Sugar transporter", value: 380 },
+                    { name: "Beta Hydrolase", value: 460 },
+                    { name: "glycosyltransferase", value: 440 },
+                    { name: "Serine Protease", value: 420 },
+                    { name: "DEAH box helicase", value: 400 },
+                    { name: "Sugar porter", value: 380 },
                     { name: "Ion channel", value: 360 },
-                    { name: "Amino acid transporter", value: 340 },
-                    { name: "Membrane protein", value: 320 },
-
-                    // 信号通路
+                    { name: "A17 family peptidase", value: 340 },
+                    { name: "AMP-binding protein", value: 320 },
                     { name: "Kinase", value: 300 },
-                    { name: "G protein", value: 280 },
-                    { name: "Signal peptide", value: 260 },
-                    { name: "Growth factor", value: 240 },
+                    { name: "TetR family", value: 280 },
+                    { name: "AcrR family", value: 260 },
+                    { name: "Aldehyde Dehydrogenase", value: 240 },
 
-                    // 结构蛋白
-                    { name: "Actin", value: 220 },
-                    { name: "Tubulin", value: 200 },
-                    { name: "Myosin", value: 180 },
-                    { name: "Collagen", value: 160 },
+                    { name: "Carboxylesterase", value: 220 },
+                    { name: "GTP-binding protein", value: 200 },
+                    { name: "DMT family transporter", value: 180 },
+                    { name: "Gypsy family RNase", value: 160 },
+                    { name: "Rpn family", value: 140 },
+                    { name: "Choline Dehydrogenase", value: 120 },
+                    { name: "FAD-binding oxidoreductase", value: 100 },
+                    { name: "PTS sugar transporter", value: 90 },
+                    { name: "EamA family transporter", value: 85 },
+                    { name: "Primosomal protein", value: 80 },
+                    { name: "Diguanylate cyclase", value: 75 },
+                    { name: "FtsX-like permease", value: 70 },
 
-                    // 转录因子
-                    { name: "Zinc finger", value: 140 },
-                    { name: "Transcription factor", value: 120 },
-                    { name: "Homeobox", value: 100 },
-
-                    // 其他重要蛋白
-                    { name: "Ubiquitin", value: 90 },
-                    { name: "Ribosomal protein", value: 85 },
-                    { name: "Chaperone", value: 80 },
-                    { name: "Proteasome", value: 75 },
-                    { name: "Histone", value: 70 }
+                    { name: "DNA mismatch repair endonuclease", value: 640 },
+                    { name: "HNH endonuclease", value: 620 },
+                    { name: "Glutathione S-transferase", value: 600 },
+                    { name: "UDP-glucose", value: 600 },
+                    { name: "NUDIX hydrolase", value: 560 },
+                    { name: "efflux transporter", value: 540 },
+                    { name: "Hsp20 family", value: 520 },
+                    { name: "Tape measure protein", value: 500 },
+                    { name: "Lipoprotein", value: 500 },
                 ].map(item => ({
                     name: item.name,
                     value: item.value,
@@ -290,6 +397,20 @@ async function initCharts() {
                 }))
             }]
         };
+
+        // 添加点击事件处理
+        geneCloudChart.on('click', function(params) {
+            // 获取搜索输入框
+            const searchInput = document.querySelector('input[name="query"]');
+            if (searchInput) {
+                // 设置输入框的值
+                searchInput.value = params.name;
+                // 让输入框获得焦点
+                searchInput.focus();
+                // 触发输入事件（如果有需要的话）
+                searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+        });
 
         geneCloudChart.setOption(option);
 
@@ -305,6 +426,16 @@ async function initCharts() {
                     geneCloudChart.dispose();
                     geneCloudChart = echarts.init(chartDom);
                     geneCloudChart.setOption(option);
+
+                    // 重新添加点击事件处理
+                    geneCloudChart.on('click', function(params) {
+                        const searchInput = document.querySelector('input[name="query"]');
+                        if (searchInput) {
+                            searchInput.value = params.name;
+                            searchInput.focus();
+                            searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+                        }
+                    });
                 }
             });
         });
