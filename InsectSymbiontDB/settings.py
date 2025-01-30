@@ -53,10 +53,10 @@ INSTALLED_APPS = [
     'amplicon',
     'article',
     'genome',
-    'gene',
     'host',
     'feedback',
     'tailwind',
+    'gene',
 ]
 
 MIDDLEWARE = [
