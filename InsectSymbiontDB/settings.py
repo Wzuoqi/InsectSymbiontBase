@@ -120,7 +120,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'insectsymbiontbase',
-        'USER': 'zju',
+        'USER': 'insectsymbiont',
         'PASSWORD': 'zijin1201',
         'HOST': 'localhost',
         'PORT': '5432',

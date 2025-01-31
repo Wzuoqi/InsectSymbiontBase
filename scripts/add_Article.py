@@ -46,7 +46,7 @@ def main():
 
     try:
         # 打开TSV文件
-        with open('scripts/data/articles241216.tab', 'r', encoding='UTF-8') as file:
+        with open('data/articles241216.tab', 'r', encoding='UTF-8') as file:
             # 读取第一行获取列名
             header = file.readline().strip().split('\t')
 

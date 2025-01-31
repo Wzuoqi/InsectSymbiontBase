@@ -1886,6 +1886,18 @@ video {
   width: max-content;
 }
 
+.w-\[12\%\] {
+  width: 12%;
+}
+
+.w-\[20\%\] {
+  width: 20%;
+}
+
+.w-\[30\%\] {
+  width: 30%;
+}
+
 .min-w-0 {
   min-width: 0px;
 }
@@ -2317,10 +2329,6 @@ video {
 
 .break-words {
   overflow-wrap: break-word;
-}
-
-.break-all {
-  word-break: break-all;
 }
 
 .rounded {
@@ -3478,11 +3486,6 @@ video {
   --tw-ring-opacity: 0.05;
 }
 
-.blur {
-  --tw-blur: blur(8px);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
 .brightness-0 {
   --tw-brightness: brightness(0);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -4498,6 +4501,11 @@ video {
     color: rgb(223 239 255 / var(--tw-text-opacity));
   }
 
+  .dark\:text-kabuli-300 {
+    --tw-text-opacity: 1;
+    color: rgb(119 202 255 / var(--tw-text-opacity));
+  }
+
   .dark\:text-kabuli-400 {
     --tw-text-opacity: 1;
     color: rgb(47 176 255 / var(--tw-text-opacity));
@@ -4523,11 +4531,6 @@ video {
     color: rgb(250 204 21 / var(--tw-text-opacity));
   }
 
-  .dark\:text-kabuli-300 {
-    --tw-text-opacity: 1;
-    color: rgb(119 202 255 / var(--tw-text-opacity));
-  }
-
   .dark\:hover\:bg-cyan-500:hover {
     --tw-bg-opacity: 1;
     background-color: rgb(6 182 212 / var(--tw-bg-opacity));
@@ -4543,6 +4546,11 @@ video {
     background-color: rgb(75 85 99 / var(--tw-bg-opacity));
   }
 
+  .dark\:hover\:bg-gray-700:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+  }
+
   .dark\:hover\:bg-gray-800:hover {
     --tw-bg-opacity: 1;
     background-color: rgb(31 41 55 / var(--tw-bg-opacity));
@@ -4556,11 +4564,6 @@ video {
   .dark\:hover\:bg-kabuli-500:hover {
     --tw-bg-opacity: 1;
     background-color: rgb(3 149 244 / var(--tw-bg-opacity));
-  }
-
-  .dark\:hover\:bg-gray-700:hover {
-    --tw-bg-opacity: 1;
-    background-color: rgb(55 65 81 / var(--tw-bg-opacity));
   }
 
   .dark\:hover\:text-cyan-400:hover {
