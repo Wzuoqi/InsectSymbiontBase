@@ -6,6 +6,7 @@ import os
 from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
+from django.contrib.staticfiles.storage import staticfiles_storage
 
 def metagenomes(request):
     # 获取所有Metagenome对象
@@ -92,9 +93,31 @@ def metagenomes_1(request):
 def metagenome_detail(request, run):
     metagenome = get_object_or_404(Metagenome, run=run)
 
+    # 检查metagenome文件夹是否存在
+    metagenome_folder = os.path.join(settings.MEDIA_ROOT, f'metagenome/{run}')
+    has_metagenome_folder = os.path.exists(metagenome_folder)
+
+    # 只有在文件夹存在的情况下才检查具体文件
+    file_status = {}
+    if has_metagenome_folder:
+        file_status = {
+            'kraken_report': os.path.exists(os.path.join(media_root, f'metagenome/{run}/{run}.kraken.txt')),
+            'krona_html': os.path.exists(os.path.join(media_root, f'metagenome/{run}/{run}.kraken.krona.html')),
+            'bracken_results': os.path.exists(os.path.join(media_root, f'metagenome/{run}/{run}.bracken.S')),
+            'contigs': os.path.exists(os.path.join(media_root, f'metagenome/{run}/megahit/{run}.contigs.fa')),
+            'genes': os.path.exists(os.path.join(media_root, f'metagenome/{run}/megahit/{run}.gene.fa')),
+            'gff': os.path.exists(os.path.join(media_root, f'metagenome/{run}/megahit/{run}.gff')),
+            'bins': os.path.exists(os.path.join(media_root, f'metagenome/{run}/metabat/{run}.bins.tar.gz')),
+            'bins_qa': os.path.exists(os.path.join(media_root, f'metagenome/{run}/bins_qa.txt')),
+        }
+
+    # 检查 Krona HTML 文件是否存在（用于显示可视化）
+    has_krona = staticfiles_storage.exists(f'metagenome/{run}/{run}.kraken.krona.html')
+
     # 读取symbiont数据
     symbionts = []
-    symbiont_file = os.path.join(settings.MEDIA_ROOT, 'metagenome', 'symbiont_from_meta.txt')
+    symbiont_path = f'metagenome/{run}/{run}.S_filtered_matches.txt'
+    symbiont_file = staticfiles_storage.path(symbiont_path)
 
     if os.path.exists(symbiont_file):
         with open(symbiont_file, 'r') as f:
@@ -102,7 +125,7 @@ def metagenome_detail(request, run):
             next(f)
             for line in f:
                 parts = line.strip().split('\t')
-                # 确保有足够的字段（现在需要12个字段，因为新增了insect_match）
+                # 确保有足够的字段
                 if len(parts) >= 12:
                     symbiont = {
                         'percentage': float(parts[0]),
@@ -115,8 +138,8 @@ def metagenome_detail(request, run):
                         'function': parts[7],
                         'species_match': parts[8] == 'True',
                         'order_match': parts[9] == 'True',
-                        'insect_match': parts[10] == 'True',  # 新增字段
-                        'total_score': float(parts[11])       # 总分的位置变更
+                        'insect_match': parts[10] == 'True',
+                        'total_score': float(parts[11])
                     }
                     symbionts.append(symbiont)
 
@@ -125,5 +148,8 @@ def metagenome_detail(request, run):
 
     return render(request, 'metagenome_detail.html', {
         'metagenome': metagenome,
-        'symbionts': symbionts
+        'symbionts': symbionts,
+        'has_krona': has_krona,
+        'file_status': file_status,
+        'has_metagenome_folder': has_metagenome_folder
     })

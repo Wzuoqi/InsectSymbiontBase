@@ -2,6 +2,7 @@
 
 {% block Part1 %}
 {% load static %}
+{% load static_tags %}
 
 <section class="container mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
     <h1 class="text-3xl font-semibold text-cyan-900 mb-4">{{ metagenome.run }} - {{ metagenome.host }}</h1>
@@ -70,8 +71,22 @@
 <!-- Krona Specie pie chart -->
 <section class="container mx-auto my-8 p-4 bg-white shadow-lg rounded-lg" style="min-height: 80vh;">
     <h2 class="text-2xl font-semibold text-gray-700 mb-4">Taxonomic Classification</h2>
-    <iframe src="{% static 'metagenome/SRR6350024.krona.html' %}" class="w-full border-0"
-        style="min-height: 80vh;"></iframe>
+
+    {% if has_krona %}
+        <iframe src="{% static 'metagenome/' %}{{ metagenome.run }}/{{ metagenome.run }}.kraken.krona.html"
+                class="w-full border-0"
+                style="min-height: 80vh;">
+        </iframe>
+    {% else %}
+        <div class="flex flex-col items-center justify-center h-[60vh] bg-gray-50 rounded-lg">
+            <span class="icon-[material-symbols--data-loss] text-6xl text-gray-400 mb-4"></span>
+            <p class="text-xl text-gray-600 mb-2">Taxonomic visualization not available</p>
+            <p class="text-gray-500 text-center max-w-lg">
+                The interactive Krona chart for this metagenome is currently being processed or unavailable.
+                Please check back later or download the raw taxonomic classification files below.
+            </p>
+        </div>
+    {% endif %}
 </section>
 
 <!-- Potential Symbiont Section -->
@@ -282,64 +297,168 @@ document.getElementById('symbiontSearch').addEventListener('input', function(e) 
     <div class="bg-white shadow-md rounded-lg p-6">
         <h2 class="text-2xl font-semibold text-gray-700 mb-6">Download Files</h2>
 
+        {% if has_metagenome_folder %}
         <!-- 处理后的文件下载 -->
-        <div class="flex flex-wrap gap-4 mb-8">
-            <!-- Kraken Taxonomic -->
-            <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
-                <svg class="w-8 h-8 text-cyan-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                </svg>
-                <div class="flex-grow">
-                    <h5 class="text-md font-semibold text-gray-800">Kraken Taxonomic</h5>
-                    <p class="text-xs text-gray-600">Taxonomic classification results</p>
+        <div class="flex flex-col gap-6">
+            <!-- Taxonomic Analysis Files -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-medium text-gray-800 border-b pb-2">Taxonomic Analysis Files</h3>
+                <div class="flex flex-wrap gap-4">
+                    <!-- Kraken Report -->
+                    <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
+                        <span class="icon-[material-symbols--data-object] w-8 h-8 text-cyan-600 mr-3"></span>
+                        <div class="flex-grow">
+                            <h5 class="text-md font-semibold text-gray-800">Kraken Report</h5>
+                            <p class="text-xs text-gray-600">Detailed taxonomic classification</p>
+                        </div>
+                        {% if file_status.kraken_report %}
+                        <a href="{% get_media_prefix %}metagenome/{{ metagenome.run }}/{{ metagenome.run }}.kraken.txt"
+                           download
+                           class="ml-3 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
+                            Download
+                        </a>
+                        {% else %}
+                        <button disabled
+                                class="ml-3 px-4 py-2 bg-gray-300 text-gray-500 text-sm font-semibold rounded-full cursor-not-allowed"
+                                title="File is being processed or unavailable">
+                            Processing
+                        </button>
+                        {% endif %}
+                    </div>
+
+                    <!-- Krona Visualization -->
+                    <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
+                        <span class="icon-[material-symbols--donut-large] w-8 h-8 text-cyan-600 mr-3"></span>
+                        <div class="flex-grow">
+                            <h5 class="text-md font-semibold text-gray-800">Krona HTML</h5>
+                            <p class="text-xs text-gray-600">Interactive taxonomic visualization</p>
+                        </div>
+                        {% if file_status.krona_html %}
+                        <a href="{% get_media_prefix %}metagenome/{{ metagenome.run }}/{{ metagenome.run }}.kraken.krona.html"
+                           download
+                           class="ml-3 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
+                            Download
+                        </a>
+                        {% else %}
+                        <button disabled
+                                class="ml-3 px-4 py-2 bg-gray-300 text-gray-500 text-sm font-semibold rounded-full cursor-not-allowed"
+                                title="File is being processed or unavailable">
+                            Processing
+                        </button>
+                        {% endif %}
+                    </div>
+
+                    <!-- Bracken Results -->
+                    <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
+                        <span class="icon-[material-symbols--analytics] w-8 h-8 text-cyan-600 mr-3"></span>
+                        <div class="flex-grow">
+                            <h5 class="text-md font-semibold text-gray-800">Bracken Results</h5>
+                            <p class="text-xs text-gray-600">Species abundance estimation</p>
+                        </div>
+                        <a href="{% get_media_prefix %}metagenome/{{ metagenome.run }}/{{ metagenome.run }}.bracken.S"
+                           download
+                           class="ml-3 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
+                            Download
+                        </a>
+                    </div>
                 </div>
-                <a href="/path/to/Kraken_taxnomic.txt" download class="ml-3 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
-                    Download
-                </a>
             </div>
 
-            <!-- MetaPhIAn Taxonomic -->
-            <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
-                <svg class="w-8 h-8 text-cyan-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                </svg>
-                <div class="flex-grow">
-                    <h5 class="text-md font-semibold text-gray-800">MetaPhIAn Taxonomic</h5>
-                    <p class="text-xs text-gray-600">MetaPhIAn analysis results</p>
+            <!-- Assembly Files -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-medium text-gray-800 border-b pb-2">Assembly & Gene Prediction</h3>
+                <div class="flex flex-wrap gap-4">
+                    <!-- Contigs -->
+                    <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
+                        <span class="icon-[ph--dna] w-8 h-8 text-cyan-600 mr-3"></span>
+                        <div class="flex-grow">
+                            <h5 class="text-md font-semibold text-gray-800">Assembled Contigs</h5>
+                            <p class="text-xs text-gray-600">MEGAHIT assembly results</p>
+                        </div>
+                        <a href="{% get_media_prefix %}metagenome/{{ metagenome.run }}/megahit/{{ metagenome.run }}.contigs.fa"
+                           download
+                           class="ml-3 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
+                            Download
+                        </a>
+                    </div>
+
+                    <!-- Predicted Genes -->
+                    <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
+                        <span class="icon-[material-symbols--genetics] w-8 h-8 text-cyan-600 mr-3"></span>
+                        <div class="flex-grow">
+                            <h5 class="text-md font-semibold text-gray-800">Predicted Genes</h5>
+                            <p class="text-xs text-gray-600">Gene sequences (FASTA)</p>
+                        </div>
+                        <a href="{% get_media_prefix %}metagenome/{{ metagenome.run }}/megahit/{{ metagenome.run }}.gene.fa"
+                           download
+                           class="ml-3 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
+                            Download
+                        </a>
+                    </div>
+
+                    <!-- GFF Annotation -->
+                    <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
+                        <span class="icon-[material-symbols--description] w-8 h-8 text-cyan-600 mr-3"></span>
+                        <div class="flex-grow">
+                            <h5 class="text-md font-semibold text-gray-800">Gene Annotation</h5>
+                            <p class="text-xs text-gray-600">GFF format annotation</p>
+                        </div>
+                        <a href="{% get_media_prefix %}metagenome/{{ metagenome.run }}/megahit/{{ metagenome.run }}.gff"
+                           download
+                           class="ml-3 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
+                            Download
+                        </a>
+                    </div>
                 </div>
-                <a href="/path/to/MetaPhIAn_taxnomic.txt" download class="ml-3 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
-                    Download
-                </a>
             </div>
 
-            <!-- Megahit Contig -->
-            <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
-                <svg class="w-8 h-8 text-cyan-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                </svg>
-                <div class="flex-grow">
-                    <h5 class="text-md font-semibold text-gray-800">Megahit Contig</h5>
-                    <p class="text-xs text-gray-600">Assembled contigs file</p>
-                </div>
-                <a href="/path/to/Megahit.contig.fa" download class="ml-3 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
-                    Download
-                </a>
-            </div>
+            <!-- Binning Results -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-medium text-gray-800 border-b pb-2">Genome Binning</h3>
+                <div class="flex flex-wrap gap-4">
+                    <!-- Bins Archive -->
+                    <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
+                        <span class="icon-[material-symbols--folder-zip] w-8 h-8 text-cyan-600 mr-3"></span>
+                        <div class="flex-grow">
+                            <h5 class="text-md font-semibold text-gray-800">MetaBAT2 Bins</h5>
+                            <p class="text-xs text-gray-600">Compressed genome bins</p>
+                        </div>
+                        <a href="{% get_media_prefix %}metagenome/{{ metagenome.run }}/metabat/{{ metagenome.run }}.bins.tar.gz"
+                           download
+                           class="ml-3 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
+                            Download
+                        </a>
+                    </div>
 
-            <!-- Additional File -->
-            <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
-                <svg class="w-8 h-8 text-cyan-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-                </svg>
-                <div class="flex-grow">
-                    <h5 class="text-md font-semibold text-gray-800">Additional File</h5>
-                    <p class="text-xs text-gray-600">Supplementary data</p>
+                    <!-- Bin Info -->
+                    <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
+                        <span class="icon-[material-symbols--info] w-8 h-8 text-cyan-600 mr-3"></span>
+                        <div class="flex-grow">
+                            <h5 class="text-md font-semibold text-gray-800">Bin Information</h5>
+                            <p class="text-xs text-gray-600">Quality metrics and statistics</p>
+                        </div>
+                        <a href="{% get_media_prefix %}metagenome/{{ metagenome.run }}/bins_qa.txt"
+                           download
+                           class="ml-3 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
+                            Download
+                        </a>
+                    </div>
                 </div>
-                <a href="/path/to/Additional_file.txt" download class="ml-3 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
-                    Download
-                </a>
             </div>
         </div>
+        {% else %}
+        <!-- 显示处理中的提示 -->
+        <div class="bg-gray-50 rounded-lg p-8 mb-8">
+            <div class="flex flex-col items-center text-center">
+                <span class="icon-[material-symbols--settings] w-16 h-16 text-gray-400 animate-spin mb-4"></span>
+                <h3 class="text-xl font-medium text-gray-900 mb-2">Files Being Processed</h3>
+                <p class="text-gray-600 max-w-md">
+                    The analysis files for this metagenome are currently being processed.
+                    Please check back later to access the processed files.
+                </p>
+            </div>
+        </div>
+        {% endif %}
 
         <!-- Raw Files 下载区域 -->
         <div class="mt-8 border-t pt-8">
@@ -364,7 +483,7 @@ document.getElementById('symbiontSearch').addEventListener('input', function(e) 
                     <div class="space-y-3">
                         <div class="flex items-center justify-between py-2 px-4 bg-white rounded-lg hover:shadow-md transition-shadow duration-300">
                             <div class="flex items-center space-x-3">
-                                <span class="icon-[material-symbols--dataset] text-blue-600"></span>
+                                <span class="icon-[ph--dna] text-blue-600"></span>
                                 <span class="font-medium">{{ metagenome.run }}</span>
                             </div>
                             <div class="flex items-center space-x-4">
