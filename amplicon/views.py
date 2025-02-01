@@ -85,9 +85,56 @@ def amplicons(request):
 
     return render(request, "amplicons.html", context)
 
+def parse_faprotax_report(run):
+    """Parse FAPROTAX report file and extract function records"""
+    import os
+    from django.conf import settings
+
+    report_path = os.path.join(settings.STATIC_ROOT, 'amplicon', run, f'{run}.faprotax.report')
+    functions = {}
+
+    try:
+        with open(report_path, 'r') as f:
+            lines = f.readlines()
+
+        start_parsing = False
+        for line in lines:
+            line = line.strip()
+
+            # Start parsing after summary header
+            if line == "# Summary of group assignments:":
+                start_parsing = True
+                continue
+
+            # Stop parsing when reaching the loaded groups summary
+            if line.startswith("# Loaded"):
+                break
+
+            # Parse function records
+            if start_parsing and line.startswith("#   "):
+                # Remove "# " and split by ":"
+                parts = line[2:].strip().split(":")
+                if len(parts) == 2:
+                    func_name = parts[0].strip()
+                    count = int(parts[1].strip().split()[0])  # Extract number before "records"
+                    if count > 0:  # Only include functions with records
+                        functions[func_name] = count
+
+        # Sort functions by count in descending order
+        functions = dict(sorted(functions.items(), key=lambda x: x[1], reverse=True))
+
+        return functions
+    except (FileNotFoundError, IOError):
+        return {}
+
 def amplicon_detail(request, run):
     amplicon = get_object_or_404(Amplicon, run=run)
+
+    # Parse FAPROTAX report
+    faprotax_functions = parse_faprotax_report(run)
+
     context = {
         'amplicon': amplicon,
+        'faprotax_functions': faprotax_functions,
     }
     return render(request, 'amplicon_detail.html', context)

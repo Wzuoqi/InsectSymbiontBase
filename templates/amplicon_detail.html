@@ -126,7 +126,7 @@
                     <h5 class="text-md font-semibold text-gray-800">OTU Table</h5>
                     <p class="text-xs text-gray-600">Operational Taxonomic Unit table</p>
                 </div>
-                <a href="/path/to/otu_table.txt" download class="ml-3 px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-indigo-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                <a href="/media/amplicon/{{ amplicon.run }}/{{ amplicon.run }}.otutab.txt" download class="ml-3 px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-indigo-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
                     Download
                 </a>
             </div>
@@ -137,24 +137,52 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                 </svg>
                 <div class="flex-grow">
-                    <h5 class="text-md font-semibold text-gray-800">Representative Sequences</h5>
-                    <p class="text-xs text-gray-600">FASTA file of representative sequences</p>
+                    <h5 class="text-md font-semibold text-gray-800">OTU Sequences</h5>
+                    <p class="text-xs text-gray-600">FASTA file of OTU sequences</p>
                 </div>
-                <a href="/path/to/rep_seqs.fasta" download class="ml-3 px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-indigo-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                <a href="/media/amplicon/{{ amplicon.run }}/{{ amplicon.run }}.otuna.fa" download class="ml-3 px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-indigo-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
                     Download
                 </a>
             </div>
 
-            <!-- Taxonomy Assignment -->
+            <!-- FAPROTAX Report -->
             <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
                 <svg class="w-8 h-8 text-indigo-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
                 </svg>
                 <div class="flex-grow">
-                    <h5 class="text-md font-semibold text-gray-800">Taxonomy Assignment</h5>
-                    <p class="text-xs text-gray-600">Taxonomic classification results</p>
+                    <h5 class="text-md font-semibold text-gray-800">FAPROTAX Report</h5>
+                    <p class="text-xs text-gray-600">Functional annotation of Amplicon</p>
                 </div>
-                <a href="/path/to/taxonomy.txt" download class="ml-3 px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-indigo-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                <a href="/media/amplicon/{{ amplicon.run }}/{{ amplicon.run }}.faprotax.report" download class="ml-3 px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-indigo-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                    Download
+                </a>
+            </div>
+
+            <!-- VSEARCH Taxonomy -->
+            <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
+                <svg class="w-8 h-8 text-indigo-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                </svg>
+                <div class="flex-grow">
+                    <h5 class="text-md font-semibold text-gray-800">VSEARCH Taxon</h5>
+                    <p class="text-xs text-gray-600">VSEARCH taxonomic composition</p>
+                </div>
+                <a href="/media/amplicon/{{ amplicon.run }}/vsearch/{{ amplicon.run }}.vsearch.sintax" download class="ml-3 px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-indigo-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                    Download
+                </a>
+            </div>
+
+            <!-- QIIME Taxonomy -->
+            <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3">
+                <svg class="w-8 h-8 text-indigo-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                </svg>
+                <div class="flex-grow">
+                    <h5 class="text-md font-semibold text-gray-800">QIIME Taxon</h5>
+                    <p class="text-xs text-gray-600">QIIME2 taxonomic composition</p>
+                </div>
+                <a href="/media/amplicon/{{ amplicon.run }}/qiime/{{ amplicon.run }}.qiime.taxonomy.tsv" download class="ml-3 px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-indigo-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
                     Download
                 </a>
             </div>
@@ -209,6 +237,108 @@
         </div>
     </div>
 </section>
+
+<!-- Krona Specie pie chart -->
+<section class="container mx-auto my-8 p-4 bg-white shadow-lg rounded-lg" style="min-height: 80vh;">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-semibold text-gray-700">Taxonomic Classification</h2>
+        <div class="flex bg-gray-100 rounded-lg p-1">
+            <button onclick="switchKrona('vsearch')"
+                    id="vsearch-btn"
+                    class="px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 focus:outline-none active-krona-btn">
+                VSEARCH
+            </button>
+            <button onclick="switchKrona('qiime')"
+                    id="qiime-btn"
+                    class="px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 focus:outline-none inactive-krona-btn">
+                QIIME2
+            </button>
+        </div>
+    </div>
+    <iframe id="krona-frame"
+            src="{% static 'amplicon/' %}{{ amplicon.run }}/{{ amplicon.run }}.vsearch.krona.html"
+            class="w-full border-0"
+            style="min-height: 80vh;">
+    </iframe>
+</section>
+
+<!-- FAPROTAX Function Annotation -->
+<section class="container mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
+    <h2 class="text-2xl font-semibold text-gray-700 mb-6">Functional Annotation</h2>
+
+    <div class="mb-6 text-gray-600 bg-gradient-to-r from-indigo-50 to-gray-50 p-5 rounded-lg border border-indigo-100">
+        <div class="flex items-start space-x-3">
+            <span class="icon-[material-symbols--info-outline-rounded] text-indigo-600 text-xl mt-0.5"></span>
+            <p class="text-sm leading-relaxed">
+                Functional annotations are predicted using FAPROTAX (Functional Annotation of Prokaryotic Taxa).
+                Each number indicates the count of taxa associated with that specific function.
+            </p>
+        </div>
+    </div>
+
+    {% if faprotax_functions %}
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {% for function, count in faprotax_functions.items %}
+        <div class="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors duration-300 group relative">
+            <div class="flex items-center justify-between">
+                <span class="text-sm text-gray-700 truncate" title="{{ function|title }}">{{ function|title }}</span>
+                <span class="ml-2 px-2.5 py-0.5 bg-indigo-100 text-indigo-700 text-md font-semibold rounded-full tabular-nums">
+                    {{ count }}
+                </span>
+            </div>
+            <!-- Tooltip -->
+            <div class="invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200
+                        absolute left-0 top-full mt-2 p-2 bg-gray-800 text-white text-sm rounded-md shadow-lg z-10
+                        max-w-xs whitespace-normal">
+                {{ function|title }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center text-gray-500 py-8">
+        <span class="icon-[material-symbols--dataset-off] text-4xl mb-2"></span>
+        <p>No functional annotation data available</p>
+    </div>
+    {% endif %}
+</section>
+
+<style>
+    .active-krona-btn {
+        background-color: rgb(79, 70, 229);
+        color: white;
+    }
+    .inactive-krona-btn {
+        background-color: transparent;
+        color: rgb(75, 85, 99);
+    }
+    .inactive-krona-btn:hover {
+        background-color: rgb(243, 244, 246);
+    }
+</style>
+
+<script>
+    function switchKrona(type) {
+        const iframe = document.getElementById('krona-frame');
+        const vsearchBtn = document.getElementById('vsearch-btn');
+        const qiimeBtn = document.getElementById('qiime-btn');
+        const run = '{{ amplicon.run }}';
+
+        if (type === 'vsearch') {
+            iframe.src = `/static/amplicon/${run}/${run}.vsearch.krona.html`;
+            vsearchBtn.classList.add('active-krona-btn');
+            vsearchBtn.classList.remove('inactive-krona-btn');
+            qiimeBtn.classList.add('inactive-krona-btn');
+            qiimeBtn.classList.remove('active-krona-btn');
+        } else {
+            iframe.src = `/static/amplicon/${run}/${run}.qiime.krona.html`;
+            qiimeBtn.classList.add('active-krona-btn');
+            qiimeBtn.classList.remove('inactive-krona-btn');
+            vsearchBtn.classList.add('inactive-krona-btn');
+            vsearchBtn.classList.remove('active-krona-btn');
+        }
+    }
+</script>
 
 <div class="mt-8">
     <a href="{% url 'amplicon:amplicons' %}"

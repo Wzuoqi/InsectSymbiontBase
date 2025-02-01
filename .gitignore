@@ -32,6 +32,9 @@ yarn-error.log*
 
 ### 媒体文件 ###
 InsectSymbiontDB/media/
+/media/
+/common_static/
+/collect_static/
 # 保留空目录
 !InsectSymbiontDB/media/.gitkeep
 
