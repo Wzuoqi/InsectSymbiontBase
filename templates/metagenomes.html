@@ -10,7 +10,7 @@
         <div class="flex-1">
             <h1 class="text-4xl font-bold text-cyan-900 dark:text-cyan-800 mb-4">Metagenome</h1>
             <p class="text-sm text-gray-600 dark:text-gray-600 leading-relaxed max-w-4xl">
-                Our database currently contains <span class="font-semibold text-cyan-700"> 1338 </span> metagenome samples,
+                Our database currently contains <span class="font-semibold text-cyan-700"> 1494 </span> metagenome samples,
                 covering various insect species and their microbial communities across different geographical locations and sequencing platforms.
                 The raw data were first quality-controlled using Fastp, followed by taxonomic composition analysis through
                 the Kraken2 workflow. Visualization was performed using Krona. Additionally, the metagenomes were
@@ -34,8 +34,8 @@
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-700">
             <div class="flex items-center justify-between mb-3">
                 <div>
-                    <h3 class="text-lg font-semibold text-gray-700 dark:text-white">Sequencing Platforms</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Distribution of platforms and library layouts</p>
+                    <h3 class="text-lg font-semibold text-gray-700 dark:text-white">Geographical Distribution</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Proportion of data based on geographical locations</p>
                 </div>
             </div>
             <div class="h-80" id="platformChart"></div>
@@ -128,7 +128,7 @@
                                     Host
                                 </th>
                                 <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    Biosample
+                                    Bioproject
                                 </th>
                                 <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                     Sequencing Type
@@ -168,9 +168,9 @@
                                     </div>
                                 </td>
                                 <td class="px-4 py-4 text-gray-700 text-sm whitespace-nowrap">
-                                    {% if metagenome.biosample and metagenome.biosample != "NA" %}
+                                    {% if metagenome.bioproject and metagenome.bioproject != "NA" %}
                                     <h4 class="text-gray-700 dark:text-gray-200">
-                                        {{ metagenome.biosample }}
+                                        {{ metagenome.bioproject }}
                                     </h4>
                                     {% else %}
                                         <span class="text-gray-400 dark:text-gray-200 italic">-</span>
@@ -413,7 +413,7 @@
             const textColor = darkMode ? '#e5e7eb' : '#374151';
             const backgroundColor = darkMode ? '#1f2937' : '#ffffff';
 
-            // Platform & Library Layout Chart (Sankey Diagram)
+            // Geo distribution
             const platformContainer = document.getElementById('platformChart');
             if (platformContainer) {
                 platformChart = echarts.init(platformContainer);
@@ -428,7 +428,8 @@
                         top: 'middle',
                         textStyle: {
                             color: textColor
-                        }
+                        },
+                        show: false
                     },
                     series: [{
                         name: 'Continental Distribution',

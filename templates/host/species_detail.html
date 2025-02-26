@@ -177,6 +177,58 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- 添加下载按钮区域 -->
+            {% if host.genome_id %}
+            <div class="mt-6">
+                <h3 class="text-md font-medium text-gray-700 mb-3">Download Genome Files</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+                    <a href="/media/{{ genome_files.genome }}" class="download-link flex items-center justify-between p-3 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition-colors duration-200">
+                        <div class="flex items-center">
+                            <span class="icon-[heroicons--document-text] text-kabuli-600 mr-2 text-xl"></span>
+                            <div>
+                                <div class="text-sm font-medium text-gray-900">Genome Assembly</div>
+                                <div class="text-xs text-gray-500">.genome.fa</div>
+                            </div>
+                        </div>
+                        <span class="icon-[heroicons--arrow-down-tray] text-kabuli-600"></span>
+                    </a>
+
+                    <a href="/media/{{ genome_files.protein }}" class="download-link flex items-center justify-between p-3 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition-colors duration-200">
+                        <div class="flex items-center">
+                            <span class="icon-[heroicons--cube-transparent] text-kabuli-600 mr-2 text-xl"></span>
+                            <div>
+                                <div class="text-sm font-medium text-gray-900">Protein Sequences</div>
+                                <div class="text-xs text-gray-500">.pep.fa</div>
+                            </div>
+                        </div>
+                        <span class="icon-[heroicons--arrow-down-tray] text-kabuli-600"></span>
+                    </a>
+
+                    <a href="/media/{{ genome_files.cds }}" class="download-link flex items-center justify-between p-3 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition-colors duration-200">
+                        <div class="flex items-center">
+                            <span class="icon-[heroicons--code-bracket] text-kabuli-600 mr-2 text-xl"></span>
+                            <div>
+                                <div class="text-sm font-medium text-gray-900">CDS Sequences</div>
+                                <div class="text-xs text-gray-500">.cds.fa</div>
+                            </div>
+                        </div>
+                        <span class="icon-[heroicons--arrow-down-tray] text-kabuli-600"></span>
+                    </a>
+
+                    <a href="/media/{{ genome_files.gff }}" class="download-link flex items-center justify-between p-3 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition-colors duration-200">
+                        <div class="flex items-center">
+                            <span class="icon-[heroicons--clipboard-document-list] text-kabuli-600 mr-2 text-xl"></span>
+                            <div>
+                                <div class="text-sm font-medium text-gray-900">Genome Annotation</div>
+                                <div class="text-xs text-gray-500">.gff3</div>
+                            </div>
+                        </div>
+                        <span class="icon-[heroicons--arrow-down-tray] text-kabuli-600"></span>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
             {% else %}
             <div class="text-center py-8 text-gray-400">
                 <span class="icon-[heroicons--information-circle] mr-2"></span>

@@ -2,9 +2,12 @@ from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from django.core.paginator import Paginator
 from .models import Gene
+from django_elasticsearch_dsl.search import Search
+from elasticsearch_dsl import Q
+from .documents import GeneDocument
 
 def genes(request):
-    # Get all search parameters
+    # 获取搜索参数
     query = request.GET.get('query', '').strip()
     source_id = request.GET.get('source_id', '').strip()
     nr_id = request.GET.get('nr_id', '').strip()
@@ -15,45 +18,79 @@ def genes(request):
     kegg_pathway = request.GET.get('kegg_pathway', '').strip()
     pfams = request.GET.get('pfams', '').strip()
 
-    genes_query = Gene.objects.all()
+    # 构建基础查询
+    s = GeneDocument.search()
 
-    # Basic search - case insensitive
+    # 添加调试日志
+    print(f"Search query: {query}")
+
+    # 基础多字段搜索
     if query:
-        genes_query = genes_query.filter(
-            Q(nr_annotation__icontains=query) |  # icontains for case-insensitive partial match
-            Q(description__icontains=query) |
-            Q(preferred_name__icontains=query)
+        multi_match_query = Q(
+            'multi_match',
+            query=query,
+            fields=[
+                'nr_annotation^3',  # 给予更高权重
+                'description^3',
+                'preferred_name^2',
+                'nr_species',
+                'go_terms',
+                'kegg_pathway',
+                'pfams'
+            ],
+            type='best_fields',
+            operator='or',  # 改为 or 使搜索更宽松
+            minimum_should_match='50%'  # 降低匹配要求
         )
+        s = s.query(multi_match_query)
 
-    # Advanced search filters - all case insensitive
+        # 添加调试日志
+        print(f"Elasticsearch query: {s.to_dict()}")
+
+    # 精确匹配过滤
     if source_id:
-        # For IDs, we might want to use iexact for exact match (but still case insensitive)
-        genes_query = genes_query.filter(source_id__iexact=source_id)
+        s = s.filter('term', source_id__raw=source_id)
     if nr_id:
-        genes_query = genes_query.filter(nr_id__iexact=nr_id)
-    if nr_annotation:
-        genes_query = genes_query.filter(nr_annotation__icontains=nr_annotation)
+        s = s.filter('term', nr_id__raw=nr_id)
     if host:
-        genes_query = genes_query.filter(host__icontains=host)
-    if go_terms:
-        # GO terms are usually uppercase but we'll make it case insensitive
-        genes_query = genes_query.filter(go_terms__icontains=go_terms)
-    if kegg_ko:
-        # KEGG KO IDs are usually uppercase but we'll make it case insensitive
-        genes_query = genes_query.filter(kegg_ko__icontains=kegg_ko)
-    if kegg_pathway:
-        genes_query = genes_query.filter(kegg_pathway__icontains=kegg_pathway)
-    if pfams:
-        # Pfam IDs are usually uppercase but we'll make it case insensitive
-        genes_query = genes_query.filter(pfams__icontains=pfams)
+        s = s.filter('term', host__raw=host)
 
-    # Pagination
+    # 模糊匹配过滤
+    if nr_annotation:
+        s = s.query('match', nr_annotation=nr_annotation)
+    if go_terms:
+        s = s.query('match', go_terms=go_terms)
+    if kegg_ko:
+        s = s.query('match', kegg_ko=kegg_ko)
+    if kegg_pathway:
+        s = s.query('match', kegg_pathway=kegg_pathway)
+    if pfams:
+        s = s.query('match', pfams=pfams)
+
+    # 分页
     page = request.GET.get('page', 1)
-    paginator = Paginator(genes_query, 20)  # Show 20 genes per page
-    genes_page = paginator.get_page(page)
+    per_page = 20
+    start = (int(page) - 1) * per_page
+    end = start + per_page
+
+    # 执行搜索并添加调试信息
+    try:
+        total = s.count()
+        print(f"Total results: {total}")
+        search_results = s[start:end].execute()
+        print(f"Results returned: {len(search_results)}")
+    except Exception as e:
+        print(f"Search error: {str(e)}")
+        total = 0
+        search_results = []
+
+    # 构建分页器
+    paginator = Paginator(range(total), per_page)
+    page_obj = paginator.get_page(page)
 
     context = {
-        'genes': genes_page,
+        'genes': search_results,
+        'page_obj': page_obj,
         'query': query,
         'source_id': source_id,
         'nr_id': nr_id,
@@ -63,7 +100,7 @@ def genes(request):
         'kegg_ko': kegg_ko,
         'kegg_pathway': kegg_pathway,
         'pfams': pfams,
-        'total_count': genes_query.count(),
+        'total_count': total,
     }
 
     return render(request, 'gene_catalog.html', context)

@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'feedback',
     'tailwind',
     'gene',
+    'django_elasticsearch_dsl',
 ]
 
 MIDDLEWARE = [
@@ -127,7 +128,35 @@ DATABASES = {
     }
 }
 
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': 'localhost:9201',
+        'timeout': 60,  # 增加到60秒
+        'max_retries': 3,
+        'retry_on_timeout': True,
+        'sniff_on_start': True,
+        'sniff_on_connection_fail': True,
+        'sniffer_timeout': 60,
+    },
+}
 
+# 添加批量处理配置
+ELASTICSEARCH_DSL_BULK_SIZE = 500  # 每批处理500条记录
+ELASTICSEARCH_DSL_PARALLEL = 4    # 使用4个并行进程
+
+# 缓存配置
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
+# 缓存搜索结果
+CACHE_MIDDLEWARE_SECONDS = 300  # 缓存5分钟
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -192,3 +221,22 @@ BATCH_SEARCH_RESULTS = os.path.join(BATCH_SEARCH_ROOT, 'results')
 # 创建必要的目录
 os.makedirs(BATCH_SEARCH_TEMP, exist_ok=True)
 os.makedirs(BATCH_SEARCH_RESULTS, exist_ok=True)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+        },
+    },
+    'loggers': {
+        'gene.documents': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}

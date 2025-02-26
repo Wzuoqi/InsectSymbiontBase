@@ -38,6 +38,8 @@ InsectSymbiontDB/media/
 # 保留空目录
 !InsectSymbiontDB/media/.gitkeep
 
+/scripts/data
+
 ### 数据库 ###
 *.dump
 *.sql

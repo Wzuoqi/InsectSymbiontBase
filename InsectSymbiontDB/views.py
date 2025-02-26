@@ -10,6 +10,9 @@ from .scripts.batch_search_tool import (
     filter_genus_matches, add_order_matching, add_insect_matching,
     filter_matches, write_results
 )
+from metagenome.models import Metagenome
+from amplicon.models import Amplicon
+from django.db.models import Q
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -235,6 +238,9 @@ def batch_search(request):
 def map(request):
     return render(request, "tools/map.html")
 
+def compare(request):
+    return render(request, "tools/composition_compare.html")
+
 # def literatures(request):
 
 #     return render(request, "literatures.html")
@@ -247,3 +253,70 @@ def contact(request):
 
 def help(request):
     return render(request, "help.html")
+
+def get_samples(request):
+    """API endpoint to get samples for composition comparison"""
+    sample_type = request.GET.get('type', '')
+    species_filter = request.GET.get('species', '')
+
+    samples = []
+
+    try:
+        if sample_type == 'metagenome':
+            # 构建查询
+            query = Metagenome.objects.all()
+
+            # 应用物种过滤器
+            if species_filter:
+                query = query.filter(host__icontains=species_filter)
+
+            # 限制返回数量，避免过多数据
+            query = query[:100]
+
+            # 格式化结果
+            samples = [
+                {
+                    'id': meta.id,
+                    'run': meta.run,
+                    'host': meta.host or 'Unknown',
+                    'country': meta.geo_loc_name_country or 'NA',
+                    'assay_type': meta.assay_type or 'Metagenome'
+                }
+                for meta in query
+            ]
+
+        elif sample_type == 'amplicon':
+            # 构建Amplicon查询
+            query = Amplicon.objects.all()
+
+            # 应用物种过滤器
+            if species_filter:
+                query = query.filter(host__icontains=species_filter)
+
+            # 限制返回数量，避免过多数据
+            query = query[:100]
+
+            # 格式化结果，确保处理空值
+            samples = [
+                {
+                    'id': amp.id,
+                    'run': amp.run or 'Unknown',
+                    'host': amp.host or 'Unknown host',
+                    'country': amp.geo_loc_name_country or 'NA',
+                    'assay_type': amp.assay_type or 'Amplicon'
+                }
+                for amp in query
+            ]
+
+        return JsonResponse({
+            'samples': samples
+        })
+
+    except Exception as e:
+        # 记录错误并返回友好的错误消息
+        print(f"Error in get_samples: {str(e)}")
+        return JsonResponse({
+            'error': 'An error occurred while fetching samples',
+            'message': str(e),
+            'samples': []
+        }, status=500)

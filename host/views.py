@@ -218,8 +218,19 @@ def species_detail(request, species):
     # 在context中添加图片路径
     image_filename = f"{host.species.replace(' ', '_')}.jpg"
 
-    # 添加核心共生菌组成相关的文件路径
+    # 添加基因组文件下载路径
     species_underscore = host.species.replace(' ', '_')
+    genome_base_path = f'host/genome/{species_underscore}'
+
+    # 定义基因组文件路径
+    genome_files = {
+        'genome': f'{genome_base_path}/{species_underscore}.genome.fa.tar.bz2',
+        'protein': f'{genome_base_path}/{species_underscore}.anno.pep.fa',
+        'cds': f'{genome_base_path}/{species_underscore}.cds.fa',
+        'gff': f'{genome_base_path}/{species_underscore}.gff3',
+    }
+
+    # 添加核心共生菌组成相关的文件路径
     species_core_taxa_dir = os.path.join(settings.STATICFILES_DIRS[0], 'core_taxa', species_underscore)
 
     # 检查物种的core_taxa目录是否存在
@@ -248,6 +259,8 @@ def species_detail(request, species):
         'has_core_taxa': has_core_taxa,
         'has_krona_data': has_krona_data,
         'krona_html_path': krona_html_path if has_krona_data else None,
+        # 添加基因组文件下载路径
+        'genome_files': genome_files,
     }
 
     return render(request, 'host/species_detail.html', context)

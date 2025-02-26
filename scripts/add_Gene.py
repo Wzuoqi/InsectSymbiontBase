@@ -1,6 +1,7 @@
 import django
 import os
 import sys
+from tqdm import tqdm  # 导入进度条库
 
 # 获取脚本所在的目录
 script_path = os.path.dirname(os.path.abspath(__file__))
@@ -22,18 +23,29 @@ from django.db import IntegrityError
 
 def main():
     # 删除所有现有的 Gene 记录
-    deleted_count = Gene.objects.all().delete()[0]
-    print(f"已删除 {deleted_count} 条现有的 Gene 记录")
+    # deleted_count = Gene.objects.all().delete()[0]
+    # print(f"已删除 {deleted_count} 条现有的 Gene 记录")
 
     added_count = 0
     error_count = 0
+    batch_size = 1000  # 批量插入的大小
+    gene_objects = []  # 存储待插入的 Gene 对象
 
     try:
-        with open('./data/gene250131.tab', 'r') as file:
-            for line_number, line in enumerate(file, start=1):
+        with open('./split/split_file_46.tab', 'r') as file:
+            total_lines = sum(1 for _ in file)  # 计算总行数
+            file.seek(0)  # 重置文件指针
+
+            for line_number, line in tqdm(enumerate(file, start=1), total=total_lines, desc="Processing"):
                 try:
                     # 分割数据行
                     values = line.strip().split('\t')
+
+                    # 特殊处理：如果只有37列，插入None并调整seed_ortholog
+                    if len(values) == 37:
+                        values.insert(17, 'None')  # 在nr_species的位置插入None
+                        values[18] = 'None'  # 将seed_ortholog设置为None
+
                     if len(values) < 18:  # 确保至少有基本字段 (新增host字段后至少18个)
                         print(f"警告：第 {line_number} 行数据不完整")
                         error_count += 1
@@ -45,25 +57,23 @@ def main():
                         'source_id': values[1] if len(values) > 1 and values[1] else '',
                         'gene_id': values[2] if len(values) > 2 and values[2] else '',
                         'nr_id': values[3] if len(values) > 3 and values[3] else '',
-                        'identity': float(values[4]) if len(values) > 4 and values[4] else 0.0,
-                        'alignment_length': int(values[5]) if len(values) > 5 and values[5] else 0,
-                        'mismatches': int(values[6]) if len(values) > 6 and values[6] else 0,
-                        'gap_openings': int(values[7]) if len(values) > 7 and values[7] else 0,
-                        'query_start': int(values[8]) if len(values) > 8 and values[8] else 0,
-                        'query_end': int(values[9]) if len(values) > 9 and values[9] else 0,
-                        'subject_start': int(values[10]) if len(values) > 10 and values[10] else 0,
-                        'subject_end': int(values[11]) if len(values) > 11 and values[11] else 0,
-                        'evalue': float(values[12]) if len(values) > 12 and values[12] else 0.0,
-                        'bit_score': float(values[13]) if len(values) > 13 and values[13] else 0.0,
+                        'identity': float(values[4]) if len(values) > 4 and values[4].replace('.', '', 1).isdigit() else 0.0,
+                        'alignment_length': int(values[5]) if len(values) > 5 and values[5].isdigit() else 0,
+                        'mismatches': int(values[6]) if len(values) > 6 and values[6].isdigit() else 0,
+                        'gap_openings': int(values[7]) if len(values) > 7 and values[7].isdigit() else 0,
+                        'query_start': int(values[8]) if len(values) > 8 and values[8].isdigit() else 0,
+                        'query_end': int(values[9]) if len(values) > 9 and values[9].isdigit() else 0,
+                        'subject_start': int(values[10]) if len(values) > 10 and values[10].isdigit() else 0,
+                        'subject_end': int(values[11]) if len(values) > 11 and values[11].isdigit() else 0,
+                        'evalue': float(values[12]) if len(values) > 12 and values[12].replace('.', '', 1).isdigit() else 0.0,
+                        'bit_score': float(values[13]) if len(values) > 13 and values[13].replace('.', '', 1).isdigit() else 0.0,
                         'sequence': values[14] if len(values) > 14 and values[14] else '',
-                        'gene_length': int(values[15]) if len(values) > 15 and values[15] else 0,
+                        'gene_length': int(values[15]) if len(values) > 15 and values[15].isdigit() else 0,
                         'nr_annotation': values[16] if len(values) > 16 and values[16] else '',
                         'nr_species': values[17] if len(values) > 17 and values[17] else '',
-
-                        # 以下字段索引都加1了，因为前面新增了host字段
                         'seed_ortholog': values[18] if len(values) > 18 and values[18] else '',
-                        'eggnog_evalue': float(values[19]) if len(values) > 19 and values[19] else 0.0,
-                        'eggnog_score': float(values[20]) if len(values) > 20 and values[20] else 0.0,
+                        'eggnog_evalue': float(values[19]) if len(values) > 19 and values[19].replace('.', '', 1).isdigit() else 0.0,
+                        'eggnog_score': float(values[20]) if len(values) > 20 and values[20].replace('.', '', 1).isdigit() else 0.0,
                         'eggnog_ogs': values[21] if len(values) > 21 and values[21] else '',
                         'max_annot_lvl': values[22] if len(values) > 22 and values[22] else '',
                         'cog_category': values[23] if len(values) > 23 and values[23] else '',
@@ -85,18 +95,24 @@ def main():
 
                     # 创建新的 Gene 对象
                     new_gene = Gene(**gene_data)
-                    new_gene.save()
-                    added_count += 1
+                    gene_objects.append(new_gene)
 
-                    # 每1000条记录打印一次进度
-                    if added_count % 1000 == 0:
-                        print(f"已处理 {added_count} 条记录...")
+                    # 每批次插入
+                    if len(gene_objects) >= batch_size:
+                        Gene.objects.bulk_create(gene_objects)  # 批量插入
+                        added_count += len(gene_objects)
+                        gene_objects.clear()  # 清空列表以便下次使用
 
                 except Exception as e:
                     print(f"错误：处理第 {line_number} 行时出现问题:")
                     print(f"  错误类型: {type(e).__name__}")
                     print(f"  错误信息: {str(e)}")
                     error_count += 1
+
+        # 插入剩余的对象
+        if gene_objects:
+            Gene.objects.bulk_create(gene_objects)
+            added_count += len(gene_objects)
 
         print(f"\n数据导入完成:")
         print(f"成功添加 {added_count} 条新的 Gene 记录")

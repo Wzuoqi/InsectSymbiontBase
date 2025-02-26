@@ -101,14 +101,14 @@ def metagenome_detail(request, run):
     file_status = {}
     if has_metagenome_folder:
         file_status = {
-            'kraken_report': os.path.exists(os.path.join(media_root, f'metagenome/{run}/{run}.kraken.txt')),
-            'krona_html': os.path.exists(os.path.join(media_root, f'metagenome/{run}/{run}.kraken.krona.html')),
-            'bracken_results': os.path.exists(os.path.join(media_root, f'metagenome/{run}/{run}.bracken.S')),
-            'contigs': os.path.exists(os.path.join(media_root, f'metagenome/{run}/megahit/{run}.contigs.fa')),
-            'genes': os.path.exists(os.path.join(media_root, f'metagenome/{run}/megahit/{run}.gene.fa')),
-            'gff': os.path.exists(os.path.join(media_root, f'metagenome/{run}/megahit/{run}.gff')),
-            'bins': os.path.exists(os.path.join(media_root, f'metagenome/{run}/metabat/{run}.bins.tar.gz')),
-            'bins_qa': os.path.exists(os.path.join(media_root, f'metagenome/{run}/bins_qa.txt')),
+            'kraken_report': os.path.exists(os.path.join(settings.MEDIA_ROOT, f'metagenome/{run}/{run}.kraken.txt')),
+            'krona_html': os.path.exists(os.path.join(settings.MEDIA_ROOT, f'metagenome/{run}/{run}.kraken.krona.html')),
+            'bracken_results': os.path.exists(os.path.join(settings.MEDIA_ROOT, f'metagenome/{run}/{run}.bracken.S')),
+            'contigs': os.path.exists(os.path.join(settings.MEDIA_ROOT, f'metagenome/{run}/megahit/{run}.contigs.fa')),
+            'genes': os.path.exists(os.path.join(settings.MEDIA_ROOT, f'metagenome/{run}/megahit/{run}.gene.fa')),
+            'gff': os.path.exists(os.path.join(settings.MEDIA_ROOT, f'metagenome/{run}/megahit/{run}.gff')),
+            'bins': os.path.exists(os.path.join(settings.MEDIA_ROOT, f'metagenome/{run}/metabat/{run}.bins.tar.gz')),
+            'bins_qa': os.path.exists(os.path.join(settings.MEDIA_ROOT, f'metagenome/{run}/bins_qa.txt')),
         }
 
     # 检查 Krona HTML 文件是否存在（用于显示可视化）

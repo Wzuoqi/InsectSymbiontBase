@@ -61,6 +61,10 @@ urlpatterns = [
 
     path("map/", views.map, name="map"),
 
+    path("compare/", views.compare, name="compare"),
+
     path('feedback/', include('feedback.urls')),
+
+    path("api/samples", views.get_samples, name="get_samples"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # 添加媒体文件服务
