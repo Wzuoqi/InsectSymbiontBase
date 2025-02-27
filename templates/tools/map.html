@@ -32,7 +32,7 @@
         width: 50px;
         height: 50px;
         border: 5px solid #f3f3f3;
-        border-top: 5px solid #004097;  /* 使用与Amplicon相同的蓝色 */
+        border-top: 5px solid #004097;  /* Use the same blue as Amplicon */
         border-radius: 50%;
         animation: spin 1s linear infinite;
     }
@@ -44,43 +44,163 @@
 </style>
 
 <script>
-    document.getElementById('map-frame').onload = function() {
-        document.getElementById('loading').style.display = 'none';
-        this.style.display = 'block';
-        adjustMapSize();
-    };
+    // 调试日志函数
+    function debugLog(message, error = null) {
+        const timestamp = new Date().toISOString();
+        const logMessage = `[${timestamp}] ${message}`;
+        console.log(logMessage);
+        if (error) {
+            console.error('Error details:', error);
+        }
+    }
+
+    var mapFrame = document.getElementById('map-frame');
+    debugLog('Initial map frame setup');
+
+    // 添加时间戳到URL
+    const timestamp = new Date().getTime();
+    const mapUrl = "{% static 'sample_map.html' %}?" + timestamp;
+    mapFrame.src = mapUrl;
+    debugLog(`Setting map URL: ${mapUrl}`);
+
+    let loadAttempts = 0;  // 移到全局作用域
+    let checkInterval = null;  // 用于存储interval引用
+
+    // 清理函数
+    function cleanup() {
+        if (checkInterval) {
+            clearInterval(checkInterval);
+            checkInterval = null;
+        }
+    }
+
+    // 显示错误信息
+    function showError(message = 'The map failed to load, possibly due to insufficient browser memory. Please refresh and try again.') {
+        cleanup();
+        document.getElementById('loading').innerHTML = `
+            <div class="text-red-500 text-center">
+                <p class="text-xl">${message}</p>
+                <button onclick="window.location.reload()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                    Refresh Page
+                </button>
+            </div>
+        `;
+    }
+
+    // 检查iframe内容
+    function checkIframeContent() {
+        loadAttempts++;
+        debugLog(`Attempt ${loadAttempts} of 20`);
+
+        try {
+            // 首先检查iframe是否加载完成
+            if (!mapFrame.contentWindow || !mapFrame.contentWindow.document) {
+                if (loadAttempts >= 20) {
+                    debugLog('Max retries reached - iframe not accessible');
+                    showError('Unable to load the map. This might be due to insufficient browser memory. Please refresh and try again.');
+                }
+                return;
+            }
+
+            // 检查页面内容
+            const doc = mapFrame.contentWindow.document;
+            debugLog('Document structure:', doc.body.innerHTML);  // 输出页面结构以便调试
+
+            // 尝试查找可能的图表容器
+            const plotlyGraph = doc.getElementById('graph') ||
+                              doc.querySelector('[data-plotly]') ||
+                              doc.querySelector('.plotly-graph-div');
+
+            if (!plotlyGraph) {
+                if (loadAttempts >= 20) {
+                    debugLog('Max retries reached - graph element not found');
+                    showError('The map content failed to load. This might be due to insufficient browser memory. Please refresh your browser and try again.');
+                }
+                return;
+            }
+
+            // 找到图表元素
+            debugLog('Found graph element:', plotlyGraph);
+            cleanup();  // 清除interval
+
+            // 显示地图
+            document.getElementById('loading').style.display = 'none';
+            mapFrame.style.display = 'block';
+            adjustMapSize();
+
+            // 确保Plotly完全加载
+            setTimeout(() => {
+                try {
+                    if (mapFrame.contentWindow.Plotly) {
+                        mapFrame.contentWindow.Plotly.Plots.resize(plotlyGraph);
+                        debugLog('Plotly resize successful');
+                    } else {
+                        debugLog('Warning: Plotly not found in iframe');
+                    }
+                } catch(e) {
+                    debugLog('Error during resize:', e);
+                }
+            }, 500);
+
+        } catch(e) {
+            debugLog('Error checking iframe content:', e);
+            if (loadAttempts >= 20) {
+                showError(); // 使用默认错误消息
+            }
+        }
+    }
+
+    // 监听iframe加载
+    mapFrame.addEventListener('load', function() {
+        debugLog('Iframe load event triggered');
+        loadAttempts = 0;  // 重置计数器
+        cleanup();  // 清除可能存在的旧interval
+        checkInterval = setInterval(checkIframeContent, 300);
+    });
+
+    // 错误处理
+    mapFrame.addEventListener('error', function(e) {
+        debugLog('Iframe error event triggered', e);
+        showError('Failed to load the map. This might be due to insufficient browser memory. Please refresh and try again.');
+    });
 
     function adjustMapSize() {
+        debugLog('Adjusting map size');
         var windowHeight = window.innerHeight;
         var windowWidth = window.innerWidth;
         var mapOuterContainer = document.getElementById('map-outer-container');
         var mapContainer = document.getElementById('map-container');
         var mapFrame = document.getElementById('map-frame');
 
-        // Set the outer container to 80% of viewport height
-        mapOuterContainer.style.height = (windowHeight * 0.8) + 'px';
-
-        // Calculate the inner container size (subtracting padding)
-        var containerHeight = (windowHeight * 0.8) - 32; // 32px for 2rem (p-4) padding
+        mapOuterContainer.style.height = (windowHeight * 0.95) + 'px';
+        var containerHeight = (windowHeight * 0.95) - 32;
         var containerWidth = windowWidth - 32;
+        var minWidth = Math.max(containerWidth, 1200);
 
-        mapContainer.style.height = containerHeight + 'px';
+        debugLog(`Setting map dimensions - width: ${minWidth}px, height: ${containerHeight}px`);
 
-        // Set a minimum width for the iframe
-        var minWidth = Math.max(containerWidth, 1200); // Adjust 1200 as needed
         mapFrame.style.width = minWidth + 'px';
         mapFrame.style.height = containerHeight + 'px';
 
-        // If the content is wider than the container, show scrollbar
-        if (minWidth > containerWidth) {
-            mapContainer.style.overflowX = 'auto';
-        } else {
-            mapContainer.style.overflowX = 'hidden';
-        }
+        clearTimeout(window.resizeTimer);
+        window.resizeTimer = setTimeout(function() {
+            mapFrame.style.width = (minWidth + 1) + 'px';
+            setTimeout(() => {
+                mapFrame.style.width = minWidth + 'px';
+                debugLog('Forced resize completed');
+            }, 10);
+        }, 100);
     }
 
-    window.addEventListener('load', adjustMapSize);
-    window.addEventListener('resize', adjustMapSize);
+    window.addEventListener('load', () => {
+        debugLog('Window load event triggered');
+        adjustMapSize();
+    });
+
+    window.addEventListener('resize', () => {
+        debugLog('Window resize event triggered');
+        adjustMapSize();
+    });
 </script>
 
 {% endblock %}

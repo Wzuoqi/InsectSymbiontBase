@@ -54,68 +54,265 @@ def calculate_function_score(function_text):
     # 保留两位小数
     return round(score, 2)
 
-def match_species_level(kraken_file, symbiont_db):
+def convert_kraken_format(input_file):
+    """将Kraken格式转换为标准格式
+
+    标准格式为：
+    percentage\ttaxon_type\tname\tother_fields...
+
+    Args:
+        input_file: Kraken格式的输入文件路径
+
+    Returns:
+        list: 转换后的记录列表，每条记录包含 percentage, taxon_type, name 等信息
+    """
+    converted_records = []
+
+    with open(input_file, 'r', encoding='utf-8') as f:
+        for line in f:
+            fields = line.strip().split('\t')
+            if len(fields) >= 6:  # 确保有足够的字段
+                percentage = float(fields[0])
+                taxon_type = fields[3].strip()
+                name = fields[5].strip()
+
+                # 只处理物种(S)和属(G)级别的记录
+                if taxon_type in ['S', 'G']:
+                    # 其他字段用 None 填充
+                    record = {
+                        'percentage': percentage,
+                        'taxon_type': taxon_type,
+                        'name': name,
+                        'other_fields': [None] * 3  # 添加3个None作为其他字段的占位符
+                    }
+                    converted_records.append(record)
+
+    return converted_records
+
+def convert_metaphlan_format(input_file):
+    """将 MetaPhlAn 格式转换为标准格式
+
+    MetaPhlAn 格式示例:
+    k__Bacteria|...|g__Pseudomonas|s__Pseudomonas_zeae  2|1224|...  0.0004
+
+    转换为 Kraken 格式:
+    percentage\tNone\tNone\ttaxon_type\tNone\tname\t...
+
+    Args:
+        input_file: MetaPhlAn 格式的输入文件路径
+
+    Returns:
+        list: 转换后的记录列表
+    """
+    converted_records = []
+
+    with open(input_file, 'r', encoding='utf-8') as f:
+        for line in f:
+            # 跳过注释行
+            if line.startswith('#'):
+                continue
+
+            fields = line.strip().split('\t')
+            if len(fields) >= 3:  # 确保至少有3列
+                taxonomy_string = fields[0]
+                abundance = float(fields[2])
+
+                # 解析分类字符串
+                taxa = taxonomy_string.split('|')
+
+                # 首先尝试找物种级别 (s__)
+                species_entries = [t for t in taxa if t.startswith('s__')]
+                if species_entries:
+                    # 找到物种级别
+                    taxon_type = 'S'
+                    name = species_entries[0][3:].replace('_', ' ')
+                else:
+                    # 尝试找属级别 (g__)
+                    genus_entries = [t for t in taxa if t.startswith('g__')]
+                    if genus_entries:
+                        taxon_type = 'G'
+                        name = genus_entries[0][3:].replace('_', ' ')
+                    else:
+                        # 既不是物种也不是属级别，跳过
+                        continue
+
+                # 创建记录
+                record = {
+                    'percentage': abundance,
+                    'taxon_type': taxon_type,
+                    'name': name,
+                    'other_fields': [None] * 3  # 添加3个None作为其他字段的占位符
+                }
+                converted_records.append(record)
+
+    return converted_records
+
+def process_input_file(input_file, file_type):
+    """根据文件类型处理输入文件
+
+    Args:
+        input_file: 输入文件路径
+        file_type: 文件类型 ('kraken', 'metaphlan', 'krona')
+
+    Returns:
+        list: 标准格式的记录列表
+    """
+    if file_type == 'kraken':
+        return convert_kraken_format(input_file)
+    elif file_type == 'metaphlan':
+        return convert_metaphlan_format(input_file)
+    elif file_type == 'krona':
+        return convert_krona_format(input_file)
+    else:
+        raise ValueError(f"Unsupported file type: {file_type}")
+
+def convert_krona_format(input_file):
+    """将 Krona 格式转换为标准格式
+
+    Krona 格式示例:
+    reads_count kingdom phylum class order family genus species
+
+    Args:
+        input_file: Krona 格式的输入文件路径
+
+    Returns:
+        list: 转换后的记录列表
+    """
+    # 首先计算总reads数
+    total_reads = 0
+    records_dict = {'S': {}, 'G': {}}  # 用于存储合并后的记录
+
+    with open(input_file, 'r', encoding='utf-8') as f:
+        # 计算总reads数
+        for line in f:
+            if line.strip() and not line.startswith('#'):
+                fields = line.strip().split('\t')
+                try:
+                    total_reads += int(fields[0])
+                except (ValueError, IndexError):
+                    continue
+
+        # 重置文件指针
+        f.seek(0)
+
+        # 处理每一行
+        for line in f:
+            if line.strip() and not line.startswith('#'):
+                fields = line.strip().split('\t')
+                if len(fields) < 7:  # 至少需要到genus列
+                    continue
+
+                try:
+                    reads_count = int(fields[0])
+                    percentage = round((reads_count / total_reads) * 100, 2)
+
+                    # 处理属名称
+                    if len(fields) >= 7 and fields[6].strip():
+                        genus = fields[6].split('_')[0]  # 只保留第一个单词
+
+                        # 更新属记录
+                        if genus in records_dict['G']:
+                            records_dict['G'][genus] += percentage
+                        else:
+                            records_dict['G'][genus] = percentage
+
+                    # 处理物种名称
+                    if len(fields) >= 8 and fields[7].strip():
+                        species_parts = fields[7].split('_')[0].split()  # 分割并去除_后的内容
+                        if len(species_parts) >= 2:
+                            # 只保留前两个单词
+                            species = ' '.join(species_parts[:2])
+
+                            # 更新物种记录
+                            if species in records_dict['S']:
+                                records_dict['S'][species] += percentage
+                            else:
+                                records_dict['S'][species] = percentage
+
+                except (ValueError, IndexError):
+                    continue
+
+    # 转换合并后的记录为标准格式
+    converted_records = []
+
+    # 添加物种记录
+    for species, percentage in records_dict['S'].items():
+        record = {
+            'percentage': round(percentage, 2),  # 保留两位小数
+            'taxon_type': 'S',
+            'name': species,
+            'other_fields': [None] * 3
+        }
+        converted_records.append(record)
+
+    # 添加属记录
+    for genus, percentage in records_dict['G'].items():
+        record = {
+            'percentage': round(percentage, 2),  # 保留两位小数
+            'taxon_type': 'G',
+            'name': genus,
+            'other_fields': [None] * 3
+        }
+        converted_records.append(record)
+
+    return converted_records
+
+def match_species_level(kraken_file, symbiont_db, file_type='kraken'):
     """进行物种级别的比对"""
     species_matches = []
 
-    with open(kraken_file, 'r') as f:
-        for line in f:
-            fields = line.strip().split('\t')
-            if len(fields) >= 5:
-                percentage = float(fields[0])
-                taxon_type = fields[3].strip()
-                name = fields[-1].strip()
+    # 处理输入文件
+    records = process_input_file(kraken_file, file_type)
 
-                if taxon_type == 'S':
-                    for db_entry in symbiont_db:
-                        kraken_species = get_species_name(name)
-                        db_species = get_species_name(db_entry['species'])
-                        if kraken_species == db_species:
-                            # 基础分为占比
-                            score = percentage
-                            # 物种级别匹配加5分
-                            score += 5
-                            # 添加功能描述分数（保留两位小数）
-                            score += calculate_function_score(db_entry['function'])
+    for record in records:
+        if record['taxon_type'] == 'S':  # 只处理物种级别的记录
+            for db_entry in symbiont_db:
+                kraken_species = get_species_name(record['name'])
+                db_species = get_species_name(db_entry['species'])
+                if kraken_species == db_species:
+                    # 基础分为占比
+                    score = record['percentage']
+                    # 物种级别匹配加5分
+                    score += 5
+                    # 添加功能描述分数
+                    score += calculate_function_score(db_entry['function'])
 
-                            species_matches.append({
-                                'percentage': percentage,
-                                'kraken_name': name,
-                                'db_record': db_entry['full_record'],
-                                'order': db_entry['order'],
-                                'species_match': True,
-                                'total_score': round(score, 2)  # 确保总分也保留两位小数
-                            })
+                    species_matches.append({
+                        'percentage': record['percentage'],
+                        'kraken_name': record['name'],
+                        'db_record': db_entry['full_record'],
+                        'order': db_entry['order'],
+                        'species_match': True,
+                        'total_score': round(score, 2)
+                    })
+
     return species_matches
 
-def match_genus_level(kraken_file, symbiont_db):
+def match_genus_level(kraken_file, symbiont_db, file_type='kraken'):
     """进行属级别的比对"""
     genus_matches = []
 
-    with open(kraken_file, 'r') as f:
-        for line in f:
-            fields = line.strip().split('\t')
-            if len(fields) >= 5:
-                percentage = float(fields[0])
-                taxon_type = fields[3].strip()
-                name = fields[-1].strip()
+    # 处理输入文件
+    records = process_input_file(kraken_file, file_type)
 
-                if taxon_type == 'G':
-                    for db_entry in symbiont_db:
-                        if name.lower() in db_entry['genus'].lower():
-                            # 基础分为占比
-                            score = percentage
-                            # 添加功能描述分数（保留两位小数）
-                            score += calculate_function_score(db_entry['function'])
+    for record in records:
+        if record['taxon_type'] == 'G':  # 只处理属级别的记录
+            for db_entry in symbiont_db:
+                if record['name'].lower() in db_entry['genus'].lower():
+                    # 基础分为占比
+                    score = record['percentage']
+                    # 添加功能描述分数
+                    score += calculate_function_score(db_entry['function'])
 
-                            genus_matches.append({
-                                'percentage': percentage,
-                                'kraken_name': name,
-                                'db_record': db_entry['full_record'],
-                                'order': db_entry['order'],
-                                'species_match': False,
-                                'total_score': round(score, 2)  # 确保总分也保留两位小数
-                            })
+                    genus_matches.append({
+                        'percentage': record['percentage'],
+                        'kraken_name': record['name'],
+                        'db_record': db_entry['full_record'],
+                        'order': db_entry['order'],
+                        'species_match': False,
+                        'total_score': round(score, 2)
+                    })
+
     return genus_matches
 
 def filter_genus_matches(species_matches, genus_matches):

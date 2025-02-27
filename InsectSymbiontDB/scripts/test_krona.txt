@@ -1,0 +1,471 @@
+331	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+1295	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+622	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+887	Bacteria	Fibrobacteres	TG3	TG3	M1PL1
+337	Bacteria	WWE1	CW
+1190	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+510	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+309	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+64	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+226	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+259	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+189	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+375	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+206	Bacteria	WWE1	CW
+170	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+388	Bacteria	Fibrobacteres	TG3	TG3	M1PL1
+577	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+310	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+79	Bacteria	WWE1	CW
+66	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+361	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+101	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+94	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+63	Bacteria	Proteobacteria	Alphaproteobacteria
+56	Bacteria	Firmicutes	Clostridia	Clostridiales
+52	Bacteria	Firmicutes	Clostridia	Clostridiales	Lachnospiraceae
+61	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+75	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+56	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+84	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+89	Bacteria	Fibrobacteres	TG3	TG3	M1PL1
+36	Bacteria	Firmicutes	Clostridia	Clostridiales
+50	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae	Ruminococcus
+55	Bacteria	Firmicutes	Clostridia	Clostridiales	Lachnospiraceae
+77	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+67	Bacteria	Fibrobacteres	TG3	TG3	M1PL1
+59	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+44	Bacteria	Firmicutes	Clostridia	Clostridiales
+64	Bacteria	Firmicutes	Clostridia	Clostridiales
+64	Bacteria	WWE1	CW
+73	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+142	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+43	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+77	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+76	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+67	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+56	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+74	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+59	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+39	Bacteria	Firmicutes	Clostridia	Clostridiales
+81	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+64	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+45	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	SB
+68	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+40	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+67	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+50	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+64	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+28	Bacteria	Firmicutes	Clostridia	Clostridiales
+184	Bacteria	Firmicutes	Clostridia	Clostridiales
+54	Bacteria	Proteobacteria	Alphaproteobacteria
+62	Bacteria	WWE1	CW
+35	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+48	Bacteria	Fibrobacteres	Fibrobacteria	Fibrobacterales	Fibrobacteraceae	Fibrobacteres
+47	Bacteria	Fibrobacteres	TG3	TG3	M1PL1
+39	Bacteria	Firmicutes	Clostridia	Clostridiales
+29	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+55	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+37	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+64	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+92	Bacteria	Proteobacteria	Deltaproteobacteria	Desulfarculales	Desulfarculaceae
+71	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+49	Bacteria	Firmicutes	Clostridia	Clostridiales
+51	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+38	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+90	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+51	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+33	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+103	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+45	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+208	Bacteria	Fibrobacteres	TG3	TG3	M2PB4
+36	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+48	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+96	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+79	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+53	Bacteria	WWE1	CW
+32	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	SB
+44	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Porphyromonadaceae	Paludibacter
+32	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+55	Bacteria	Firmicutes	Clostridia	Clostridiales
+49	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+50	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+30	Bacteria	Firmicutes	Clostridia	Clostridiales
+42	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+235	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+46	Bacteria	Firmicutes	Clostridia	Clostridiales	Lachnospiraceae
+31	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+31	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+50	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+72	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+41	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+149	Bacteria	Fibrobacteres	TG3	TG3	M2PB4
+58	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Porphyromonadaceae	Candidatus_Azobacteroides
+34	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+48	Bacteria	Tenericutes	Mollicutes
+34	Bacteria	WWE1	CW
+46	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+31	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+28	Bacteria	Firmicutes	Clostridia	Clostridiales
+42	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+50	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+34	Bacteria	WWE1	CW
+44	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+41	Bacteria	Planctomycetes	vadinHA49	PeHg47
+41	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+36	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae	Ruminococcus
+74	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+22	Bacteria	Firmicutes	Clostridia	Clostridiales
+34	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+49	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+54	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+39	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+34	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+26	Bacteria	Firmicutes	Clostridia	Clostridiales
+25	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+51	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+31	Bacteria	Firmicutes	Clostridia	Clostridiales
+36	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+36	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+42	Bacteria	WWE1	CW
+69	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+83	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+169	Bacteria	Fibrobacteres	Fibrobacteria	Fibrobacterales	Fibrobacteraceae	Fibrobacteres
+59	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	SB
+90	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+45	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+35	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+35	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+41	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+27	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+44	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+29	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+37	Bacteria	Firmicutes	Clostridia	Clostridiales
+195	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+43	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+70	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales	Comamonadaceae	Hylemonella
+58	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+28	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+51	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+28	Bacteria	Firmicutes	Clostridia	Clostridiales
+91	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+47	Bacteria	Fibrobacteres	TG3	TG3	M1PL1
+66	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+60	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+160	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Porphyromonadaceae	Paludibacter
+43	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+45	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+51	Bacteria	Fibrobacteres	TG3	TG3	M1PL1
+24	Bacteria	Elusimicrobia	Endomicrobia
+63	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+55	Bacteria	WWE1	CW
+84	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+25	Bacteria	Cyanobacteria	4C0d	YS2
+27	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Porphyromonadaceae	Paludibacter
+34	Bacteria	Tenericutes	Mollicutes	RF39
+164	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+41	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+33	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+37	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+30	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+26	Bacteria	WWE1	CW
+38	Bacteria	Proteobacteria	Betaproteobacteria	Rhodocyclales	Rhodocyclaceae	TS34
+61	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+43	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+19	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+148	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+18	Bacteria	Firmicutes	Clostridia	Clostridiales	Lachnospiraceae
+52	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+33	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae	Ruminococcus
+23	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+25	Bacteria	Firmicutes	Clostridia	Clostridiales
+35	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+66	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Porphyromonadaceae	Candidatus_Azobacteroides
+22	Bacteria	Firmicutes	Clostridia	Clostridiales
+30	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+31	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+36	Bacteria	Fibrobacteres	TG3	TG3	M1PL1
+50	Bacteria	WWE1	CW
+221	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+70	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+78	Bacteria	Spirochaetes	Sediment	SJA
+27	Bacteria	Proteobacteria	Deltaproteobacteria	Desulfarculales	Desulfarculaceae
+20	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+38	Bacteria	Fibrobacteres	TG3	TG3	M1PL1
+33	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+21	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+39	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+19	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+40	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+45	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+173	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+30	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+33	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+42	Bacteria	Fibrobacteres	TG3	TG3	M1PL1
+43	Bacteria	Firmicutes	Clostridia	Clostridiales
+18	Bacteria	Chloroflexi	Dehalococcoidetes	Dehalococcoidales	Dehalococcoidaceae
+118	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+20	Bacteria	Firmicutes	Clostridia	Clostridiales
+25	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+106	Bacteria	Firmicutes	Clostridia	Clostridiales
+18	Bacteria	Firmicutes	Clostridia	Clostridiales	Lachnospiraceae
+38	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+44	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+31	Bacteria	Fibrobacteres	Fibrobacteria	Fibrobacterales	Fibrobacteraceae	Fibrobacteres
+67	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+55	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+22	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae	Ruminococcus	Ruminococcus_flavefaciens
+32	Bacteria	Firmicutes	Clostridia	Clostridiales
+21	Bacteria	Firmicutes	Clostridia	Clostridiales
+38	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+52	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+40	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+76	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+27	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+33	Bacteria	ZB3	Rs
+39	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+37	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+15	Bacteria	Firmicutes	Clostridia	Clostridiales
+18	Bacteria	Firmicutes	Clostridia	Clostridiales
+56	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+99	Bacteria	Firmicutes	Clostridia	Clostridiales
+29	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+30	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+22	Bacteria	Firmicutes	Clostridia	Clostridiales
+31	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+23	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+46	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+33	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+30	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+20	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Porphyromonadaceae	Paludibacter
+26	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+141	Bacteria	Fibrobacteres	TG3	TG3	M1PL1
+27	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+43	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+40	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+41	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+29	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+17	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+50	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+12	Bacteria	Firmicutes	Clostridia	Clostridiales
+25	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae	Oscillospira
+35	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+38	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+19	Bacteria	Firmicutes	Clostridia	Clostridiales
+44	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Porphyromonadaceae	Candidatus_Azobacteroides
+36	Bacteria	Firmicutes	Clostridia	Clostridiales
+48	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+24	Bacteria	Firmicutes	Clostridia	Clostridiales
+40	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+28	Bacteria	Proteobacteria	Alphaproteobacteria
+23	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+29	Bacteria	Firmicutes	Clostridia	Clostridiales
+172	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+74	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+17	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Porphyromonadaceae	Paludibacter
+57	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+18	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+28	Bacteria	Firmicutes	Clostridia	Clostridiales
+35	Bacteria	Proteobacteria	Betaproteobacteria	Rhodocyclales	Rhodocyclaceae	TS34
+48	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+44	Bacteria	WWE1	CW
+70	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+36	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+27	Bacteria	WWE1	CW
+40	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+25	Bacteria	Firmicutes	Clostridia	Clostridiales
+35	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+26	Bacteria	Firmicutes	Clostridia	Clostridiales	Lachnospiraceae
+33	Bacteria	Fibrobacteres	TG3	TG3	M1PL1
+13	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+36	Bacteria	Firmicutes	Clostridia	Clostridiales
+18	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+53	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+144	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+35	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+28	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+21	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+14	Bacteria	Firmicutes	Clostridia	Clostridiales
+23	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+39	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Porphyromonadaceae	Candidatus_Azobacteroides
+16	Bacteria	Firmicutes	Clostridia	Clostridiales
+35	Bacteria	SR1
+35	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+27	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+20	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+247	Bacteria	Fibrobacteres	TG3	TG3	M1PL1
+21	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+37	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+16	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+37	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+22	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+24	Bacteria	WWE1	CW
+13	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+24	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+15	Bacteria	Firmicutes	Clostridia	Clostridiales
+30	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+194	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+21	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+46	Bacteria	WWE1	CW
+36	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+40	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+19	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+37	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+16	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+22	Bacteria	Firmicutes	Clostridia	Clostridiales	Lachnospiraceae
+48	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+153	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+49	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+14	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+14	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+33	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+34	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+30	Bacteria	WWE1	CW
+11	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae	Ruminococcus
+44	Bacteria	Firmicutes	Clostridia	Clostridiales
+37	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+25	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Porphyromonadaceae	Candidatus_Azobacteroides
+24	Bacteria	Fibrobacteres	Fibrobacteria	Fibrobacterales	Fibrobacteraceae	Fibrobacteres
+44	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+144	Bacteria	Fibrobacteres	TG3	TG3	M1PL1
+23	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+15	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+12	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+20	Bacteria	Fibrobacteres	Fibrobacteria	Fibrobacterales	Fibrobacteraceae	Fibrobacteres
+11	Bacteria	Fibrobacteres	TG3	TG3	M2PB4
+25	Bacteria	Fibrobacteres	Fibrobacteria	Fibrobacterales	Fibrobacteraceae	Fibrobacteres
+22	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+27	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+146	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+15	Bacteria	Firmicutes	Clostridia	Clostridiales
+59	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+44	Bacteria	WWE1	CW
+25	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+23	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+25	Bacteria	WWE1	CW
+19	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+26	Bacteria	Firmicutes	Clostridia	Clostridiales
+20	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+138	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+14	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae	Ruminococcus	Ruminococcus_flavefaciens
+25	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+29	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+79	Bacteria	Proteobacteria	Deltaproteobacteria	Desulfarculales	Desulfarculaceae
+21	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+11	Bacteria	Firmicutes	Clostridia	Clostridiales
+22	Bacteria	Firmicutes	Clostridia	Clostridiales
+59	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+23	Bacteria	WWE1	CW
+24	Bacteria	Proteobacteria	Deltaproteobacteria	Desulfobacterales	Desulfobulbaceae	Desulfobulbus
+138	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+32	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+16	Bacteria	Firmicutes	Clostridia	Clostridiales
+55	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+19	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+37	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Porphyromonadaceae	Tannerella
+18	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+29	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+14	Bacteria	Elusimicrobia	Endomicrobia
+18	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+32	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+79	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+57	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+121	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+27	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+43	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+19	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+10	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae	Ruminococcus
+30	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+22	Bacteria	Firmicutes	Clostridia	Clostridiales	Lachnospiraceae
+40	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+13	Bacteria	Firmicutes	Clostridia	Clostridiales
+194	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+18	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales	Oxalobacteraceae	Oxalobacter
+58	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+16	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+52	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+11	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Porphyromonadaceae	Paludibacter
+26	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+9	Bacteria	Firmicutes	Clostridia	Clostridiales
+50	Bacteria	Fibrobacteres	TG3	TG3	M1PL1
+38	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae	Ruminococcus	Ruminococcus_flavefaciens
+22	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+39	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+18	Bacteria	WWE1	CW
+112	Bacteria	Fibrobacteres	TG3	TG3	M1PL1
+35	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Porphyromonadaceae	Candidatus_Azobacteroides
+53	Bacteria	Firmicutes	Clostridia	Clostridiales
+11	Bacteria	Firmicutes	Clostridia	Clostridiales
+20	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+22	Bacteria	Firmicutes	Clostridia	Clostridiales
+17	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+12	Bacteria	Firmicutes	Clostridia	Clostridiales	Lachnospiraceae
+29	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+11	Bacteria	Firmicutes	Clostridia	Clostridiales
+107	Bacteria	Firmicutes	Clostridia	Clostridiales
+15	Bacteria	Firmicutes	Clostridia	Clostridiales
+20	Bacteria	Synergistetes	Synergistia	Synergistales	Synergistaceae	Candidatus_Tammella
+20	Bacteria	Firmicutes	Clostridia	Clostridiales
+29	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+50	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+13	Bacteria	Proteobacteria	Deltaproteobacteria	Myxococcales
+16	Bacteria	Actinobacteria	Coriobacteriia	Coriobacteriales	Coriobacteriaceae
+23	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Porphyromonadaceae	Candidatus_Azobacteroides
+15	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+18	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+134	Bacteria	Firmicutes	Clostridia	Clostridiales
+28	Bacteria	Firmicutes	Clostridia	Clostridiales
+13	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+118	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+113	Bacteria	Fibrobacteres	Fibrobacteria	Fibrobacterales	Fibrobacteraceae	Fibrobacteres
+98	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	SB
+101	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+99	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Porphyromonadaceae	Paludibacter
+121	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+200	Bacteria	Proteobacteria	Deltaproteobacteria	Desulfarculales	Desulfarculaceae
+127	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+84	Bacteria	Firmicutes	Clostridia	Clostridiales
+82	Bacteria	Firmicutes	Clostridia	Clostridiales
+74	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae	Ruminococcus
+93	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+89	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae	Ruminococcus
+86	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+128	Bacteria	Fibrobacteres	TG3	TG3	M1PL1
+87	Bacteria	Firmicutes	Clostridia	Clostridiales
+74	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+59	Bacteria	Firmicutes	Clostridia	Clostridiales
+95	Bacteria	Fibrobacteres	TG3	TG3	M1PL1
+93	Bacteria	Tenericutes	Mollicutes	RF39
+89	Bacteria	Fibrobacteres	TG3	TG3	M1PL1
+70	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+89	Bacteria	Fibrobacteres	TG3	TG3	M1PL1
+130	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+58	Bacteria	Firmicutes	Clostridia	Clostridiales
+94	Bacteria	WWE1	CW
+79	Bacteria	Firmicutes	Clostridia	Clostridiales
+81	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+100	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+107	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+109	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+77	Bacteria	Firmicutes	Clostridia	Clostridiales
+75	Bacteria	WWE1	CW
+74	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+60	Bacteria	Firmicutes	Clostridia	Clostridiales
+100	Bacteria	Proteobacteria	Alphaproteobacteria
+84	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+85	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+75	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Porphyromonadaceae	Tannerella
+80	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales
+75	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
+41	Bacteria	Firmicutes	Clostridia	Clostridiales
+77	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+80	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Porphyromonadaceae	Tannerella
+79	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+101	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+62	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Porphyromonadaceae	Paludibacter
+52	Bacteria	Firmicutes	Clostridia	Clostridiales
+85	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+88	Bacteria	Fibrobacteres	TG3	TG3	M1PL1
+79	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Rikenellaceae
+75	Bacteria	Spirochaetes	Spirochaetes	Spirochaetales	Spirochaetaceae	Treponema
+56	Bacteria	Firmicutes	Clostridia	Clostridiales	Ruminococcaceae
