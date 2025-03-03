@@ -18,7 +18,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .scripts import kraken_convert, krona_convert
 import json
 from django.core.files.storage import default_storage
-from .scripts.file_converters import TaxonomyConverter
+import subprocess
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 logger = logging.getLogger(__name__)
@@ -443,119 +443,60 @@ def get_taxonomic_composition(request):
         }, status=500)
 
 @csrf_exempt
-def upload_composition_data(request):
-    """处理上传的物种组成数据文件"""
+def upload_custom_data(request):
     try:
-        if 'file' not in request.FILES:
-            return JsonResponse({'error': 'No file uploaded'}, status=400)
+        if request.method == 'POST' and request.FILES.get('file'):
+            uploaded_file = request.FILES['file']
+            run_id = str(uuid.uuid4())
 
-        uploaded_file = request.FILES['file']
-        file_type = request.POST.get('type', 'tab')
+            # 创建目录结构
+            upload_dir = os.path.join(settings.MEDIA_ROOT, 'custom', run_id)
+            os.makedirs(upload_dir, exist_ok=True)
 
-        # 生成唯一的样本ID
-        sample_id = str(uuid.uuid4())
-        # 直接保存到最终目录
-        final_dir = os.path.join(settings.MEDIA_ROOT, 'custom', sample_id)
-        os.makedirs(final_dir, exist_ok=True)
+            # 保存原始文件
+            input_file = os.path.join(upload_dir, 'original_kraken.test.txt')
+            with open(input_file, 'wb+') as destination:
+                for chunk in uploaded_file.chunks():
+                    destination.write(chunk)
 
-        # 保存原始文件
-        input_path = os.path.join(final_dir, uploaded_file.name)
-        with open(input_path, 'wb+') as destination:
-            for chunk in uploaded_file.chunks():
-                destination.write(chunk)
+            # 设置输出文件路径 - 修改文件命名格式
+            output_file = os.path.join(upload_dir, f'{run_id}.compare.txt')
 
-        # 转换文件格式
-        output_path = os.path.join(final_dir, f'{sample_id}.compare.txt')
+            # 调用转换脚本
+            script_path = os.path.join(settings.BASE_DIR, 'InsectSymbiontDB', 'scripts', 'kraken_to_compare.py')
+            try:
+                # 添加执行权限
+                os.chmod(script_path, 0o755)
 
-        if file_type == 'kraken':
-            kraken_convert.convert_kraken_file(input_path, output_path)
-        elif file_type == 'krona':
-            krona_convert.convert_krona_file(input_path, output_path)
-        elif file_type == 'tab':
-            # 对于tab格式，直接复制文件
-            os.rename(input_path, output_path)
-        else:
-            raise ValueError(f'Unsupported file type: {file_type}')
+                # 执行转换
+                result = subprocess.run([
+                    'python3', script_path, input_file, output_file
+                ], check=True, capture_output=True, text=True)
 
-        # 删除原始文件
-        os.remove(input_path)
+                logger.info(f"File converted successfully: {output_file}")
+                logger.debug(f"Conversion output: {result.stdout}")
 
-        return JsonResponse({
-            'success': True,
-            'sampleId': sample_id,
-            'type': 'custom',  # 添加类型标识
-            'message': 'File uploaded and processed successfully'
-        })
+                if not os.path.exists(output_file):
+                    raise Exception("Output file was not created")
+
+                return JsonResponse({
+                    'success': True,
+                    'sampleId': run_id,
+                    'sampleName': uploaded_file.name,
+                    'fileType': 'Kraken'
+                })
+
+            except subprocess.CalledProcessError as e:
+                logger.error(f"Conversion failed: {str(e)}")
+                logger.error(f"Script output: {e.stdout}\n{e.stderr}")
+                return JsonResponse({
+                    'error': 'File conversion failed',
+                    'details': e.stderr
+                }, status=400)
 
     except Exception as e:
-        logger.error(f"Error processing uploaded file: {str(e)}", exc_info=True)
+        logger.error(f"Upload failed: {str(e)}")
         return JsonResponse({
-            'error': str(e)
-        }, status=500)
-
-@csrf_exempt
-def handle_custom_data_upload(request):
-    """处理自定义数据文件上传"""
-    logger.info("Received custom data upload request")
-
-    try:
-        if request.method != 'POST':
-            return JsonResponse({'error': 'Only POST method is allowed'}, status=405)
-
-        if 'file' not in request.FILES:
-            return JsonResponse({'error': 'No file uploaded'}, status=400)
-
-        uploaded_file = request.FILES['file']
-        file_type = request.POST.get('type', '').lower()
-
-        if file_type not in ['kraken', 'krona']:
-            return JsonResponse({'error': 'Unsupported file type'}, status=400)
-
-        # 生成唯一的文件标识符
-        file_id = str(uuid.uuid4())
-        logger.info(f"Generated file ID: {file_id}")
-
-        # 创建临时目录
-        temp_dir = os.path.join(settings.MEDIA_ROOT, 'custom_data', file_id)
-        os.makedirs(temp_dir, exist_ok=True)
-
-        # 保存原始文件
-        input_path = os.path.join(temp_dir, f"original_{uploaded_file.name}")
-        output_path = os.path.join(temp_dir, f"{file_id}.compare.txt")
-
-        logger.info(f"Saving uploaded file to: {input_path}")
-
-        with open(input_path, 'wb+') as destination:
-            for chunk in uploaded_file.chunks():
-                destination.write(chunk)
-
-        # 转换文件格式
-        try:
-            converter = TaxonomyConverter()
-            data = converter.convert_to_standard_format(input_path, file_type)
-            converter.save_standard_format(data, output_path)
-
-            # 删除原始文件
-            os.remove(input_path)
-
-            return JsonResponse({
-                'success': True,
-                'file_id': file_id,
-                'message': 'File uploaded and processed successfully'
-            })
-
-        except Exception as e:
-            logger.error(f"Error processing file: {str(e)}")
-            # 清理临时文件
-            if os.path.exists(input_path):
-                os.remove(input_path)
-            if os.path.exists(temp_dir):
-                import shutil
-                shutil.rmtree(temp_dir)
-            raise
-
-    except Exception as e:
-        logger.error(f"Upload handler error: {str(e)}")
-        return JsonResponse({
-            'error': str(e)
-        }, status=500)
+            'error': 'Upload failed',
+            'details': str(e)
+        }, status=400)

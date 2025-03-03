@@ -1,60 +1,46 @@
 import pandas as pd
 import sys
-import logging
 
-logger = logging.getLogger(__name__)
+def convert_kraken_file(input_file, output_file):
+    # 读取kraken数据文件
+    df = pd.read_csv(input_file, sep='\t', header=None, names=["Abundance", "Column2", "Column3", "Category", "TaxID", "TaxonomicName"])
 
-def convert_kraken_file(input_path: str, output_path: str):
-    """将Kraken格式文件转换为标准格式"""
-    try:
-        logger.info(f"Converting Kraken file: {input_path}")
+    # 获取Root行的Abundance值
+    root_abundance = df[df['TaxonomicName'].str.contains('root')]['Abundance'].values[0]
 
-        # 读取文件并处理可能的NA值
-        df = pd.read_csv(input_path, sep='\t', na_values=[''], keep_default_na=False)
+    # 定义级别缩写映射
+    level_map = {
+        'P': 'Phylum',
+        'C': 'Class',
+        'O': 'Order',
+        'F': 'Family',
+        'G': 'Genus',
+    }
 
-        # 确保必要的列存在
-        required_columns = ['Abundance', 'TaxonomicLevel', 'TaxonomicName']
-        if not all(col in df.columns for col in required_columns):
-            raise ValueError("Input file missing required columns")
+    # 过滤数据，只保留需要的分类级别
+    df_filtered = df[df['Category'].isin(level_map.keys())]
 
-        # 清理数据：移除NA值并确保字符串列不包含NA
-        df = df.dropna(subset=['TaxonomicName', 'TaxonomicLevel'])
-        df['TaxonomicName'] = df['TaxonomicName'].astype(str)
+    # 计算相对丰度
+    df_filtered['RelativeAbundance'] = (df_filtered['Abundance'] / root_abundance).round(4)
 
-        # 标准化分类级别名称
-        level_mapping = {
-            'P': 'Phylum',
-            'C': 'Class',
-            'O': 'Order',
-            'F': 'Family',
-            'G': 'Genus',
-            'S': 'Species'
-        }
+    # 移除相对丰度小于0.01的行
+    df_filtered = df_filtered[df_filtered['RelativeAbundance'] >= 0.005]
 
-        # 转换分类级别
-        df['TaxonomicLevel'] = df['TaxonomicLevel'].map(level_mapping)
+    # 转换分类级别
+    df_filtered['Category'] = df_filtered['Category'].map(level_map)
 
-        # 移除不需要的分类级别
-        df = df[df['TaxonomicLevel'].notna()]
+    # 移除空格并选择需要的列
+    df_filtered = df_filtered[['RelativeAbundance', 'Category', 'TaxonomicName']]
+    df_filtered['TaxonomicName'] = df_filtered['TaxonomicName'].str.strip()
 
-        # 标准化丰度值（确保是0-1之间的浮点数）
-        df['Abundance'] = pd.to_numeric(df['Abundance'].str.rstrip('%'), errors='coerce') / 100
-        df = df.dropna(subset=['Abundance'])
+    # 对结果进行排序
+    sort_order = ['Phylum', 'Class', 'Order', 'Family', 'Genus']
+    df_filtered['Category'] = pd.Categorical(df_filtered['Category'], categories=sort_order, ordered=True)
+    df_filtered = df_filtered.sort_values(by=['Category', 'RelativeAbundance'], ascending=[True, False])
 
-        # 按分类级别和丰度排序
-        df = df.sort_values(['TaxonomicLevel', 'Abundance'], ascending=[True, False])
-
-        # 写入输出文件
-        logger.info(f"Writing converted data to: {output_path}")
-        with open(output_path, 'w') as f:
-            for _, row in df.iterrows():
-                f.write(f"{row['Abundance']:.6f}\t{row['TaxonomicLevel']}\t{row['TaxonomicName']}\n")
-
-        logger.info("File conversion completed successfully")
-
-    except Exception as e:
-        logger.error(f"Error converting Kraken file: {str(e)}")
-        raise
+    # 输出结果到文件
+    df_filtered.to_csv(output_file, sep='\t', index=False, header=False)
+    print(f"转换完成，输出文件：{output_file}")
 
 if __name__ == "__main__":
     # 确保传入了输入文件和输出文件路径

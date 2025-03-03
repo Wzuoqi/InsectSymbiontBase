@@ -409,107 +409,155 @@ Sample2,genus,Clostridium,12.5
             addSamplesToList(samples);
         });
 
-        // 修改文件上传按钮的事件监听
-        const uploadForm = document.getElementById('upload-form');
-        const uploadButton = document.getElementById('upload-button');
-        const selectedFileName = document.getElementById('selected-file-name');
-
         // 文件选择处理
-        fileInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                selectedFileName.textContent = `Selected: ${file.name}`;
-                uploadButton.disabled = false;
-            } else {
-                selectedFileName.textContent = '';
-                uploadButton.disabled = true;
+        const fileNameDisplay = document.getElementById('selected-file-name');
+        const uploadButton = document.getElementById('upload-button');
+
+        if (fileInput) {
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files.length > 0) {
+                    const fileName = this.files[0].name;
+                    fileNameDisplay.innerHTML = `
+                        <div class="flex items-center space-x-2 p-2 bg-blue-50 rounded-md border border-blue-200">
+                            <span class="icon-[material-symbols--description] text-blue-500"></span>
+                            <span class="font-medium text-blue-700">${fileName}</span>
+                        </div>
+                    `;
+                    uploadButton.disabled = false;
+                } else {
+                    fileNameDisplay.innerHTML = '';
+                    uploadButton.disabled = true;
+                }
+            });
+        }
+
+        // 文件上传处理
+        const uploadForm = document.getElementById('upload-form');
+        if (uploadForm) {
+            uploadForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(this);
+                const uploadButton = document.getElementById('upload-button');
+                const fileNameDisplay = document.getElementById('selected-file-name');
+
+                try {
+                    // 更新按钮状态
+                    uploadButton.disabled = true;
+                    uploadButton.innerHTML = '<span class="icon-[material-symbols--hourglass-empty] animate-spin mr-2"></span>Processing...';
+
+                    // 发送请求
+                    const response = await fetch('/api/upload-custom-data', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        showError(data.error, data.details);
+                        return;
+                    }
+
+                    if (data.success) {
+                        // 添加到已选样本列表
+                        const samplesList = document.getElementById('selectedSamplesList');
+
+                        // 移除"No samples"提示
+                        const noSamplesMsg = samplesList.querySelector('.text-gray-500');
+                        if (noSamplesMsg) {
+                            noSamplesMsg.remove();
+                        }
+
+                        // 创建新的样本卡片
+                        const sampleCard = document.createElement('li');
+                        sampleCard.className = 'py-3 px-4 flex items-center justify-between bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 transition-colors duration-300';
+                        sampleCard.dataset.sampleId = data.sampleId;
+                        sampleCard.dataset.sampleType = 'custom';
+
+                        sampleCard.innerHTML = `
+                            <div class="flex items-start space-x-3">
+                                <div class="flex-shrink-0">
+                                    <span class="icon-[material-symbols--upload-file] text-purple-500 text-xl"></span>
+                                </div>
+                                <div class="min-w-0 flex-1 overflow-hidden">
+                                    <div class="text-gray-900 font-medium truncate">${data.sampleName} <span class="text-gray-400 text-xs">(${data.fileType.charAt(0).toUpperCase() + data.fileType.slice(1)} format)</span></div>
+                                    <div class="mt-1 flex items-center space-x-2">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                                            Custom
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <button type="button"
+                                            class="text-gray-400 hover:text-red-500 transition-colors duration-200"
+                                            onclick="removeSample(this)">
+                                        <span class="icon-[material-symbols--delete-outline]"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+
+                        samplesList.appendChild(sampleCard);
+
+                        // 重置表单
+                        this.reset();
+                        fileNameDisplay.innerHTML = '';
+
+                        // 显示成功消息
+                        showNotification('success', 'File uploaded successfully');
+                    } else {
+                        throw new Error(data.error || 'Upload failed');
+                    }
+
+                } catch (error) {
+                    console.error('Upload error:', error);
+                    showNotification('error', error.message);
+                } finally {
+                    // 恢复按钮状态
+                    uploadButton.disabled = false;
+                    uploadButton.innerHTML = '<span class="icon-[material-symbols--upload] mr-2"></span>Upload File';
+                }
+            });
+        }
+
+        // 移除样本
+        function removeSample(button) {
+            const sampleCard = button.closest('li');
+            const samplesList = document.getElementById('selectedSamplesList');
+
+            sampleCard.remove();
+
+            // 如果没有样本了，显示提示信息
+            if (samplesList.children.length === 0) {
+                samplesList.innerHTML = `
+                    <li class="py-4 text-center text-gray-500 col-span-2">
+                        No samples selected yet
+                    </li>
+                `;
             }
-        });
+        }
 
-        // 表单提交处理
-        uploadForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+        // 显示通知
+        function showNotification(type, message) {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg ${
+                type === 'success' ? 'bg-green-500' : 'bg-red-500'
+            } text-white z-50`;
 
-            const formData = new FormData(this);
-            const container = document.getElementById('visualization-container');
-
-            // 显示上传进度
-            container.innerHTML = `
-                <div class="flex items-center justify-center h-full">
-                    <div class="text-center">
-                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600 mx-auto"></div>
-                        <p class="mt-2 text-gray-600">Uploading and processing file...</p>
-                    </div>
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <span class="icon-[material-symbols--${type === 'success' ? 'check-circle' : 'error'} mr-2"></span>
+                    <span>${message}</span>
                 </div>
             `;
 
-            // 添加获取 CSRF token 的函数
-            function getCSRFToken() {
-                return document.querySelector('[name=csrfmiddlewaretoken]').value;
-            }
+            document.body.appendChild(notification);
 
-            // 发送请求
-            fetch('/api/upload-composition-data', {
-                method: 'POST',
-                body: formData,
-                credentials: 'same-origin',
-                headers: {
-                    'X-CSRFToken': getCSRFToken()
-                }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.error) {
-                    throw new Error(data.error);
-                }
-
-                // 添加到已选样本列表
-                const samplesList = document.getElementById('selectedSamplesList');
-                if (samplesList.children.length === 1 &&
-                    samplesList.children[0].textContent.includes('No samples')) {
-                    samplesList.innerHTML = '';
-                }
-
-                const li = document.createElement('li');
-                li.className = 'py-3 px-4 flex items-center justify-between bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300';
-                li.dataset.sampleId = data.sampleId;
-                li.dataset.type = 'custom';
-                li.innerHTML = `
-                    <div class="flex items-center">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Custom</span>
-                        <span class="ml-2 text-gray-900">${fileInput.files[0].name} <span class="text-gray-400 text-xs">(custom)</span></span>
-                    </div>
-                    <button type="button" class="text-gray-400 hover:text-gray-500" onclick="removeSample(this.parentElement)">
-                        <span class="icon-[material-symbols--close]"></span>
-                    </button>
-                `;
-                samplesList.appendChild(li);
-
-                // 重置表单
-                uploadForm.reset();
-                selectedFileName.textContent = '';
-                uploadButton.disabled = true;
-
-                // 清除加载提示
-                container.innerHTML = '<div class="flex flex-col items-center justify-center h-full text-gray-500"><span class="icon-[material-symbols--area-chart] text-6xl mb-4"></span><p>Select data and set parameters to generate visualization</p></div>';
-            })
-            .catch(error => {
-                console.error('Upload error:', error);
-                container.innerHTML = `
-                    <div class="flex items-center justify-center h-full">
-                        <div class="text-center">
-                            <span class="icon-[material-symbols--error] text-red-500 text-3xl"></span>
-                            <p class="mt-2 text-red-600">${error.message}</p>
-                        </div>
-                    </div>
-                `;
-            });
-        });
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
 
         // 生成可视化
         document.getElementById('generateVisualization').addEventListener('click', function() {
@@ -520,13 +568,7 @@ Sample2,genus,Clostridium,12.5
                 return;
             }
 
-            const taxonomicLevel = document.getElementById('taxonomicLevel').value;
-            const topN = Math.min(parseInt(document.getElementById('topN').value) || 10, 25);
-            const sortBy = document.getElementById('sortBy').value;
-
-            // 这里应该调用后端API获取数据并生成可视化
-            // 示例代码 - 使用Plotly生成一个示例冲积图
-            generateExampleStackedAreaChart();
+            generateVisualization();
         });
 
         // 修改添加样本到列表的函数
@@ -1049,46 +1091,97 @@ Sample2,genus,Clostridium,12.5`;
                 });
         }
 
-        // 获取已选择的样本信息
+        // 修改 getSelectedSamples() 函数
         function getSelectedSamples() {
             const samples = [];
             const samplesList = document.getElementById('selectedSamplesList');
 
-            samplesList.querySelectorAll('li').forEach(li => {
-                if (!li.textContent.includes('No samples')) {
-                    const sampleId = li.dataset.sampleId;
-                    const sampleInfo = li.querySelector('.text-gray-900');
-                    const runMatch = sampleInfo.textContent.match(/^(.*?)\s/);
-                    const runId = runMatch ? runMatch[1].trim() : sampleId;
+            console.log('Starting to collect samples...'); // 调试日志
+            console.log('Total list items:', samplesList.querySelectorAll('li').length);
 
-                    // 修改类型判断逻辑：从 span 标签中获取 dataType
-                    const typeSpan = li.querySelector('.text-gray-400.text-xs');
-                    let type = 'amplicon'; // 默认值
+            try {
+                samplesList.querySelectorAll('li').forEach((li, index) => {
+                    if (!li.textContent.includes('No samples')) {
+                        try {
+                            const sampleId = li.dataset.sampleId;
+                            const sampleType = li.dataset.sampleType;
 
-                    if (typeSpan) {
-                        // 从 "(dataType)" 格式中提取 dataType
-                        const typeMatch = typeSpan.textContent.match(/\((.*?)\)/);
-                        if (typeMatch) {
-                            type = typeMatch[1].toLowerCase();
+                            console.log(`Processing sample ${index + 1}:`, {
+                                elementContent: li.textContent,
+                                sampleId: sampleId,
+                                sampleType: sampleType
+                            });
+
+                            if (sampleType === 'custom') {
+                                // 处理自定义上传的样本
+                                samples.push({
+                                    id: sampleId,
+                                    run: sampleId,  // 使用UUID作为run
+                                    type: 'custom',
+                                    source: 'custom'
+                                });
+                                console.log('Added custom sample:', sampleId);
+                            } else {
+                                // 保持原有数据库样本处理逻辑不变
+                                const sampleInfo = li.querySelector('.text-gray-900');
+                                const runMatch = sampleInfo ? sampleInfo.textContent.match(/^(.*?)\s/) : null;
+                                const runId = runMatch ? runMatch[1].trim() : sampleId;
+
+                                const typeSpan = li.querySelector('.text-gray-400.text-xs');
+                                let type = 'amplicon'; // 默认值
+
+                                if (typeSpan) {
+                                    const typeMatch = typeSpan.textContent.match(/\((.*?)\)/);
+                                    if (typeMatch) {
+                                        type = typeMatch[1].toLowerCase();
+                                    }
+                                }
+
+                                samples.push({
+                                    id: sampleId,
+                                    run: runId,
+                                    type: type,
+                                    source: 'database'
+                                });
+                                console.log('Added database sample:', {runId, type});
+                            }
+                        } catch (err) {
+                            console.error(`Error processing sample ${index + 1}:`, err);
+                            console.error('Problematic element:', li.outerHTML);
                         }
                     }
+                });
 
-                    console.log(`Sample ${runId} detected as type: ${type}`); // 调试日志
+                console.log('Final collected samples:', samples);
+                return samples;
 
-                    samples.push({
-                        id: sampleId,
-                        run: runId,
-                        type: type,
-                        source: 'database'
-                    });
-                }
-            });
-
-            return samples;
+            } catch (err) {
+                console.error('Error in getSelectedSamples:', err);
+                showError('Error', 'Failed to collect sample information');
+                return [];
+            }
         }
 
-        // 将生成可视化的函数绑定到按钮点击事件
-        document.getElementById('generateVisualization').addEventListener('click', generateVisualization);
+        function showError(error, details) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 p-4 rounded-lg shadow-lg bg-red-500 text-white z-50 max-w-md';
+
+            notification.innerHTML = `
+                <div class="flex items-start">
+                    <span class="icon-[material-symbols--error] mr-2 mt-0.5"></span>
+                    <div>
+                        <div class="font-medium">${error}</div>
+                        ${details ? `<div class="text-sm mt-1 text-red-100">${details}</div>` : ''}
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
     });
 </script>
 {% endblock %}
