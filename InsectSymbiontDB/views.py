@@ -13,8 +13,15 @@ from .scripts.batch_search_tool import (
 from metagenome.models import Metagenome
 from amplicon.models import Amplicon
 from django.db.models import Q
+import logging
+from django.views.decorators.csrf import csrf_exempt
+from .scripts import kraken_convert, krona_convert
+import json
+from django.core.files.storage import default_storage
+from .scripts.file_converters import TaxonomyConverter
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+logger = logging.getLogger(__name__)
 
 
 def test(request):
@@ -319,4 +326,236 @@ def get_samples(request):
             'error': 'An error occurred while fetching samples',
             'message': str(e),
             'samples': []
+        }, status=500)
+
+def get_taxonomic_composition(request):
+    """获取样本的物种组成数据"""
+    try:
+        logger.info(f"Received request with params: {request.GET}")
+        sample_runs = request.GET.getlist('samples[]')
+        sample_types = request.GET.getlist('types[]')
+        taxonomic_level = request.GET.get('level', 'Genus')
+
+        logger.info(f"Processing request for {len(sample_runs)} samples at {taxonomic_level} level")
+
+        # 将分类级别首字母大写，以匹配文件中的格式
+        taxonomic_level = taxonomic_level.capitalize()
+
+        if not sample_runs or not sample_types or len(sample_runs) != len(sample_types):
+            return JsonResponse({
+                'error': 'Invalid parameters'
+            }, status=400)
+
+        # 存储所有样本的数据
+        all_sample_data = []
+        missing_samples = []
+
+        # 处理每个样本
+        for run_id, sample_type in zip(sample_runs, sample_types):
+            # 确保类型是正确的
+            sample_type = sample_type.lower()  # 转换为小写以确保匹配
+            if sample_type not in ['metagenome', 'amplicon', 'custom']:
+                logger.warning(f"Invalid sample type: {sample_type} for sample {run_id}")
+                missing_samples.append(run_id)
+                continue
+
+            # 构建文件路径
+            if sample_type == 'custom':
+                file_path = os.path.join(settings.MEDIA_ROOT, 'custom', run_id, f'{run_id}.compare.txt')
+            else:
+                file_path = os.path.join(settings.MEDIA_ROOT, sample_type, run_id, f'{run_id}.compare.txt')
+
+            logger.info(f"Checking file path: {file_path}")
+
+            if not os.path.exists(file_path):
+                logger.warning(f"File not found: {file_path}")
+                missing_samples.append(run_id)
+                continue
+
+            # 读取并解析文件
+            taxa_data = {}
+            try:
+                with open(file_path, 'r') as f:
+                    logger.debug(f"Reading file for sample {run_id}")
+                    for line in f:
+                        try:
+                            abundance, level, taxon = line.strip().split('\t')
+                            # 添加调试日志
+                            logger.debug(f"Line data - Level: {level}, Requested: {taxonomic_level}")
+                            if level == taxonomic_level:
+                                taxa_data[taxon] = float(abundance)
+                        except ValueError as e:
+                            logger.warning(f"Invalid line format in {run_id}: {line.strip()}")
+                            continue
+
+                if taxa_data:
+                    logger.info(f"Found {len(taxa_data)} taxa for {run_id} at {taxonomic_level} level")
+                    all_sample_data.append({
+                        'sample_id': run_id,
+                        'taxa': taxa_data
+                    })
+                else:
+                    logger.warning(f"No data found for taxonomic level {taxonomic_level} in sample {run_id}")
+                    missing_samples.append(run_id)
+
+            except Exception as e:
+                logger.error(f"Error processing file for sample {run_id}: {str(e)}")
+                missing_samples.append(run_id)
+                continue
+
+        # 检查是否有有效数据
+        if not all_sample_data:
+            return JsonResponse({
+                'error': 'No valid data found for any selected samples',
+                'missing_samples': missing_samples
+            }, status=404)
+
+        # 获取所有样本中出现的taxa
+        all_taxa = set()
+        for sample in all_sample_data:
+            all_taxa.update(sample['taxa'].keys())
+
+        # 格式化返回数据
+        formatted_data = {
+            'samples': [sample['sample_id'] for sample in all_sample_data],
+            'taxa': list(all_taxa),
+            'abundances': [],
+            'missing_samples': missing_samples
+        }
+
+        # 为每个taxon准备数据
+        for taxon in formatted_data['taxa']:
+            abundances = []
+            for sample in all_sample_data:
+                abundances.append(sample['taxa'].get(taxon, 0))
+            formatted_data['abundances'].append(abundances)
+
+        # 在返回数据之前添加日志
+        logger.info(f"Returning data with {len(formatted_data['samples'])} samples and {len(formatted_data['taxa'])} taxa")
+        logger.debug(f"Formatted data: {formatted_data}")
+
+        return JsonResponse(formatted_data)
+
+    except Exception as e:
+        logger.error(f"Unexpected error: {str(e)}", exc_info=True)  # 添加完整的异常信息
+        return JsonResponse({
+            'error': str(e)
+        }, status=500)
+
+@csrf_exempt
+def upload_composition_data(request):
+    """处理上传的物种组成数据文件"""
+    try:
+        if 'file' not in request.FILES:
+            return JsonResponse({'error': 'No file uploaded'}, status=400)
+
+        uploaded_file = request.FILES['file']
+        file_type = request.POST.get('type', 'tab')
+
+        # 生成唯一的样本ID
+        sample_id = str(uuid.uuid4())
+        # 直接保存到最终目录
+        final_dir = os.path.join(settings.MEDIA_ROOT, 'custom', sample_id)
+        os.makedirs(final_dir, exist_ok=True)
+
+        # 保存原始文件
+        input_path = os.path.join(final_dir, uploaded_file.name)
+        with open(input_path, 'wb+') as destination:
+            for chunk in uploaded_file.chunks():
+                destination.write(chunk)
+
+        # 转换文件格式
+        output_path = os.path.join(final_dir, f'{sample_id}.compare.txt')
+
+        if file_type == 'kraken':
+            kraken_convert.convert_kraken_file(input_path, output_path)
+        elif file_type == 'krona':
+            krona_convert.convert_krona_file(input_path, output_path)
+        elif file_type == 'tab':
+            # 对于tab格式，直接复制文件
+            os.rename(input_path, output_path)
+        else:
+            raise ValueError(f'Unsupported file type: {file_type}')
+
+        # 删除原始文件
+        os.remove(input_path)
+
+        return JsonResponse({
+            'success': True,
+            'sampleId': sample_id,
+            'type': 'custom',  # 添加类型标识
+            'message': 'File uploaded and processed successfully'
+        })
+
+    except Exception as e:
+        logger.error(f"Error processing uploaded file: {str(e)}", exc_info=True)
+        return JsonResponse({
+            'error': str(e)
+        }, status=500)
+
+@csrf_exempt
+def handle_custom_data_upload(request):
+    """处理自定义数据文件上传"""
+    logger.info("Received custom data upload request")
+
+    try:
+        if request.method != 'POST':
+            return JsonResponse({'error': 'Only POST method is allowed'}, status=405)
+
+        if 'file' not in request.FILES:
+            return JsonResponse({'error': 'No file uploaded'}, status=400)
+
+        uploaded_file = request.FILES['file']
+        file_type = request.POST.get('type', '').lower()
+
+        if file_type not in ['kraken', 'krona']:
+            return JsonResponse({'error': 'Unsupported file type'}, status=400)
+
+        # 生成唯一的文件标识符
+        file_id = str(uuid.uuid4())
+        logger.info(f"Generated file ID: {file_id}")
+
+        # 创建临时目录
+        temp_dir = os.path.join(settings.MEDIA_ROOT, 'custom_data', file_id)
+        os.makedirs(temp_dir, exist_ok=True)
+
+        # 保存原始文件
+        input_path = os.path.join(temp_dir, f"original_{uploaded_file.name}")
+        output_path = os.path.join(temp_dir, f"{file_id}.compare.txt")
+
+        logger.info(f"Saving uploaded file to: {input_path}")
+
+        with open(input_path, 'wb+') as destination:
+            for chunk in uploaded_file.chunks():
+                destination.write(chunk)
+
+        # 转换文件格式
+        try:
+            converter = TaxonomyConverter()
+            data = converter.convert_to_standard_format(input_path, file_type)
+            converter.save_standard_format(data, output_path)
+
+            # 删除原始文件
+            os.remove(input_path)
+
+            return JsonResponse({
+                'success': True,
+                'file_id': file_id,
+                'message': 'File uploaded and processed successfully'
+            })
+
+        except Exception as e:
+            logger.error(f"Error processing file: {str(e)}")
+            # 清理临时文件
+            if os.path.exists(input_path):
+                os.remove(input_path)
+            if os.path.exists(temp_dir):
+                import shutil
+                shutil.rmtree(temp_dir)
+            raise
+
+    except Exception as e:
+        logger.error(f"Upload handler error: {str(e)}")
+        return JsonResponse({
+            'error': str(e)
         }, status=500)

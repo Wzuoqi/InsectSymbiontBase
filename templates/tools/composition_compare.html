@@ -63,39 +63,40 @@
 
         <!-- 上传自定义数据 -->
         <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-            <div class="bg-gray-700 px-6 py-4">
+            <div class="bg-gray-600 px-6 py-4">
                 <h2 class="text-xl font-semibold text-white">Upload Custom Data</h2>
             </div>
             <div class="p-6">
-                <form id="file-upload-form">
+                <form id="upload-form" enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
                     <div class="mb-4">
-                        <label for="fileUpload" class="block text-sm font-medium text-gray-700 mb-1">Upload Taxonomic Composition File</label>
-                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:border-blue-500 transition-colors duration-300">
-                            <div class="space-y-1 text-center">
-                                <span class="icon-[material-symbols--upload-file] text-4xl text-gray-400"></span>
-                                <div class="flex text-sm text-gray-600">
-                                    <label for="fileUpload" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none">
-                                        <span>Choose file</span>
-                                        <input id="fileUpload" name="file" type="file" class="sr-only" accept=".csv,.tsv,.txt">
-                                    </label>
-                                    <p class="pl-1">or drag and drop</p>
-                                </div>
-                                <p class="text-xs text-gray-500">Supports CSV, TSV format taxonomic composition data</p>
+                        <label for="fileType" class="block text-sm font-medium text-gray-700 mb-1">File Format</label>
+                        <select id="fileType" name="type" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                            <option value="kraken">Kraken Format</option>
+                            <option value="krona">Krona Format</option>
+                        </select>
+                    </div>
+
+                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:border-blue-500 transition-colors duration-300">
+                        <div class="space-y-1 text-center">
+                            <span class="icon-[material-symbols--upload-file] text-4xl text-gray-400"></span>
+                            <div class="flex text-sm text-gray-600">
+                                <label for="file" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none">
+                                    <span>Choose file</span>
+                                    <input id="file" name="file" type="file" class="sr-only" accept=".txt,.kraken,.krona">
+                                </label>
+                                <p class="pl-1">or drag and drop</p>
                             </div>
+                            <p class="text-xs text-gray-500">Supports Kraken and Krona formats</p>
+                            <p id="selected-file-name" class="text-sm text-gray-600 mt-2"></p>
                         </div>
                     </div>
 
-                    <div class="mb-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm font-medium text-gray-700">File Format Information</span>
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#formatModal" class="text-sm font-medium text-blue-600 hover:text-blue-500">View Example Format</a>
-                        </div>
-                        <p class="mt-1 text-sm text-gray-500">
-                            File should include: Sample ID, Taxonomic Level, Taxon Name, Abundance Value
-                        </p>
-                    </div>
-
-                    <button type="button" id="uploadFile" class="w-full bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-300 flex items-center justify-center">
+                    <button type="submit"
+                            id="upload-button"
+                            class="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-300 flex items-center justify-center"
+                            disabled
+                    >
                         <span class="icon-[material-symbols--upload] mr-2"></span>
                         Upload File
                     </button>
@@ -128,18 +129,18 @@
                     <div>
                         <label for="taxonomicLevel" class="block text-sm font-medium text-gray-700 mb-1">Taxonomic Level</label>
                         <select id="taxonomicLevel" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
-                            <option value="phylum">Phylum</option>
-                            <option value="class">Class</option>
-                            <option value="order">Order</option>
-                            <option value="family">Family</option>
-                            <option value="genus" selected>Genus</option>
-                            <option value="species">Species</option>
+                            <option value="Phylum">Phylum</option>
+                            <option value="Class">Class</option>
+                            <option value="Order">Order</option>
+                            <option value="Family">Family</option>
+                            <option value="Genus" selected>Genus</option>
+                            <option value="Species">Species</option>
                         </select>
                     </div>
 
                     <div>
                         <label for="topN" class="block text-sm font-medium text-gray-700 mb-1">Show Top N Taxa</label>
-                        <input type="number" id="topN" min="5" max="50" value="10" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                        <input type="number" id="topN" min="5" max="25" value="10" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
                     </div>
 
                     <div>
@@ -243,7 +244,7 @@ Sample2,genus,Clostridium,12.5
     document.addEventListener('DOMContentLoaded', function() {
         // 文件上传区域拖放功能
         const dropArea = document.querySelector('.border-dashed');
-        const fileInput = document.getElementById('fileUpload');
+        const fileInput = document.getElementById('file');
 
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
             dropArea.addEventListener(eventName, preventDefaults, false);
@@ -408,23 +409,106 @@ Sample2,genus,Clostridium,12.5
             addSamplesToList(samples);
         });
 
-        // 上传文件
-        document.getElementById('uploadFile').addEventListener('click', function() {
-            const fileInput = document.getElementById('fileUpload');
-            if (fileInput.files.length > 0) {
-                const file = fileInput.files[0];
-                // 这里应该处理文件上传逻辑
-                // 示例代码:
-                addSamplesToList([{
-                    id: 'upload_' + Date.now(),
-                    name: file.name,
-                    source: 'upload'
-                }]);
+        // 修改文件上传按钮的事件监听
+        const uploadForm = document.getElementById('upload-form');
+        const uploadButton = document.getElementById('upload-button');
+        const selectedFileName = document.getElementById('selected-file-name');
 
-                fileInput.value = '';
+        // 文件选择处理
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                selectedFileName.textContent = `Selected: ${file.name}`;
+                uploadButton.disabled = false;
             } else {
-                alert('Please select a file to upload');
+                selectedFileName.textContent = '';
+                uploadButton.disabled = true;
             }
+        });
+
+        // 表单提交处理
+        uploadForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const container = document.getElementById('visualization-container');
+
+            // 显示上传进度
+            container.innerHTML = `
+                <div class="flex items-center justify-center h-full">
+                    <div class="text-center">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600 mx-auto"></div>
+                        <p class="mt-2 text-gray-600">Uploading and processing file...</p>
+                    </div>
+                </div>
+            `;
+
+            // 添加获取 CSRF token 的函数
+            function getCSRFToken() {
+                return document.querySelector('[name=csrfmiddlewaretoken]').value;
+            }
+
+            // 发送请求
+            fetch('/api/upload-composition-data', {
+                method: 'POST',
+                body: formData,
+                credentials: 'same-origin',
+                headers: {
+                    'X-CSRFToken': getCSRFToken()
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                // 添加到已选样本列表
+                const samplesList = document.getElementById('selectedSamplesList');
+                if (samplesList.children.length === 1 &&
+                    samplesList.children[0].textContent.includes('No samples')) {
+                    samplesList.innerHTML = '';
+                }
+
+                const li = document.createElement('li');
+                li.className = 'py-3 px-4 flex items-center justify-between bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300';
+                li.dataset.sampleId = data.sampleId;
+                li.dataset.type = 'custom';
+                li.innerHTML = `
+                    <div class="flex items-center">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Custom</span>
+                        <span class="ml-2 text-gray-900">${fileInput.files[0].name} <span class="text-gray-400 text-xs">(custom)</span></span>
+                    </div>
+                    <button type="button" class="text-gray-400 hover:text-gray-500" onclick="removeSample(this.parentElement)">
+                        <span class="icon-[material-symbols--close]"></span>
+                    </button>
+                `;
+                samplesList.appendChild(li);
+
+                // 重置表单
+                uploadForm.reset();
+                selectedFileName.textContent = '';
+                uploadButton.disabled = true;
+
+                // 清除加载提示
+                container.innerHTML = '<div class="flex flex-col items-center justify-center h-full text-gray-500"><span class="icon-[material-symbols--area-chart] text-6xl mb-4"></span><p>Select data and set parameters to generate visualization</p></div>';
+            })
+            .catch(error => {
+                console.error('Upload error:', error);
+                container.innerHTML = `
+                    <div class="flex items-center justify-center h-full">
+                        <div class="text-center">
+                            <span class="icon-[material-symbols--error] text-red-500 text-3xl"></span>
+                            <p class="mt-2 text-red-600">${error.message}</p>
+                        </div>
+                    </div>
+                `;
+            });
         });
 
         // 生成可视化
@@ -437,7 +521,7 @@ Sample2,genus,Clostridium,12.5
             }
 
             const taxonomicLevel = document.getElementById('taxonomicLevel').value;
-            const topN = document.getElementById('topN').value;
+            const topN = Math.min(parseInt(document.getElementById('topN').value) || 10, 25);
             const sortBy = document.getElementById('sortBy').value;
 
             // 这里应该调用后端API获取数据并生成可视化
@@ -559,40 +643,92 @@ Sample2,genus,Clostridium,12.5
             Plotly.newPlot(container, data, layout, {responsive: true});
         }
 
-        // 辅助函数：生成随机颜色（更柔和）
+        // 修改颜色生成函数
         function getRandomColor(opacity = 1) {
-            // 使用更柔和的颜色范围
-            const hue = Math.floor(Math.random() * 360); // 色相
-            const saturation = 30 + Math.floor(Math.random() * 30); // 饱和度降低
-            const lightness = 50 + Math.floor(Math.random() * 20); // 亮度提高
+            // 使用更鲜明的配色方案，避免灰色系
+            const colors = [
+                'rgb(31, 119, 180)',   // 蓝色
+                'rgb(255, 127, 14)',   // 橙色
+                'rgb(44, 160, 44)',    // 绿色
+                'rgb(214, 39, 40)',    // 红色
+                'rgb(148, 103, 189)',  // 紫色
+                'rgb(227, 119, 194)',  // 粉色
+                'rgb(140, 86, 75)',    // 棕色
+                'rgb(236, 173, 0)',    // 金色
+                'rgb(0, 147, 146)',    // 青色
+                'rgb(116, 95, 197)',   // 靛蓝
+                'rgb(198, 118, 0)',    // 赭石色
+                'rgb(0, 158, 115)',    // 翠绿
+                'rgb(213, 94, 0)',     // 深橙
+                'rgb(204, 121, 167)',  // 玫瑰红
+                'rgb(0, 114, 178)'     // 深蓝
+            ];
 
-            return `hsla(${hue}, ${saturation}%, ${lightness}%, ${opacity})`;
+            // 随机选择一个颜色并应用透明度
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            return color.replace('rgb', 'rgba').replace(')', `, ${opacity})`);
         }
 
-        // 下载按钮事件
+        // 修改下载按钮的事件处理代码
         document.getElementById('downloadSVG').addEventListener('click', function() {
-            const container = document.getElementById('visualization-container');
-            if (container.data) {
-                Plotly.downloadImage(container, {format: 'svg', filename: 'taxonomic_composition_chart'});
+            const chartDiv = document.querySelector('#visualization-container > div');
+            if (chartDiv && chartDiv._fullLayout) {  // 检查图表是否已经生成
+                Plotly.downloadImage(chartDiv, {
+                    format: 'svg',
+                    filename: 'taxonomic_composition',
+                    width: 1200,
+                    height: 800,
+                    scale: 2  // 提高导出图片的质量
+                });
             } else {
                 alert('Please generate visualization first');
             }
         });
 
         document.getElementById('downloadPNG').addEventListener('click', function() {
-            const container = document.getElementById('visualization-container');
-            if (container.data) {
-                Plotly.downloadImage(container, {format: 'png', filename: 'taxonomic_composition_chart'});
+            const chartDiv = document.querySelector('#visualization-container > div');
+            if (chartDiv && chartDiv._fullLayout) {  // 检查图表是否已经生成
+                Plotly.downloadImage(chartDiv, {
+                    format: 'png',
+                    filename: 'taxonomic_composition',
+                    width: 1200,
+                    height: 800,
+                    scale: 2  // 提高导出图片的质量
+                });
             } else {
                 alert('Please generate visualization first');
             }
         });
 
         document.getElementById('downloadData').addEventListener('click', function() {
-            const container = document.getElementById('visualization-container');
-            if (container.data) {
-                // 这里应该实现数据下载逻辑
-                alert('Data download feature will be implemented in future updates');
+            const chartDiv = document.querySelector('#visualization-container > div');
+            if (chartDiv && chartDiv._fullLayout) {  // 检查图表是否已经生成
+                // 获取图表数据
+                const plotData = chartDiv.data;
+
+                // 准备CSV数据
+                let csvContent = 'Sample,Taxon,Abundance\n';
+
+                plotData.forEach(trace => {
+                    const taxon = trace.name;
+                    trace.x.forEach((sample, index) => {
+                        const abundance = trace.y[index].toFixed(2);
+                        csvContent += `${sample},${taxon},${abundance}\n`;
+                    });
+                });
+
+                // 创建并触发下载
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                const url = URL.createObjectURL(blob);
+
+                link.setAttribute('href', url);
+                link.setAttribute('download', 'taxonomic_composition_data.csv');
+                link.style.visibility = 'hidden';
+
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
             } else {
                 alert('Please generate visualization first');
             }
@@ -633,6 +769,326 @@ Sample2,genus,Clostridium,12.5`;
             // 清理
             document.body.removeChild(link);
         });
+
+        // 生成可视化图表
+        function generateVisualization() {
+            const selectedSamples = getSelectedSamples();
+            if (selectedSamples.length === 0) {
+                alert('Please select at least one sample');
+                return;
+            }
+
+            const taxonomicLevel = document.getElementById('taxonomicLevel').value;
+            console.log('Selected samples:', selectedSamples);  // 调试日志
+
+            // 准备API请求参数
+            const params = new URLSearchParams();
+            selectedSamples.forEach(sample => {
+                params.append('samples[]', sample.run);
+                params.append('types[]', sample.type);
+            });
+            params.append('level', taxonomicLevel);
+
+            console.log('API request params:', params.toString());  // 调试日志
+
+            // 修改显示加载提示的部分
+            const container = document.getElementById('visualization-container');
+            container.style.height = '700px'; // 确保容器有足够的高度
+            container.innerHTML = `
+                <div class="flex items-center justify-center h-full">
+                    <div class="text-center">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600 mx-auto"></div>
+                        <p class="mt-2 text-gray-600">Loading visualization...</p>
+                    </div>
+                </div>
+            `;
+
+            // 调用API获取数据
+            fetch(`/api/taxonomic-composition?${params.toString()}`)
+                .then(response => {
+                    console.log('API response status:', response.status);  // 调试日志
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('API response data:', data);  // 调试日志
+
+                    if (data.error) {
+                        throw new Error(data.error);
+                    }
+
+                    // 清空容器但保持高度
+                    container.innerHTML = '';
+                    container.style.height = '700px';
+
+                    // 如果有警告信息，创建一个单独的div来容纳
+                    if (data.missing_samples && data.missing_samples.length > 0) {
+                        const warningsContainer = document.createElement('div');
+                        warningsContainer.className = 'mb-4';
+                        warningsContainer.innerHTML = `
+                            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                                <div class="flex">
+                                    <div class="flex-shrink-0">
+                                        <span class="icon-[material-symbols--warning] text-yellow-400"></span>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-sm text-yellow-700">
+                                            The following samples were excluded due to missing data:
+                                            <strong>${data.missing_samples.join(', ')}</strong>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        container.appendChild(warningsContainer);
+                    }
+
+                    // 如果没有有效数据，显示错误信息
+                    if (!data.samples || data.samples.length === 0) {
+                        throw new Error('No valid data available for visualization');
+                    }
+
+                    console.log('Preparing plot data:', {
+                        samples: data.samples,
+                        taxa: data.taxa,
+                        abundances: data.abundances
+                    });
+
+                    // 获取 topN 值
+                    const topN = Math.min(parseInt(document.getElementById('topN').value) || 10, 20);
+
+                    // 计算每个 taxon 的总丰度
+                    const taxaTotalAbundances = data.taxa.map((taxon, taxonIndex) => ({
+                        taxon: taxon,
+                        totalAbundance: data.abundances[taxonIndex].reduce((sum, value) => sum + value, 0),
+                        abundances: data.abundances[taxonIndex],
+                        index: taxonIndex
+                    }));
+
+                    // 按总丰度排序
+                    taxaTotalAbundances.sort((a, b) => b.totalAbundance - a.totalAbundance);
+
+                    // 分离 top N taxa 和其他 taxa
+                    const topTaxa = taxaTotalAbundances.slice(0, topN);
+                    const otherTaxa = taxaTotalAbundances.slice(topN);
+
+                    // 准备处理后的数据
+                    const processedData = {
+                        taxa: topTaxa.map(t => t.taxon),
+                        abundances: topTaxa.map(t => t.abundances)
+                    };
+
+                    // 如果有其他 taxa，将它们合并到 Others 类别
+                    if (otherTaxa.length > 0) {
+                        processedData.taxa.push('Others');
+                        const othersAbundances = new Array(data.samples.length).fill(0);
+
+                        otherTaxa.forEach(taxon => {
+                            taxon.abundances.forEach((value, index) => {
+                                othersAbundances[index] += value;
+                            });
+                        });
+
+                        processedData.abundances.push(othersAbundances);
+                    }
+
+                    // 确保总和为1，添加缺失部分到 Others
+                    const sampleTotals = processedData.abundances[0].map((_, sampleIndex) => {
+                        return processedData.abundances.reduce((sum, taxonAbundances) => {
+                            return sum + (taxonAbundances[sampleIndex] || 0);
+                        }, 0);
+                    });
+
+                    sampleTotals.forEach((total, sampleIndex) => {
+                        if (total < 1) {
+                            const othersValue = 1 - total;
+                            const othersIndex = processedData.taxa.indexOf('Others');
+
+                            if (othersIndex === -1) {
+                                processedData.taxa.push('Others');
+                                processedData.abundances.push(new Array(data.samples.length).fill(0));
+                                processedData.abundances[processedData.abundances.length - 1][sampleIndex] = othersValue;
+                            } else {
+                                processedData.abundances[othersIndex][sampleIndex] += othersValue;
+                            }
+                        }
+                    });
+
+                    // 准备 Plotly.js 数据
+                    const traces = processedData.taxa.map((taxon, index) => ({
+                        name: taxon,
+                        x: data.samples,
+                        y: processedData.abundances[index].map(v => v * 100),
+                        type: 'bar',
+                        stackgroup: 'one',
+                        marker: {
+                            color: taxon === 'Others' ? 'rgba(180, 180, 180, 0.7)' : getRandomColor(0.7)
+                        },
+                        hoverinfo: 'none',
+                        customdata: processedData.abundances[index].map(v => ({
+                            taxon: taxon,
+                            percentage: (v * 100).toFixed(2)
+                        }))
+                    }));
+
+                    // 修改布局配置
+                    const layout = {
+                        title: {
+                            text: `Taxonomic Composition (${taxonomicLevel})`,
+                            font: { size: 24 }
+                        },
+                        barmode: 'stack',
+                        xaxis: {
+                            // 移除 "Samples" 标题
+                            title: '',
+                            tickangle: -45,
+                            tickfont: { size: 12 }
+                        },
+                        yaxis: {
+                            title: 'Relative Abundance (%)',
+                            range: [0, 100],
+                            tickformat: '.1f' // 显示一位小数
+                        },
+                        showlegend: true,
+                        legend: {
+                            title: { text: 'Taxa' },
+                            traceorder: 'normal'
+                        },
+                        margin: {
+                            l: 80,
+                            r: 50,
+                            t: 80,
+                            b: 100
+                        },
+                        paper_bgcolor: 'rgba(0,0,0,0)',
+                        plot_bgcolor: 'rgba(0,0,0,0)',
+                        autosize: true,
+                        // 更新悬浮提示配置
+                        hoverlabel: {
+                            font: {
+                                size: 14,
+                                family: 'Arial, sans-serif'
+                            }
+                        },
+                        hovermode: 'closest',
+                    };
+
+                    // 创建图表容器
+                    const chartDiv = document.createElement('div');
+                    chartDiv.style.height = '600px';
+                    chartDiv.style.width = '100%';
+                    container.appendChild(chartDiv);
+
+                    // 绘制图表
+                    console.log('Drawing plot...');
+                    Plotly.newPlot(chartDiv, traces, layout, {
+                        responsive: true,
+                        displayModeBar: true,
+                        modeBarButtonsToRemove: ['lasso2d', 'select2d']
+                    }).then(() => {
+                        // 创建自定义悬浮提示框
+                        const tooltip = document.createElement('div');
+                        tooltip.style.display = 'none';
+                        tooltip.style.position = 'absolute';
+                        tooltip.style.backgroundColor = 'white';
+                        tooltip.style.padding = '10px';
+                        tooltip.style.borderRadius = '4px';
+                        tooltip.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+                        tooltip.style.pointerEvents = 'none';
+                        tooltip.style.zIndex = '1000';
+                        chartDiv.appendChild(tooltip);
+
+                        // 添加鼠标事件监听器
+                        chartDiv.on('plotly_hover', function(data) {
+                            const point = data.points[0];
+                            const customData = point.customdata;
+
+                            // 计算悬浮提示框位置
+                            const xPixel = point.xaxis.l2p(point.x) + point.xaxis._offset;
+                            const yPixel = point.yaxis.l2p(point.y - point.y0) + point.yaxis._offset;
+
+                            // 更新提示框内容和样式
+                            tooltip.innerHTML = `
+                                <div class="flex flex-col">
+                                    <div class="flex items-center">
+                                        <div style="width: 12px; height: 12px; background-color: ${point.fullData.marker.color}; margin-right: 8px; border-radius: 2px;"></div>
+                                        <span style="font-weight: 600;">${customData.taxon}</span>
+                                    </div>
+                                    <div class="mt-1 text-gray-600" style="font-size: 12px;">
+                                        Sample: ${point.x}<br>
+                                        Abundance: ${customData.percentage}%
+                                    </div>
+                                </div>
+                            `;
+
+                            // 显示提示框并设置位置
+                            tooltip.style.display = 'block';
+                            tooltip.style.left = `${xPixel + 10}px`;
+                            tooltip.style.top = `${yPixel - tooltip.offsetHeight / 2}px`;
+                        });
+
+                        chartDiv.on('plotly_unhover', function() {
+                            tooltip.style.display = 'none';
+                        });
+
+                        console.log('Plot completed');
+                        window.dispatchEvent(new Event('resize'));
+                    }).catch(err => {
+                        console.error('Plot error:', err);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error in visualization:', error);
+                    container.innerHTML = `
+                        <div class="flex items-center justify-center h-full">
+                            <div class="text-center">
+                                <span class="icon-[material-symbols--error] text-red-500 text-3xl"></span>
+                                <p class="mt-2 text-red-600">${error.message}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+        }
+
+        // 获取已选择的样本信息
+        function getSelectedSamples() {
+            const samples = [];
+            const samplesList = document.getElementById('selectedSamplesList');
+
+            samplesList.querySelectorAll('li').forEach(li => {
+                if (!li.textContent.includes('No samples')) {
+                    const sampleId = li.dataset.sampleId;
+                    const sampleInfo = li.querySelector('.text-gray-900');
+                    const runMatch = sampleInfo.textContent.match(/^(.*?)\s/);
+                    const runId = runMatch ? runMatch[1].trim() : sampleId;
+
+                    // 修改类型判断逻辑：从 span 标签中获取 dataType
+                    const typeSpan = li.querySelector('.text-gray-400.text-xs');
+                    let type = 'amplicon'; // 默认值
+
+                    if (typeSpan) {
+                        // 从 "(dataType)" 格式中提取 dataType
+                        const typeMatch = typeSpan.textContent.match(/\((.*?)\)/);
+                        if (typeMatch) {
+                            type = typeMatch[1].toLowerCase();
+                        }
+                    }
+
+                    console.log(`Sample ${runId} detected as type: ${type}`); // 调试日志
+
+                    samples.push({
+                        id: sampleId,
+                        run: runId,
+                        type: type,
+                        source: 'database'
+                    });
+                }
+            });
+
+            return samples;
+        }
+
+        // 将生成可视化的函数绑定到按钮点击事件
+        document.getElementById('generateVisualization').addEventListener('click', generateVisualization);
     });
 </script>
 {% endblock %}

@@ -67,4 +67,10 @@ urlpatterns = [
 
     path("api/samples", views.get_samples, name="get_samples"),
 
+    path('api/taxonomic-composition', views.get_taxonomic_composition, name='taxonomic-composition'),
+
+    path('api/upload-composition-data', views.upload_composition_data, name='upload_composition_data'),
+
+    path('api/upload-custom-data', views.handle_custom_data_upload, name='upload_custom_data'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # 添加媒体文件服务

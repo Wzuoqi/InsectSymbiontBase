@@ -348,6 +348,59 @@
                                                 <li><strong>Literature References:</strong> Publications documenting this host with its symbionts</li>                                            </ul>
                                         </div>
                                     </div>
+
+                                    <!-- Core Microbiome Composition -->
+                                    <div class="mt-8">
+                                        <div class="border rounded-lg p-6 bg-gray-50">
+                                            <h3 class="text-lg font-semibold mb-4">Core Microbiome Composition</h3>
+                                            <img src="{% static 'img/help/core_microbiome.png' %}" alt="Core Microbiome Composition" class="w-full rounded-lg shadow-sm mb-4">
+                                            <div class="space-y-4">
+                                                <p class="text-gray-600">The Core Microbiome Analysis provides insights into the consistent microbial associations within insect species. This analysis is performed on species with substantial sample coverage (>10 amplicon samples).</p>
+
+                                                <!-- Methodology -->
+                                                <div class="bg-white rounded-lg p-4">
+                                                    <h4 class="font-medium text-gray-900 mb-3">Analysis Methodology</h4>
+                                                    <div class="space-y-3">
+                                                        <p class="text-gray-600">Core symbionts are identified using multiple metrics:</p>
+                                                        <ul class="list-disc pl-5 text-gray-600">
+                                                            <li>Mean abundance across samples</li>
+                                                            <li>Standard deviation of abundance</li>
+                                                            <li>Coefficient of variation (CV)</li>
+                                                            <li>Sample coverage</li>
+                                                        </ul>
+
+                                                        <div class="bg-blue-50 rounded-lg p-4 mt-4">
+                                                            <h5 class="text-blue-800 font-medium mb-2">Representative Abundance Formula</h5>
+                                                            <p class="text-blue-700">Representative abundance = mean abundance + coverage + (2 - CV)</p>
+                                                            <p class="text-sm text-blue-600 mt-2">Note: Values are normalized to reflect relative importance</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Quality Control -->
+                                                <div class="bg-white rounded-lg p-4">
+                                                    <h4 class="font-medium text-gray-900 mb-3">Quality Control</h4>
+                                                    <p class="text-gray-600">To ensure data quality, we apply the following filters:</p>
+                                                    <ul class="list-disc pl-5 text-gray-600">
+                                                        <li>Exclude species with CV > 2</li>
+                                                        <li>Remove symbionts found in only one sample</li>
+                                                        <li>Require minimum of 10 amplicon samples per host species</li>
+                                                    </ul>
+                                                </div>
+
+                                                <!-- Usage Tips -->
+                                                <div class="bg-blue-50 rounded-lg p-4">
+                                                    <h4 class="text-blue-800 font-medium mb-2">Usage Tips</h4>
+                                                    <ul class="list-disc pl-5 text-blue-700">
+                                                        <li>Use the visualization to explore core microbiome patterns</li>
+                                                        <li>Compare core microbiomes across different host species</li>
+                                                        <li>Consider sample coverage when interpreting results</li>
+                                                        <li>Reference literature-validated examples for context</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -357,7 +410,171 @@
                     <section id="metagenome" class="scroll-mt-16">
                         <h2 class="text-3xl font-bold text-gray-900 mb-6">4. Metagenome</h2>
                         <div class="prose prose-blue max-w-none">
-                            <p style="text-indent: 1em;">Access and analyze metagenome data from various insect-symbiont studies.</p>
+                            <p style="text-indent: 1em;">The Metagenome section compiles comprehensive metagenomic data from symbiont-associated microbial communities, providing both raw data and detailed analysis results from January 2008 to July 2024.</p>
+
+                            <!-- Introduction Section -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <img src="{% static 'img/help/metagenome1.png' %}" alt="Metagenome Introduction" class="w-full rounded-lg shadow-sm mb-4">
+                                    <div class="space-y-2">
+                                        <p class="text-gray-600">Our metagenome data is sourced from:</p>
+                                        <ul class="list-disc pl-5 text-gray-600">
+                                            <li>NCBI SRA database</li>
+                                            <li>NGDC database</li>
+                                            <li>EBI database</li>
+                                            <li>Published literature on insect symbionts</li>
+                                        </ul>
+                                        <div class="bg-blue-50 rounded-lg p-4 mt-4">
+                                            <h4 class="text-blue-800 font-medium mb-2">Analysis Pipeline</h4>
+                                            <ul class="list-disc pl-5 text-blue-700">
+                                                <li>Quality control: Fastp (v0.23.4)</li>
+                                                <li>Taxonomic profiling: Kraken2 (v2.1.3)</li>
+                                                <li>Assembly: Megahit (k-min 27, k-max 127)</li>
+                                                <li>Binning: MetaBAT2 (v2.17)</li>
+                                                <li>Quality assessment: CheckM (v2.17)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Metagenome Table Section -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <h3 class="text-lg font-semibold mb-4">4.1 Metagenome Table</h3>
+                                    <img src="{% static 'img/help/metagenome2.png' %}" alt="Metagenome Data Table" class="w-full rounded-lg shadow-sm mb-4">
+                                    <div class="space-y-4">
+                                        <p style="text-indent: 1em;" class="text-gray-600">The Metagenome Table provides a comprehensive overview of all metagenomic samples, including key metadata and analysis results.</p>
+
+                                        <!-- Table Features -->
+                                        <div class="bg-white rounded-lg p-4">
+                                            <h4 class="font-medium text-gray-900 mb-3">Available Information</h4>
+                                            <ul class="list-disc pl-5 text-gray-600">
+                                                <li><strong>Basic Metadata:</strong>
+                                                    <ul class="list-circle pl-5 mt-2">
+                                                        <li>Accession numbers</li>
+                                                        <li>Sequencing platform</li>
+                                                        <li>Geographic location</li>
+                                                        <li>Collection date</li>
+                                                        <li>Data size</li>
+                                                    </ul>
+                                                </li>
+                                                <li><strong>Host Information:</strong> Detailed taxonomic and biological information about the insect host</li>
+                                                <li><strong>Quality Metrics:</strong> Results from quality control analysis</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Metagenome Details Section -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <h3 class="text-lg font-semibold mb-4">4.2 Metagenome Details</h3>
+                                    <div class="space-y-8">
+                                        <!-- Basic Information -->
+                                        <div>
+                                            <h4 class="text-lg font-medium text-gray-900 mb-4">Basic Information</h4>
+                                            <img src="{% static 'img/help/metagenome_basic.png' %}" alt="Basic Information Section" class="w-full rounded-lg shadow-sm mb-4">
+                                            <div class="bg-white rounded-lg p-4">
+                                                <p class="text-gray-600 mb-3">The basic information section provides comprehensive metadata about the metagenome sample:</p>
+                                                <ul class="list-disc pl-5 text-gray-600">
+                                                    <li><strong>Sample Information:</strong>
+                                                        <ul class="list-circle pl-5 mt-2">
+                                                            <li>Accession ID and BioProject</li>
+                                                            <li>Collection date and location</li>
+                                                            <li>Sequencing platform and strategy</li>
+                                                            <li>Data size and quality metrics</li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><strong>Host Details:</strong>
+                                                        <ul class="list-circle pl-5 mt-2">
+                                                            <li>Host species and taxonomy</li>
+                                                            <li>Sampling tissue or body part</li>
+                                                            <li>Development stage</li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <!-- Taxonomic Classification -->
+                                        <div>
+                                            <h4 class="text-lg font-medium text-gray-900 mb-4">Taxonomic Classification</h4>
+                                            <img src="{% static 'img/help/metagenome_taxonomic.png' %}" alt="Taxonomic Classification Section" class="w-full rounded-lg shadow-sm mb-4">
+                                            <div class="bg-white rounded-lg p-4">
+                                                <p class="text-gray-600 mb-3">Interactive visualization of the community taxonomic composition:</p>
+                                                <ul class="list-disc pl-5 text-gray-600">
+                                                    <li><strong>Krona Chart:</strong>
+                                                        <ul class="list-circle pl-5 mt-2">
+                                                            <li>Hierarchical interactive pie chart</li>
+                                                            <li>Drill-down exploration of taxonomic levels</li>
+                                                            <li>Percentage abundance display</li>
+                                                            <li>Export options for visualization</li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><strong>Classification Details:</strong>
+                                                        <ul class="list-circle pl-5 mt-2">
+                                                            <li>Kingdom to species level classification</li>
+                                                            <li>Relative abundance information</li>
+                                                            <li>Read count statistics</li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <!-- Potential Symbionts -->
+                                        <div>
+                                            <h4 class="text-lg font-medium text-gray-900 mb-4">Potential Symbionts</h4>
+                                            <img src="{% static 'img/help/metagenome_potential.png' %}" alt="Potential Symbionts Section" class="w-full rounded-lg shadow-sm mb-4">
+                                            <div class="bg-white rounded-lg p-4">
+                                                <p class="text-gray-600 mb-3">Analysis of potential symbiotic microorganisms identified in the sample:</p>
+                                                <ul class="list-disc pl-5 text-gray-600">
+                                                    <li><strong>Symbiont Identification:</strong>
+                                                        <ul class="list-circle pl-5 mt-2">
+                                                            <li>Known insect symbionts detected</li>
+                                                            <li>Abundance levels and distribution</li>
+                                                            <li>Links to related symbiont records</li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <!-- Download Section -->
+                                        <div>
+                                            <h4 class="text-lg font-medium text-gray-900 mb-4">Download Section</h4>
+                                            <img src="{% static 'img/help/metagenome_download.png' %}" alt="Download Section" class="w-full rounded-lg shadow-sm mb-4">
+                                            <div class="bg-white rounded-lg p-4">
+                                                <p class="text-gray-600 mb-3">Comprehensive data download options for further analysis:</p>
+                                                <ul class="list-disc pl-5 text-gray-600">
+                                                    <li><strong>Raw Data:</strong>
+                                                        <ul class="list-circle pl-5 mt-2">
+                                                            <li>Original sequencing reads (FASTQ)</li>
+                                                            <li>Quality control reports</li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><strong>Processed Results:</strong>
+                                                        <ul class="list-circle pl-5 mt-2">
+                                                            <li>Taxonomic classification reports</li>
+                                                            <li>Assembled contigs (FASTA)</li>
+                                                            <li>Gene predictions and annotations</li>
+                                                            <li>MAG sequences and quality reports</li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><strong>Visualization Files:</strong>
+                                                        <ul class="list-circle pl-5 mt-2">
+                                                            <li>Krona chart HTML files</li>
+                                                            <li>Summary statistics and plots</li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </section>
 
@@ -365,7 +582,115 @@
                     <section id="amplicon" class="scroll-mt-16">
                         <h2 class="text-3xl font-bold text-gray-900 mb-6">5. Amplicon</h2>
                         <div class="prose prose-blue max-w-none">
-                            <p style="text-indent: 1em;">Browse amplicon sequencing data and related analyses.</p>
+                            <p style="text-indent: 1em;">Our database features a comprehensive collection of 16S amplicon sequencing data from insect-associated microbial communities, with over 12,410 samples representing diverse insect species across multiple geographical regions.</p>
+
+                            <!-- Introduction Section -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <img src="{% static 'img/help/amplicon1.png' %}" alt="Amplicon Introduction" class="w-full rounded-lg shadow-sm mb-4">
+                                    <div class="space-y-2">
+                                        <div class="bg-blue-50 rounded-lg p-4 mt-4">
+                                            <h4 class="text-blue-800 font-medium mb-2">Analysis Pipeline</h4>
+                                            <ul class="list-disc pl-5 text-blue-700">
+                                                <li>Quality control and merging: Fastp (v0.23.4)</li>
+                                                <li>Primer trimming: Seqtk (v1.4)</li>
+                                                <li>OTU clustering: Vsearch (v2.28.1)</li>
+                                                <li>Taxonomy classification: QIIME2 (v2024.2.0)</li>
+                                                <li>Functional prediction: FAPROTAX (v1.2.10)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Amplicon Details Section -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <h3 class="text-lg font-semibold mb-4">5.1 Amplicon Analysis</h3>
+                                    <div class="space-y-8">
+                                        <!-- Taxonomy Annotation -->
+                                        <div>
+                                            <h4 class="text-lg font-medium text-gray-900 mb-4">Taxonomy Annotation</h4>
+                                            <img src="{% static 'img/help/amplicon_taxonomy.png' %}" alt="Taxonomy Annotation Section" class="w-full rounded-lg shadow-sm mb-4">
+                                            <div class="bg-white rounded-lg p-4">
+                                                <p class="text-gray-600 mb-3">Our standardized taxonomy annotation workflow includes:</p>
+                                                <ul class="list-disc pl-5 text-gray-600">
+                                                    <li><strong>Data Preprocessing:</strong>
+                                                        <ul class="list-circle pl-5 mt-2">
+                                                            <li>Quality control and paired-end merging</li>
+                                                            <li>Primer sequence removal</li>
+                                                            <li>Standardized 5' end trimming (20 bp)</li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><strong>OTU Generation:</strong>
+                                                        <ul class="list-circle pl-5 mt-2">
+                                                            <li>Sequence deduplication (minimum frequency: 3)</li>
+                                                            <li>97% similarity clustering</li>
+                                                            <li>De novo chimera removal</li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><strong>Taxonomic Classification:</strong>
+                                                        <ul class="list-circle pl-5 mt-2">
+                                                            <li>QIIME2 with Greengenes classifier</li>
+                                                            <li>Vsearch SINTAX algorithm</li>
+                                                            <li>Interactive Krona visualization</li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <!-- Functional Prediction -->
+                                        <div>
+                                            <h4 class="text-lg font-medium text-gray-900 mb-4">Functional Prediction</h4>
+                                            <img src="{% static 'img/help/amplicon_function.png' %}" alt="Functional Prediction Section" class="w-full rounded-lg shadow-sm mb-4">
+                                            <div class="bg-white rounded-lg p-4">
+                                                <p class="text-gray-600 mb-3">FAPROTAX-based functional analysis of microbial communities:</p>
+                                                <ul class="list-disc pl-5 text-gray-600">
+                                                    <li><strong>Prediction Process:</strong>
+                                                        <ul class="list-circle pl-5 mt-2">
+                                                            <li>Mapping taxonomic data to functional pathways</li>
+                                                            <li>Based on QIIME2 classification results</li>
+                                                            <li>Utilizing FAPROTAX database</li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><strong>Output Files:</strong>
+                                                        <ul class="list-circle pl-5 mt-2">
+                                                            <li>Functional pathway summaries</li>
+                                                            <li>Detailed FAPROTAX reports</li>
+                                                            <li>Metabolic function predictions</li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <!-- Download Section -->
+                                        <div>
+                                            <h4 class="text-lg font-medium text-gray-900 mb-4">Download Section</h4>
+                                            <img src="{% static 'img/help/amplicon_download.png' %}" alt="Amplicon Download Section" class="w-full rounded-lg shadow-sm mb-4">
+                                            <div class="bg-white rounded-lg p-4">
+                                                <p class="text-gray-600 mb-3">Available data files for download:</p>
+                                                <ul class="list-disc pl-5 text-gray-600">
+                                                    <li><strong>Raw Data:</strong>
+                                                        <ul class="list-circle pl-5 mt-2">
+                                                            <li>Original FASTQ files</li>
+                                                            <li>Quality control reports</li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><strong>Analysis Results:</strong>
+                                                        <ul class="list-circle pl-5 mt-2">
+                                                            <li>OTU tables and sequences</li>
+                                                            <li>Taxonomy classification results</li>
+                                                            <li>Functional prediction reports</li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </section>
                 </div>
