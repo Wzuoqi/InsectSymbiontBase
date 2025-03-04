@@ -441,6 +441,12 @@ Sample2,genus,Clostridium,12.5
                 const uploadButton = document.getElementById('upload-button');
                 const fileNameDisplay = document.getElementById('selected-file-name');
 
+                // 添加日志输出验证参数传递
+                const uploadedFile = formData.get('file');
+                const fileType = formData.get('type');
+                console.log('Uploading file:', uploadedFile.name);
+                console.log('File type:', fileType);
+
                 try {
                     // 更新按钮状态
                     uploadButton.disabled = true;

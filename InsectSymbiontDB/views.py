@@ -447,6 +447,13 @@ def upload_custom_data(request):
     try:
         if request.method == 'POST' and request.FILES.get('file'):
             uploaded_file = request.FILES['file']
+            file_type = request.POST.get('type', 'kraken')  # 获取文件类型，默认为kraken
+
+            # 添加日志记录
+            logger.info(f"Received file upload request:")
+            logger.info(f"File name: {uploaded_file.name}")
+            logger.info(f"File type: {file_type}")
+
             run_id = str(uuid.uuid4())
 
             # 创建目录结构
@@ -459,11 +466,27 @@ def upload_custom_data(request):
                 for chunk in uploaded_file.chunks():
                     destination.write(chunk)
 
-            # 设置输出文件路径 - 修改文件命名格式
+            # 设置输出文件路径
             output_file = os.path.join(upload_dir, f'{run_id}.compare.txt')
 
-            # 调用转换脚本
-            script_path = os.path.join(settings.BASE_DIR, 'InsectSymbiontDB', 'scripts', 'kraken_to_compare.py')
+            # 根据文件类型选择转换脚本
+            if file_type.lower() == 'kraken':
+                script_name = 'kraken_to_compare.py'
+            elif file_type.lower() == 'krona':
+                script_name = 'krona_to_compare.py'
+            else:
+                logger.error(f"Unsupported file type: {file_type}")
+                return JsonResponse({
+                    'error': 'Unsupported file type',
+                    'details': f'File type {file_type} is not supported'
+                }, status=400)
+
+            # 获取脚本路径
+            script_path = os.path.join(settings.BASE_DIR, 'InsectSymbiontDB', 'scripts', script_name)
+
+            # 记录将要执行的脚本
+            logger.info(f"Using conversion script: {script_name}")
+
             try:
                 # 添加执行权限
                 os.chmod(script_path, 0o755)
@@ -473,7 +496,7 @@ def upload_custom_data(request):
                     'python3', script_path, input_file, output_file
                 ], check=True, capture_output=True, text=True)
 
-                logger.info(f"File converted successfully: {output_file}")
+                logger.info(f"File converted successfully using {script_name}")
                 logger.debug(f"Conversion output: {result.stdout}")
 
                 if not os.path.exists(output_file):
@@ -483,11 +506,11 @@ def upload_custom_data(request):
                     'success': True,
                     'sampleId': run_id,
                     'sampleName': uploaded_file.name,
-                    'fileType': 'Kraken'
+                    'fileType': file_type
                 })
 
             except subprocess.CalledProcessError as e:
-                logger.error(f"Conversion failed: {str(e)}")
+                logger.error(f"Conversion failed using {script_name}: {str(e)}")
                 logger.error(f"Script output: {e.stdout}\n{e.stderr}")
                 return JsonResponse({
                     'error': 'File conversion failed',
