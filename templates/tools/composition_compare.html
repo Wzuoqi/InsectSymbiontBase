@@ -39,7 +39,17 @@
                         <label for="speciesFilter" class="block text-sm font-medium text-gray-700 mb-1">Filter by Host Species</label>
                         <div class="flex space-x-2">
                             <input type="text" id="speciesFilter" placeholder="Enter host species name" class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
-                            <button type="button" id="applyFilter" class="bg-gray-200 hover:bg-gray-300 text-gray-600 font-medium py-2 px-3 rounded-md transition-colors duration-300">
+                            <button type="button" id="applySpeciesFilter" class="bg-gray-200 hover:bg-gray-300 text-gray-600 font-medium py-2 px-3 rounded-md transition-colors duration-300">
+                                <span class="icon-[material-symbols--filter-alt] text-sm"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="runFilter" class="block text-sm font-medium text-gray-700 mb-1">Filter by Run ID</label>
+                        <div class="flex space-x-2">
+                            <input type="text" id="runFilter" placeholder="Enter run ID" class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                            <button type="button" id="applyRunFilter" class="bg-gray-200 hover:bg-gray-300 text-gray-600 font-medium py-2 px-3 rounded-md transition-colors duration-300">
                                 <span class="icon-[material-symbols--filter-alt] text-sm"></span>
                             </button>
                         </div>
@@ -101,6 +111,16 @@
                         Upload File
                     </button>
                 </form>
+
+                <!-- 添加格式指南链接 -->
+                <div class="mt-4 text-center">
+                    <a href="#format-guide"
+                       class="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 transition-colors duration-300">
+                        <span class="icon-[material-symbols--help-outline] mr-1"></span>
+                        Need help with file format? Check our format guide
+                        <span class="icon-[material-symbols--arrow-forward-ios] ml-1 text-xs"></span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -199,7 +219,7 @@
 </div>
 
 <!-- 文件格式示例模态框 -->
-<section class="bg-white rounded-xl shadow-md overflow-hidden mb-8 max-w-7xl mx-auto">
+<section id="format-guide" class="bg-white rounded-xl shadow-md overflow-hidden mb-8 max-w-7xl mx-auto">
     <div class="bg-gray-800 px-6 py-4">
         <h2 class="text-xl font-semibold text-white">File Format Guide</h2>
     </div>
@@ -329,7 +349,7 @@
         }
 
         // 完全重写loadSamples函数，避免复杂的DOM操作
-        function loadSamples(dataType, speciesFilter = '') {
+        function loadSamples(dataType, filters = {}) {
             const sampleSelect = document.getElementById('sampleSelect');
 
             // 清空并显示加载中
@@ -341,11 +361,16 @@
 
             // 构建API URL
             let url = `/api/samples?type=${dataType}`;
-            if (speciesFilter) {
-                url += `&species=${encodeURIComponent(speciesFilter)}`;
+
+            // 添加筛选条件到URL
+            if (filters.species) {
+                url += `&species=${encodeURIComponent(filters.species)}`;
+            }
+            if (filters.run) {
+                url += `&run=${encodeURIComponent(filters.run)}`;
             }
 
-            // 使用简单的fetch请求
+            // 使用fetch请求数据
             fetch(url)
                 .then(response => {
                     if (!response.ok) {
@@ -366,7 +391,6 @@
                     // 添加样本选项
                     data.samples.forEach(sample => {
                         const option = document.createElement('option');
-                        // 确保所有值都有定义，避免undefined错误
                         const id = sample.id || '';
                         const run = sample.run || 'Unknown';
                         const host = sample.host || 'Unknown host';
@@ -374,63 +398,76 @@
 
                         option.value = `${id}|${run}|${host}|${country}`;
 
-                        // 简单使用textContent，避免HTML解析问题
                         const countryDisplay = (!country || country === 'NA') ? '' : ` (${country})`;
                         option.textContent = `${run} - ${host}${countryDisplay}`;
 
                         sampleSelect.appendChild(option);
                     });
 
-                    // 如果达到限制，添加提示（作为选择框后的单独元素）
-                    if (data.samples.length === 100 && !speciesFilter) {
+                    // 如果达到限制，添加提示
+                    if (data.samples.length === 100) {
                         const limitMessage = document.createElement('p');
                         limitMessage.className = 'mt-2 text-xs text-amber-600 sample-limit-message';
-                        limitMessage.textContent = 'Showing first 100 results. Use the filter to narrow down.';
-
-                        // 直接在选择框后添加
-                        if (sampleSelect.parentNode) {
-                            sampleSelect.parentNode.appendChild(limitMessage);
-                        }
+                        limitMessage.textContent = 'Showing first 100 results. Use filters to narrow down.';
+                        sampleSelect.parentNode.appendChild(limitMessage);
                     }
                 })
                 .catch(error => {
                     console.error('Error fetching samples:', error);
                     sampleSelect.innerHTML = '<option disabled selected>Error loading samples</option>';
 
-                    // 添加更详细的错误信息
                     const errorMessage = document.createElement('p');
                     errorMessage.className = 'mt-2 text-xs text-red-600 sample-loading-message';
                     errorMessage.textContent = `Error: ${error.message}. Please try again.`;
-
-                    if (sampleSelect.parentNode) {
-                        sampleSelect.parentNode.appendChild(errorMessage);
-                    }
+                    sampleSelect.parentNode.appendChild(errorMessage);
                 });
         }
 
         // 修改数据类型选择事件处理
         document.getElementById('dataType').addEventListener('change', function() {
             const dataType = this.value;
+            // 清空所有筛选条件
             document.getElementById('speciesFilter').value = '';
+            document.getElementById('runFilter').value = '';
 
             if (dataType === 'metagenome' || dataType === 'amplicon') {
                 loadSamples(dataType);
             } else {
-                // 如果选择了无效选项，清空样本列表
                 const sampleSelect = document.getElementById('sampleSelect');
                 sampleSelect.innerHTML = '<option disabled selected>Please select a data type first</option>';
             }
         });
 
-        // 修改过滤器应用事件处理
-        document.getElementById('applyFilter').addEventListener('click', function() {
+        // 修改筛选器应用事件处理
+        function applyFilters() {
             const dataType = document.getElementById('dataType').value;
             const speciesFilter = document.getElementById('speciesFilter').value.trim();
+            const runFilter = document.getElementById('runFilter').value.trim();
 
             if (dataType === 'metagenome' || dataType === 'amplicon') {
-                loadSamples(dataType, speciesFilter);
+                loadSamples(dataType, {
+                    species: speciesFilter,
+                    run: runFilter
+                });
             } else {
                 alert('Please select a data type first');
+            }
+        }
+
+        // 添加筛选按钮事件监听
+        document.getElementById('applySpeciesFilter').addEventListener('click', applyFilters);
+        document.getElementById('applyRunFilter').addEventListener('click', applyFilters);
+
+        // 添加输入框回车事件监听
+        document.getElementById('speciesFilter').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                applyFilters();
+            }
+        });
+
+        document.getElementById('runFilter').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                applyFilters();
             }
         });
 
@@ -1337,6 +1374,26 @@
                 notification.remove();
             }, 5000);
         }
+
+        // 添加格式指南链接点击处理
+        document.querySelector('a[href="#format-guide"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            const formatGuide = document.getElementById('format-guide');
+            formatGuide.scrollIntoView({ behavior: 'smooth' });
+
+            // 添加高亮效果
+            formatGuide.classList.add('ring-4', 'ring-blue-200');
+            setTimeout(() => {
+                formatGuide.classList.remove('ring-4', 'ring-blue-200');
+            }, 2000);
+        });
     });
 </script>
+
+<!-- 1. 首先在 head 部分添加平滑滚动样式 -->
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+</style>
 {% endblock %}

@@ -265,6 +265,7 @@ def get_samples(request):
     """API endpoint to get samples for composition comparison"""
     sample_type = request.GET.get('type', '')
     species_filter = request.GET.get('species', '')
+    run_filter = request.GET.get('run', '')  # 新增run筛选参数
 
     samples = []
 
@@ -273,11 +274,13 @@ def get_samples(request):
             # 构建查询
             query = Metagenome.objects.all()
 
-            # 应用物种过滤器
+            # 应用筛选条件
             if species_filter:
                 query = query.filter(host__icontains=species_filter)
+            if run_filter:
+                query = query.filter(run__icontains=run_filter)
 
-            # 限制返回数量，避免过多数据
+            # 限制返回数量
             query = query[:100]
 
             # 格式化结果
@@ -296,14 +299,16 @@ def get_samples(request):
             # 构建Amplicon查询
             query = Amplicon.objects.all()
 
-            # 应用物种过滤器
+            # 应用筛选条件
             if species_filter:
                 query = query.filter(host__icontains=species_filter)
+            if run_filter:
+                query = query.filter(run__icontains=run_filter)
 
-            # 限制返回数量，避免过多数据
+            # 限制返回数量
             query = query[:100]
 
-            # 格式化结果，确保处理空值
+            # 格式化结果
             samples = [
                 {
                     'id': amp.id,

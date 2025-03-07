@@ -9,7 +9,7 @@
         <div class="flex items-center space-x-3">
             <div>
                 <h1 class="text-3xl font-bold text-gray-900">Help</h1>
-                <p class="text-gray-500 text-sm mt-2">Get started with InsectSymbiontBase</p>
+                <p class="text-gray-500 text-sm mt-2">Get started with iSymBase</p>
             </div>
         </div>
     </div>
@@ -48,9 +48,9 @@
         <div class="space-y-8">
             <!-- Database Introduction -->
             <div class="bg-white rounded-lg shadow-sm p-6">
-                <h3 class="text-xl font-semibold text-gray-900 mb-4">About InsectSymbiontBase</h3>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">About iSymBase</h3>
                 <p class="text-gray-600 mb-4">
-                    InsectSymbiontBase is a comprehensive database dedicated to insect symbionts research. It provides extensive resources including functional records, genomes, metagenomes, and research tools to empower scientific discovery and exploration.
+                    iSymBase is a comprehensive database dedicated to insect symbionts research. It provides extensive resources including functional records, genomes, metagenomes, and research tools to empower scientific discovery and exploration.
                 </p>
 
                 <!-- Database Statistics -->
@@ -169,7 +169,7 @@
                     <section id="database-overview" class="scroll-mt-16">
                         <h1 class="text-3xl font-bold text-kabuli-900 mb-6">Browse Guide</h1>
                         <div class="prose prose-blue max-w-none">
-                            <p style="text-indent: 1em;">InsectSymbiontBase provides comprehensive access to various types of data related to insect symbionts. This guide will help you navigate through our data browsing interfaces and make the most of our search capabilities.</p>
+                            <p style="text-indent: 1em;">iSymBase provides comprehensive access to various types of data related to insect symbionts. This guide will help you navigate through our data browsing interfaces and make the most of our search capabilities.</p>
 
                             <div class="bg-blue-50 rounded-lg p-4 my-4">
                                 <h4 class="text-blue-800 font-medium mb-2">Quick Tip</h4>
@@ -740,7 +740,7 @@
                     <section id="tools-overview" class="scroll-mt-16">
                         <h1 class="text-3xl font-bold text-kabuli-900 mb-6">Analysis Tools Guide</h1>
                         <div class="prose prose-blue max-w-none">
-                            <p style="text-indent: 1em;">InsectSymbiontBase provides a suite of powerful analysis tools to help researchers explore and analyze insect symbiont data. This guide will help you understand and effectively use each tool.</p>
+                            <p style="text-indent: 1em;">iSymBase provides a suite of powerful analysis tools to help researchers explore and analyze insect symbiont data. This guide will help you understand and effectively use each tool.</p>
 
                             <div class="bg-blue-50 rounded-lg p-4 my-4">
                                 <h4 class="text-blue-800 font-medium mb-2">Quick Tip</h4>
@@ -978,11 +978,161 @@
 
                     <!-- Composition Compare Section -->
                     <section id="composition-compare" class="scroll-mt-16">
-                        <h2 class="text-3xl font-bold text-gray-900 mb-6">4. Composition Compare</h2>
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">4. Taxonomic Composition Compare</h2>
                         <div class="prose prose-blue max-w-none">
-                            <p style="text-indent: 1em;">Compare symbiont compositions across different host species or groups.</p>
+                            <p style="text-indent: 1em;">The Composition Compare tool allows you to analyze and visualize taxonomic composition across different samples, helping you understand microbial community patterns and differences.</p>
 
-                            <!-- Content will be added here -->
+                            <!-- Overview and Features -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <h3 class="text-lg font-semibold mb-4">Tool Overview</h3>
+                                    <img src="{% static 'img/help/composition_compare_overview.png' %}" alt="Composition Compare Overview" class="w-full rounded-lg shadow-sm mb-4">
+                                    <div class="space-y-4">
+                                        <p class="text-gray-600">The interface consists of four main sections:</p>
+                                        <ul class="list-disc pl-5 text-gray-600">
+                                            <li><strong>Database Sample Selection:</strong> Browse and select samples from our database</li>
+                                            <li><strong>Custom Data Upload:</strong> Upload your own taxonomic composition data</li>
+                                            <li><strong>Selected Samples:</strong> View and manage your selected samples</li>
+                                            <li><strong>Visualization Parameters:</strong> Configure the visualization settings</li>
+                                        </ul>
+                                        <!-- 添加快速提示框 -->
+                                        <div class="bg-blue-50 rounded-lg p-4 mt-4">
+                                            <h4 class="text-blue-800 font-medium mb-2">Quick Tips</h4>
+                                            <ul class="list-disc pl-5 text-blue-700">
+                                                <li>You can combine database samples with your custom data</li>
+                                                <li>Selected samples are displayed in a two-column layout for easy management</li>
+                                                <li>Use the Format Guide for proper data preparation</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Data Input Methods -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <h3 class="text-lg font-semibold mb-4">Data Input Methods</h3>
+
+                                    <!-- Database Samples -->
+                                    <div class="mb-6">
+                                        <h4 class="text-base font-medium text-gray-900 mb-3">1. Database Sample Selection</h4>
+                                        <div class="space-y-2">
+                                            <p class="text-gray-600">Select samples from our database:</p>
+                                            <ul class="list-disc pl-5 text-gray-600">
+                                                <li>Choose between Metagenome or Amplicon data types</li>
+                                                <li>Filter samples by host species</li>
+                                                <li>Select multiple samples using Ctrl/Cmd key</li>
+                                                <li>Add selected samples to your analysis</li>
+                                            </ul>
+                                            <!-- 添加示例操作 -->
+                                            <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                                                <h5 class="font-medium text-gray-800 mb-2">Example Operation</h5>
+                                                <ol class="list-decimal pl-5 text-gray-600 space-y-1">
+                                                    <li>Select "Metagenome" from the data type dropdown</li>
+                                                    <li>Type host name in the filter box (e.g., "Apis")</li>
+                                                    <li>Hold Ctrl/Cmd and click to select multiple samples</li>
+                                                    <li>Click "Add Selected Samples" to include them</li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Custom Data Upload -->
+                                    <div class="mb-6">
+                                        <h4 class="text-base font-medium text-gray-900 mb-3">2. Custom Data Upload</h4>
+                                        <div class="space-y-2">
+                                            <p class="text-gray-600">Upload your own taxonomic composition data:</p>
+                                            <ul class="list-disc pl-5 text-gray-600">
+                                                <li>Supports Kraken and Krona formats</li>
+                                                <li>Download template files for reference</li>
+                                                <li>Drag and drop or click to upload</li>
+                                                <li>Check format guide for detailed requirements</li>
+                                            </ul>
+                                            <!-- 添加文件格式提示 -->
+                                            <div class="bg-yellow-50 rounded-lg p-4 mt-4">
+                                                <h5 class="text-yellow-800 font-medium mb-2">File Format Notes</h5>
+                                                <ul class="list-disc pl-5 text-yellow-700">
+                                                    <li>Kraken format: Tab-separated with percentage and taxonomic info</li>
+                                                    <li>Krona format: Tab-separated with counts and full taxonomy path</li>
+                                                    <li>Maximum file size: 10MB</li>
+                                                    <li>Encoding: UTF-8 recommended</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Visualization Settings -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <h3 class="text-lg font-semibold mb-4">Visualization Configuration</h3>
+                                    <img src="{% static 'img/help/composition_compare_parameters.png' %}" alt="Visualization Settings" class="w-full rounded-lg shadow-sm mb-4">
+                                    <div class="space-y-4">
+                                        <p class="text-gray-600">Customize your visualization with these parameters:</p>
+                                        <ul class="list-disc pl-5 text-gray-600">
+                                            <li><strong>Taxonomic Level:</strong> Select the taxonomic level for comparison (Phylum to Species)</li>
+                                            <li><strong>Top N Taxa:</strong> Choose how many top abundant taxa to display (1-20)</li>
+                                            <li><strong>Sort By:</strong> Order taxa by abundance or name</li>
+                                            <li><strong>Chart Type:</strong> Stacked bar chart showing relative abundances</li>
+                                        </ul>
+                                        <!-- 添加参数建议 -->
+                                        <div class="bg-green-50 rounded-lg p-4 mt-4">
+                                            <h5 class="text-green-800 font-medium mb-2">Parameter Recommendations</h5>
+                                            <ul class="list-disc pl-5 text-green-700">
+                                                <li>Start with Phylum level for a broad overview</li>
+                                                <li>Use Top 10 taxa for clearer visualization</li>
+                                                <li>Sort by abundance to highlight dominant taxa</li>
+                                                <li>Adjust parameters to focus on your interests</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Results and Export -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <h3 class="text-lg font-semibold mb-4">Results and Export Options</h3>
+                                    <img src="{% static 'img/help/composition_compare_result.png' %}" alt="Results and Export" class="w-full rounded-lg shadow-sm mb-4">
+                                    <div class="space-y-4">
+                                        <p class="text-gray-600">After generating the visualization:</p>
+                                        <ul class="list-disc pl-5 text-gray-600">
+                                            <li><strong>Interactive Chart:</strong> Hover over bars to see detailed values</li>
+                                            <li><strong>Download Options:</strong>
+                                                <ul class="list-circle pl-5 mt-2">
+                                                    <li>SVG format for vector graphics</li>
+                                                    <li>PNG format for images</li>
+                                                    <li>CSV format for raw data</li>
+                                                </ul>
+                                            </li>
+                                            <li><strong>Chart Customization:</strong> Use the toolbar for zooming, panning, and other interactions</li>
+                                        </ul>
+                                        <!-- 添加交互提示 -->
+                                        <div class="bg-indigo-50 rounded-lg p-4 mt-4">
+                                            <h5 class="text-indigo-800 font-medium mb-2">Interactive Features</h5>
+                                            <div class="grid grid-cols-2 gap-4">
+                                                <div>
+                                                    <h6 class="font-medium mb-2">Mouse Controls</h6>
+                                                    <ul class="list-disc pl-5 text-indigo-700">
+                                                        <li>Hover: View detailed values</li>
+                                                        <li>Click legend: Toggle taxa</li>
+                                                        <li>Double click: Reset view</li>
+                                                    </ul>
+                                                </div>
+                                                <div>
+                                                    <h6 class="font-medium mb-2">Toolbar Options</h6>
+                                                    <ul class="list-disc pl-5 text-indigo-700">
+                                                        <li>Zoom: Magnify areas</li>
+                                                        <li>Pan: Move chart view</li>
+                                                        <li>Reset: Restore default</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </section>
                 </div>
