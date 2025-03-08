@@ -5,45 +5,89 @@
     <div class="container mx-auto">
         <h2 class="text-3xl font-semibold text-kabuli-800 mb-6">BLAST Results</h2>
 
-        <div class="overflow-x-auto rounded">
-        <table class="table-auto w-full border border-gray-300">
-            <thead>
-                <tr class="bg-kabuli-800 text-white border-b border-gray-300">
-                    <th class="px-4 py-2">Query ID</th>
-                    <th class="px-4 py-2">Subject ID</th>
-                    <th class="px-4 py-2">Identity (%)</th>
-                    <th class="px-4 py-2">Alignment Length</th>
-                    <th class="px-4 py-2">Mismatches</th>
-                    <th class="px-4 py-2">Gap Opens</th>
-                    <th class="px-4 py-2">Query Start</th>
-                    <th class="px-4 py-2">Query End</th>
-                    <th class="px-4 py-2">Subject Start</th>
-                    <th class="px-4 py-2">Subject End</th>
-                    <th class="px-4 py-2">E-value</th>
-                    <th class="px-4 py-2">Bit Score</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for result in results %}
-                <tr class="border-b {% cycle 'bg-white' 'bg-gray-100' %}">
-                    <td class="px-4 py-2">{{ result.query_id }}</td>
-                    <td class="px-4 py-2">{{ result.subject_id }}</td>
-                    <td class="px-4 py-2">{{ result.identity }}</td>
-                    <td class="px-4 py-2">{{ result.alignment_length }}</td>
-                    <td class="px-4 py-2">{{ result.mismatches }}</td>
-                    <td class="px-4 py-2">{{ result.gap_opens }}</td>
-                    <td class="px-4 py-2">{{ result.q_start }}</td>
-                    <td class="px-4 py-2">{{ result.q_end }}</td>
-                    <td class="px-4 py-2">{{ result.s_start }}</td>
-                    <td class="px-4 py-2">{{ result.s_end }}</td>
-                    <td class="px-4 py-2">{{ result.e_value }}</td>
-                    <td class="px-4 py-2">{{ result.bit_score }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+        {% if no_results %}
+            <div class="text-center py-8">
+                <div class="text-xl text-gray-600 mb-4">
+                    No matches found for your sequence
+                </div>
+                <div class="text-gray-500 mb-6">
+                    Suggestions:
+                    <ul class="list-disc list-inside mt-2">
+                        <li>Check if your sequence is in the correct format</li>
+                        <li>Try using a different BLAST method</li>
+                        <li>Consider increasing the E-value threshold</li>
+                        <li>Try searching against a different database</li>
+                    </ul>
+                </div>
+            </div>
+        {% else %}
+            <div class="mb-4 text-gray-600">
+                Showing top {{ shown_results }} of {{ total_results }} matches
+            </div>
 
+            <div class="mb-6">
+                <a href="{% url 'download_blast_result' result_id %}"
+                   class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                    Download Complete Results
+                </a>
+            </div>
+
+            <div class="overflow-x-auto rounded">
+            <table class="table-auto w-full border border-gray-300">
+                <thead>
+                    <tr class="bg-kabuli-800 text-white border-b border-gray-300">
+                        <th class="px-4 py-2">Query ID</th>
+                        {% if database == 'ISDB_genome' %}
+                            <th class="px-4 py-2">Subject Name</th>
+                            <th class="px-4 py-2">Genome ID</th>
+                        {% else %}
+                            <th class="px-4 py-2">Subject ID</th>
+                        {% endif %}
+                        <th class="px-4 py-2">Identity (%)</th>
+                        <th class="px-4 py-2">Alignment Length</th>
+                        <th class="px-4 py-2">Query Start</th>
+                        <th class="px-4 py-2">Query End</th>
+                        <th class="px-4 py-2">Subject Start</th>
+                        <th class="px-4 py-2">Subject End</th>
+                        <th class="px-4 py-2">E-value</th>
+                        <th class="px-4 py-2">Bit Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+                    <tr class="border-b {% cycle 'bg-white' 'bg-gray-100' %}">
+                        <td class="px-4 py-2">{{ result.query_id }}</td>
+                        {% if database == 'ISDB_genome' %}
+                            <td class="px-4 py-2">{{ result.subject_name }}</td>
+                            <td class="px-4 py-2">
+                                <a href="{% url 'genome:genome_detail' result.genome_id %}"
+                                   class="text-kabuli-800 hover:text-kabuli-600 hover:underline">
+                                    {{ result.genome_id }}
+                                </a>
+                            </td>
+                        {% else %}
+                            <td class="px-4 py-2">{{ result.subject_id }}</td>
+                        {% endif %}
+                        <td class="px-4 py-2">{{ result.identity }}</td>
+                        <td class="px-4 py-2">{{ result.alignment_length }}</td>
+                        <td class="px-4 py-2">{{ result.q_start }}</td>
+                        <td class="px-4 py-2">{{ result.q_end }}</td>
+                        <td class="px-4 py-2">{{ result.s_start }}</td>
+                        <td class="px-4 py-2">{{ result.s_end }}</td>
+                        <td class="px-4 py-2">{{ result.e_value }}</td>
+                        <td class="px-4 py-2">{{ result.bit_score }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if total_results > shown_results %}
+        <div class="mt-6 text-gray-600 text-center">
+            <p>Showing top {{ shown_results }} matches. Download the complete results to view all {{ total_results }} matches.</p>
+        </div>
+        {% endif %}
+        {% endif %}
 
         <div class="mt-6">
             <a href="{% url 'blast' %}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">

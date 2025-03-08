@@ -270,67 +270,60 @@
 
             <div class="grid grid-cols-4 gap-3">
                 <!-- Genome FASTA -->
-                <div
-                    class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3 w-full">
+                <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3 w-full">
                     <svg class="w-8 h-8 text-cyan-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                        </path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
                     <div class="flex-1 min-w-0 mx-3">
                         <h5 class="text-md font-semibold text-gray-800 truncate">Genome FASTA</h5>
                         <p class="text-xs text-gray-600 line-clamp-2">Complete genome sequence</p>
                     </div>
-                    <a href="/media/downloads/genomes/GISB0001/genes.faa" download
-                        class="flex-shrink-0 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
-                        Download
-                    </a>
-                </div>
-
-                <!-- Genome GBK -->
-                <div
-                    class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3 w-full">
-                    <svg class="w-8 h-8 text-cyan-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                        </path>
-                    </svg>
-                    <div class="flex-1 min-w-0 mx-3">
-                        <h5 class="text-md font-semibold text-gray-800 truncate">GFF File</h5>
-                        <p class="text-xs text-gray-600 line-clamp-2">Annotated genome gff</p>
-                    </div>
-                    <a href="/media/downloads/genomes/GISB0001/genes.faa" download
-                        class="flex-shrink-0 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
-                        Download
-                    </a>
-                </div>
-
-                <!-- Protein FASTA -->
-                <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-4 w-full">
-                    <span class="w-8 h-8 text-cyan-600 flex-shrink-0 icon-[mdi--peanut-outline]"></span>
-                    <div class="flex-1 min-w-0 mx-3">
-                        <h5 class="text-md font-semibold text-gray-800 truncate">Protein FASTA</h5>
-                        <p class="text-xs text-gray-600 line-clamp-2">Predicted protein sequences</p>
-                    </div>
-                    <a href="/media/downloads/genomes/GISB0001/genes.faa" download
+                    <a href="/media/genome/genome_catalog/{{ genome.genome_id }}/{{ genome.genome_id }}.genome.fa" download
                         class="flex-shrink-0 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
                         Download
                     </a>
                 </div>
 
                 <!-- Gene FASTA -->
-                <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-4 w-full">
+                <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3 w-full">
                     <span class="w-8 h-8 text-cyan-600 flex-shrink-0 icon-[ph--dna-bold]"></span>
                     <div class="flex-1 min-w-0 mx-3">
                         <h5 class="text-md font-semibold text-gray-800 truncate">Gene FASTA</h5>
                         <p class="text-xs text-gray-600 line-clamp-2">Predicted gene sequences</p>
                     </div>
-                    <a href="/media/downloads/genomes/GISB0001/genes.faa" download
+                    <a href="/media/genome/genome_catalog/{{ genome.genome_id }}/{{ genome.genome_id }}.gene.fa" download
                         class="flex-shrink-0 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
                         Download
                     </a>
                 </div>
 
+                <!-- Protein FASTA -->
+                <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3 w-full">
+                    <span class="w-8 h-8 text-cyan-600 flex-shrink-0 icon-[mdi--peanut-outline]"></span>
+                    <div class="flex-1 min-w-0 mx-3">
+                        <h5 class="text-md font-semibold text-gray-800 truncate">Protein FASTA</h5>
+                        <p class="text-xs text-gray-600 line-clamp-2">Predicted protein sequences</p>
+                    </div>
+                    <a href="/media/genome/genome_catalog/{{ genome.genome_id }}/{{ genome.genome_id }}.anno.pep.fa" download
+                        class="flex-shrink-0 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
+                        Download
+                    </a>
+                </div>
+
+                <!-- GFF File -->
+                <div class="flex items-center bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-300 p-3 w-full">
+                    <svg class="w-8 h-8 text-cyan-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <div class="flex-1 min-w-0 mx-3">
+                        <h5 class="text-md font-semibold text-gray-800 truncate">GFF File</h5>
+                        <p class="text-xs text-gray-600 line-clamp-2">Genome annotation</p>
+                    </div>
+                    <a href="/media/genome/genome_catalog/{{ genome.genome_id }}/{{ genome.genome_id }}.gff" download
+                        class="flex-shrink-0 px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-cyan-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
+                        Download
+                    </a>
+                </div>
             </div>
         </div>
     </section>

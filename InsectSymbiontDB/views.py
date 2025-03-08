@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 from django.shortcuts import render
 from subprocess import Popen, PIPE
 import os
@@ -48,57 +48,134 @@ def blast_search(request):
 
         # 保存输入序列到临时文件
         tmp_dir = os.path.join(BASE_DIR, 'tmp')
-        os.makedirs(tmp_dir, exist_ok=True)  # 如果目录不存在则创建
+        os.makedirs(tmp_dir, exist_ok=True)
         query_file = os.path.join(tmp_dir, "tmp_query.fasta")
 
-        # 检查文件上传或文本框输入
-        if sequence:
-            with open(query_file, "w") as f:
-                f.write(sequence)
-        elif 'input' in request.FILES:
-            uploaded_file = request.FILES['input']
-            with open(query_file, "wb") as f:
-                for chunk in uploaded_file.chunks():
-                    f.write(chunk)
-        else:
-            # 如果既没有输入序列也没有上传文件，则返回错误提示
-            return HttpResponse("Please enter a sequence or upload a file.")
+        try:
+            # 检查文件上传或文本框输入
+            if sequence:
+                with open(query_file, "w") as f:
+                    f.write(sequence)
+            elif 'input' in request.FILES:
+                uploaded_file = request.FILES['input']
+                with open(query_file, "wb") as f:
+                    for chunk in uploaded_file.chunks():
+                        f.write(chunk)
+            else:
+                return HttpResponse("Please enter a sequence or upload a file.")
 
-        # 数据库路径
-        db_dir = os.path.join(BASE_DIR, 'media/blast_db')
-        db_path = os.path.join(db_dir, database)
+            # 数据库路径
+            db_dir = os.path.join(BASE_DIR, 'media/blast_db')
+            db_path = os.path.join(db_dir, database)
 
-        # 构建 BLAST 命令
-        blast_cmd = f"{blast_type} -query {query_file} -db {db_path} -evalue {e_value} -outfmt 6"
-        process = Popen(blast_cmd, shell=True, stdout=PIPE, stderr=PIPE)
-        stdout, stderr = process.communicate()
+            # 生成结果文件的唯一标识符
+            result_id = str(uuid.uuid4())
 
-        # 删除临时文件
-        os.remove(query_file)
+            # 创建blast结果目录
+            results_dir = os.path.join(settings.MEDIA_ROOT, 'blast_results')
+            os.makedirs(results_dir, exist_ok=True)
 
-        # 处理 BLAST 输出，将其按列分割
-        blast_results = []
-        for line in stdout.decode('utf-8').strip().split('\n'):
-            columns = line.split('\t')
-            blast_results.append({
-                'query_id': columns[0],
-                'subject_id': columns[1],
-                'identity': columns[2],
-                'alignment_length': columns[3],
-                'mismatches': columns[4],
-                'gap_opens': columns[5],
-                'q_start': columns[6],
-                'q_end': columns[7],
-                's_start': columns[8],
-                's_end': columns[9],
-                'e_value': columns[10],
-                'bit_score': columns[11],
+            # 设置结果文件路径
+            result_file = os.path.join(results_dir, f"{result_id}.txt")
+
+            # 构建 BLAST 命令
+            blast_cmd = f"{blast_type} -query {query_file} -db {db_path} -evalue {e_value} -outfmt 6 -num_threads 4"
+            process = Popen(blast_cmd, shell=True, stdout=PIPE, stderr=PIPE)
+            stdout, stderr = process.communicate()
+
+            # 保存BLAST结果到文件
+            with open(result_file, 'wb') as f:
+                f.write(stdout)
+
+            # 处理 BLAST 输出用于显示
+            blast_results = []
+            for line in stdout.decode('utf-8').strip().split('\n'):
+                if line:  # 确保不是空行
+                    columns = line.split('\t')
+                    result = {
+                        'query_id': columns[0],
+                        'identity': columns[2],
+                        'alignment_length': columns[3],
+                        'q_start': columns[6],
+                        'q_end': columns[7],
+                        's_start': columns[8],
+                        's_end': columns[9],
+                        'e_value': columns[10],
+                        'bit_score': float(columns[11]),
+                    }
+
+                    # 根据数据库类型处理 subject_id
+                    if database == 'ISDB_genome':
+                        parts = columns[1].split('|')
+                        if len(parts) > 1:
+                            result['subject_name'] = parts[0]
+                            result['genome_id'] = parts[-1]
+                        else:
+                            # 处理格式不符合预期的情况
+                            result['subject_name'] = columns[1]
+                            result['genome_id'] = 'N/A'
+                    else:
+                        result['subject_id'] = columns[1]
+
+                    blast_results.append(result)
+
+            # 检查是否有匹配结果
+            if not blast_results:
+                return render(request, 'tools/blast_result.html', {
+                    'no_results': True,
+                    'result_id': result_id
+                })
+
+            # 按bit score排序并获取前100条记录
+            blast_results.sort(key=lambda x: x['bit_score'], reverse=True)
+            total_results = len(blast_results)
+            blast_results = blast_results[:100]
+
+            # 删除临时查询文件
+            if os.path.exists(query_file):
+                os.remove(query_file)
+
+            # 渲染结果页面，传递结果ID和总记录数
+            return render(request, 'tools/blast_result.html', {
+                'results': blast_results,
+                'result_id': result_id,
+                'total_results': total_results,
+                'shown_results': len(blast_results),
+                'database': database  # 添加数据库类型到模板上下文
             })
 
-        # 渲染结果页面
-        return render(request, 'tools/blast_result.html', {'results': blast_results})
+        except Exception as e:
+            # 确保清理临时文件
+            if os.path.exists(query_file):
+                os.remove(query_file)
+            return HttpResponse(f"An error occurred: {str(e)}")
 
     return render(request, 'tools/blast.html')
+
+def download_blast_result(request, result_id):
+    """处理BLAST结果文件下载"""
+    # 安全检查：验证文件名格式
+    if not result_id or not result_id.strip():
+        return HttpResponse("Invalid result ID", status=400)
+
+    try:
+        # 构建文件路径
+        file_path = os.path.join(settings.MEDIA_ROOT, 'blast_results', f"{result_id}.txt")
+
+        # 检查文件是否存在
+        if not os.path.exists(file_path):
+            return HttpResponse("Result file not found", status=404)
+
+        # 创建文件响应
+        response = FileResponse(
+            open(file_path, 'rb'),
+            content_type='text/tab-separated-values'
+        )
+        response['Content-Disposition'] = f'attachment; filename=blast_result.txt'
+        return response
+
+    except Exception as e:
+        return HttpResponse(f"Error downloading file: {str(e)}", status=500)
 
 def batch_search(request):
     """处理批量搜索请求"""

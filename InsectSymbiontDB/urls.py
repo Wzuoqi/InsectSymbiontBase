@@ -71,4 +71,6 @@ urlpatterns = [
 
     path('api/upload-custom-data', views.upload_custom_data, name='upload_custom_data'),
 
+    path('download_blast_result/<str:result_id>/', views.download_blast_result, name='download_blast_result'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # 添加媒体文件服务
