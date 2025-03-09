@@ -111,9 +111,20 @@ def blast_search(request):
                             result['subject_name'] = parts[0]
                             result['genome_id'] = parts[-1]
                         else:
-                            # 处理格式不符合预期的情况
                             result['subject_name'] = columns[1]
                             result['genome_id'] = 'N/A'
+                    elif database.startswith('ISDB_gene'):  # 处理所有 ISDB_gene 开头的数据库
+                        parts = columns[1].split('|')
+                        if len(parts) > 2:
+                            result['gene_id'] = parts[0]
+                            result['source_id'] = parts[1]
+                            # 将最后一部分的下划线替换为空格
+                            result['annotation'] = parts[-1].replace('_', ' ')
+                        else:
+                            # 处理格式不符合预期的情况
+                            result['gene_id'] = columns[1]
+                            result['source_id'] = 'N/A'
+                            result['annotation'] = 'N/A'
                     else:
                         result['subject_id'] = columns[1]
 

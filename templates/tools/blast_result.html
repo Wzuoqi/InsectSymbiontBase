@@ -40,6 +40,10 @@
                         {% if database == 'ISDB_genome' %}
                             <th class="px-4 py-2">Subject Name</th>
                             <th class="px-4 py-2">Genome ID</th>
+                        {% elif database|slice:":9" == 'ISDB_gene' %}
+                            <th class="px-4 py-2">Gene ID</th>
+                            <th class="px-4 py-2">Source ID</th>
+                            <th class="px-4 py-2">Annotation</th>
                         {% else %}
                             <th class="px-4 py-2">Subject ID</th>
                         {% endif %}
@@ -65,6 +69,10 @@
                                     {{ result.genome_id }}
                                 </a>
                             </td>
+                        {% elif database|slice:":9" == 'ISDB_gene' %}
+                            <td class="px-4 py-2">{{ result.gene_id }}</td>
+                            <td class="px-4 py-2">{{ result.source_id }}</td>
+                            <td class="px-4 py-2">{{ result.annotation }}</td>
                         {% else %}
                             <td class="px-4 py-2">{{ result.subject_id }}</td>
                         {% endif %}
