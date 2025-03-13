@@ -130,13 +130,8 @@ DATABASES = {
 
 ELASTICSEARCH_DSL = {
     'default': {
-        'hosts': 'localhost:9201',
-        'timeout': 60,  # 增加到60秒
-        'max_retries': 3,
-        'retry_on_timeout': True,
-        'sniff_on_start': True,
-        'sniff_on_connection_fail': True,
-        'sniffer_timeout': 60,
+        'hosts': 'http://localhost:9201',
+        'timeout': 60,
     },
 }
 

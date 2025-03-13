@@ -7,101 +7,64 @@ logger = logging.getLogger(__name__)
 
 @registry.register_document
 class GeneDocument(Document):
-    # 只定义需要raw keyword字段的特殊字段
+    """
+    Gene Elasticsearch Document
+
+    这个文档类将 Gene 模型映射到 Elasticsearch 索引
+    """
+    # 修改字段类型，使其支持部分匹配
     host = fields.TextField(
-        fields={'raw': fields.KeywordField()}
+        fields={'keyword': fields.KeywordField()}  # 保留keyword子字段用于精确匹配
     )
     source_id = fields.TextField(
-        fields={'raw': fields.KeywordField()}
+        fields={'keyword': fields.KeywordField()}
     )
     gene_id = fields.TextField(
-        fields={'raw': fields.KeywordField()}
+        fields={'keyword': fields.KeywordField()}
     )
     nr_id = fields.TextField(
-        fields={'raw': fields.KeywordField()}
+        null=True,
+        fields={'keyword': fields.KeywordField()}
     )
 
-    # 这些字段需要全文搜索
-    nr_annotation = fields.TextField(analyzer='ngram_analyzer')
-    nr_species = fields.TextField(analyzer='ngram_analyzer')
-    description = fields.TextField(analyzer='ngram_analyzer')
-    preferred_name = fields.TextField(analyzer='ngram_analyzer')
-    go_terms = fields.TextField(analyzer='ngram_analyzer')
-    ec_number = fields.TextField(analyzer='ngram_analyzer')
-    kegg_ko = fields.TextField(analyzer='ngram_analyzer')
-    kegg_pathway = fields.TextField(analyzer='ngram_analyzer')
-    pfams = fields.TextField(analyzer='ngram_analyzer')
+    # 文本字段 - 用于全文搜索
+    nr_annotation = fields.TextField(null=True)
+    nr_species = fields.TextField(null=True)
+    description = fields.TextField(null=True)
+    preferred_name = fields.TextField(null=True)
+
+    # 功能注释字段
+    seed_ortholog = fields.TextField(null=True)
+    go_terms = fields.TextField(null=True)
+    ec_number = fields.TextField(null=True)
+    kegg_ko = fields.TextField(null=True)
+    kegg_pathway = fields.TextField(null=True)
+    pfams = fields.TextField(null=True)
+    cog_category = fields.TextField(null=True)
+
+    # 数值字段
+    identity = fields.FloatField(null=True)
+    bit_score = fields.FloatField(null=True)
+    evalue = fields.FloatField(null=True)
+    gene_length = fields.IntegerField(null=True)
 
     class Index:
+        # 使用现有的索引名称
         name = 'genes'
+        # 索引设置
         settings = {
-            'number_of_shards': 1,  # 改为单分片
+            'number_of_shards': 1,
             'number_of_replicas': 0,
-            'refresh_interval': '30s',
-            'index.max_ngram_diff': 7,
-            'index.routing.allocation.total_shards_per_node': 3,
-            'index.write.wait_for_active_shards': 1,
-            'index.mapping.total_fields.limit': 2000,
-            'index.translog.durability': 'async',
-            'index.translog.sync_interval': '30s',
-            'index.translog.flush_threshold_size': '256mb',
-            'analysis': {
-                'analyzer': {
-                    'ngram_analyzer': {
-                        'type': 'custom',
-                        'tokenizer': 'ngram_tokenizer',
-                        'filter': ['lowercase']
-                    }
-                },
-                'tokenizer': {
-                    'ngram_tokenizer': {
-                        'type': 'ngram',
-                        'min_gram': 3,
-                        'max_gram': 4,  # 先用小一点的差值
-                        'token_chars': ['letter', 'digit']
-                    }
-                }
-            }
         }
 
     class Django:
-        model = Gene
+        model = Gene  # 关联的 Django 模型
+        # 不需要在这里指定字段，因为我们已经手动映射了所有需要的字段
 
-        # 自动映射其他字段
-        fields = [
-            # 基本信息字段
-            'identity',
-            'alignment_length',
-            'mismatches',
-            'gap_openings',
-            'query_start',
-            'query_end',
-            'subject_start',
-            'subject_end',
-            'evalue',
-            'bit_score',
-            'sequence',
-            'gene_length',
-
-            # EggNOG相关字段
-            'seed_ortholog',
-            'eggnog_evalue',
-            'eggnog_score',
-            'eggnog_ogs',
-            'max_annot_lvl',
-
-            # 功能注释字段
-            'cog_category',
-            'kegg_module',
-            'kegg_reaction',
-            'kegg_rclass',
-            'kegg_tc',
-
-            # 其他注释字段
-            'brite',
-            'cazy',
-            'bigg_reaction',
-        ]
+        # 由于我们使用的是现有索引，不需要自动同步
+        # 如果需要重建索引，可以设置为 True
+        ignore_signals = True
+        auto_refresh = False
 
     def prepare(self, instance):
         try:

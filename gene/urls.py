@@ -9,4 +9,5 @@ app_name = 'gene'
 urlpatterns = [
     path('', views.genes, name='genes'),
     path('gene/<str:source_id>/<str:gene_id>/', views.gene_detail, name='gene_detail'),
+    path('download/', views.download_genes, name='download_genes'),
 ]
