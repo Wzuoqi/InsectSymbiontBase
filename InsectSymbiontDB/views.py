@@ -336,6 +336,12 @@ def map(request):
 def compare(request):
     return render(request, "tools/composition_compare.html")
 
+def isymseek(request):
+    return render(request, "isymseek.html")
+
+def download(request):
+    return render(request, "download.html")
+
 # def literatures(request):
 
 #     return render(request, "literatures.html")

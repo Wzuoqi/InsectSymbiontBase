@@ -101,10 +101,10 @@
                                         <svg class="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20"
                                             fill="currentColor" aria-hidden="true">
                                             <path fill-rule="evenodd"
-                                                d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm6.39-2.908a.75.75 0 01.766.027l3.5 2.25a.75.75 0 010 1.262l-3.5 2.25A.75.75 0 018 12.25v-4.5a.75.75 0 01.39-.658z"
+                                                d="M9.25 3.5a5.75 5.75 0 00-5.75 5.75c0 3.17 2.58 5.75 5.75 5.75a.75.75 0 010 1.5 7.25 7.25 0 01-7.25-7.25c0-4 3.25-7.25 7.25-7.25 4 0 7.25 3.25 7.25 7.25v.4c0 1.17-.93 2.1-2.1 2.1-1.16 0-2.1-.93-2.1-2.1v-.4a3.05 3.05 0 00-6.1 0 3.05 3.05 0 006.1 0v-.4c0-.28.22-.5.5-.5s.5.22.5.5v.4a3.55 3.55 0 007.1 0v-.4a7.25 7.25 0 00-7.25-7.25zm0 4.25a1.55 1.55 0 00-1.55 1.55c0 .85.7 1.55 1.55 1.55.86 0 1.55-.7 1.55-1.55 0-.85-.7-1.55-1.55-1.55z"
                                                 clip-rule="evenodd" />
                                         </svg>
-                                        Watch tutorial
+                                        Find Help
                                     </a>
                                     <a href="/contact"
                                         class="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100">
@@ -114,7 +114,7 @@
                                                 d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5H15c-1.149 0-2.263-.15-3.326-.43A13.022 13.022 0 012.43 8.326 13.019 13.019 0 012 5V3.5z"
                                                 clip-rule="evenodd" />
                                         </svg>
-                                        Contact us
+                                        Contact Us
                                     </a>
                                     <!-- <a href="/cite"
                                         class="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100">
@@ -134,7 +134,7 @@
                                                 clip-rule="evenodd" />
                                         </svg>
 
-                                        Cite database
+                                        Cite Database
                                     </a>
                                 </div>
                             </div>
@@ -218,6 +218,51 @@
                     </div>
                 </div>
 
+                <!-- Resources 下拉菜单 -->
+                <div class="relative" data-dropdown>
+                    <button type="button" data-dropdown-button
+                        class="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
+                        Resources
+                        <svg class="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <div data-dropdown-menu
+                        class="absolute hidden left-1/2 z-10 mt-3 w-64 -translate-x-1/2 transform px-2 sm:px-0">
+                        <div class="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                            <div class="relative grid gap-4 bg-white px-4 py-4 sm:gap-6 sm:p-6">
+                                <a href="{% url 'article:articles' %}" class="-m-2 flex items-start rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50">
+                                    <div class="ml-3">
+                                        <p class="text-sm font-medium text-gray-900">Literature</p>
+                                        <p class="mt-1 text-xs text-gray-500">Browse literature associated with insect symbionts</p>
+                                    </div>
+                                </a>
+                                <a href="/resources" class="-m-2 flex items-start rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50">
+                                    <div class="ml-3">
+                                        <p class="text-sm font-medium text-gray-900">External Databses</p>
+                                        <p class="mt-1 text-xs text-gray-500">Access external resources</p>
+                                    </div>
+                                </a>
+                                <a href="/download" class="-m-2 flex items-start rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50">
+                                    <div class="ml-3">
+                                        <p class="text-sm font-medium text-gray-900">Download</p>
+                                        <p class="mt-1 text-xs text-gray-500">Download database resources files</p>
+                                    </div>
+                                </a>
+                                <a href="/contact" class="-m-2 flex items-start rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50">
+                                    <div class="ml-3">
+                                        <p class="text-sm font-medium text-gray-900">Contact & Support</p>
+                                        <p class="mt-1 text-xs text-gray-500">Give your feedback and advice</p>
+                                    </div>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Modal Component -->
                 <div id="modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
                     <div class="relative bg-kabuli-800 rounded-lg p-4 max-w-screen-md w-full">
@@ -259,8 +304,7 @@
                 </div>
 
                 <a href="/network" class="text-sm font-semibold leading-6 text-gray-900">Network</a>
-                <a href="{% url 'article:articles' %}" class="text-sm font-semibold leading-6 text-gray-900">Literature</a>
-                <a href="/resources" class="text-sm font-semibold leading-6 text-gray-900">Resources</a>
+                <a href="/isymseek" class="text-sm font-semibold leading-6 text-gray-900">iSymSeek</a>
             </div>
             <div class="hidden lg:flex lg:flex-1 lg:justify-end">
                 <a href="/help" class="text-sm font-semibold leading-6 text-gray-900 flex items-center gap-1">
@@ -353,6 +397,9 @@
                                 </li>
                                 <li>
                                     <a href="/genomes" class="text-sm leading-6 text-gray-300 hover:text-white">Genome Catalog</a>
+                                </li>
+                                <li>
+                                    <a href="/isymseek" class="text-sm leading-6 text-gray-300 hover:text-white">iSymSeek</a>
                                 </li>
                             </ul>
                         </div>

@@ -753,20 +753,129 @@
                     <section id="blast" class="scroll-mt-16">
                         <h2 class="text-3xl font-bold text-gray-900 mb-6">1. BLAST</h2>
                         <div class="prose prose-blue max-w-none">
-                            <p style="text-indent: 1em;">Search for sequence similarity against our comprehensive database of symbiont sequences.</p>
+                            <p style="text-indent: 1em;">BLAST (Basic Local Alignment Search Tool) is a powerful tool for comparing query sequences against our database of insect symbiont sequences. iSymBase provides specialized BLAST functionality supporting various sequence types for comprehensive similarity analysis.</p>
 
-                            <!-- BLAST Interface -->
+                            <!-- BLAST Search Interface -->
                             <div class="mt-8">
                                 <div class="border rounded-lg p-6 bg-gray-50">
-                                    <img src="{% static 'img/help/blast.png' %}" alt="BLAST Interface" class="w-full rounded-lg shadow-sm mb-4">
+                                    <h3 class="text-lg font-semibold mb-4">1.1 Search Interface</h3>
+                                    <img src="{% static 'img/help/blast_search.png' %}" alt="BLAST Search Interface" class="w-full rounded-lg shadow-sm mb-4">
+                                    <div class="space-y-6">
+                                        <h4 class="font-medium text-gray-900">Key Components:</h4>
+
+                                        <!-- BLAST Configuration -->
+                                        <div class="bg-white rounded-lg p-6 shadow-sm">
+                                            <h5 class="font-medium text-gray-900 mb-4">1. BLAST Configuration</h5>
+
+                                            <!-- BLAST Method -->
+                                            <div class="mb-4">
+                                                <h6 class="font-medium text-gray-800 mb-2">BLAST Method</h6>
+                                                <ul class="list-disc pl-5 text-gray-600 space-y-1">
+                                                    <li>blastn - For nucleotide sequence alignment</li>
+                                                    <li>tblastn - For protein query against nucleotide database</li>
+                                                </ul>
+                                            </div>
+
+                                            <!-- Database Options -->
+                                            <div class="mb-4">
+                                                <h6 class="font-medium text-gray-800 mb-2">Database Options</h6>
+                                                <ul class="list-disc pl-5 text-gray-600 space-y-1">
+                                                    <li>Symbiont Genome Database</li>
+                                                    <li>Genome-derived Genes</li>
+                                                    <li>MAG-derived Genes</li>
+                                                    <li>Metagenome-derived Genes</li>
+                                                </ul>
+                                            </div>
+
+                                            <!-- Search Parameters -->
+                                            <div>
+                                                <h6 class="font-medium text-gray-800 mb-2">E-value Settings</h6>
+                                                <ul class="list-disc pl-5 text-gray-600 space-y-1">
+                                                    <li>1e-5 (Default) - High stringency search</li>
+                                                    <li>1e-3 - Medium stringency search</li>
+                                                    <li>1e-1 - Low stringency search</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <!-- Sequence Input Methods -->
+                                        <div class="bg-white rounded-lg p-6 shadow-sm">
+                                            <h5 class="font-medium text-gray-900 mb-4">2. Sequence Input Options</h5>
+
+                                            <!-- Direct Input -->
+                                            <div class="mb-4">
+                                                <h6 class="font-medium text-gray-800 mb-2">Direct Text Input</h6>
+                                                <ul class="list-disc pl-5 text-gray-600 space-y-1">
+                                                    <li>Paste FASTA sequence directly</li>
+                                                    <li>Load example sequences for practice</li>
+                                                    <li>Best for single or short sequences</li>
+                                                </ul>
+                                            </div>
+
+                                            <!-- File Upload -->
+                                            <div>
+                                                <h6 class="font-medium text-gray-800 mb-2">File Upload</h6>
+                                                <ul class="list-disc pl-5 text-gray-600 space-y-1">
+                                                    <li>Compatible with .fasta and .txt files</li>
+                                                    <li>Maximum file size: 10MB</li>
+                                                    <li>Recommended for multiple or long sequences</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <!-- Quick Tips -->
+                                        <div class="bg-blue-50 rounded-lg p-4">
+                                            <h5 class="text-blue-800 font-medium mb-2">💡 Quick Tips</h5>
+                                            <ul class="list-disc pl-5 text-blue-700 space-y-1">
+                                                <li>Ensure your sequence is in proper FASTA format</li>
+                                                <li>Start with default E-value for best results</li>
+                                                <li>Use example sequences to learn the interface</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- BLAST Results Interface -->
+                            <div class="mt-8">
+                                <div class="border rounded-lg p-6 bg-gray-50">
+                                    <h3 class="text-lg font-semibold mb-4">1.2 Results Interpretation</h3>
+                                    <img src="{% static 'img/help/blast_result.png' %}" alt="BLAST Results Interface" class="w-full rounded-lg shadow-sm mb-4">
                                     <div class="space-y-4">
-                                        <h3 class="text-lg font-semibold">How to Use BLAST</h3>
-                                        <ol class="list-decimal pl-5 space-y-2 text-gray-600">
-                                            <li><strong>Input Sequence:</strong> Paste your query sequence in FASTA format</li>
-                                            <li><strong>Select Database:</strong> Choose from available databases (Genomes, 16S rRNA, etc.)</li>
-                                            <li><strong>Set Parameters:</strong> Adjust BLAST parameters as needed</li>
-                                            <li><strong>Submit:</strong> Click "Submit" to start the search</li>
-                                        </ol>
+                                        <!-- Results Fields -->
+                                        <div class="bg-white rounded-lg p-4 shadow-sm">
+                                            <h5 class="font-medium text-gray-900 mb-2">Understanding Results</h5>
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div>
+                                                    <h6 class="font-medium text-gray-800">Basic Information</h6>
+                                                    <ul class="list-disc pl-5 text-gray-600">
+                                                        <li><strong>Query ID:</strong> Query sequence identifier</li>
+                                                        <li><strong>Subject Name/ID:</strong> Target sequence information</li>
+                                                        <li><strong>Identity (%):</strong> Sequence similarity</li>
+                                                        <li><strong>Alignment Length:</strong> Match length</li>
+                                                    </ul>
+                                                </div>
+                                                <div>
+                                                    <h6 class="font-medium text-gray-800">Position & Scores</h6>
+                                                    <ul class="list-disc pl-5 text-gray-600">
+                                                        <li><strong>Query/Subject Start/End:</strong> Alignment positions</li>
+                                                        <li><strong>E-value:</strong> Expected value (lower is better)</li>
+                                                        <li><strong>Bit Score:</strong> Normalized score</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Usage Tips -->
+                                        <div class="bg-blue-50 rounded-lg p-4">
+                                            <h5 class="text-blue-800 font-medium mb-2">Usage Tips</h5>
+                                            <ul class="list-disc pl-5 text-blue-700">
+                                                <li>Start with strict E-value and adjust as needed</li>
+                                                <li>Use file upload for long sequences</li>
+                                                <li>Try example sequences to familiarize yourself</li>
+                                                <li>Verify sequence format correctness</li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

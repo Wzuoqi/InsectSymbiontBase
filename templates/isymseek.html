@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block Part1 %}
+<!-- 使用内联样式确保宽度控制 - 增加宽度到1280px -->
+<div style="max-width: 1280px; margin: 0 auto; width: 100%;" class="px-4 py-8">
+    <!-- 顶部介绍区 -->
+    <div class="flex items-start space-x-4 mb-6">
+        <span class="icon-[material-symbols--chat] text-3xl text-blue-600 mt-1 flex-shrink-0"></span>
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900">iSymSeek</h1>
+            <p class="text-gray-600 mt-1">Ask questions about insect symbionts, their functions, relationships, the usage of iSymSeek and more.</p>
+        </div>
+    </div>
+
+    <!-- 聊天区域 - 使用内联样式确保尺寸控制 -->
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-8" style="width: 100%;">
+        <!-- 头部 -->
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 flex items-center space-x-3">
+            <span class="icon-[material-symbols--smart-toy] text-xl text-white"></span>
+            <h2 class="text-lg font-medium text-white">Assistant</h2>
+        </div>
+        <!-- 聊天框 - 使用固定高度并确保iframe填充 -->
+        <div style="height: 720px; width: 100%;">
+            <iframe
+                src="http://47.96.137.15:8088/chat/share?shared_id=1eea3374ff2711ef9bd00242ac120006&from=chat&auth=M2NjA2OTA0ZmYyNDExZWY4NTcxMDI0Mm"
+                style="width: 100%; height: 100%; border: none;"
+            ></iframe>
+        </div>
+    </div>
+
+    <!-- 功能提示区 -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <!-- Ask Questions -->
+        <div class="bg-white rounded-lg p-5 shadow-sm hover:shadow-md transition-all duration-300">
+            <div class="flex items-center space-x-3 text-blue-600 mb-3">
+                <span class="icon-[material-symbols--search] text-xl flex-shrink-0"></span>
+                <h3 class="font-semibold">Ask Questions</h3>
+            </div>
+            <p class="text-sm text-gray-600">Ask specific questions about insect symbionts, their functions, hosts, or any related topic.</p>
+        </div>
+
+        <!-- Get Summaries -->
+        <div class="bg-white rounded-lg p-5 shadow-sm hover:shadow-md transition-all duration-300">
+            <div class="flex items-center space-x-3 text-blue-600 mb-3">
+                <span class="icon-[material-symbols--format-list-bulleted] text-xl flex-shrink-0"></span>
+                <h3 class="font-semibold">Get Summaries</h3>
+            </div>
+            <p class="text-sm text-gray-600">Request summaries of research findings, symbiont functions, or host-symbiont relationships.</p>
+        </div>
+
+        <!-- Database Help -->
+        <div class="bg-white rounded-lg p-5 shadow-sm hover:shadow-md transition-all duration-300">
+            <div class="flex items-center space-x-3 text-blue-600 mb-3">
+                <span class="icon-[material-symbols--help] text-xl flex-shrink-0"></span>
+                <h3 class="font-semibold">Database Help</h3>
+            </div>
+            <p class="text-sm text-gray-600">Get guidance on using iSymBase database features, tools, and data navigation.</p>
+        </div>
+    </div>
+
+    <!-- Disclaimer Section -->
+    <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Important Notes:</h3>
+        <ul class="space-y-3 text-sm text-gray-600">
+            <li class="flex items-start space-x-2">
+                <span class="icon-[material-symbols--info] text-blue-600 flex-shrink-0 mt-0.5"></span>
+                <span>AI-generated responses may contain inaccuracies. Please verify information against the database content for accuracy.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+                <span class="icon-[material-symbols--history] text-blue-600 flex-shrink-0 mt-0.5"></span>
+                <span>The chat context is limited to 5 messages. For a new topic, please refresh the page to start a new conversation.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+                <span class="icon-[material-symbols--tips-and-updates] text-blue-600 flex-shrink-0 mt-0.5"></span>
+                <span>For optimal results, frame your questions clearly and specifically about insect symbionts, their relationships, or database usage.</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<style>
+/* 添加额外的CSS确保宽度控制 - 更新宽度到1280px */
+.main-container {
+    max-width: 1280px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 100% !important;
+}
+
+.chat-container {
+    width: 100% !important;
+    height: 720px !important;
+}
+
+.chat-iframe {
+    width: 100% !important;
+    height: 100% !important;
+    border: none !important;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// 添加JavaScript确保iframe正确加载和调整大小
+document.addEventListener('DOMContentLoaded', function() {
+    // 确保iframe容器有正确的尺寸
+    const chatContainer = document.querySelector('.chat-container');
+    if (chatContainer) {
+        chatContainer.style.height = '720px';
+        chatContainer.style.width = '100%';
+    }
+
+    // 确保iframe本身有正确的尺寸
+    const chatIframe = document.querySelector('iframe');
+    if (chatIframe) {
+        chatIframe.style.height = '100%';
+        chatIframe.style.width = '100%';
+        chatIframe.style.border = 'none';
+    }
+});
+</script>
+{% endblock %}

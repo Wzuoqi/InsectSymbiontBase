@@ -63,6 +63,10 @@ urlpatterns = [
 
     path("compare/", views.compare, name="compare"),
 
+    path("isymseek/", views.isymseek, name="isymseek"),
+
+    path("download/", views.download, name="download"),
+
     path('feedback/', include('feedback.urls')),
 
     path("api/samples", views.get_samples, name="get_samples"),

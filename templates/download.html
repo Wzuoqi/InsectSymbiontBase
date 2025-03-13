@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block Part1 %}
+
+<!-- 背景图案 -->
+<div class="relative bg-gradient-to-b from-kabuli-50 to-white min-h-screen">
+    <div class="absolute inset-0 bg-grid-kabuli-500/[0.05] -z-1"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent"></div>
+
+    <!-- 页面标题 -->
+    <div class="relative container mx-auto px-4 pt-16 pb-12">
+        <div class="text-center max-w-2xl mx-auto">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">Download Center</h1>
+            <p class="text-lg text-gray-600">
+                Access and download our datasets for your research on insect symbionts.
+            </p>
+        </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <div class="relative container mx-auto px-4 pb-16">
+        <!-- 下载说明 -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-sm p-6 mb-8">
+            <div class="flex items-start">
+                <span class="icon-[material-symbols--info-outline] text-2xl text-kabuli-600 mr-4"></span>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">About Our Datasets</h3>
+                    <p class="text-gray-600">
+                        These datasets represent comprehensive collections of insect symbiont data, including genomes, metagenome-assembled genomes (MAGs),
+                        and metagenomic sequences. By downloading and using these resources, you agree to cite our database in any resulting publications.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 下载卡片网格 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- ISDB gene genome -->
+            <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden group">
+                <div class="p-6 border-b border-gray-100">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900 group-hover:text-kabuli-600 transition-colors duration-300">ISDB Gene from Genome</h3>
+                            <p class="text-sm text-gray-500 mt-1">Last updated: November 2024</p>
+                        </div>
+                        <span class="icon-[ph--dna-bold] text-3xl text-kabuli-600"></span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-600 mb-6">
+                        Complete collection of gene sequences extracted from symbiont genomes. This dataset includes annotated genes with functional classifications.
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <span class="icon-[material-symbols--hard-drive] mr-2"></span>
+                            <span>5.0 GB</span>
+                        </div>
+                        <a href="/media/blast_db/ISDB_gene_genome.fasta"
+                           download
+                           class="inline-flex items-center justify-center px-4 py-2 bg-kabuli-600 text-white rounded-lg hover:bg-kabuli-700 transition-colors duration-300">
+                            <span class="icon-[material-symbols--download] mr-2"></span>
+                            Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ISDB gene MAG -->
+            <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden group">
+                <div class="p-6 border-b border-gray-100">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900 group-hover:text-kabuli-600 transition-colors duration-300">ISDB Gene from MAG</h3>
+                            <p class="text-sm text-gray-500 mt-1">Last updated: November 2024</p>
+                        </div>
+                        <span class="icon-[ri--meta-fill] text-3xl text-kabuli-600"></span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-600 mb-6">
+                        Gene sequences extracted from Metagenome-Assembled Genomes (MAGs) of insect symbionts, providing insights into uncultivated symbiont genetics.
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <span class="icon-[material-symbols--hard-drive] mr-2"></span>
+                            <span>3.6 GB</span>
+                        </div>
+                        <a href="/media/blast_db/ISDB_gene_MAG.fasta"
+                           download
+                           class="inline-flex items-center justify-center px-4 py-2 bg-kabuli-600 text-white rounded-lg hover:bg-kabuli-700 transition-colors duration-300">
+                            <span class="icon-[material-symbols--download] mr-2"></span>
+                            Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ISDB gene meta -->
+            <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden group">
+                <div class="p-6 border-b border-gray-100">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900 group-hover:text-kabuli-600 transition-colors duration-300">ISDB Gene from Meta</h3>
+                            <p class="text-sm text-gray-500 mt-1">Last updated: November 2024</p>
+                        </div>
+                        <span class="icon-[ph--meta-logo-bold] text-3xl text-kabuli-600"></span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-600 mb-6">
+                        Gene sequences from metagenomes of insect microbiomes, providing a comprehensive view of the genetic diversity in insect-associated microbial communities.
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <span class="icon-[material-symbols--hard-drive] mr-2"></span>
+                            <span>9.5 GB</span>
+                        </div>
+                        <a href="/media/blast_db/ISDB_gene_meta.fasta"
+                           download
+                           class="inline-flex items-center justify-center px-4 py-2 bg-kabuli-600 text-white rounded-lg hover:bg-kabuli-700 transition-colors duration-300">
+                            <span class="icon-[material-symbols--download] mr-2"></span>
+                            Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ISDB genome -->
+            <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden group">
+                <div class="p-6 border-b border-gray-100">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900 group-hover:text-kabuli-600 transition-colors duration-300">ISDB Genome</h3>
+                            <p class="text-sm text-gray-500 mt-1">Last updated: November 2024</p>
+                        </div>
+                        <span class="icon-[material-symbols--microbiology-outline] text-3xl text-kabuli-600"></span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-600 mb-6">
+                        Complete genome sequences of insect symbionts, including both genomes from academic literature and high-quality metagenome-assembled genomes (MAGs).
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <span class="icon-[material-symbols--hard-drive] mr-2"></span>
+                            <span>9.8 GB</span>
+                        </div>
+                        <a href="/media/blast_db/ISDB_genome.fasta"
+                           download
+                           class="inline-flex items-center justify-center px-4 py-2 bg-kabuli-600 text-white rounded-lg hover:bg-kabuli-700 transition-colors duration-300">
+                            <span class="icon-[material-symbols--download] mr-2"></span>
+                            Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 使用说明 -->
+        <div class="mt-12 bg-gray-50 rounded-xl p-8">
+
+            <h3 class="text-2xl font-semibold text-gray-800 mb-6">Terms of Use</h3>
+            <div class="space-y-4 text-gray-600">
+                <p>
+                    By downloading and using data from InsectSymbiontBase, you agree to the following terms:
+                </p>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>Cite the database in any publications or presentations that use these data</li>
+                    <li>Use the data for research and educational purposes only</li>
+                    <li>Due to large file sizes, downloads may be interrupted by network fluctuations. Please retry if experiencing congestion</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 添加样式 -->
+<style>
+    .bg-grid-kabuli-500 {
+        background-image: linear-gradient(to right, rgb(59 130 246 / 0.1) 1px, transparent 1px),
+                         linear-gradient(to bottom, rgb(59 130 246 / 0.1) 1px, transparent 1px);
+        background-size: 24px 24px;
+    }
+    .-z-1 {
+        z-index: -1;
+    }
+</style>
+
+<!-- 添加JavaScript -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 复制引用文本功能
+        const copyButton = document.getElementById('copy-citation-button');
+        const citationText = document.getElementById('citation-text');
+
+        if (copyButton && citationText) {
+            copyButton.addEventListener('click', function() {
+                const textToCopy = citationText.textContent.trim();
+
+                // 创建临时文本区域
+                const textArea = document.createElement('textarea');
+                textArea.value = textToCopy;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-999999px';
+                textArea.style.top = '-999999px';
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+
+                try {
+                    // 执行复制命令
+                    const successful = document.execCommand('copy');
+
+                    // 更新按钮文本以提供反馈
+                    if (successful) {
+                        const originalText = copyButton.innerHTML;
+                        copyButton.innerHTML = '<span class="icon-[material-symbols--check] mr-2"></span>Copied!';
+                        copyButton.classList.add('text-kabuli-600');
+
+                        // 2秒后恢复原始文本
+                        setTimeout(function() {
+                            copyButton.innerHTML = originalText;
+                            copyButton.classList.remove('text-kabuli-600');
+                        }, 2000);
+                    }
+                } catch (err) {
+                    console.error('Failed to copy text: ', err);
+                }
+
+                // 移除临时文本区域
+                document.body.removeChild(textArea);
+            });
+        }
+    });
+</script>
+
+{% endblock %}
